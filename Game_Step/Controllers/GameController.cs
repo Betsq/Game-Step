@@ -28,10 +28,24 @@ namespace Game_Step.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Game game)
         {
-                await db.Games.AddAsync(game);
-                await db.SaveChangesAsync();
+            await db.Games.AddAsync(game);
+            await db.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Read(int? id)
+        {
+            if (id != null)
+            {
+                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
+                if (game != null)
+                {
+                    return View(game);
+                }
+            }
+            return NotFound();
         }
     }
 }
