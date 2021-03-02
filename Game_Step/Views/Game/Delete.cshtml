@@ -1,0 +1,11 @@
+﻿@model Game_Step.Models.Game
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+Artical - @Model.Article
+
+<form asp-action="Delete" asp-controller="Game" method="post">
+    <input type="submit" value="Delete" />
+</form>

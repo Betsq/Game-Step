@@ -70,5 +70,34 @@ namespace Game_Step.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        [ActionName("Delete")]
+        public async Task<IActionResult> ConfirmDelete(int? id)
+        {
+            if (id != null)
+            {
+                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
+                if (game != null)
+                {
+                    return View(game);
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
+            if (game != null)
+            {
+                db.Games.Remove(game);
+                await db.SaveChangesAsync();
+
+                return RedirectToAction("Index");
+            }
+            return NotFound();
+        }
     }
 }
