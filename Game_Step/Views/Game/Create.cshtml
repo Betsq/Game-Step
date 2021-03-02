@@ -1,0 +1,11 @@
+﻿@model Game_Step.Models.Game
+
+@{
+    ViewBag.Title = "Add Game";
+}
+
+<form asp-action="Create" asp-controller="Game" method="post">
+    <input type="text" asp-for="Article" placeholder="Article"/>
+
+    <input type="submit" value="Send"/>
+</form>
