@@ -20,6 +20,14 @@ namespace Game_Step.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var games = await db.Games.ToListAsync();
+
+            return View(games);
+        }
+
+        [HttpGet]
         public IActionResult Create()
         {
             return View();

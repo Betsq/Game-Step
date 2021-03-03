@@ -1,5 +1,14 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model IEnumerable<Game_Step.Models.Game>
+
 @{
+    ViewBag.Title = "Control Panel";
 }
+<a asp-action="Create" asp-controller="Game">Create</a>
+
+@foreach (var item in Model)
+{    
+    <a asp-action="Read" asp-controller="Game" asp-route-id="@item.Id">Read</a>
+    <a asp-action="Update" asp-controller="Game" asp-route-id="@item.Id">Update</a>
+    <a asp-action="Delete" asp-controller="Game" asp-route-id="@item.Id">Delete</a>
+}
+
