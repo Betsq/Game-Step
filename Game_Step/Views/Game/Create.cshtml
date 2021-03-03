@@ -1,11 +1,22 @@
 ﻿@model Game_Step.Models.Game
+@using Game_Step.Util
+@inject SelectItemHelper select
 
 @{
     ViewBag.Title = "Add Game";
 }
 
 <form asp-action="Create" asp-controller="Game" method="post">
-    <input type="text" asp-for="Article" placeholder="Article"/>
+    <input class="col-md-12" type="text" asp-for="Article" placeholder="Article" />
+    <input class="col-md-12" type="text" asp-for="Language" placeholder="Language" />
+    <label class="col-md-12" asp-for="ReleaseDate"></label>
+    <input class="col-md-12" type="date" asp-for="ReleaseDate"/>
+    <input class="col-md-12" type="text" asp-for="Publisher" placeholder="Publisher" />
+    <select class="col-md-12" asp-for="Developer" asp-items="select.GetDeveloper()"></select>
+    <input class="col-md-12" type="text" asp-for="Features" placeholder="Features" />
+    <input class="col-md-12" type="text" asp-for="Region" placeholder="Region" />
 
-    <input type="submit" value="Send"/>
+
+
+    <input class="col-md-12" type="submit" value="Send" />
 </form>
