@@ -1,4 +1,5 @@
 using Game_Step.Models;
+using Game_Step.Util;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,8 @@ namespace Game_Step
             services.AddDbContext<ApplicationContext>(options => options.UseSqlServer(connections));
 
             services.AddControllersWithViews();
+
+            services.AddScoped<SelectItemHelper>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
