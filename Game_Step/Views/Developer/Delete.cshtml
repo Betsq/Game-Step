@@ -1,0 +1,11 @@
+﻿@model Game_Step.Models.Developer
+
+@{
+
+}
+
+Name - @Model.Name
+
+<form asp-action="Delete" asp-controller="Developer" method="post">
+    <input type="submit" value="Delete" />
+</form>
