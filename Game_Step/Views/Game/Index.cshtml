@@ -8,7 +8,7 @@
 @foreach (var item in Model)
 {
     <div class="col-md-12">
-        Name - @item.Article
+        Name - @item.Name
         <a asp-action="Read" asp-controller="Game" asp-route-id="@item.Id">Read</a>
         <a asp-action="Update" asp-controller="Game" asp-route-id="@item.Id">Update</a>
         <a asp-action="Delete" asp-controller="Game" asp-route-id="@item.Id">Delete</a>

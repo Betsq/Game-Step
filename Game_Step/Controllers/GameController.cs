@@ -1,4 +1,5 @@
 ﻿using Game_Step.Models;
+using Game_Step.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -35,9 +36,47 @@ namespace Game_Step.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Game game)
+        public async Task<IActionResult> Create(GamesViewModel gamesViewModel)
         {
-            await db.Games.AddAsync(game);
+            var gm = new Game
+            {
+                Article = gamesViewModel.Article,
+                Name = gamesViewModel.Name,
+                Price = gamesViewModel.Price,
+                Language = gamesViewModel.Language,
+                ReleaseDate = gamesViewModel.ReleaseDate,
+                Publisher = gamesViewModel.Publisher,
+                Developer = gamesViewModel.Developer,
+                Features = gamesViewModel.Features,
+                Region = gamesViewModel.Region,
+            };
+
+            var recSyRe = new RecommendedSystemRequirements
+            {
+                Game = gm,
+                OC = gamesViewModel.RecOC,
+                CPU = gamesViewModel.RecCPU,
+                RAM = gamesViewModel.RecRAM,
+                VideoCard = gamesViewModel.RecVideoCard,
+                DirectX = gamesViewModel.RecDirectX,
+                HDD = gamesViewModel.RecHDD,
+            };
+
+            var minSyRe = new MinimumSystemRequirements
+            {
+                Game = gm,
+                OC = gamesViewModel.MinOC,
+                CPU = gamesViewModel.MinCPU,
+                RAM = gamesViewModel.MinRAM,
+                VideoCard = gamesViewModel.MinVideoCard,
+                DirectX = gamesViewModel.MinDirectX,
+                HDD = gamesViewModel.MinHDD,
+            };
+
+            
+            
+            db.MinimumSystemRequirements.Add(minSyRe);
+            db.RecommendedSystemRequirements.Add(recSyRe);
             await db.SaveChangesAsync();
 
             return RedirectToAction("Index");
