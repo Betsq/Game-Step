@@ -1,5 +1,6 @@
 ﻿using Game_Step.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,20 @@ namespace Game_Step.Controllers
             await db.SaveChangesAsync();
 
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Read(int? id)
+        {
+            if (id != null)
+            {
+               var publisher = await db.Publishers.FirstOrDefaultAsync(item => item.Id == id);
+                if (publisher != null)
+                {
+                    return View(publisher);
+                }
+            }
+            return NotFound();
         }
     }
 }
