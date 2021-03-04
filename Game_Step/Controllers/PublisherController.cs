@@ -18,9 +18,10 @@ namespace Game_Step.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var publisher = await db.Publishers.ToListAsync();
+            return View(publisher);
         }
 
         [HttpGet]
@@ -52,7 +53,7 @@ namespace Game_Step.Controllers
             return NotFound();
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Update(int? id)
         {
             if (id != null)
