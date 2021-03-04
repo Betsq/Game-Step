@@ -24,7 +24,8 @@ namespace Game_Step.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var games = await db.Games.ToListAsync();
+            var games = await db.Games.Include(u => u.MinSysReq).Include(u => u.RecSysReq).ToListAsync();
+            
 
             return View(games);
         }

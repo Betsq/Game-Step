@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Game_Step.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210304111635_SystemMinAndRecRequire2")]
-    partial class SystemMinAndRecRequire2
+    [Migration("20210304172151_change")]
+    partial class change
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,36 +20,6 @@ namespace Game_Step.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.3")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("GameMinimumSystemRequirements", b =>
-                {
-                    b.Property<int>("GamesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("MinSysReqId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GamesId", "MinSysReqId");
-
-                    b.HasIndex("MinSysReqId");
-
-                    b.ToTable("GameMinimumSystemRequirements");
-                });
-
-            modelBuilder.Entity("GameRecommendedSystemRequirements", b =>
-                {
-                    b.Property<int>("GamesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RecSysReqId")
-                        .HasColumnType("int");
-
-                    b.HasKey("GamesId", "RecSysReqId");
-
-                    b.HasIndex("RecSysReqId");
-
-                    b.ToTable("GameRecommendedSystemRequirements");
-                });
 
             modelBuilder.Entity("Game_Step.Models.Developer", b =>
                 {
@@ -100,6 +70,9 @@ namespace Game_Step.Migrations
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("WhereKeyActivated")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Games");
@@ -118,6 +91,9 @@ namespace Game_Step.Migrations
                     b.Property<string>("DirectX")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
                     b.Property<string>("HDD")
                         .HasColumnType("nvarchar(max)");
 
@@ -131,6 +107,9 @@ namespace Game_Step.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GameId")
+                        .IsUnique();
 
                     b.ToTable("MinimumSystemRequirements");
                 });
@@ -148,6 +127,9 @@ namespace Game_Step.Migrations
                     b.Property<string>("DirectX")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
                     b.Property<string>("HDD")
                         .HasColumnType("nvarchar(max)");
 
@@ -162,37 +144,39 @@ namespace Game_Step.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GameId")
+                        .IsUnique();
+
                     b.ToTable("RecommendedSystemRequirements");
                 });
 
-            modelBuilder.Entity("GameMinimumSystemRequirements", b =>
+            modelBuilder.Entity("Game_Step.Models.MinimumSystemRequirements", b =>
                 {
-                    b.HasOne("Game_Step.Models.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GamesId")
+                    b.HasOne("Game_Step.Models.Game", "Game")
+                        .WithOne("MinSysReq")
+                        .HasForeignKey("Game_Step.Models.MinimumSystemRequirements", "GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Game_Step.Models.MinimumSystemRequirements", null)
-                        .WithMany()
-                        .HasForeignKey("MinSysReqId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("GameRecommendedSystemRequirements", b =>
+            modelBuilder.Entity("Game_Step.Models.RecommendedSystemRequirements", b =>
                 {
-                    b.HasOne("Game_Step.Models.Game", null)
-                        .WithMany()
-                        .HasForeignKey("GamesId")
+                    b.HasOne("Game_Step.Models.Game", "Game")
+                        .WithOne("RecSysReq")
+                        .HasForeignKey("Game_Step.Models.RecommendedSystemRequirements", "GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Game_Step.Models.RecommendedSystemRequirements", null)
-                        .WithMany()
-                        .HasForeignKey("RecSysReqId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("Game_Step.Models.Game", b =>
+                {
+                    b.Navigation("MinSysReq");
+
+                    b.Navigation("RecSysReq");
                 });
 #pragma warning restore 612, 618
         }

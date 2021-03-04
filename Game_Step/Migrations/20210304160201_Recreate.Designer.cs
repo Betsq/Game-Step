@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Game_Step.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210304133348_S")]
-    partial class S
+    [Migration("20210304160201_Recreate")]
+    partial class Recreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -69,6 +69,9 @@ namespace Game_Step.Migrations
 
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("WhereKeyActivated")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

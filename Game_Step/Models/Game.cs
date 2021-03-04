@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Game_Step.Models
 {
@@ -14,5 +15,10 @@ namespace Game_Step.Models
         public string Developer { get; set; }
         public string Features { get; set; }
         public string Region { get; set; }
+        public string WhereKeyActivated { get; set; }
+
+        public MinimumSystemRequirements MinSysReq { get; set; }
+
+        public RecommendedSystemRequirements RecSysReq { get; set; }
     }
 }

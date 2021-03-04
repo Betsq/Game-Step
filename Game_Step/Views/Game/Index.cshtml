@@ -8,7 +8,18 @@
 @foreach (var item in Model)
 {
     <div class="col-md-12">
-        Name - @item.Name
+        <div class="col-md-12">
+            Name - @item.Name
+        </div>
+        <div class="col-md-12">
+            Minimum - @item.MinSysReq.OC
+        </div>
+        <div class="col-md-12">
+            Recommend - @item.RecSysReq.OC
+        </div>
+
+
+
         <a asp-action="Read" asp-controller="Game" asp-route-id="@item.Id">Read</a>
         <a asp-action="Update" asp-controller="Game" asp-route-id="@item.Id">Update</a>
         <a asp-action="Delete" asp-controller="Game" asp-route-id="@item.Id">Delete</a>
