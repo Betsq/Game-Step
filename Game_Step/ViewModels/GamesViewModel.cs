@@ -16,6 +16,7 @@ namespace Game_Step.ViewModels
         public string Developer { get; set; }
         public string Features { get; set; }
         public string Region { get; set; }
+        public string WhereKeyActivated { get; set; }
 
         public string MinOC { get; set; }
         public string MinCPU { get; set; }

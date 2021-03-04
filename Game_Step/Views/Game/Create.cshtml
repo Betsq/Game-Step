@@ -17,6 +17,7 @@
     <select class="col-md-12 mb-3" asp-for="Developer" asp-items="select.GetDeveloper()"></select>
     <input class="col-md-12 mb-3" type="text" asp-for="Features" placeholder="Features" />
     <input class="col-md-12 mb-3" type="text" asp-for="Region" placeholder="Region" />
+    <input class="col-md-12 mb-3" type="text" asp-for="WhereKeyActivated"/>
 
     Minimum System Requirements
     <input class="col-md-12 mb-3" type="text" asp-for="MinOC" placeholder="OC" />
@@ -25,6 +26,7 @@
     <input class="col-md-12 mb-3" type="text" asp-for="MinVideoCard" placeholder="VideoCard" />
     <input class="col-md-12 mb-3" type="text" asp-for="MinDirectX" placeholder="DirectX" />
     <input class="col-md-12 mb-3" type="text" asp-for="MinHDD" placeholder="HDD" />
+
     Recommended System Requirements
     <input class="col-md-12 mb-3" type="text" asp-for="RecOC" placeholder="OC" />
     <input class="col-md-12 mb-3" type="text" asp-for="RecCPU" placeholder="CPU" />
@@ -32,10 +34,6 @@
     <input class="col-md-12 mb-3" type="text" asp-for="RecVideoCard" placeholder="VideoCard" />
     <input class="col-md-12 mb-3" type="text" asp-for="RecDirectX" placeholder="DirectX" />
     <input class="col-md-12 mb-3" type="text" asp-for="RecHDD" placeholder="HDD" />
-
-
-
-
 
     <input class="col-md-12" type="submit" value="Send" />
 </form>
