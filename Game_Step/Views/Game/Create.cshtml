@@ -17,7 +17,8 @@
     <select class="col-md-12 mb-3" asp-for="Developer" asp-items="select.GetDeveloper()"></select>
     <input class="col-md-12 mb-3" type="text" asp-for="Features" placeholder="Features" />
     <input class="col-md-12 mb-3" type="text" asp-for="Region" placeholder="Region" />
-    <input class="col-md-12 mb-3" type="text" asp-for="WhereKeyActivated"/>
+    <select class="col-md-12 mb-3" asp-for="WhereKeyActivated"
+            asp-items="Game_Step.Util.SelectItemHelper.GetWhereKeyActivated()"></select>
 
     Minimum System Requirements
     <input class="col-md-12 mb-3" type="text" asp-for="MinOC" placeholder="OC" />

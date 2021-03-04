@@ -44,5 +44,18 @@ namespace Game_Step.Util
 
             return items;
         }
+
+        public static IEnumerable<SelectListItem> GetWhereKeyActivated()
+        {
+            IList<SelectListItem> items = new List<SelectListItem>()
+            {
+                new SelectListItem{Text = "Steam", Value = "Steam"},
+                new SelectListItem{Text = "GOG", Value = "GOG"},
+                new SelectListItem{Text = "Origin", Value = "Origin"},
+                new SelectListItem{Text = "Epic Games Store", Value = "Epic Games Store"},
+            };
+
+            return items;
+        }
     }
 }
