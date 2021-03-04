@@ -1,0 +1,18 @@
+﻿@model IEnumerable<Game_Step.Models.Publisher>
+
+@{
+    ViewBag.Title = "Control pannel publisher";
+}
+
+<a asp-action="Create" asp-controller="Publisher">Create</a>
+
+@foreach (var item in Model)
+{
+    <div class="col-md-12">
+        Name - @item.Name
+        <a asp-action="Read" asp-controller="Publisher" asp-route-id="@item.Id">Read</a>
+        <a asp-action="Update" asp-controller="Publisher" asp-route-id="@item.Id">Update</a>
+        <a asp-action="Delete" asp-controller="Publisher" asp-route-id="@item.Id">Delete</a>
+    </div>
+
+}

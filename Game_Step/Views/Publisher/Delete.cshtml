@@ -1,0 +1,11 @@
+﻿@model Game_Step.Models.Publisher
+
+@{
+    ViewBag.Title = "Delete publisher";
+}
+
+<form asp-action="Delete" asp-controller="Publisher" method="post">
+    Name - @Model.Name
+
+    <input type="submit" value="Delete" />
+</form>
