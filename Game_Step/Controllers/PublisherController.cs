@@ -51,5 +51,30 @@ namespace Game_Step.Controllers
             }
             return NotFound();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(int? id)
+        {
+            if (id != null)
+            {
+                var publisher = await db.Publishers.FirstOrDefaultAsync(item => item.Id == 1);
+                if (publisher != null)
+                {
+                    return View(publisher);
+                }
+            }
+            return NotFound();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(Publisher publisher)
+        {
+            db.Publishers.Update(publisher);
+            await db.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+        
     }
 }
