@@ -31,9 +31,9 @@ namespace Game_Step.Util
             return items;
         }
 
-        public async Task<IEnumerable<SelectListItem>> GerPublisher()
+        public IEnumerable<SelectListItem> GetPublisher()
         {
-            var publisher = await db.Publishers.ToListAsync();
+            var publisher = db.Publishers.ToList();
 
             IList<SelectListItem> items = new List<SelectListItem>();
 
