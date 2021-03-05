@@ -14,6 +14,11 @@ namespace Game_Step.Controllers
             _logger = logger;
         }
 
+        public IActionResult ControlPanel()
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             return View();
