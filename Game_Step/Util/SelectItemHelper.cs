@@ -57,5 +57,21 @@ namespace Game_Step.Util
 
             return items;
         }
+
+        public static IEnumerable<SelectListItem> GetGenre()
+        {
+            IList<SelectListItem> items = new List<SelectListItem>()
+            {
+                new SelectListItem{Text = "Steam", Value = "Steam"},
+                new SelectListItem{Text = "GOG", Value = "GOG"},
+                new SelectListItem{Text = "Origin", Value = "Origin"},
+                new SelectListItem{Text = "Epic Games Store", Value = "Epic Games Store"},
+                new SelectListItem{Text = "Suck", Value = "Suck"},
+                new SelectListItem{Text = "Sos", Value = "Sos"},
+                new SelectListItem{Text = "Dick", Value = "Dick"},
+                new SelectListItem{Text = "Epic", Value = "Epic"},
+            };
+            return items;
+        }
     }
 }
