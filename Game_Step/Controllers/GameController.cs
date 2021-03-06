@@ -88,7 +88,7 @@ namespace Game_Step.Controllers
         {
             if (id != null)
             {
-                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
+                var game = await db.Games.Include(t => t.MinSysReq).Include(t => t.RecSysReq).FirstOrDefaultAsync(item => item.Id == id);
                 if (game != null)
                 {
                     return View(game);
