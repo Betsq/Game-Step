@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Game_Step.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20210305112801_CreateDataBase")]
-    partial class CreateDataBase
+    [Migration("20210307153745_CreateDatabase")]
+    partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -58,6 +58,24 @@ namespace Game_Step.Migrations
                     b.Property<string>("Language")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("MinimumCPU")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MinimumDirectX")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MinimumHDD")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MinimumOC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MinimumRAM")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MinimumVideoCard")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -65,6 +83,24 @@ namespace Game_Step.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Publisher")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecommendCPU")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecommendDirectX")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecommendHDD")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecommendOC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecommendRAM")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RecommendVideoCard")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Region")
@@ -79,42 +115,6 @@ namespace Game_Step.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Games");
-                });
-
-            modelBuilder.Entity("Game_Step.Models.MinimumSystemRequirements", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CPU")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DirectX")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HDD")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OC")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RAM")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoCard")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GameId")
-                        .IsUnique();
-
-                    b.ToTable("MinimumSystemRequirements");
                 });
 
             modelBuilder.Entity("Game_Step.Models.Publisher", b =>
@@ -132,42 +132,6 @@ namespace Game_Step.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("Game_Step.Models.RecommendedSystemRequirements", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CPU")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("DirectX")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("HDD")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("OC")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("RAM")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("VideoCard")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("GameId")
-                        .IsUnique();
-
-                    b.ToTable("RecommendedSystemRequirements");
-                });
-
             modelBuilder.Entity("Game_Step.Models.Region", b =>
                 {
                     b.Property<int>("Id")
@@ -181,35 +145,6 @@ namespace Game_Step.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Regions");
-                });
-
-            modelBuilder.Entity("Game_Step.Models.MinimumSystemRequirements", b =>
-                {
-                    b.HasOne("Game_Step.Models.Game", "Game")
-                        .WithOne("MinSysReq")
-                        .HasForeignKey("Game_Step.Models.MinimumSystemRequirements", "GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-                });
-
-            modelBuilder.Entity("Game_Step.Models.RecommendedSystemRequirements", b =>
-                {
-                    b.HasOne("Game_Step.Models.Game", "Game")
-                        .WithOne("RecSysReq")
-                        .HasForeignKey("Game_Step.Models.RecommendedSystemRequirements", "GameId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Game");
-                });
-
-            modelBuilder.Entity("Game_Step.Models.Game", b =>
-                {
-                    b.Navigation("MinSysReq");
-
-                    b.Navigation("RecSysReq");
                 });
 #pragma warning restore 612, 618
         }

@@ -18,8 +18,18 @@ namespace Game_Step.Models
         public string Region { get; set; }
         public string WhereKeyActivated { get; set; }
 
-        public MinimumSystemRequirements MinSysReq { get; set; }
+        public string RecommendOC { get; set; }
+        public string RecommendCPU { get; set; }
+        public string RecommendRAM { get; set; }
+        public string RecommendVideoCard { get; set; }
+        public string RecommendDirectX { get; set; }
+        public string RecommendHDD { get; set; }
 
-        public RecommendedSystemRequirements RecSysReq { get; set; }
+        public string MinimumOC { get; set; }
+        public string MinimumCPU { get; set; }
+        public string MinimumRAM { get; set; }
+        public string MinimumVideoCard { get; set; }
+        public string MinimumDirectX { get; set; }
+        public string MinimumHDD { get; set; }
     }
 }

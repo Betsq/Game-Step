@@ -24,7 +24,7 @@ namespace Game_Step.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var games = await db.Games.Include(u => u.MinSysReq).Include(u => u.RecSysReq).ToListAsync();
+            var games = await db.Games.ToListAsync();
             
 
             return View(games);
@@ -37,47 +37,9 @@ namespace Game_Step.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(GamesViewModel gamesViewModel)
+        public async Task<IActionResult> Create(Game game)
         {
-            var gm = new Game
-            {
-                Article = gamesViewModel.Article,
-                Name = gamesViewModel.Name,
-                Price = gamesViewModel.Price,
-                Language = gamesViewModel.Language,
-                ReleaseDate = gamesViewModel.ReleaseDate,
-                Publisher = gamesViewModel.Publisher,
-                Developer = gamesViewModel.Developer,
-                Features = gamesViewModel.Features,
-                Region = gamesViewModel.Region,
-            };
-
-            var recSyRe = new RecommendedSystemRequirements
-            {
-                Game = gm,
-                OC = gamesViewModel.RecOC,
-                CPU = gamesViewModel.RecCPU,
-                RAM = gamesViewModel.RecRAM,
-                VideoCard = gamesViewModel.RecVideoCard,
-                DirectX = gamesViewModel.RecDirectX,
-                HDD = gamesViewModel.RecHDD,
-            };
-
-            var minSyRe = new MinimumSystemRequirements
-            {
-                Game = gm,
-                OC = gamesViewModel.MinOC,
-                CPU = gamesViewModel.MinCPU,
-                RAM = gamesViewModel.MinRAM,
-                VideoCard = gamesViewModel.MinVideoCard,
-                DirectX = gamesViewModel.MinDirectX,
-                HDD = gamesViewModel.MinHDD,
-            };
-
-            
-            
-            db.MinimumSystemRequirements.Add(minSyRe);
-            db.RecommendedSystemRequirements.Add(recSyRe);
+            await db.Games.AddAsync(game);
             await db.SaveChangesAsync();
 
             return RedirectToAction("Index");
@@ -88,7 +50,7 @@ namespace Game_Step.Controllers
         {
             if (id != null)
             {
-                var game = await db.Games.Include(t => t.MinSysReq).Include(t => t.RecSysReq).FirstOrDefaultAsync(item => item.Id == id);
+                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
                 if (game != null)
                 {
                     return View(game);
