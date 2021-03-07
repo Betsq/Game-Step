@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Game_Step.Models
 {
@@ -8,6 +10,8 @@ namespace Game_Step.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
+
+        public byte[] Image { get; set; }
         public string Genre { get; set; }
         public string Article { get; set; }
         public string Language { get; set; }
@@ -24,7 +28,6 @@ namespace Game_Step.Models
         public string RecommendVideoCard { get; set; }
         public string RecommendDirectX { get; set; }
         public string RecommendHDD { get; set; }
-
         public string MinimumOC { get; set; }
         public string MinimumCPU { get; set; }
         public string MinimumRAM { get; set; }
