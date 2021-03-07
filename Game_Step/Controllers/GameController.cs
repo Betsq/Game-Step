@@ -107,17 +107,84 @@ namespace Game_Step.Controllers
                 var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
                 if (game != null)
                 {
-                    return View(game);
+                    GamesViewModel gamesViewModel = new GamesViewModel
+                    {
+                        Id = game.Id,
+                        Article = game.Article,
+                        Name = game.Name,
+                        Price = game.Price,
+                        Genre = game.Genre,
+                        Language = game.Language,
+                        ReleaseDate = game.ReleaseDate,
+                        Publisher = game.Publisher,
+                        Developer = game.Developer,
+                        Features = game.Features,
+                        Region = game.Region,
+                        WhereKeyActivated = game.WhereKeyActivated,
+
+                        RecommendOC = game.RecommendOC,
+                        RecommendCPU = game.RecommendCPU,
+                        RecommendRAM = game.RecommendRAM,
+                        RecommendVideoCard = game.RecommendVideoCard,
+                        RecommendDirectX = game.RecommendDirectX,
+                        RecommendHDD = game.RecommendHDD,
+                        MinimumOC = game.MinimumOC,
+                        MinimumCPU = game.MinimumCPU,
+                        MinimumRAM = game.MinimumRAM,
+                        MinimumVideoCard = game.MinimumVideoCard,
+                        MinimumDirectX = game.MinimumDirectX,
+                        MinimumHDD = game.MinimumHDD
+                    };
+                    return View(gamesViewModel);
                 }
             }
             return NotFound();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(Game game)
+        public IActionResult Update(GamesViewModel gamesViewModel)
         {
+            byte[] imageData = null;
+            if (gamesViewModel.Image != null)
+            {
+                using (var binaryReader = new BinaryReader(gamesViewModel.Image.OpenReadStream()))
+                {
+                    imageData = binaryReader.ReadBytes((int)gamesViewModel.Image.Length);
+                }
+            }
+
+            Game game = new Game
+            {
+                Id = gamesViewModel.Id,
+                Article = gamesViewModel.Article,
+                Name = gamesViewModel.Name,
+                Price = gamesViewModel.Price,
+                Image = imageData,
+                Genre = gamesViewModel.Genre,
+                Language = gamesViewModel.Language,
+                ReleaseDate = gamesViewModel.ReleaseDate,
+                Publisher = gamesViewModel.Publisher,
+                Developer = gamesViewModel.Developer,
+                Features = gamesViewModel.Features,
+                Region = gamesViewModel.Region,
+                WhereKeyActivated = gamesViewModel.WhereKeyActivated,
+
+                RecommendOC = gamesViewModel.RecommendOC,
+                RecommendCPU = gamesViewModel.RecommendCPU,
+                RecommendRAM = gamesViewModel.RecommendRAM,
+                RecommendVideoCard = gamesViewModel.RecommendVideoCard,
+                RecommendDirectX = gamesViewModel.RecommendDirectX,
+                RecommendHDD = gamesViewModel.RecommendHDD,
+                MinimumOC = gamesViewModel.MinimumOC,
+                MinimumCPU = gamesViewModel.MinimumCPU,
+                MinimumRAM = gamesViewModel.MinimumRAM,
+                MinimumVideoCard = gamesViewModel.MinimumVideoCard,
+                MinimumDirectX = gamesViewModel.MinimumDirectX,
+                MinimumHDD = gamesViewModel.MinimumHDD
+            };
+
             db.Games.Update(game);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
             return RedirectToAction("Index");
         }
