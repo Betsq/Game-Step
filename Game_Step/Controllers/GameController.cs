@@ -144,44 +144,50 @@ namespace Game_Step.Controllers
         [HttpPost]
         public IActionResult Update(GamesViewModel gamesViewModel)
         {
-            byte[] imageData = null;
+            Game game = db.Games.FirstOrDefault(item => item.Id == gamesViewModel.Id);
+
             if (gamesViewModel.Image != null)
             {
+                byte[] imageData = null;
                 using (var binaryReader = new BinaryReader(gamesViewModel.Image.OpenReadStream()))
                 {
                     imageData = binaryReader.ReadBytes((int)gamesViewModel.Image.Length);
                 }
+                game.Image = imageData;
             }
 
-            Game game = new Game
+            if (game != null)
             {
-                Id = gamesViewModel.Id,
-                Article = gamesViewModel.Article,
-                Name = gamesViewModel.Name,
-                Price = gamesViewModel.Price,
-                Image = imageData,
-                Genre = gamesViewModel.Genre,
-                Language = gamesViewModel.Language,
-                ReleaseDate = gamesViewModel.ReleaseDate,
-                Publisher = gamesViewModel.Publisher,
-                Developer = gamesViewModel.Developer,
-                Features = gamesViewModel.Features,
-                Region = gamesViewModel.Region,
-                WhereKeyActivated = gamesViewModel.WhereKeyActivated,
+                game.Id = gamesViewModel.Id;
+                game.Article = gamesViewModel.Article;
+                game.Name = gamesViewModel.Name;
+                game.Price = gamesViewModel.Price;
+                game.Genre = gamesViewModel.Genre;
+                game.Language = gamesViewModel.Language;
+                game.ReleaseDate = gamesViewModel.ReleaseDate;
+                game.Publisher = gamesViewModel.Publisher;
+                game.Developer = gamesViewModel.Developer;
+                game.Features = gamesViewModel.Features;
+                game.Region = gamesViewModel.Region;
+                game.WhereKeyActivated = gamesViewModel.WhereKeyActivated;
 
-                RecommendOC = gamesViewModel.RecommendOC,
-                RecommendCPU = gamesViewModel.RecommendCPU,
-                RecommendRAM = gamesViewModel.RecommendRAM,
-                RecommendVideoCard = gamesViewModel.RecommendVideoCard,
-                RecommendDirectX = gamesViewModel.RecommendDirectX,
-                RecommendHDD = gamesViewModel.RecommendHDD,
-                MinimumOC = gamesViewModel.MinimumOC,
-                MinimumCPU = gamesViewModel.MinimumCPU,
-                MinimumRAM = gamesViewModel.MinimumRAM,
-                MinimumVideoCard = gamesViewModel.MinimumVideoCard,
-                MinimumDirectX = gamesViewModel.MinimumDirectX,
-                MinimumHDD = gamesViewModel.MinimumHDD
+                game.RecommendOC = gamesViewModel.RecommendOC;
+                game.RecommendCPU = gamesViewModel.RecommendCPU;
+                game.RecommendRAM = gamesViewModel.RecommendRAM;
+                game.RecommendVideoCard = gamesViewModel.RecommendVideoCard;
+                game.RecommendDirectX = gamesViewModel.RecommendDirectX;
+                game.RecommendHDD = gamesViewModel.RecommendHDD;
+                game.MinimumOC = gamesViewModel.MinimumOC;
+                game.MinimumCPU = gamesViewModel.MinimumCPU;
+                game.MinimumRAM = gamesViewModel.MinimumRAM;
+                game.MinimumVideoCard = gamesViewModel.MinimumVideoCard;
+                game.MinimumDirectX = gamesViewModel.MinimumDirectX;
+                game.MinimumHDD = gamesViewModel.MinimumHDD;
             };
+
+            
+            
+            
 
             db.Games.Update(game);
             db.SaveChanges();
@@ -214,6 +220,17 @@ namespace Game_Step.Controllers
                 await db.SaveChangesAsync();
 
                 return RedirectToAction("Index");
+            }
+            return NotFound();
+        }
+
+        public async Task<IActionResult> GamePage(int? id)
+        {
+            if (id != null)
+            {
+                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
+                if (game != null)
+                    return View(game);
             }
             return NotFound();
         }
