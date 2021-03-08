@@ -54,6 +54,7 @@ namespace Game_Step.Controllers
                 Article = gamesViewModel.Article,
                 Name = gamesViewModel.Name,
                 Price = gamesViewModel.Price,
+                Description = gamesViewModel.Description,
                 Image = imageData,
                 Genre = gamesViewModel.Genre,
                 Language = gamesViewModel.Language,
@@ -113,6 +114,7 @@ namespace Game_Step.Controllers
                         Article = game.Article,
                         Name = game.Name,
                         Price = game.Price,
+                        Description = game.Description,
                         Genre = game.Genre,
                         Language = game.Language,
                         ReleaseDate = game.ReleaseDate,
@@ -162,6 +164,7 @@ namespace Game_Step.Controllers
                 game.Article = gamesViewModel.Article;
                 game.Name = gamesViewModel.Name;
                 game.Price = gamesViewModel.Price;
+                game.Description = gamesViewModel.Description;
                 game.Genre = gamesViewModel.Genre;
                 game.Language = gamesViewModel.Language;
                 game.ReleaseDate = gamesViewModel.ReleaseDate;
