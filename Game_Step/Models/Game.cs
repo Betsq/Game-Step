@@ -11,6 +11,7 @@ namespace Game_Step.Models
         public string Name { get; set; }
         public int Price { get; set; }
         public string Description { get; set; }
+        public int QuantityOfGoods { get; set; }
         public byte[] Image { get; set; }
         public string Genre { get; set; }
         public string Article { get; set; }

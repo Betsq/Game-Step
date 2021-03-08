@@ -58,6 +58,7 @@ namespace Game_Step.Controllers
                 Image = imageData,
                 Genre = gamesViewModel.Genre,
                 Language = gamesViewModel.Language,
+                QuantityOfGoods = gamesViewModel.QuantityOfGoods,
                 ReleaseDate = gamesViewModel.ReleaseDate,
                 Publisher = gamesViewModel.Publisher,
                 Developer = gamesViewModel.Developer,
@@ -117,6 +118,7 @@ namespace Game_Step.Controllers
                         Description = game.Description,
                         Genre = game.Genre,
                         Language = game.Language,
+                        QuantityOfGoods = game.QuantityOfGoods,
                         ReleaseDate = game.ReleaseDate,
                         Publisher = game.Publisher,
                         Developer = game.Developer,
@@ -167,6 +169,7 @@ namespace Game_Step.Controllers
                 game.Description = gamesViewModel.Description;
                 game.Genre = gamesViewModel.Genre;
                 game.Language = gamesViewModel.Language;
+                game.QuantityOfGoods = gamesViewModel.QuantityOfGoods;
                 game.ReleaseDate = gamesViewModel.ReleaseDate;
                 game.Publisher = gamesViewModel.Publisher;
                 game.Developer = gamesViewModel.Developer;
