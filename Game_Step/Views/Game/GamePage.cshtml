@@ -25,27 +25,36 @@
                 }
             </div>
             <div class="col-md-12" style="background-color: #3B3B3B; width: 365px; margin-top: 20px;">
-                <div class="col-md-12 d-flex flex-row">
-                    <div class="color-8B8B8B ">Genre</div><div class="text-white">@Model.Genre</div>
-                </div>
-                <div class="col-md-12 d-flex flex-row">
-                    <div class="color-8B8B8B">Language</div><div class="text-white">@Model.Language</div>
-                </div>
-                <div class="col-md-12 d-flex flex-row">
-                    <div class="color-8B8B8B">Release Date</div><div class="text-white">@Model.ReleaseDate</div>
-                </div>
-                <div class="col-md-12 d-flex flex-row">
-                    <div class="color-8B8B8B">Publisher</div><div class="text-white">@Model.Publisher</div>
-                </div>
-                <div class="col-md-12 d-flex flex-row">
-                    <div class="color-8B8B8B">Developer</div><div class="text-white">@Model.Developer</div>
-                </div>
-                <div class="col-md-12 d-flex flex-row">
-                    <div class="color-8B8B8B">Features</div><div class="text-white">@Model.Features</div>
-                </div>
-                <div class="col-md-12 d-flex flex-row">
-                    <div class="color-8B8B8B">Region</div><div class="text-white">@Model.Region</div>
-                </div>
+                <ul class="p-0">
+                    <li class="d-flex pt-3 pb-3">
+                        <div class="color-8B8B8B" style="min-width: 35%;">Genre</div>
+                        <div class="text-white">@Model.Genre</div>
+                    </li>
+                    <li class="d-flex pb-3">
+                        <div class="color-8B8B8B" style="min-width: 35%;">Language</div>
+                        <div class="text-white">@Model.Language</div>
+                    </li>
+                    <li class="d-flex pb-3">
+                        <div class="color-8B8B8B" style="min-width: 35%;">Release Date</div>
+                        <div class="text-white">@Model.ReleaseDate</div>
+                    </li>
+                    <li class="d-flex pb-3">
+                        <div class="color-8B8B8B" style="min-width: 35%;">Publisher</div>
+                        <div class="text-white">@Model.Publisher</div>
+                    </li>
+                    <li class="d-flex pb-3">
+                        <div class="color-8B8B8B" style="min-width: 35%;">Developer</div>
+                        <div class="text-white">@Model.Developer</div>
+                    </li>
+                    <li class="d-flex pb-3">
+                        <div class="color-8B8B8B" style="min-width: 35%;">Features</div>
+                        <div class="text-white">@Model.Features</div>
+                    </li>
+                    <li class="d-flex pb-3">
+                        <div class="color-8B8B8B" style="min-width: 35%;">Region</div>
+                        <div class="text-white">@Model.Region</div>
+                    </li>
+                </ul>
             </div>
         </div>
 
@@ -67,15 +76,73 @@
                     <div class="col-md-12">
                         <div class="text-white d-flex justify-content-center" style="font-size: 48px;">119 <sup style="top: 26px; font-size: 18px;">РУБ.</sup> </div>
                     </div>
-                    <a href="#" class="text-decoration-none col-md-12 d-flex justify-content-center pt-4 pb-4 text-white buy-button">
-                            В КОРЗИНУ
-                    </a>
-                    
+                    <a href="#" class="text-decoration-none col-md-12 d-flex justify-content-center pt-4 pb-4 text-white buy-button">В КОРЗИНУ</a>
                 </div>
             </div>
 
             <div class="col-md-12">
-                sdsdsdsds
+                <div class="col-md-12 bg-white m-3 p-3">
+                    <h2>Description</h2>
+                    <div>@Model.Description</div>
+                </div>
+
+                <div class="col-md-12 bg-white mr-3 ml-3 mb-3 p-3">
+                    <h2 style="font-size: 18px;">Minimum system requirements</h2>
+                    <ul>
+                        <li class="d-flex pt-2 pb-2">
+                            <div style="min-width: 25%;">OC</div>
+                            <div>@Model.MinimumOC</div>
+                        </li>
+                        <li class="d-flex pb-2">
+                            <div style="min-width: 25%;">CPU</div>
+                            <div>@Model.MinimumCPU</div>
+                        </li>
+                        <li class="d-flex pb-2">
+                            <div style="min-width: 25%;">RAM</div>
+                            <div>@Model.MinimumRAM</div>
+                        </li>
+                        <li class="d-flex pb-2">
+                            <div style="min-width: 25%;">VideoCard</div>
+                            <div>@Model.MinimumVideoCard</div>
+                        </li>
+                        <li class="d-flex pb-2">
+                            <div style="min-width: 25%;">DirectX</div>
+                            <div>@Model.MinimumDirectX</div>
+                        </li>
+                        <li class="d-flex pb-2">
+                            <div style="min-width: 25%;">HDD</div>
+                            <div>@Model.MinimumHDD</div>
+                        </li>
+                    </ul>
+
+                    <h2 style="font-size: 18px;">Recommend system requirements</h2>
+                    <ul>
+                        <li class="d-flex pb-2 pt-2">
+                            <div style="min-width: 25%;">OC</div>
+                            <div>@Model.RecommendOC</div>
+                        </li>
+                        <li class="d-flex pb-2">
+                            <div style="min-width: 25%;">CPU</div>
+                            <div>@Model.RecommendCPU</div>
+                        </li>
+                        <li class="d-flex pb-2">
+                            <div style="min-width: 25%;">RAM</div>
+                            <div>@Model.RecommendRAM</div>
+                        </li>
+                        <li class="d-flex pb-2">
+                            <div style="min-width: 25%;">VideoCard</div>
+                            <div>@Model.RecommendVideoCard</div>
+                        </li>
+                        <li class="d-flex pb-2">
+                            <div style="min-width: 25%;">DirectX</div>
+                            <div>@Model.RecommendDirectX</div>
+                        </li>
+                        <li class="d-flex pb-2">
+                            <div style="min-width: 25%;">HDD</div>
+                            <div>@Model.RecommendHDD</div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
