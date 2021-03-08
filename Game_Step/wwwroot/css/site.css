@@ -1,10 +1,17 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-
 a.navbar-brand {
   white-space: normal;
   text-align: center;
   word-break: break-all;
+}
+@font-face {
+    font-family: Roboto;
+    src: url("../fonts/Roboto-Regular.ttf");
+}
+
+* {
+    font-family: Roboto;
 }
 
 /* Provide sufficient contrast against white background */
@@ -27,7 +34,8 @@ a {
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
-  font-size: 14px;
+    font-size: 14px;
+    background-color: #F3F3F3;
 }
 @media (min-width: 768px) {
   html {
@@ -86,3 +94,20 @@ body {
     transform: scale(1.05);
 }
 
+li {
+    list-style-type: none;
+}
+
+.buy-button:hover {
+    background-color: #69DA58;
+}
+
+.buy-button {
+    background-color: #0094E9;
+    font-size: 18px;
+    transition: 0.5s;
+}
+.buy-button:hover {
+    background-color: #69DA58;
+
+}
