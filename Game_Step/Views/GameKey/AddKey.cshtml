@@ -1,12 +1,13 @@
 ﻿@model Game_Step.Models.GameKey
+@using Game_Step.Util
+@inject SelectItemHelper select
 
 @{
 
 }
 
 <form asp-action="AddKey" asp-controller="GameKey" method="post" enctype="multipart/form-data">
-    <input type="file" name="uploadFile" accept=".txt"/>
-    <input type="number" asp-for="GameId
-           "/>
+    <input class="col-md-12 pb-3" type="file" name="uploadFile" accept=".txt" />
+    <select class="col-md-12 pb-3" asp-for="GameId" asp-items="select.GetGameId()"></select>
     <input type="submit" value="Add" />
 </form>

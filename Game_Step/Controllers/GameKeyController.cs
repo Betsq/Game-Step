@@ -51,7 +51,7 @@ namespace Game_Step.Controllers
                 using (StreamReader fs = new StreamReader(_appEnvironment.WebRootPath + path))
                 {
                     //Looking for a game for which the keys were intended
-                    var game = db.Games.FirstOrDefault(item => item.Id == gameKey.GameId);
+                    var game = db.Games.FirstOrDefault(item => item.Id == (int)gameKey.GameId);
 
                     while (true)
                     {

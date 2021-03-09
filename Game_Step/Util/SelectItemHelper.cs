@@ -73,5 +73,19 @@ namespace Game_Step.Util
             };
             return items;
         }
+
+        public IEnumerable<SelectListItem> GetGameId()
+        {
+            var game = db.Games.ToList();
+
+            IList<SelectListItem> items = new List<SelectListItem>();
+
+            foreach (var g in game)
+            {
+                items.Add(new SelectListItem { Text = g.Name, Value = g.Id.ToString()});
+            }
+
+            return items;
+        }
     }
 }
