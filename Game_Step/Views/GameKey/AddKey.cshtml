@@ -1,0 +1,12 @@
+﻿@model Game_Step.Models.GameKey
+
+@{
+
+}
+
+<form asp-action="AddKey" asp-controller="GameKey" method="post" enctype="multipart/form-data">
+    <input type="file" name="uploadFile" accept=".txt"/>
+    <input type="number" asp-for="GameId
+           "/>
+    <input type="submit" value="Add" />
+</form>

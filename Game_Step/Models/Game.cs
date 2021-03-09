@@ -22,6 +22,7 @@ namespace Game_Step.Models
         public string Features { get; set; }
         public string Region { get; set; }
         public string WhereKeyActivated { get; set; }
+        public List<GameKey> GameKeys { get; set; } = new List<GameKey>();
 
         public string RecommendOC { get; set; }
         public string RecommendCPU { get; set; }
