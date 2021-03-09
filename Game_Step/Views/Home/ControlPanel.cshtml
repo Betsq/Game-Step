@@ -2,15 +2,20 @@
     ViewBag.Title = "Control Panel";
 }
 
-<div class="col-md-12 mb-3">
-    <a asp-action="Index" asp-controller="Developer">Panel developer</a>
-</div>
-<div class="col-md-12 mb-3">
-    <a asp-action="Index" asp-controller="Publisher">Panel publisher</a>
-</div>
-<div class="col-md-12 mb-3">
-    <a asp-action="Index" asp-controller="Region">Panel region</a>
-</div>
-<div class="col-md-12 mb-3">
-    <a asp-action="Index" asp-controller="Game">Panel game</a>
+<div class="container">
+    <div class="col-md-12 mb-3">
+        <a asp-action="Index" asp-controller="Developer">Panel developer</a>
+    </div>
+    <div class="col-md-12 mb-3">
+        <a asp-action="Index" asp-controller="Publisher">Panel publisher</a>
+    </div>
+    <div class="col-md-12 mb-3">
+        <a asp-action="Index" asp-controller="Region">Panel region</a>
+    </div>
+    <div class="col-md-12 mb-3">
+        <a asp-action="Index" asp-controller="Game">Panel game</a>
+    </div>
+    <div class="col-md-12 mb-3">
+        <a asp-action="AddKey" asp-controller="GameKey">Adding keys for the game</a>
+    </div>
 </div>
