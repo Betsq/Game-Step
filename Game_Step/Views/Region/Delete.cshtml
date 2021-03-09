@@ -1,11 +1,13 @@
 ﻿@model Game_Step.Models.Region
 
 @{
-    ViewBag.Title = "Delete publisher";
+    ViewBag.Title = "Deletion" + Model.Name;
 }
 
-<form asp-action="Delete" asp-controller="Region" method="post">
-    Name - @Model.Name
+<div class="container">
+    <form asp-action="Delete" asp-controller="Region" method="post">
+        Name - @Model.Name
 
-    <input type="submit" value="Delete" />
-</form>
+        <input type="submit" value="Delete" />
+    </form>
+</div>

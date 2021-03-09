@@ -1,18 +1,20 @@
 ﻿@model IEnumerable<Game_Step.Models.Developer>
 
 @{
-    ViewBag.Title = "Control panel developer";
+    ViewBag.Title = "Developers";
 }
 
-<a asp-action="Create" asp-controller="Developer">Create</a>
+<div class="container">
+    <<a asp-action="Create" asp-controller="Developer">Create</a>
 
-@foreach (var item in Model)
-{
-    <div class="col-md-12">
-        Name - @item.Name
-        <a asp-action="Read" asp-controller="Developer" asp-route-id="@item.Id">Read</a>
-        <a asp-action="Update" asp-controller="Developer" asp-route-id="@item.Id">Update</a>
-        <a asp-action="Delete" asp-controller="Developer" asp-route-id="@item.Id">Delete</a>
-    </div>
+    @foreach (var item in Model)
+    {
+        <div class="col-md-12">
+            Name - @item.Name
+            <a asp-action="Read" asp-controller="Developer" asp-route-id="@item.Id">Read</a>
+            <a asp-action="Update" asp-controller="Developer" asp-route-id="@item.Id">Update</a>
+            <a asp-action="Delete" asp-controller="Developer" asp-route-id="@item.Id">Delete</a>
+        </div>
 
-}
+    }
+    /div>

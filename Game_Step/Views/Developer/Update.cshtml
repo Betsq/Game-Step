@@ -1,12 +1,14 @@
 ﻿@model Game_Step.Models.Developer
 
 @{
-    ViewBag.Title = "Update developer";
+    ViewBag.Title = "Update  " + Model.Name;
 }
 
-<form asp-action="Update" asp-controller="Developer" method="post">
-    <input type="text" asp-for="Name" />
+<div class="container">
+    <form asp-action="Update" asp-controller="Developer" method="post">
+        <input type="text" asp-for="Name" />
 
-    <input type="submit" value="Update" />
-</form>
+        <input type="submit" value="Update" />
+    </form>
+</div>
 

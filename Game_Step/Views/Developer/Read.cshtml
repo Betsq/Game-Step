@@ -1,9 +1,9 @@
 ﻿@model Game_Step.Models.Developer
 
 @{
-    ViewBag.Title = "Read developer";
+    ViewBag.Title = "Info about " + Model.Name;
 }
 
-Name - @Model.Name
-
-
+<div class="container">
+    Name - @Model.Name
+</div>

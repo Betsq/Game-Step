@@ -1,11 +1,13 @@
 ﻿@model Game_Step.Models.Publisher
 
 @{
-    ViewBag.Title = "Create publisher";
+    ViewBag.Title = "Creating publisher";
 }
 
-<form asp-action="Create" asp-controller="Publisher" method="post">
-    <input type="text" asp-for="Name" placeholder="Name"/>
+<div class="container">
+    <form asp-action="Create" asp-controller="Publisher" method="post">
+        <input type="text" asp-for="Name" placeholder="Name" />
 
-    <input type="submit" value="Create" />
-</form>
+        <input type="submit" value="Create" />
+    </form>
+</div>

@@ -4,8 +4,10 @@
     ViewBag.Title = "Create developer";
 }
 
-<form asp-action="Create" asp-controller="Developer" method="post">
-    <input type="text" asp-for="Name"/>
+<div class="container">
+    <form asp-action="Create" asp-controller="Developer" method="post">
+        <input type="text" asp-for="Name" />
 
-    <input type="submit" value="Create" />
-</form>
+        <input type="submit" value="Create" />
+    </form>
+</div>

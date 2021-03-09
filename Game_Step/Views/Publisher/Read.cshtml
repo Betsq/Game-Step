@@ -1,7 +1,9 @@
 ﻿@model Game_Step.Models.Publisher
 
 @{
-    ViewBag.Title = "Detail publisher";
+    ViewBag.Title = "Info about " + Model.Name;
 }
 
-Name - @Model.Name
+<div class="container">
+    Name - @Model.Name
+</div>
