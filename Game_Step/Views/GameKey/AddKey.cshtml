@@ -7,7 +7,39 @@
 }
 
 <form asp-action="AddKey" asp-controller="GameKey" method="post" enctype="multipart/form-data">
+
     <input class="col-md-12 pb-3" type="file" name="uploadFile" accept=".txt" />
+    
+    <div class="accordion">See instructions</div>
+    <div class="panel">
+        <p>
+            The file must be with .txt extensions. Add the key to the beginning of
+            the file, add the next key on the next line, and so on.
+        </p>
+    </div>
+
+
     <select class="col-md-12 pb-3" asp-for="GameId" asp-items="select.GetGameId()"></select>
+
+
+
     <input type="submit" value="Add" />
 </form>
+
+
+<script>
+    var acc = document.getElementsByClassName("accordion");
+    var i;
+
+    for (i = 0; i < acc.length; i++) {
+        acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var panel = this.nextElementSibling;
+            if (panel.style.maxHeight) {
+                panel.style.maxHeight = null;
+            } else {
+                panel.style.maxHeight = panel.scrollHeight + "px";
+            }
+        });
+    }
+</script>
