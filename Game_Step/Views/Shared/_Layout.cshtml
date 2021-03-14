@@ -38,10 +38,7 @@
 
     <div>
         <main role="main" style="background-color: #F3F3F3;">
-
-            <p id="result_text"></p>
-            <a class="btn btn-info btn-sm" onclick="addCart(7);">Выполнить запрос на 3 элемента</a>
-
+            @RenderBody()
             <div class="popup" id="popup-1">
                 <div class="overlay"></div>
                 <div class="content">
@@ -50,8 +47,6 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Illo aspernatur laborum rem sed laudantium excepturi veritatis voluptatum architecto, dolore quaerat totam officiis nisi animi accusantium alias inventore nulla atque debitis.</p>
                 </div>
             </div>
-
-            @RenderBody()
         </main>
     </div>
 
@@ -63,25 +58,5 @@
 </html>
 
 <script>
-    function addCart(id) {
-
-        $.post("/Home/AddCart", { 'id': id })
-            .done(function (data) {
-
-                var count = data.length;
-
-                var result_str = "";
-
-                for (var i = 0; i < count; i++) {
-                    console.log(data[i]);
-                    result_str = result_str + " " + data[i];
-                }
-
-                $("#result_text").html(result_str);
-                console.log(data);
-            });
-    }
-
-
-
+  
 </script>

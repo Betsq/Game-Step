@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Game_Step.Models
+namespace Game_Step.IdentityViewModels
 {
-    public class Item
+    public class RegisterViewModel
     {
     }
 }

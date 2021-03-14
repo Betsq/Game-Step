@@ -29,14 +29,6 @@ namespace Game_Step.Controllers
             return View();
         }
 
-        public JsonResult AddCart(int id)
-        {
-            var game = db.Games.FirstOrDefault(item => item.Id == id);
-
-            var g = game.Name;
-
-            return Json(g);
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
