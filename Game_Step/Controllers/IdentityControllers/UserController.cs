@@ -110,5 +110,19 @@ namespace Game_Step.Controllers.IdentityControllers
             }
             return NotFound();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                User user = await userManager.FindByIdAsync(id);
+                if (user != null)
+                {
+                    IdentityResult result = await userManager.DeleteAsync(user);
+                }
+            }
+            return RedirectToAction("Index");
+        }
     }
 }
