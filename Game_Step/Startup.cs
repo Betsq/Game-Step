@@ -26,8 +26,14 @@ namespace Game_Step
             services.AddDbContext<ApplicationContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationContext>();
+            services.AddIdentity<User, IdentityRole>(option =>
+                {
+                    option.Password.RequiredLength = 6;
+                    option.Password.RequireNonAlphanumeric = false;
+                    option.Password.RequireLowercase = false;
+                    option.Password.RequireUppercase = false;
+                    option.Password.RequireDigit = false;
+                }).AddEntityFrameworkStores<ApplicationContext>();
 
             services.AddControllersWithViews();
 
