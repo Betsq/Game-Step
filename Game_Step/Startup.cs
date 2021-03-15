@@ -33,6 +33,8 @@ namespace Game_Step
                     option.Password.RequireLowercase = false;
                     option.Password.RequireUppercase = false;
                     option.Password.RequireDigit = false;
+
+                    option.User.RequireUniqueEmail = true;
                 }).AddEntityFrameworkStores<ApplicationContext>();
 
             services.AddControllersWithViews();
