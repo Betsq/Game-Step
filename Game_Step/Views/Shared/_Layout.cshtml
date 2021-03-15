@@ -25,14 +25,34 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Home" asp-action="ControlPanel">Control panel</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <p>@User.Identity.Name</p>
+                            </li>
+
+                            <li class="nav-item">
+                                <form method="post" asp-controller="Account" asp-action="Logout">
+                                    <input type="submit" value="Logout" />
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Sign in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
+                            </li>
+                        }
+
+
                     </ul>
-                </div>  
-                
-                <button class="button-cart" style="width: 50px; height: 50px;"onclick="togglePopup()" >
-                    <img src="/img/ShopCart.png" alt="Shop Cart" style="width: 40px; height: 40px"/>
+                </div>
+
+                <button class="button-cart" style="width: 50px; height: 50px;" onclick="togglePopup()">
+                    <img src="/img/ShopCart.png" alt="Shop Cart" style="width: 40px; height: 40px" />
                 </button>
 
             </div>
@@ -61,5 +81,5 @@
 </html>
 
 <script>
-  
+
 </script>
