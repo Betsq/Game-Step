@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace Game_Step.Controllers.IdentityControllers
 {
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         private readonly UserManager<User> userManager;
 
-        public UserController(UserManager<User> userManager)
+        public UsersController(UserManager<User> userManager)
         {
             this.userManager = userManager;
         }
