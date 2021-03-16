@@ -162,13 +162,13 @@ namespace Game_Step.Controllers.IdentityControllers
                     await emailService.SendEmailAsync(model.Email, "Reset Password",
                         $"To reset your password follow the link: <a href='{callbackUrl}'>Reset Password</a>");
 
-                    return View("ForgotPasswordConfirmation");
+                    return Content("To reset your password, follow the link in the letter sent to your email.");
                 }
 
                 // user with this email address may not be present in the database
                 // nevertheless print a standard message to hide
                 // presence or absence of a user in the database
-                return View("ForgotPasswordConfirmation");
+                return Content("To reset your password, follow the link in the letter sent to your email.");
             }
             return View(model);
         }
