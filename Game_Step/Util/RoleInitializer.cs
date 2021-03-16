@@ -14,24 +14,18 @@ namespace Game_Step.Util
             string adminEmail = "admin@gmail.com";
             string password = "123456";
 
-            if (roleManager.FindByIdAsync("Admin") == null)
+            if (await roleManager.FindByNameAsync("Admin") == null)
             {
                 await roleManager.CreateAsync(new IdentityRole("Admin"));
             }
-            if (roleManager.FindByIdAsync("Employee") == null)
+            if (await roleManager.FindByNameAsync("Employee") == null)
             {
                 await roleManager.CreateAsync(new IdentityRole("Employee"));
             }
 
-            if (userManager.FindByNameAsync(adminEmail) == null)
+            if (await userManager.FindByNameAsync(adminEmail) == null)
             {
-                User admin = new User
-                {
-                    Email = adminEmail,
-                    UserName = adminEmail,
-                    EmailConfirmed = true
-                };
-
+                User admin = new User { Email = adminEmail, UserName = adminEmail };
                 IdentityResult result = await userManager.CreateAsync(admin, password);
                 if (result.Succeeded)
                 {
