@@ -134,5 +134,43 @@ namespace Game_Step.Controllers.IdentityControllers
             await signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
+                if (user != null || await userManager.IsEmailConfirmedAsync(user))
+                {
+                    var code = await userManager.GeneratePasswordResetTokenAsync(user);
+
+                    var callbackUrl = Url.Action("ResetPassword", "Account",
+                        new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+
+                    EmailService emailService = new EmailService();
+
+                    await emailService.SendEmailAsync(model.Email, "Reset Password",
+                        $"To reset your password follow the link: <a href='{callbackUrl}'>Reset Password</a>");
+
+                    return View("ForgotPasswordConfirmation");
+                }
+
+                // user with this email address may not be present in the database
+                // nevertheless print a standard message to hide
+                // presence or absence of a user in the database
+                return View("ForgotPasswordConfirmation");
+            }
+            return View(model);
+        }
     }
 }
