@@ -1,5 +1,6 @@
 ﻿using Game_Step.IdentityViewModels;
 using Game_Step.Models;
+using Game_Step.Util;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -41,9 +42,19 @@ namespace Game_Step.Controllers.IdentityControllers
                 var result = await userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    //Setting cookies
-                    await signInManager.SignInAsync(user, false);
-                    return RedirectToAction("Index", "Home");
+                    var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.Action(
+                        "Confirm Email",
+                        "Account",
+                        new { userId = user.Id, code = code },
+                        protocol: HttpContext.Request.Scheme);
+
+                    EmailService emailService = new EmailService();
+
+                    await emailService.SendEmailAsync(model.Email, "Confirm Email",
+                        $"Confirm registration by clicking on the link: <a href='{callbackUrl}'>link</a>");
+
+                    return Content("To complete registration, check your email and follow the link provided in the letter");
                 }
                 else
                 {
@@ -59,7 +70,7 @@ namespace Game_Step.Controllers.IdentityControllers
         [HttpGet]
         public IActionResult Login(string returnUrl = null)
         {
-            return View(new LoginViewModel {ReturnUrl = returnUrl});
+            return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
