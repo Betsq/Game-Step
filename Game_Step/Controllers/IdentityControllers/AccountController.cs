@@ -20,11 +20,18 @@ namespace Game_Step.Controllers.IdentityControllers
             this.signInManager = signInManager;
         }
 
+        private bool UserIsAuthenticated()
+        {
+            return User.Identity.IsAuthenticated;
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register()
         {
-            
+            if (UserIsAuthenticated())
+                return NotFound();
+
             return View();
         }
 
@@ -32,6 +39,9 @@ namespace Game_Step.Controllers.IdentityControllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
+            if (UserIsAuthenticated())
+                return View("Error");
+
             if (ModelState.IsValid)
             {
                 User user = new User
@@ -78,18 +88,16 @@ namespace Game_Step.Controllers.IdentityControllers
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmail(string userId, string code)
         {
-            if (userId == null || code == null)
-            {
+            if (userId == null || code == null || UserIsAuthenticated())
                 return View("Error");
-            }
 
             var user = await userManager.FindByIdAsync(userId);
+
             if (user == null)
-            {
                 return View("Error");
-            }
 
             var result = await userManager.ConfirmEmailAsync(user, code);
+
             if (result.Succeeded)
                 return RedirectToAction("Index", "Home");
             else
@@ -100,13 +108,20 @@ namespace Game_Step.Controllers.IdentityControllers
         [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
+            if (UserIsAuthenticated())
+                return NotFound();
+
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
+
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
+            if (UserIsAuthenticated())
+                return View("Error");
+
             if (ModelState.IsValid)
             {
                 var user = await userManager.FindByNameAsync(model.Email);
@@ -148,6 +163,9 @@ namespace Game_Step.Controllers.IdentityControllers
         [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
+            if (UserIsAuthenticated())
+                return NotFound();
+
             return View();
         }
 
@@ -156,6 +174,9 @@ namespace Game_Step.Controllers.IdentityControllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
+            if (UserIsAuthenticated())
+                return View("Error");
+
             if (ModelState.IsValid)
             {
                 var user = await userManager.FindByEmailAsync(model.Email);
@@ -189,6 +210,9 @@ namespace Game_Step.Controllers.IdentityControllers
         [AllowAnonymous]
         public IActionResult ResetPassword(string code = null)
         {
+            if (UserIsAuthenticated())
+                return View("Error");
+
             if (code != null)
                 return View();
 
@@ -200,6 +224,9 @@ namespace Game_Step.Controllers.IdentityControllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
+            if (UserIsAuthenticated())
+                return View("Error");
+
             if (ModelState.IsValid)
             {
                 var user = await userManager.FindByEmailAsync(model.Email);
