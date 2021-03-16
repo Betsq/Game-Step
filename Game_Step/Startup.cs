@@ -35,7 +35,8 @@ namespace Game_Step
                     option.Password.RequireDigit = false;
 
                     option.User.RequireUniqueEmail = true;
-                }).AddEntityFrameworkStores<ApplicationContext>();
+                }).AddEntityFrameworkStores<ApplicationContext>()
+                .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
 

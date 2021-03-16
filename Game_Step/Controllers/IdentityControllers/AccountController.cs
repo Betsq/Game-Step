@@ -44,8 +44,9 @@ namespace Game_Step.Controllers.IdentityControllers
                 if (result.Succeeded)
                 {
                     var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+
                     var callbackUrl = Url.Action(
-                        "Confirm Email",
+                        "ConfirmEmail",
                         "Account",
                         new { userId = user.Id, code = code },
                         protocol: HttpContext.Request.Scheme);
