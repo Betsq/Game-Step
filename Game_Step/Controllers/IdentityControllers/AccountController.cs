@@ -21,12 +21,15 @@ namespace Game_Step.Controllers.IdentityControllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
+            
             return View();
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
@@ -94,11 +97,13 @@ namespace Game_Step.Controllers.IdentityControllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login(string returnUrl = null)
         {
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -130,6 +135,7 @@ namespace Game_Step.Controllers.IdentityControllers
         }
 
         [HttpPost]
+        [Authorize]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
         {
