@@ -54,9 +54,11 @@ namespace Game_Step.Controllers.IdentityControllers
                     EmailService emailService = new EmailService();
 
                     await emailService.SendEmailAsync(model.Email, "Confirm Email",
-                        $"Confirm registration by clicking on the link: <a href='{callbackUrl}'>link</a>");
+                        $"Confirm registration by clicking on the link:" +
+                        $" <a href='{callbackUrl}'>link</a>");
 
-                    return Content("To complete registration, check your email and follow the link provided in the letter");
+                    return Content("To complete registration, check your email and" +
+                        " follow the link provided in the letter");
                 }
                 else
                 {
@@ -113,7 +115,8 @@ namespace Game_Step.Controllers.IdentityControllers
                     }
                 }
 
-                var result = await signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, false);
+                var result = await signInManager.PasswordSignInAsync(model.Email,
+                    model.Password, model.RememberMe, false);
                 if (result.Succeeded)
                 {
                     return RedirectToAction("Index", "Home");
@@ -160,15 +163,56 @@ namespace Game_Step.Controllers.IdentityControllers
                     EmailService emailService = new EmailService();
 
                     await emailService.SendEmailAsync(model.Email, "Reset Password",
-                        $"To reset your password follow the link: <a href='{callbackUrl}'>Reset Password</a>");
+                        $"To reset your password follow the link:" +
+                        $" <a href='{callbackUrl}'>Reset Password</a>");
 
-                    return Content("To reset your password, follow the link in the letter sent to your email.");
+                    return Content("To reset your password, follow the link in the letter" +
+                        " sent to your email.");
                 }
 
                 // user with this email address may not be present in the database
                 // nevertheless print a standard message to hide
                 // presence or absence of a user in the database
-                return Content("To reset your password, follow the link in the letter sent to your email.");
+                return Content("To reset your password, follow the link in the letter" +
+                    " sent to your email.");
+            }
+            return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult ResetPassword(string code = null)
+        {
+            if (code != null)
+                return View();
+
+            return View("Error");
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await userManager.FindByEmailAsync(model.Email);
+                if (user != null)
+                {
+                    var result = await userManager.ResetPasswordAsync(user, model.Code, model.Password);
+                    if (result.Succeeded)
+                    {
+                        return View("ResetPasswordConfirmation");
+                    }
+                    else
+                    {
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError(string.Empty, error.Description);
+                        }
+                    }
+                }
+                return View("ResetPasswordConfirmation");
             }
             return View(model);
         }
