@@ -30,7 +30,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult Register()
         {
             if (UserIsAuthenticated())
-                return NotFound();
+                return RedirectToAction("Index", "Home");
 
             return View();
         }
@@ -40,7 +40,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (UserIsAuthenticated())
-                return View("Error");
+                return RedirectToAction("Index", "Home");
 
             if (ModelState.IsValid)
             {
@@ -109,7 +109,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult Login(string returnUrl = null)
         {
             if (UserIsAuthenticated())
-                return NotFound();
+                return RedirectToAction("Index", "Home");
 
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
@@ -120,7 +120,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (UserIsAuthenticated())
-                return View("Error");
+                return RedirectToAction("Index", "Home");
 
             if (ModelState.IsValid)
             {
@@ -164,7 +164,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult ForgotPassword()
         {
             if (UserIsAuthenticated())
-                return NotFound();
+                return RedirectToAction("Index", "Home");
 
             return View();
         }
@@ -175,7 +175,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (UserIsAuthenticated())
-                return View("Error");
+                return RedirectToAction("Index", "Home");
 
             if (ModelState.IsValid)
             {
@@ -211,7 +211,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult ResetPassword(string code = null)
         {
             if (UserIsAuthenticated())
-                return View("Error");
+                return RedirectToAction("Index", "Home");
 
             if (code != null)
                 return View();
@@ -225,7 +225,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (UserIsAuthenticated())
-                return View("Error");
+                return RedirectToAction("Index", "Home");
 
             if (ModelState.IsValid)
             {
