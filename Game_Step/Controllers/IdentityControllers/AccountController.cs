@@ -249,5 +249,16 @@ namespace Game_Step.Controllers.IdentityControllers
             }
             return View(model);
         }
+
+        [Authorize]
+        public async Task<IActionResult> Profile()
+        {
+            var userID = userManager.GetUserId(HttpContext.User);
+
+            var user = await userManager.FindByIdAsync(userID);
+
+            return View(user);
+            
+        }
     }
 }
