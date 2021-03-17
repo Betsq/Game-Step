@@ -170,20 +170,23 @@ namespace Game_Step.Controllers.IdentityControllers
         [Authorize]
         public async Task<IActionResult> ChangePassword(AccountChangePasswordViewModel model)
         {
-            var user = await userManager.GetUserAsync(HttpContext.User);
-
-            IdentityResult result = await userManager.ChangePasswordAsync(user,
-                model.OldPassword, model.NewPassword);
-
-            if (result.Succeeded)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Profile", "Account");
-            }
-            else
-            {
-                foreach (var error in result.Errors)
+                var user = await userManager.GetUserAsync(HttpContext.User);
+
+                IdentityResult result = await userManager.ChangePasswordAsync(user,
+                    model.OldPassword, model.NewPassword);
+
+                if (result.Succeeded)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    return RedirectToAction("Profile", "Account");
+                }
+                else
+                {
+                    foreach (var error in result.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
             }
             return View(model);
