@@ -160,6 +160,36 @@ namespace Game_Step.Controllers.IdentityControllers
         }
 
         [HttpGet]
+        [Authorize]
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(AccountChangePasswordViewModel model)
+        {
+            var user = await userManager.GetUserAsync(HttpContext.User);
+
+            IdentityResult result = await userManager.ChangePasswordAsync(user,
+                model.OldPassword, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Profile", "Account");
+            }
+            else
+            {
+                foreach (var error in result.Errors)
+                {
+                    ModelState.AddModelError(string.Empty, error.Description);
+                }
+            }
+            return View(model);
+        }
+
+        [HttpGet]
         [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
@@ -258,7 +288,7 @@ namespace Game_Step.Controllers.IdentityControllers
             var user = await userManager.FindByIdAsync(userID);
 
             return View(user);
-            
+
         }
     }
 }
