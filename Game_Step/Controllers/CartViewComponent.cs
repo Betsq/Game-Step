@@ -1,23 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Game_Step.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace Game_Step.ViewComponent
 {
-    [ViewComponent]
+
     public class CartViewComponent : Microsoft.AspNetCore.Mvc.ViewComponent
     {
-        List<string> users;
         public CartViewComponent()
         {
-            users = new List<string>
-            {
-                "Tom", "Tim", "Bob", "Sam"
-            };
+
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(Game game)
         {
-            return View(users);
+            List<Game> ls = new List<Game>
+            {
+               
+            };
+            ls.Add(game);
+
+            return View(ls);
         }
     }
 }

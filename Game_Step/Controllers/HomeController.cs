@@ -1,4 +1,5 @@
 ﻿using Game_Step.Models;
+using Game_Step.ViewComponent;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -19,12 +20,13 @@ namespace Game_Step.Controllers
             db = context;
             _logger = logger;
         }
-        
+
         [HttpGet]
-        public IActionResult AddToCart(int id)
+        public async Task<IActionResult> AddToCart(int id)
         {
-            var f = id;
-            return ViewComponent("Cart", id);
+            var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
+
+            return ViewComponent("Cart", game);
         }
 
         public IActionResult ControlPanel()

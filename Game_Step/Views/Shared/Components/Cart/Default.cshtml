@@ -1,4 +1,4 @@
-﻿@model IEnumerable<string>
+﻿@model IEnumerable<Game_Step.Models.Game>
 
 <div class="popup" id="popup-1">
     <div class="overlay"></div>
@@ -10,7 +10,9 @@
             <ul>
                 @foreach (var user in Model)
                 {
-                    <li>@user</li>
+                    <li>@user.Id</li>
+                    <li>@user.Name</li>
+                    <li>@user.Price</li>
                 }
             </ul>
         </p>
