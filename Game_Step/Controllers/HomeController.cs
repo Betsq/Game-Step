@@ -23,39 +23,7 @@ namespace Game_Step.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public IActionResult AddToCart(int id)
-        {
-            if (HttpContext.Session.Keys.Contains("CartId"))
-            {
-                bool isHaveId = false;
-
-                var listId = HttpContext.Session.Get<List<int>>("CartId");
-
-                foreach (var lsId in listId)
-                {
-                    if (lsId == id)
-                    {
-                        isHaveId = true;
-
-                    }
-                }
-
-                if (isHaveId == false)
-                {
-                    listId.Add(id);
-                    HttpContext.Session.Set<List<int>>("CartId", listId);
-                }
-            }
-            else
-            {
-                List<int> listId = new List<int>();
-                listId.Add(id);
-
-                HttpContext.Session.Set<List<int>>("CartId", listId);
-            }
-            return ViewComponent("Cart", id);
-        }
+        
 
         public IActionResult ControlPanel()
         {

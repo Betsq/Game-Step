@@ -17,21 +17,24 @@ namespace Game_Step.ViewComponent
         {
             var listId = HttpContext.Session.Get<List<int>>("CartId");
             List<Cart> carts = new List<Cart>();
-
-            foreach (var id in listId)
+            if (listId != null)
             {
-                var game = db.Games.Find(id);
-                if (game != null)
+                foreach (var id in listId)
                 {
-                    Cart cart = new Cart
+                    var game = db.Games.Find(id);
+                    if (game != null)
                     {
-                        Id = game.Id,
-                        Name = game.Name,
-                        Price = game.Price,
-                    };
-                    carts.Add(cart);
+                        Cart cart = new Cart
+                        {
+                            Id = game.Id,
+                            Name = game.Name,
+                            Price = game.Price,
+                        };
+                        carts.Add(cart);
+                    }
                 }
             }
+
             return View(carts);
         }
     }
