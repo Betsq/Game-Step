@@ -7,20 +7,32 @@ namespace Game_Step.ViewComponent
 
     public class CartViewComponent : Microsoft.AspNetCore.Mvc.ViewComponent
     {
-        public CartViewComponent()
+        private readonly ApplicationContext db;
+        public CartViewComponent(ApplicationContext context)
         {
-
+            db = context;
         }
 
-        public IViewComponentResult Invoke(Game game)
+        public IViewComponentResult Invoke()
         {
-            List<Game> ls = new List<Game>
-            {
-               
-            };
-            ls.Add(game);
+            var listId = HttpContext.Session.Get<List<int>>("CartId");
+            List<Cart> carts = new List<Cart>();
 
-            return View(ls);
+            foreach (var id in listId)
+            {
+                var game = db.Games.Find(id);
+                if (game != null)
+                {
+                    Cart cart = new Cart
+                    {
+                        Id = game.Id,
+                        Name = game.Name,
+                        Price = game.Price,
+                    };
+                    carts.Add(cart);
+                }
+            }
+            return View(carts);
         }
     }
 }

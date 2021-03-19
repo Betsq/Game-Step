@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Game_Step.Models.Game>
+﻿@model IEnumerable<Game_Step.Models.Cart>
 
 <div class="popup" id="popup-1">
     <div class="overlay"></div>
@@ -6,13 +6,13 @@
         <div class="close-btn" onclick="togglePopup()">&times;</div>
         <h1>Title</h1>
         <p>
-            <h4>Список пользователей</h4>
+            <h4>Список товаров</h4>
             <ul>
-                @foreach (var user in Model)
+                @foreach (var prod in Model)
                 {
-                    <li>@user.Id</li>
-                    <li>@user.Name</li>
-                    <li>@user.Price</li>
+                    <li>@prod.Id</li>
+                    <li>@prod.Name</li>
+                    <li>@prod.Price</li>
                 }
             </ul>
         </p>

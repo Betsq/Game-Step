@@ -40,6 +40,9 @@ namespace Game_Step
 
             services.AddControllersWithViews();
 
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
             services.AddScoped<SelectItemHelper>();
         }
 
@@ -63,7 +66,7 @@ namespace Game_Step
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseSession();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

@@ -1,5 +1,7 @@
 ﻿using Game_Step.Models;
+using Game_Step.Util;
 using Game_Step.ViewComponent;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -22,11 +24,37 @@ namespace Game_Step.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> AddToCart(int id)
+        public IActionResult AddToCart(int id)
         {
-            var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
+            if (HttpContext.Session.Keys.Contains("CartId"))
+            {
+                bool isHaveId = false;
 
-            return ViewComponent("Cart", game);
+                var listId = HttpContext.Session.Get<List<int>>("CartId");
+
+                foreach (var lsId in listId)
+                {
+                    if (lsId == id)
+                    {
+                        isHaveId = true;
+
+                    }
+                }
+
+                if (isHaveId == false)
+                {
+                    listId.Add(id);
+                    HttpContext.Session.Set<List<int>>("CartId", listId);
+                }
+            }
+            else
+            {
+                List<int> listId = new List<int>();
+                listId.Add(id);
+
+                HttpContext.Session.Set<List<int>>("CartId", listId);
+            }
+            return ViewComponent("Cart", id);
         }
 
         public IActionResult ControlPanel()
