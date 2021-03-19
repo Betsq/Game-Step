@@ -4,6 +4,7 @@
     ViewBag.Title = Model.Name;
 }
 
+
 <div class="container-fluid" style=" position: relative;">
     <img src="~/img/Warhammer.jpg" style="width: 100%; height: 496px; position: absolute; top:0px; left: 0px; right: 0px; bottom: 0px" />
 </div>
@@ -68,7 +69,7 @@
                             <li class="mb-2 list-style-none">Моментальная доставка</li>
                             <li class="mb-2 list-style-none">Ключ активации в STEAM</li>
                             <li class="mb-2 list-style-none">Регион: Россия, Украина и СНГ</li>
-                            <li class="list-style-none">Накопительная скидка до 10%</li>
+                            <li class="mb-2 list-style-none">Накопительная скидка до 10%</li>
                         </ul>
                     </div>
                 </div>
@@ -77,8 +78,9 @@
                     <div class="col-md-12">
                         <div class="text-white d-flex justify-content-center" style="font-size: 48px;">119<sup style="top: 26px; font-size: 18px;">РУБ.</sup> </div>
                     </div>
-                    <a href="#" class="text-decoration-none col-md-12 d-flex justify-content-center pt-4 pb-4 text-white buy-button">В КОРЗИНУ</a>
+                    <button id="btnAddToCart" class="col-md-12 d-flex justify-content-center pt-4 pb-4 text-white buy-button" model-Id="@Model.Id">В КОРЗИНУ</button>
                 </div>
+
             </div>
 
             <div class="col-md-12">
@@ -148,3 +150,9 @@
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        window.Id = @Model.Id;
+    </script>
+}

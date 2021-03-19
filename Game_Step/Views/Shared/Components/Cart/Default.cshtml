@@ -1,8 +1,20 @@
-﻿<div class="popup" id="popup-1">
+﻿@model IEnumerable<string>
+
+<div class="popup" id="popup-1">
     <div class="overlay"></div>
     <div class="content">
         <div class="close-btn" onclick="togglePopup()">&times;</div>
         <h1>Title</h1>
-        <p>Sisi</p>
+        <p>
+            <h4>Список пользователей</h4>
+            <ul>
+                @foreach (var user in Model)
+                {
+                    <li>@user</li>
+                }
+            </ul>
+        </p>
     </div>
 </div>
+
+

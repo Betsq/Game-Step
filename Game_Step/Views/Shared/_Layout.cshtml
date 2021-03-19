@@ -4,9 +4,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
+
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+
 </head>
 <body>
     <header>
@@ -67,8 +69,12 @@
 
     <div>
         <main role="main" style="background-color: #F3F3F3;">
+
             @RenderBody()
-            @await Component.InvokeAsync("Cart");
+
+            <div id="cart">
+                dd
+            </div>
         </main>
     </div>
 
@@ -78,7 +84,3 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
-
-<script>
-
-</script>

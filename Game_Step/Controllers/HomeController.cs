@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Game_Step.Controllers
 {
@@ -17,6 +18,13 @@ namespace Game_Step.Controllers
         {
             db = context;
             _logger = logger;
+        }
+        
+        [HttpGet]
+        public IActionResult AddToCart(int id)
+        {
+            var f = id;
+            return ViewComponent("Cart", id);
         }
 
         public IActionResult ControlPanel()
