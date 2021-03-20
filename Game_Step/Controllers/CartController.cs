@@ -20,6 +20,7 @@ namespace Game_Step.Controllers
             return ViewComponent("Cart");
         }
 
+        [HttpPost]
         public JsonResult CountOfGoods()
         {
             //if CountOfGoods is set in the session, then we return json with the number of items in the cart.
@@ -94,6 +95,7 @@ namespace Game_Step.Controllers
                 if (isHaveIdinList == false)
                     HttpContext.Session.Set("CountOfGoods", 1);
             }
+
             return ViewComponent("Cart");
         }
 
