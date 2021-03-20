@@ -104,15 +104,26 @@ namespace Game_Step.Controllers
         {
             if (HttpContext.Session.Keys.Contains("CartId"))
             {
+                //get the list with id
                 var listId = HttpContext.Session.Get<List<int>>("CartId");
 
+                //Check if the passed "id" is in the list, if true, remove "id" from the list
                 foreach (var lsId in listId)
                 {
                     if (lsId == id)
                     {
                         listId.Remove(id);
                         HttpContext.Session.Set<List<int>>("CartId", listId);
+
+                        //Get item quantity
+                        int countOfGoods = HttpContext.Session.Get<int>("CountOfGoods");
+                        //Decrease the quantity of goods by 1
+                        countOfGoods -= 1;
+                        //Set the session object with a new value
+                        HttpContext.Session.Set("CountOfGoods", countOfGoods);
+
                         return ViewComponent("Cart");
+
                     }
                 }
             }

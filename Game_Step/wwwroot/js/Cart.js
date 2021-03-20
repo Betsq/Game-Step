@@ -12,17 +12,17 @@ $(document).ready(function () {
 });
 /*When adding an item to the cart, this function is called
 to update the display of the quantity of items.*/
-$(document).ready(function () {
-    $(".btn-Add-Cart").click(function () {
-        $.ajax({
-            url: window.location.origin + "/Cart/CountOfGoods",
-            type: "POST",
-            success: function (result) {
-                $("#quantity-goods").html(result);
-            },
-        });
-    });
-});
+//$(document).ready(function () {
+//    $(".btn-Add-Cart").click(function () {
+//        $.ajax({
+//            url: window.location.origin + "/Cart/CountOfGoods",
+//            type: "POST",
+//            success: function (result) {
+//                $("#quantity-goods").html(result);
+//            },
+//        });
+//    });
+//});
 
 
 $(document).ready(function () {

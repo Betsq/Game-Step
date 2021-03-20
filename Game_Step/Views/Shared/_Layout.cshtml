@@ -94,7 +94,17 @@
             });
         });
     </script>
-    
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: window.location.origin + "/Cart/CountOfGoods",
+                type: "POST",
+                success: function (result) {
+                    $("#quantity-goods").html(result);
+                },
+            });
+        });
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>
