@@ -20,11 +20,32 @@ namespace Game_Step.Controllers
             return ViewComponent("Cart");
         }
 
+        public JsonResult CountOfGoods()
+        {
+            //if CountOfGoods is set in the session, then we return json with the number of items in the cart.
+            //Otherwise, we return an empty string.
+            if (HttpContext.Session.Keys.Contains("CountOfGoods"))
+            {
+                var countOfGoods = HttpContext.Session.Get<int>("CountOfGoods");
+
+                //If the number of products is 0 or less, then delete the session object
+                if (countOfGoods <= 0)
+                {
+                    HttpContext.Session.Remove("CountOfGoods");
+                    return Json("");
+                }
+
+                return Json(countOfGoods);
+            }
+
+            return Json("");
+        }
+
         [HttpGet]
         public IActionResult AddToCart(int id)
         {
-            bool isHaveId = false;
-            int CountOfGoods;
+            bool isHaveIdinList = false;
+            int countOfGoods;
 
             //If the "cart" session is set
             if (HttpContext.Session.Keys.Contains("CartId"))
@@ -38,13 +59,13 @@ namespace Game_Step.Controllers
                 {
                     if (lsId == id)
                     {
-                        isHaveId = true;
+                        isHaveIdinList = true;
                         break;
                     }
                 }
-                    
+
                 //if "id" in the list is not found, we add "id" to the list
-                if (isHaveId == false)
+                if (isHaveIdinList == false)
                 {
                     listId.Add(id);
                     HttpContext.Session.Set("CartId", listId);
@@ -61,16 +82,16 @@ namespace Game_Step.Controllers
                 HttpContext.Session.Set("CartId", listId);
             }
 
-            if (HttpContext.Session.Keys.Contains("CountOfGoods") && isHaveId == false)
+            if (HttpContext.Session.Keys.Contains("CountOfGoods") && isHaveIdinList == false)
             {
-                CountOfGoods = HttpContext.Session.Get<int>("CountOfGoods");
+                countOfGoods = HttpContext.Session.Get<int>("CountOfGoods");
                 //add the number of items in the cart
-                CountOfGoods += 1;
-                HttpContext.Session.Set("CountOfGoods", CountOfGoods);
+                countOfGoods += 1;
+                HttpContext.Session.Set("CountOfGoods", countOfGoods);
             }
             else
             {
-                if (isHaveId == false)
+                if (isHaveIdinList == false)
                     HttpContext.Session.Set("CountOfGoods", 1);
             }
             return ViewComponent("Cart");
