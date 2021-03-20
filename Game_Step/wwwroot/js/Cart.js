@@ -2,32 +2,33 @@
 $(document).ready(function () {
     $(".btn-Add-Cart").click(function () {
         //Get from the attribute Id of the product
-        var modelId = this.getAttribute('model-Id');
+        var modelId = this.getAttribute('data-id');
         $.ajax({
             url: window.location.origin + "/Cart/AddToCart",
             type: "Get",
             data: { 'id': modelId },
+            success: function (result) {
+                $("#cart").html(result);
+            },
         });
     });
 });
-/*When adding an item to the cart, this function is called
-to update the display of the quantity of items.*/
-//$(document).ready(function () {
-//    $(".btn-Add-Cart").click(function () {
-//        $.ajax({
-//            url: window.location.origin + "/Cart/CountOfGoods",
-//            type: "POST",
-//            success: function (result) {
-//                $("#quantity-goods").html(result);
-//            },
-//        });
-//    });
-//});
+
+//Call function to display the number of items in the cart
+$(document).ready(function () {
+    $.ajax({
+        url: window.location.origin + "/Cart/CountOfGoods",
+        type: "POST",
+        success: function (result) {
+            $("#quantity-goods").html(result);
+        },
+    });
+});
 
 
 $(document).ready(function () {
     $(".btnDelProdCart").click(function () {
-        var modelCartId = this.getAttribute('model-id-in-cart');
+        var modelCartId = this.getAttribute('del-data-id');
         $.ajax({
             url: window.location.origin + "/Cart/DeleteProductInCart",
             type: "Get",

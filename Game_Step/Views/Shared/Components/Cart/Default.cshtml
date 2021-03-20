@@ -13,7 +13,7 @@
             @foreach (var prod in Model)
             {
                 <div class="col-md-12">
-                    <button class="btnDelProdCart" type="button" model-id-in-cart="@prod.Id">Remove</button>
+                    <button class="btnDelProdCart" type="button" del-data-id="@prod.Id">Remove</button>
                 </div>
                 <div class="col-md-12">@prod.Name</div>
                 <div class="col-md-12">@prod.Price</div>
