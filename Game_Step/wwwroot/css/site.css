@@ -1,10 +1,5 @@
 ﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
 for details on configuring this project to bundle and minify static web assets. */
-a.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
-}
 
 @font-face {
     font-family: Roboto;
@@ -15,9 +10,29 @@ a.navbar-brand {
     font-family: Roboto;
 }
 
-/* Provide sufficient contrast against white background */
+::-webkit-scrollbar {
+    width: 12px; /* ширина для вертикального скролла */
+    background-image: linear-gradient(to top, rgb(255, 255, 255), rgb(247, 247, 247),
+    rgb(240, 240, 240), rgb(232, 232, 232), rgb(224, 224, 224), rgb(217, 217, 217),
+    rgb(209, 209, 209), rgb(202, 202, 202), rgb(194, 194, 194), rgb(186, 186, 186),
+    rgb(179, 179, 179), rgb(171, 171, 171));
+}
+
+::-webkit-scrollbar-thumb {
+    background-image: linear-gradient(to top, rgb(255, 224, 99), rgb(254, 204, 103),
+    rgb(252, 183, 107), rgb(251, 163, 111), rgb(250, 143, 115), rgb(248, 122, 119),
+    rgb(247, 102, 124), rgb(245, 81, 128), rgb(244, 61, 132), rgb(243, 41, 136),
+    rgb(241, 20, 140), rgb(240, 0, 144));
+}
+
 a {
     color: #0366d6;
+}
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
 }
 
 .btn-primary {
