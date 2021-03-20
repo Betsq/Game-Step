@@ -5,12 +5,3 @@ function togglePopup() {
 }
 
 
-$(document).ready(function () {
-    $.ajax({
-        url: window.location.origin + "/Cart/CallCart",
-        type: "Get",
-        success: function (result) {
-            $("#cart").html(result);
-        },
-    });
-});

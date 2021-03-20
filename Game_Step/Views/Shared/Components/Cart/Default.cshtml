@@ -1,23 +1,23 @@
 ﻿@model IEnumerable<Game_Step.Models.Cart>
 
+@{ 
+    Layout = "/Views/Shared/_CartLayout.cshtml";
+}
 <div class="popup" id="popup-1">
     <div class="overlay"></div>
     <div class="content">
         <div class="close-btn" onclick="togglePopup()">&times;</div>
         <h1>Title</h1>
         <p>
-          
             <h4>Список товаров</h4>
-            <ul>
-                @foreach (var prod in Model)
-                {
-                    <li>@prod.Id</li>
-                    <li>@prod.Name</li>
-                    <li>@prod.Price</li>
-                }
-            </ul>
+            @foreach (var prod in Model)
+            {
+                <div class="col-md-12">
+                    <button class="btnDelProdCart" type="button" model-id-in-cart="@prod.Id">Remove</button>
+                </div>
+                <div class="col-md-12">@prod.Name</div>
+                <div class="col-md-12">@prod.Price</div>
+            }
         </p>
     </div>
 </div>
-
-

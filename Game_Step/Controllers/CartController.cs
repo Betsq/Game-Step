@@ -53,5 +53,25 @@ namespace Game_Step.Controllers
         {
             return ViewComponent("Cart");
         }
+
+        [HttpGet]
+        public IActionResult DeleteProductInCart(int id)
+        {
+            if (HttpContext.Session.Keys.Contains("CartId"))
+            {
+                var listId = HttpContext.Session.Get<List<int>>("CartId");
+
+                foreach (var lsId in listId)
+                {
+                    if (lsId == id)
+                    {
+                        listId.Remove(id);
+                        HttpContext.Session.Set<List<int>>("CartId", listId);
+                        return ViewComponent("Cart");
+                    }
+                }
+            }
+            return ViewComponent("Cart");
+        }
     }
 }

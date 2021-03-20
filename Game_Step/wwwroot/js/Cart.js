@@ -5,10 +5,21 @@
             url: window.location.origin + "/Cart/AddToCart",
             type: "Get",
             data: { 'id': modelId },
-            success: function (result) {
-                $("#cart").html(result);
-            },
         });
     });
 });
 
+$(document).ready(function () {
+    $(".btnDelProdCart").click(function () {
+        var modelCartId = this.getAttribute('model-id-in-cart');
+        $.ajax({
+            url: window.location.origin + "/Cart/DeleteProductInCart",
+            type: "Get",
+            data: { 'id': modelCartId },
+            success: function (result) {
+                $("#cart").html(result);
+            },
+        });
+    })
+    document.getElementById("popup-1").classList.toggle("active");
+});
