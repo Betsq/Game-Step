@@ -1,6 +1,6 @@
 ﻿//Call function add item to cart
 $(document).ready(function () {
-    $(".btn-Add-Cart").click(function () {
+    $("a.btn-add-cart").click(function () {
         //Get from the attribute Id of the product
         var modelId = this.getAttribute('data-id');
         $.ajax({

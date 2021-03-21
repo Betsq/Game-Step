@@ -104,16 +104,6 @@ body {
     list-style-type: none;
 }
 
-.buy-button {
-    background-color: #0094E9;
-    font-size: 18px;
-    transition: 0.5s;
-}
-
-.buy-button:hover {
-        background-color: #69DA58;
-}
-
 .panel {
     padding: 0 18px;
     background-color: white;

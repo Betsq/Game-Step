@@ -1,0 +1,21 @@
+﻿a{
+    text-decoration: none;
+}
+.btn-add-cart {
+    cursor: pointer;
+    color: white;
+    background-color: #0094E9;
+    padding-bottom: 1.5rem;
+    padding-top: 1.5rem;
+    font-size: 18px;
+    transition: 0.5s;
+    display: flex;
+    justify-content: center;
+
+}
+
+    .btn-add-cart:hover {
+        background-color: #69DA58;
+        text-decoration: none;
+        color: white;
+    }
