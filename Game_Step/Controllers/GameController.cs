@@ -230,7 +230,7 @@ namespace Game_Step.Controllers
             return NotFound();
         }
 
-        public async Task<IActionResult> GamePage(int? id)
+        public async Task<IActionResult> Game(int? id)
         {
             if (id != null)
             {
