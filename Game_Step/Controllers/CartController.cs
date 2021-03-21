@@ -42,6 +42,26 @@ namespace Game_Step.Controllers
             return Json("");
         }
 
+        [HttpPost]
+        public JsonResult IsProsuctInCart(int id)
+        {
+            if (HttpContext.Session.Keys.Contains("CartId"))
+            {
+                var listId = HttpContext.Session.Get<List<int>>("CartId");
+
+                //Check if the incoming "id" is already in the list
+                //DON'T FORGET TO CHANGE
+                foreach (var lsId in listId)
+                {
+                    if (lsId == id)
+                    {
+                        return Json(true);
+                    }
+                }
+            }
+            return Json(false);
+        }
+
         [HttpGet]
         public IActionResult AddToCart(int id)
         {

@@ -1,17 +1,18 @@
-﻿//Call function add item to cart
-$(document).ready(function () {
-    $("a.btn-add-cart").click(function () {
-        //Get from the attribute Id of the product
-        var modelId = this.getAttribute('data-id');
+﻿$(document).ready(function () {
+    $(".btnDelProdCart").click(function () {
+        var modelCartId = this.getAttribute('del-data-id');
         $.ajax({
-            url: window.location.origin + "/Cart/AddToCart",
+            url: window.location.origin + "/Cart/DeleteProductInCart",
             type: "Get",
-            data: { 'id': modelId },
+            data: { 'id': modelCartId },
             success: function (result) {
                 $("#cart").html(result);
+                //When remove from the shopping cart we change to this value
+                $('a.btn-add-cart').attr('href', 'javascript: void(0)');
             },
         });
-    });
+    })
+    document.getElementById("popup-1").classList.toggle("active");
 });
 
 //Call function to display the number of items in the cart
@@ -26,17 +27,3 @@ $(document).ready(function () {
 });
 
 
-$(document).ready(function () {
-    $(".btnDelProdCart").click(function () {
-        var modelCartId = this.getAttribute('del-data-id');
-        $.ajax({
-            url: window.location.origin + "/Cart/DeleteProductInCart",
-            type: "Get",
-            data: { 'id': modelCartId },
-            success: function (result) {
-                $("#cart").html(result);
-            },
-        });
-    })
-    document.getElementById("popup-1").classList.toggle("active");
-});
