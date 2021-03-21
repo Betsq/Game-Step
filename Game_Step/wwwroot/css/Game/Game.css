@@ -19,3 +19,10 @@
         text-decoration: none;
         color: white;
     }
+
+    .btn-add-cart.in-cart {
+        background-image: linear-gradient(to bottom right, rgb(255, 145, 0),
+        rgb(249, 149, 4), rgb(242, 152, 8), rgb(236, 156, 12), rgb(229, 159, 16),
+        rgb(223, 163, 20), rgb(216, 166, 24), rgb(210, 170, 28), rgb(203, 173, 32),
+        rgb(197, 177, 36), rgb(190, 180, 40), rgb(184, 184, 44));
+    }

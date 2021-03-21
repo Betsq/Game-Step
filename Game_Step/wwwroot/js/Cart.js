@@ -9,6 +9,10 @@
                 $("#cart").html(result);
                 //When remove from the shopping cart we change to this value
                 $('a.btn-add-cart').attr('href', 'javascript: void(0)');
+                //When remove a product, it changes the class
+                $('a.btn-add-cart').attr('class', 'btn-add-cart col-md-12');
+
+                $('#span-text-change').text('В КОРЗИНУ');
             },
         });
     })

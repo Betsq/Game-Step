@@ -27,7 +27,6 @@ left: 0px; right: 0px; bottom: 0px" />
                         <img class="scale" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))"
                              style="height:473px; width: 365px;" />
                     </div>
-
                 }
             </div>
             <div class="col-md-12" style="background-color: #3B3B3B; width: 365px; margin-top: 20px;">
@@ -85,7 +84,7 @@ left: 0px; right: 0px; bottom: 0px" />
                         </div>
                     </div>
                     <a href="javascript: void(0)" class="btn-add-cart col-md-12" data-id="@Model.Id">
-                        <span>В КОРЗИНУ</span>
+                        <span id="span-text-change">В КОРЗИНУ</span>
                     </a>
                 </div>
             </div>
