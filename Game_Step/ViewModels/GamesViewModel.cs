@@ -23,8 +23,6 @@ namespace Game_Step.ViewModels
 
         public string Genre { get; set; }
       
-        public string Article { get; set; }
-      
         public string Language { get; set; }
       
         public DateTime ReleaseDate { get; set; }
@@ -38,7 +36,6 @@ namespace Game_Step.ViewModels
         public string Region { get; set; }
        
         public string WhereKeyActivated { get; set; }
-
       
         public string RecommendOC { get; set; }
         

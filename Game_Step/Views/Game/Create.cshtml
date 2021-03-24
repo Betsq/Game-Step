@@ -9,7 +9,6 @@
 <div class="container">
     <form asp-action="Create" asp-controller="Game" method="post" enctype="multipart/form-data">
         Info about games
-        <input class="col-md-12 mb-3" type="text" asp-for="Article" placeholder="Article" />
         <input class="col-md-12 mb-3" type="text" asp-for="Name" placeholder="Name" />
         <select class="col-md-12 mb-3" asp-for="Genre" asp-items="Game_Step.Util.SelectItemHelper.GetGenre()"></select>
         <input class="col-md-12 mb-3" type="file" asp-for="Image" accept=".png, .jpg, .jpeg" />

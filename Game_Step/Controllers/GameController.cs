@@ -51,7 +51,6 @@ namespace Game_Step.Controllers
 
             Game game = new Game
             {
-                Article = gamesViewModel.Article,
                 Name = gamesViewModel.Name,
                 Price = gamesViewModel.Price,
                 Description = gamesViewModel.Description,
@@ -112,7 +111,6 @@ namespace Game_Step.Controllers
                     GamesViewModel gamesViewModel = new GamesViewModel
                     {
                         Id = game.Id,
-                        Article = game.Article,
                         Name = game.Name,
                         Price = game.Price,
                         Description = game.Description,
@@ -163,7 +161,6 @@ namespace Game_Step.Controllers
             if (game != null)
             {
                 game.Id = gamesViewModel.Id;
-                game.Article = gamesViewModel.Article;
                 game.Name = gamesViewModel.Name;
                 game.Price = gamesViewModel.Price;
                 game.Description = gamesViewModel.Description;
