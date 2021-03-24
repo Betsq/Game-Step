@@ -12,7 +12,7 @@
                 //When remove a product, it changes the class
                 $('a.buy-button').attr('class', 'buy-button no-cart');
 
-                $('#span-text-change').text('В КОРЗИНУ');
+                $('a.buy-button').text('В КОРЗИНУ');
             },
         });
     })

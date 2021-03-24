@@ -11,7 +11,7 @@
                 //When the product in cart, it changes the class
                 $('a.buy-button').attr('class', 'buy-button in-cart');
 
-                $('#span-text-change').text('В КОРЗИНЕ');
+                $('a.buy-button').text('В КОРЗИНЕ');
             }
         },
     });
@@ -33,7 +33,7 @@ $(document).ready(function () {
                 //When adding a product, it changes the class
                 $('a.buy-button').attr('class', 'buy-button in-cart');
 
-                $('#span-text-change').text('В КОРЗИНЕ');
+                $('a.buy-button').text('В КОРЗИНЕ');
             },
         });
     });
@@ -44,11 +44,11 @@ $(document).ready(function () {
 
     $(".btn-show-req").click(function () {
         $("#panel-show-req").slideToggle("slow");
-        if ($("#arrow-show-req").hasClass("arrow arrow-up")) {
-            $("#arrow-show-req").attr("class", "arrow arrow-down");
+        if ($("#arrow-show-req").hasClass("arrow arrow-down")) {
+            $("#arrow-show-req").attr("class", "arrow arrow-up");
         }
         else {
-            $("#arrow-show-req").attr("class", "arrow arrow-up");
+            $("#arrow-show-req").attr("class", "arrow arrow-down");
         }
     });
 });
