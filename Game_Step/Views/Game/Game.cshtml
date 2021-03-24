@@ -2,161 +2,198 @@
 
 @{
     ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section Style{
     <link href="~/css/Game/Game.css" rel="stylesheet" />
 }
-<div class="container-fluid" style=" position: relative;">
-    <img src="~/img/Warhammer.jpg" style="width: 100%; height: 496px; position: absolute; top:0px;
-left: 0px; right: 0px; bottom: 0px" />
+<div class="position-relative">
+    <img class="product-bg" src="~/img/Warhammer.jpg" alt="Alternate Text" />
+
 </div>
 
-<div class="container d-flex flex-column mb-0 pb-0">
-
-    <h1 class="col-md-12 text-white pl-0" style="padding-top: 50px; padding-bottom:50px;">
-        @Model.Name
-    </h1>
-
-    <div class="col-md-12 d-flex p-0">
-        <div class="col-md-4 p-0">
-            <div class="col-md-12 p-0">
-                @if (Model.Image != null)
-                {
-                    <div class="scale" style="height:473px; width: 365px;">
-                        <img class="scale" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))"
-                             style="height:473px; width: 365px;" />
-                    </div>
-                }
+<div class="main-content">
+    <div class="product-name">
+        <h1>Warhammer</h1>
+    </div>
+    <div class="product-content">
+        <div class="product-left">
+            <div class="scale-img">
+                <img class="scale-img" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
             </div>
-            <div class="col-md-12" style="background-color: #3B3B3B; width: 365px; margin-top: 20px;">
-                <ul class="p-0">
-                    <li class="d-flex pt-3 pb-3 list-style-none">
-                        <div class="color-8B8B8B" style="min-width: 35%;">Genre</div>
-                        <div class="text-white">@Model.Genre</div>
+
+            <div class="product-advantages-mobile">
+                <ul>
+                    <li>
+                        Наличие: много
                     </li>
-                    <li class="d-flex pb-3 list-style-none">
-                        <div class="color-8B8B8B" style="min-width: 35%;">Language</div>
-                        <div class="text-white">@Model.Language</div>
+                    <li>
+                        Моментальная доставка
                     </li>
-                    <li class="d-flex pb-3 list-style-none">
-                        <div class="color-8B8B8B" style="min-width: 35%;">Release Date</div>
-                        <div class="text-white">@Model.ReleaseDate</div>
+                    <li>
+                        Лицензионный ключ активации в Origin
                     </li>
-                    <li class="d-flex pb-3 list-style-none">
-                        <div class="color-8B8B8B" style="min-width: 35%;">Publisher</div>
-                        <div class="text-white">@Model.Publisher</div>
+                    <li>
+                        Накопительная скидка до 10%
                     </li>
-                    <li class="d-flex pb-3 list-style-none">
-                        <div class="color-8B8B8B" style="min-width: 35%;">Developer</div>
-                        <div class="text-white">@Model.Developer</div>
+                </ul>
+            </div>
+
+            <div class="product-info">
+                <ul>
+                    <li>
+                        <div class="product-info-key">Genre</div>
+                        <div class="product-info-value">@Model.Genre</div>
                     </li>
-                    <li class="d-flex pb-3 list-style-none">
-                        <div class="color-8B8B8B" style="min-width: 35%;">Features</div>
-                        <div class="text-white">@Model.Features</div>
+                    <li>
+                        <div class="product-info-key">Language</div>
+                        <div class="product-info-value">@Model.Language</div>
                     </li>
-                    <li class="d-flex pb-3 list-style-none">
-                        <div class="color-8B8B8B" style="min-width: 35%;">Region</div>
-                        <div class="text-white">@Model.Region</div>
+                    <li>
+                        <div class="product-info-key">Genre</div>
+                        <div class="product-info-value">@Model.Genre</div>
+                    </li>
+                    <li>
+                        <div class="product-info-key">Language</div>
+                        <div class="product-info-value">@Model.Language</div>
                     </li>
                 </ul>
             </div>
         </div>
 
-        <div class="col-md-8 p-0">
-            <div class="col-md-12 p-0  d-flex flex-row" style="height: 340px;">
-                <div class="col-md-5 p-0">
-                    <div class="pt-4 pb-4 pl-3" style="opacity: 0.7; background-color: black;">
-                        <ul class="p-0 m-0 text-white">
-                            <li class="mb-2 list-style-none">Наличие: много</li>
-                            <li class="mb-2 list-style-none">Моментальная доставка</li>
-                            <li class="mb-2 list-style-none">Ключ активации в STEAM</li>
-                            <li class="mb-2 list-style-none">Регион: Россия, Украина и СНГ</li>
-                            <li class="mb-2 list-style-none">Накопительная скидка до 10%</li>
-                        </ul>
-                    </div>
+        <div class="product-right">
+            <div class="product-header">
+                <div class="product-advantages">
+                    <ul>
+                        <li>
+                            Наличие: много
+                        </li>
+                        <li>
+                            Моментальная доставка
+                        </li>
+                        <li>
+                            Лицензионный ключ активации в Origin
+                        </li>
+                        <li>
+                            Накопительная скидка до 10%
+                        </li>
+                    </ul>
                 </div>
-
-                <div class="col-md-7">
-                    <div class="col-md-12">
-                        <div class="text-white d-flex justify-content-center" style="font-size: 48px;">
-                            119<sup style="top: 26px; font-size: 18px;">РУБ.</sup>
+                <div class="product-cart-block">
+                    <div class="price-block">
+                        <div class="price-discount">
+                            -10%
+                        </div>
+                        <div class="product-price">
+                            <div class="old-price">
+                                456 руб.
+                            </div>
+                            <div class="current-price-product">
+                                345
+                                <sup class="sup-price-cur">РУБ.</sup>
+                            </div>
                         </div>
                     </div>
-                    <a href="javascript: void(0)" class="btn-add-cart col-md-12" data-id="@Model.Id">
-                        <span id="span-text-change">В КОРЗИНУ</span>
-                    </a>
+                    <div class="product-md-block">
+                        <div class="buy-button">
+                            В КОРЗИНУ
+                        </div>
+                        <div class="product-help">
+                            <div class="info-how-activate-key">
+                                Как активировать
+                            </div>
+                            <div class="subscribe-price">
+                                Хочу дешевле
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <div class="product-info--mobile">
+                <ul>
+                    <li>
+                        <div class="product-info-key">Genre</div>
+                        <div class="product-info-value">@Model.Genre</div>
+                    </li>
+                    <li>
+                        <div class="product-info-key">Language</div>
+                        <div class="product-info-value">@Model.Language</div>
+                    </li>
+                    <li>
+                        <div class="product-info-key">Genre</div>
+                        <div class="product-info-value">@Model.Genre</div>
+                    </li>
+                    <li>
+                        <div class="product-info-key">Language</div>
+                        <div class="product-info-value">@Model.Language</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="description">
+                @Html.Raw(Model.Description)
+            </div>
+            <div class="requirements-system">
+                <h2>Minimum system requirements</h2>
+                <ul>
+                    <li>
+                        <div class="requirements-system-key">OC</div>
+                        <div>@Model.MinimumOC</div>
+                    </li>
+                    <li>
+                        <div class="requirements-system-key">CPU</div>
+                        <div>@Model.MinimumCPU</div>
+                    </li>
+                    <li>
+                        <div class="requirements-system-key">RAM</div>
+                        <div>@Model.MinimumRAM</div>
+                    </li>
+                    <li>
+                        <div class="requirements-system-key">VideoCard</div>
+                        <div>@Model.MinimumVideoCard</div>
+                    </li>
+                    <li>
+                        <div class="requirements-system-key">DirectX</div>
+                        <div>@Model.MinimumDirectX</div>
+                    </li>
+                    <li>
+                        <div class="requirements-system-key">HDD</div>
+                        <div>@Model.MinimumHDD</div>
+                    </li>
+                </ul>
 
-            <div class="col-md-12">
-                <div class="col-md-12 bg-white m-3 p-3">
-                    <h2>Description</h2>
-                    <div>@Html.Raw(Model.Description)</div>
-                </div>
-
-                <div class="col-md-12 bg-white mr-3 ml-3 mb-3 p-3">
-                    <h2 style="font-size: 18px;">Minimum system requirements</h2>
-                    <ul>
-                        <li class="d-flex pt-2 pb-2 list-style-none">
-                            <div style="min-width: 25%;">OC</div>
-                            <div>@Model.MinimumOC</div>
-                        </li>
-                        <li class="d-flex pb-2 list-style-none">
-                            <div style="min-width: 25%;">CPU</div>
-                            <div>@Model.MinimumCPU</div>
-                        </li>
-                        <li class="d-flex pb-2 list-style-none">
-                            <div style="min-width: 25%;">RAM</div>
-                            <div>@Model.MinimumRAM</div>
-                        </li>
-                        <li class="d-flex pb-2 list-style-none">
-                            <div style="min-width: 25%;">VideoCard</div>
-                            <div>@Model.MinimumVideoCard</div>
-                        </li>
-                        <li class="d-flex pb-2 list-style-none">
-                            <div style="min-width: 25%;">DirectX</div>
-                            <div>@Model.MinimumDirectX</div>
-                        </li>
-                        <li class="d-flex pb-2 list-style-none">
-                            <div style="min-width: 25%;">HDD</div>
-                            <div>@Model.MinimumHDD</div>
-                        </li>
-                    </ul>
-
-                    <h2 style="font-size: 18px;">Recommend system requirements</h2>
-                    <ul>
-                        <li class="d-flex pb-2 pt-2 list-style-none">
-                            <div style="min-width: 25%;">OC</div>
-                            <div>@Model.RecommendOC</div>
-                        </li>
-                        <li class="d-flex pb-2 list-style-none">
-                            <div style="min-width: 25%;">CPU</div>
-                            <div>@Model.RecommendCPU</div>
-                        </li>
-                        <li class="d-flex pb-2 list-style-none">
-                            <div style="min-width: 25%;">RAM</div>
-                            <div>@Model.RecommendRAM</div>
-                        </li>
-                        <li class="d-flex pb-2 list-style-none">
-                            <div style="min-width: 25%;">VideoCard</div>
-                            <div>@Model.RecommendVideoCard</div>
-                        </li>
-                        <li class="d-flex pb-2 list-style-none">
-                            <div style="min-width: 25%;">DirectX</div>
-                            <div>@Model.RecommendDirectX</div>
-                        </li>
-                        <li class="d-flex pb-2 list-style-none">
-                            <div style="min-width: 25%;">HDD</div>
-                            <div>@Model.RecommendHDD</div>
-                        </li>
-                    </ul>
-                </div>
+                <h2>Recommend system requirements</h2>
+                <ul>
+                    <li>
+                        <div class="requirements-system-key">OC</div>
+                        <div>@Model.MinimumOC</div>
+                    </li>
+                    <li>
+                        <div class="requirements-system-key">CPU</div>
+                        <div>@Model.MinimumCPU</div>
+                    </li>
+                    <li>
+                        <div class="requirements-system-key">RAM</div>
+                        <div>@Model.MinimumRAM</div>
+                    </li>
+                    <li>
+                        <div class="requirements-system-key">VideoCard</div>
+                        <div>@Model.MinimumVideoCard</div>
+                    </li>
+                    <li>
+                        <div class="requirements-system-key">DirectX</div>
+                        <div>@Model.MinimumDirectX</div>
+                    </li>
+                    <li>
+                        <div class="requirements-system-key">HDD</div>
+                        <div>@Model.MinimumHDD</div>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
 </div>
 
-@section Scripts{ 
+@section Scripts{
     <script src="~/js/Game/Game.js"></script>
 }

@@ -1,28 +1,363 @@
-﻿a{
-    text-decoration: none;
+html, body{
+    padding: 0px;
+    margin: 0px;
 }
-.btn-add-cart {
-    cursor: pointer;
+
+.product-bg{
+    width: 100%;
+    height: 496px;
+    position: absolute;
+    
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px
+}
+
+.product-name{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    max-width: 1236px;
     color: white;
-    background-color: #0094E9;
-    padding-bottom: 1.5rem;
-    padding-top: 1.5rem;
-    font-size: 18px;
-    transition: 0.5s;
+    margin: 0 auto;
+}
+
+
+.product-content{
+   position: relative;
+    max-width: 1236px;
+    display: flex;
+    margin: auto auto;
+}
+
+.product-left{
+    width: 375px;
+}
+
+.scale-img {
+    display: inline-block;
+    overflow: hidden;
+}
+
+.scale-img img {
+    transition: 1s;
+    display: block;
+}
+
+.scale-img img:hover {
+    transform: scale(1.05);
+}        
+
+.product-info, .product-info--mobile{
+    width: 375px;
+    margin-top: 15px;
+    background-color: #3B3B3B;
+}
+
+.product-info ul, .product-info--mobile ul {
+    padding: 1rem;
+}
+
+.product-info ul li, .product-info--mobile ul li{
+    margin-bottom: 0.5rem;
+    display: flex;
+}
+
+.product-info-key{
+    color: #8B8B8B;
+    min-width: 35%;
+}
+
+.product-info-value{
+    color: white;
+}
+
+.product-right{
+    max-width: 783px;
+    flex: 1;
+}
+
+.product-header{
+    top: 0;
+    min-height: 416px;
+    display: flex;
+}
+
+.product-advantages{
+    width: 370px;
+   margin: 20px;
+}
+.product-advantages ul, .product-advantages-mobile ul{
+    margin: 0;
+    padding: 0;
+    padding: 27px 25px;
+    background-color: black;
+    opacity: 0.5; 
+    list-style: none;
+    font-size: 16px;
+    color: white;
+}
+
+.product-advantages ul li, .product-advantages-mobile ul li{
+    padding-top: 11px;
+    list-style: none;
+}
+
+.product-advantages-mobile{
+    display: none;
+}
+
+.product-cart-block{
+    flex: 1;
+    margin-left: 10px;
+  
+}
+
+.price-block{
+    display: flex;
+}
+
+.price-discount{
+    font-weight: 700;
+    font-size: 30px;
+    padding: 30px 18px;
+    color: white;
+}
+.old-price {
+    display: flex;
+    flex: 1;
+    text-decoration: line-through;
+    text-transform: uppercase;
+    font-size: 14px;
+}
+
+.current-price-product{
+    width: 100%;
+    color: white;
+    font-weight: 700;
+    font-size: 48px;
+}
+.sup-price-cur{
+    font-size: 14px;
+}
+
+.product-md-block{
+    
+}
+
+.buy-button{
+    background-color: aqua;
+    flex: 1;
     display: flex;
     justify-content: center;
-
+    align-content: center;
+    padding: 25px 27px;
 }
 
-    .btn-add-cart:hover {
-        background-color: #69DA58;
-        text-decoration: none;
-        color: white;
+.product-help {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 17px;
+    font-size: 14px;
+    color: white;
+}
+
+.info-how-activate-key{
+    padding: 10px 20px 10px 48px;
+    border: 1px solid hsla(0,0%,68%,.35);
+}
+
+.subscribe-price{
+    padding: 10px 20px 10px 48px;
+    border: 1px solid hsla(0,0%,68%,.35);
+}
+
+.product-info--mobile{
+    display: none;
+}
+.product-buy-button.in-cart {
+    background-image: linear-gradient(to bottom right, rgb(255, 145, 0),
+    rgb(249, 149, 4), rgb(242, 152, 8), rgb(236, 156, 12), rgb(229, 159, 16),
+    rgb(223, 163, 20), rgb(216, 166, 24), rgb(210, 170, 28), rgb(203, 173, 32),
+    rgb(197, 177, 36), rgb(190, 180, 40), rgb(184, 184, 44));
+}
+
+.description{
+    width: 100%;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: white;
+}
+
+.requirements-system {
+    width: 100%;
+    margin: 1rem;
+    background-color: white;
+    padding: 1rem;
+}
+
+
+.requirements-system ul{
+    list-style: none;
+}
+
+.requirements-system ul li{
+    display: flex;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.requirements-system-key{
+    min-width: 25%;
+}
+.main-content {
+    position: relative;
+    margin: 0 auto;
+    max-width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+@media (max-width: 442px){
+    .product-help{
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .info-how-activate-key{
+        margin-bottom: 10px;
     }
 
-    .btn-add-cart.in-cart {
-        background-image: linear-gradient(to bottom right, rgb(255, 145, 0),
-        rgb(249, 149, 4), rgb(242, 152, 8), rgb(236, 156, 12), rgb(229, 159, 16),
-        rgb(223, 163, 20), rgb(216, 166, 24), rgb(210, 170, 28), rgb(203, 173, 32),
-        rgb(197, 177, 36), rgb(190, 180, 40), rgb(184, 184, 44));
+    .subscribe-price{
+        margin-bottom: 10px;
     }
+
+    .scale-img{
+        width: 100%;
+        padding: 10px;
+    }
+
+    .main-content{
+        padding: 0;
+        margin: 0;
+    }
+
+    .product-content{
+        padding: 10px;
+    }
+
+    .product-name{
+        display: flex;
+        justify-content: center;
+    }
+}
+
+@media(max-width: 770px){
+    .product-cart-block{
+        display: inline !important;
+    }
+
+    .price-block{
+        justify-content: center;
+    }
+}
+
+@media (max-width: 991px) {
+    .main-content {
+        max-width: 980px;
+    }  
+    .product-content{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-left{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .product-right{
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .product-header{
+        flex-direction: column-reverse;
+        justify-content: center;
+    }
+    .product-advantages{
+        display: block;
+        width: 100%;
+        margin: 0;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        justify-content: center;
+        background-color: #171717;
+    }
+    .product-advantages-mobile{
+        display: none;
+    }
+    
+    .product-info{
+        display: none;
+    }
+
+    .product-info--mobile{
+        display: block;
+        width: 100%;
+        justify-content: center;
+
+    }
+    .product-cart-block{
+        width: 100%;
+        margin: 0;
+        margin-top: 20px;
+        display: flex;
+    }
+
+    .product-md-block{
+        width: 100%;
+    }
+
+    .price-block{
+        margin-right: 40px;
+    }
+
+    .sup-price-cur{
+        position: absolute;
+    }
+
+    .current-price-product{
+        color: black;
+    }
+    .price-discount{
+        color: black;
+    }
+
+    .description{
+        margin: 0;
+        margin-bottom: 20px;
+    }
+
+    .requirements-system {
+        margin: 0;
+    }
+
+    .product-help{
+        color: black;
+    }
+}
+
+@media (max-width: 1220px) and (min-width: 991px){
+    .product-advantages{
+        display: none;
+    }
+    .product-advantages-mobile{
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 15px;
+        background-color: #171717;
+    }
+}
+

@@ -10,6 +10,11 @@ for details on configuring this project to bundle and minify static web assets. 
     font-family: Roboto;
 }
 
+html, body{
+    padding: 0px;
+    margin: 0px;
+}
+
 ::-webkit-scrollbar {
     width: 12px; /* ширина для вертикального скролла */
     background-image: linear-gradient(to top, rgb(255, 255, 255), rgb(247, 247, 247),
@@ -24,6 +29,51 @@ for details on configuring this project to bundle and minify static web assets. 
     rgb(247, 102, 124), rgb(245, 81, 128), rgb(244, 61, 132), rgb(243, 41, 136),
     rgb(241, 20, 140), rgb(240, 0, 144));
 }
+
+.main-content {
+    max-width: 100%;
+}
+
+@media (min-width: 576px) {
+    .main-content {
+        max-width: 540px;
+    }
+}
+
+@media (min-width: 768px) {
+    .main-content {
+        max-width: 720px;
+    }
+}
+
+@media (min-width: 992px) {
+    .main-content {
+        max-width: 960px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .main-content {
+        max-width: 1140px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 a {
     color: #0366d6;
@@ -99,24 +149,6 @@ body {
 
 .color-8B8B8B {
     color: #8B8B8B;
-}
-
-.scale {
-    display: inline-block;
-    overflow: hidden;
-}
-
-    .scale img {
-        transition: 1s;
-        display: block;
-    }
-
-        .scale img:hover {
-            transform: scale(1.05);
-        }
-
-.list-style-none {
-    list-style-type: none;
 }
 
 .panel {
