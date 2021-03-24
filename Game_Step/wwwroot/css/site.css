@@ -58,25 +58,9 @@ html, body{
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 a {
     color: #0366d6;
+    text-decoration: none;
 }
 
 a.navbar-brand {

@@ -6,7 +6,7 @@
         data: { 'id': modelId },
         success: function (result) {
             if (result === true) {
-                 //When the product in cart, it changes the link of the button to go to the cart
+                //When the product in cart, it changes the link of the button to go to the cart
                 $('a.btn-add-cart').attr('href', '/Game');
                 //When the product in cart, it changes the class
                 $('a.btn-add-cart').attr('class', 'btn-add-cart in-cart col-md-12');
@@ -36,5 +36,19 @@ $(document).ready(function () {
                 $('#span-text-change').text('В КОРЗИНЕ');
             },
         });
+    });
+});
+
+//function to call the slide panel 
+$(document).ready(function () {
+
+    $(".btn-show-req").click(function () {
+        $("#panel-show-req").slideToggle("slow");
+        if ($("#arrow-show-req").hasClass("arrow arrow-up")) {
+            $("#arrow-show-req").attr("class", "arrow arrow-down");
+        }
+        else {
+            $("#arrow-show-req").attr("class", "arrow arrow-up");
+        }
     });
 });
