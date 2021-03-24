@@ -15,11 +15,10 @@ html, body{
 }
 
 .product-name{
-    margin-top: 1rem;
-    margin-bottom: 1rem;
     max-width: 1236px;
     color: white;
-    margin: 0 auto;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
 
@@ -79,7 +78,7 @@ html, body{
 
 .product-header{
     top: 0;
-    min-height: 416px;
+    min-height: 435px;
     display: flex;
 }
 
@@ -137,8 +136,11 @@ html, body{
     font-weight: 700;
     font-size: 48px;
 }
-.sup-price-cur{
-    font-size: 14px;
+.sup-price-cur {
+    font-size: 18px;
+    position: relative;
+    top: -36px;
+    left: -10px;
 }
 
 .product-md-block{
@@ -260,6 +262,11 @@ html, body{
     .price-block{
         justify-content: center;
     }
+
+    .sup-price-cur {
+        top: -28px !important;
+        left: -10px !important; 
+    }
 }
 
 @media (max-width: 991px) {
@@ -306,6 +313,7 @@ html, body{
     .product-info--mobile{
         display: block;
         width: 100%;
+        margin: 0;
         justify-content: center;
 
     }
@@ -324,12 +332,16 @@ html, body{
         margin-right: 40px;
     }
 
-    .sup-price-cur{
-        position: absolute;
+    .sup-price-cur {
+        position: relative;
+        top: -85px;
+        left: 63px;
+        font-size: 14px;
     }
 
     .current-price-product{
         color: black;
+        font-size: 38px;
     }
     .price-discount{
         color: black;

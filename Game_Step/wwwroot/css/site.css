@@ -2,12 +2,12 @@
 for details on configuring this project to bundle and minify static web assets. */
 
 @font-face {
-    font-family: Roboto;
-    src: url("../fonts/Roboto-Regular.ttf");
+    font-family: OpenSans;
+    src: url("../fonts/OpenSans-Regular.ttf");
 }
 
 * {
-    font-family: Roboto;
+    font-family: OpenSans, Roboto;
 }
 
 html, body{
