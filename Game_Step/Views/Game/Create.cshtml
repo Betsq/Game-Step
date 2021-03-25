@@ -13,6 +13,7 @@
         <select class="col-md-12 mb-3" asp-for="Genre" asp-items="Game_Step.Util.SelectItemHelper.GetGenre()"></select>
         <input class="col-md-12 mb-3" type="file" asp-for="Image" accept=".png, .jpg, .jpeg" />
         <textarea asp-for="Description"></textarea>
+        <input class="col-md-12 mb-3" type="text" asp-for="Price" placeholder="Price" />
         <input class="col-md-12 mb-3" type="text" asp-for="Language" placeholder="Language" />
         <input class="col-md-12 mb-3" type="number" asp-for="QuantityOfGoods" placeholder="Quantity of goods" />
         <label class="col-md-12 mb-3" asp-for="ReleaseDate"></label>

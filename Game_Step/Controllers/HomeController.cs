@@ -30,9 +30,10 @@ namespace Game_Step.Controllers
             return View();
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var game = await db.Games.ToListAsync();
+            return View(game);
         }
 
 

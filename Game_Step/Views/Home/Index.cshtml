@@ -1,5 +1,9 @@
-﻿@{
+﻿@model IEnumerable<Game_Step.Models.Game>
+
+@{
     ViewBag.Title = "Game Step";
+
+    int counter = 0;
 }
 
 @section Style{
@@ -23,29 +27,38 @@
             </div>
 
             <div class="catalog">
-                <a class="catalog-item" href="#">
-                    <div class="block-img-catalog-item">
-                        <img class="img-catalog-item" src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg"><img />
-                    </div>
+                @foreach (var m in Model)
+                {
+                    @if (counter == 8)
+                    {
+                        counter = 0;
+                        break;
+                    }
+                    <a class="catalog-item">
+                        <div class="block-img-catalog-item">
+                            <img class="img-catalog-item" src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg"><img />
+                        </div>
 
-                    <div class="catalog-item-info">
-                        <div class="name-product">Fallout 4</div>
-                        <div class="more-info">
-                            <div class="where-activate-product">
-                                <img src="~/img/steam.png" alt="Steam">
+                        <div class="catalog-item-info">
+                            <div class="name-product">@m.Name</div>
+                            <div class="more-info">
+                                <div class="where-activate-product">
+                                    <img src="~/img/steam.png" alt="Steam">
+                                </div>
+                                <div class="genre-product"> Экшены, RPG</div>
                             </div>
-                            <div class="genre-product"> Экшены, RPG</div>
                         </div>
-                    </div>
-                    <div class="item-price">
-                        <div class="discount-item">
-                            -36%
+                        <div class="item-price">
+                            <div class="discount-item">
+                                -36%
+                            </div>
+                            <div class="cur-price-item">
+                                @m.Price $.
+                            </div>
                         </div>
-                        <div class="cur-price-item">
-                            324 $.
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                    counter++;
+                }
 
                 <a class="catalog-item-more-games" href="">
                     ЕЩЕ 4234 ИГР
@@ -59,21 +72,28 @@
                     Скидки
                     <sup>от 40%</sup>
                 </div>
-
-                <a href="" class="discount-product-aside">
-                    <div class="discount-product-aside-img">
-                        <img src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg" alt="xxx">
-                    </div>
-
-                    <div class="discount-product-aside-name">Fallout 4 </div>
-                    <div class="discount-product-aside-price">
-                        <div class="discount-prod-aside">
-                            <span>-32%</span>
+                @foreach (var g in Model)
+                {
+                    @if (counter == 4)
+                    {
+                        counter = 0;
+                        break;
+                    }
+                    <a href="" class="discount-product-aside">
+                        <div class="discount-product-aside-img">
+                            <img src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg" alt="xxx">
                         </div>
-                        435 $.
-                    </div>
-                </a>
 
+                        <div class="discount-product-aside-name">Fallout 4 </div>
+                        <div class="discount-product-aside-price">
+                            <div class="discount-prod-aside">
+                                <span>-32%</span>
+                            </div>
+                            435 $.
+                        </div>
+                    </a>
+                    counter++;
+                }
 
                 <a class="more-discount-product-aside" href="">
                     ЕЩЕ 3124 ИГР
@@ -84,19 +104,28 @@
                 <div class="last-sell-info">
                     Последние продажи
                 </div>
-                <a href="" class="discount-product-aside">
-                    <div class="discount-product-aside-img">
-                        <img src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg" alt="xxx">
-                    </div>
-
-                    <div class="discount-product-aside-name">Fallout 4 </div>
-                    <div class="discount-product-aside-price">
-                        <div class="discount-prod-aside">
-                            <span>-32%</span>
+                @foreach (var g in Model)
+                {
+                    @if (counter == 4)
+                    {
+                        counter = 0;
+                        break;
+                    }
+                    <a href="" class="discount-product-aside">
+                        <div class="discount-product-aside-img">
+                            <img src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg" alt="xxx">
                         </div>
-                        435 $.
-                    </div>
-                </a>
+
+                        <div class="discount-product-aside-name">Fallout 4 </div>
+                        <div class="discount-product-aside-price">
+                            <div class="discount-prod-aside">
+                                <span>-32%</span>
+                            </div>
+                            435 $.
+                        </div>
+                    </a>
+                    counter++;
+                }
             </div>
         </div>
     </div>
