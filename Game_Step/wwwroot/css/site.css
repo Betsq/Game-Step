@@ -16,6 +16,11 @@ main {
     background-color: #F3F3F3;
 }
 
+a{
+    text-decoration: none;
+}
+
+
 .main-content {
     position: relative;
     margin: 0 auto;
@@ -29,6 +34,7 @@ main {
     max-width: 1236px;
     display: flex;
     margin: auto auto;
+    margin-top: 24px;
 }
 
 ::-webkit-scrollbar {
