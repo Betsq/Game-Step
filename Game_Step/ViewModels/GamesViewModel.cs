@@ -11,20 +11,25 @@ namespace Game_Step.ViewModels
     {
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
         
+        [Required]
         public int Price { get; set; }
-
+        
+        [Required]
         public IFormFile Image { get; set; }
         
         public string Description { get; set; }
 
+        [Required]
         public int QuantityOfGoods { get; set; }
 
         public string Genre { get; set; }
       
         public string Language { get; set; }
       
+        [Required]
         public DateTime ReleaseDate { get; set; }
      
         public string Publisher { get; set; }

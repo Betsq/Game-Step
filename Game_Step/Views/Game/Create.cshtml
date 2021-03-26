@@ -5,42 +5,138 @@
 @{
     ViewBag.Title = "Adding Game";
 }
+<style>
+    .arrow {
+        border: solid black;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 2px;
+        position: relative;
+        top: -2px;
+        margin-left: 11px;
+    }
+
+    .arrow-up {
+        transform: rotate(-135deg);
+        -webkit-transform: rotate(-135deg);
+    }
+
+    .arrow-down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+    }
+</style>
 
 <div class="container">
     <form asp-action="Create" asp-controller="Game" method="post" enctype="multipart/form-data">
+        <div class="" asp-validation-summary="All"></div>
         Info about games
-        <input class="col-md-12 mb-3" type="text" asp-for="Name" placeholder="Name" />
-        <select class="col-md-12 mb-3" asp-for="Genre" asp-items="Game_Step.Util.SelectItemHelper.GetGenre()"></select>
-        <input class="col-md-12 mb-3" type="file" asp-for="Image" accept=".png, .jpg, .jpeg" />
+        <div>
+            <label asp-for="Name"></label>
+            <input class="col-md-12 mb-3" type="text" asp-for="Name" placeholder="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+
+        <div>
+            <label asp-for="Price"></label>
+            <input class="col-md-12 mb-3" type="number" asp-for="Price" placeholder="Price" />
+            <span asp-validation-for="Price"></span>
+        </div>
+
+        <div>
+            <label asp-for="Image"></label>
+            <input class="col-md-12 mb-3" type="file" asp-for="Image" accept=".png, .jpg, .jpeg" />
+            <span asp-validation-for="Image"></span>
+        </div>
+
         <textarea asp-for="Description"></textarea>
-        <input class="col-md-12 mb-3" type="text" asp-for="Price" placeholder="Price" />
-        <input class="col-md-12 mb-3" type="text" asp-for="Language" placeholder="Language" />
-        <input class="col-md-12 mb-3" type="number" asp-for="QuantityOfGoods" placeholder="Quantity of goods" />
-        <label class="col-md-12 mb-3" asp-for="ReleaseDate"></label>
-        <input class="col-md-12 mb-3" type="date" asp-for="ReleaseDate" />
+
+
+        <div>
+            <label asp-for="ReleaseDate"></label>
+            <input class="col-md-12 mb-3" type="date" asp-for="ReleaseDate" />
+            <span asp-validation-for="ReleaseDate"></span>
+        </div>
+
+        <div>
+            <label asp-for="QuantityOfGoods"></label>
+            <input class="col-md-12 mb-3" type="number" asp-for="QuantityOfGoods" placeholder="Quantity of goods" />
+            <span asp-validation-for="QuantityOfGoods"></span>
+        </div>
+
+        <div>
+            <label asp-for="Language"></label>
+            <input class="col-md-12 mb-3" type="text" asp-for="Language" placeholder="Language" />
+            <span asp-validation-for="Language"></span>
+        </div>
+
+        <div>
+            <label asp-for="Features"></label>
+            <input class="col-md-12 mb-3" type="text" asp-for="Features" placeholder="Features" />
+            <span asp-validation-for="Features"></span>
+        </div>
+
+        <div>
+            <label asp-for="Region"></label>
+            <input class="col-md-12 mb-3" type="text" asp-for="Region" placeholder="Region" />
+            <span asp-validation-for="Region"></span>
+        </div>
+
+
+        <select class="col-md-12 mb-3" asp-for="Genre" asp-items="Game_Step.Util.SelectItemHelper.GetGenre()"></select>
         <select class="col-md-12 mb-3" asp-for="Publisher" asp-items="select.GetPublisher()"></select>
         <select class="col-md-12 mb-3" asp-for="Developer" asp-items="select.GetDeveloper()"></select>
-        <input class="col-md-12 mb-3" type="text" asp-for="Features" placeholder="Features" />
-        <input class="col-md-12 mb-3" type="text" asp-for="Region" placeholder="Region" />
         <select class="col-md-12 mb-3" asp-for="WhereKeyActivated"
                 asp-items="Game_Step.Util.SelectItemHelper.GetWhereKeyActivated()"></select>
 
-        Minimum System Requirements
-        <input class="col-md-12 mb-3" type="text" asp-for="MinimumOC" placeholder="OC" />
-        <input class="col-md-12 mb-3" type="text" asp-for="MinimumCPU" placeholder="CPU" />
-        <input class="col-md-12 mb-3" type="text" asp-for="MinimumRAM" placeholder="RAM" />
-        <input class="col-md-12 mb-3" type="text" asp-for="MinimumVideoCard" placeholder="VideoCard" />
-        <input class="col-md-12 mb-3" type="text" asp-for="MinimumDirectX" placeholder="DirectX" />
-        <input class="col-md-12 mb-3" type="text" asp-for="MinimumHDD" placeholder="HDD" />
 
-        Recommended System Requirements
-        <input class="col-md-12 mb-3" type="text" asp-for="RecommendOC" placeholder="OC" />
-        <input class="col-md-12 mb-3" type="text" asp-for="RecommendCPU" placeholder="CPU" />
-        <input class="col-md-12 mb-3" type="text" asp-for="RecommendRAM" placeholder="RAM" />
-        <input class="col-md-12 mb-3" type="text" asp-for="RecommendVideoCard" placeholder="VideoCard" />
-        <input class="col-md-12 mb-3" type="text" asp-for="RecommendDirectX" placeholder="DirectX" />
-        <input class="col-md-12 mb-3" type="text" asp-for="RecommendHDD" placeholder="HDD" />
+
+
+
+
+
+
+
+        <div id="panel-show" style="display: none;">
+            Minimum System Requirements
+            <input class="col-md-12 mb-3" type="text" asp-for="MinimumOC" placeholder="OC" />
+            <input class="col-md-12 mb-3" type="text" asp-for="MinimumCPU" placeholder="CPU" />
+            <input class="col-md-12 mb-3" type="text" asp-for="MinimumRAM" placeholder="RAM" />
+            <input class="col-md-12 mb-3" type="text" asp-for="MinimumVideoCard" placeholder="VideoCard" />
+            <input class="col-md-12 mb-3" type="text" asp-for="MinimumDirectX" placeholder="DirectX" />
+            <input class="col-md-12 mb-3" type="text" asp-for="MinimumHDD" placeholder="HDD" />
+
+            Recommended System Requirements
+            <input class="col-md-12 mb-3" type="text" asp-for="RecommendOC" placeholder="OC" />
+            <input class="col-md-12 mb-3" type="text" asp-for="RecommendCPU" placeholder="CPU" />
+            <input class="col-md-12 mb-3" type="text" asp-for="RecommendRAM" placeholder="RAM" />
+            <input class="col-md-12 mb-3" type="text" asp-for="RecommendVideoCard" placeholder="VideoCard" />
+            <input class="col-md-12 mb-3" type="text" asp-for="RecommendDirectX" placeholder="DirectX" />
+            <input class="col-md-12 mb-3" type="text" asp-for="RecommendHDD" placeholder="HDD" />
+        </div>
+        <div class="btn-show">ПОКАЗАТЬ СИСТЕМНЫЕ РЕКОМЕНДАЦИИ<i id="arrow-show-req" class="arrow arrow-down"></i></div>
+
 
         <input class="col-md-12" type="submit" value="Send" />
     </form>
 </div>
+
+@section Scripts{
+    <script src="/lib/ckeditor/ckeditor.js"></script>
+    <script>CKEDITOR.replace('Description')</script>
+
+    <script>
+        $(document).ready(function () {
+
+            $(".btn-show").click(function () {
+                $("#panel-show").slideToggle("slow");
+                if ($("#arrow-show-req").hasClass("arrow arrow-down")) {
+                    $("#arrow-show-req").attr("class", "arrow arrow-up");
+                }
+                else {
+                    $("#arrow-show-req").attr("class", "arrow arrow-down");
+                }
+            });
+        });
+    </script>
+}

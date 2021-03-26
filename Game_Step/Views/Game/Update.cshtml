@@ -10,6 +10,7 @@
     <form asp-action="Update" asp-controller="Game" method="post" enctype="multipart/form-data">
         Info about games
         <input class="col-md-12 mb-3" type="text" asp-for="Name" placeholder="Name" />
+        <input class="col-md-12 mb-3" type="number" asp-for="Price" placeholder="Price" />
         <select class="col-md-12 mb-3" asp-for="Genre" asp-items="Game_Step.Util.SelectItemHelper.GetGenre()"></select>
         <input class="col-md-12 mb-3" type="file" asp-for="Image" accept=".png, .jpg, .jpeg" />
         <textarea asp-for="Description"></textarea>
@@ -43,3 +44,9 @@
         <input type="submit" value="Update" />
     </form>
 </div>
+
+
+@section Scripts{
+    <script src="/lib/ckeditor/ckeditor.js"></script>
+    <script>CKEDITOR.replace('Description')</script>
+}

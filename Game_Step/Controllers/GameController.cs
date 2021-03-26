@@ -38,52 +38,57 @@ namespace Game_Step.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(GamesViewModel gamesViewModel)
+        public async Task<IActionResult> Create(GamesViewModel model)
         {
-            byte[] imageData = null;
-            if (gamesViewModel.Image != null)
+            if (ModelState.IsValid)
             {
-                using (var binaryReader = new BinaryReader(gamesViewModel.Image.OpenReadStream()))
+                byte[] imageData = null;
+                if (model.Image != null)
                 {
-                    imageData = binaryReader.ReadBytes((int)gamesViewModel.Image.Length);
+                    using (var binaryReader = new BinaryReader(model.Image.OpenReadStream()))
+                    {
+                        imageData = binaryReader.ReadBytes((int)model.Image.Length);
+                    }
                 }
+
+                Game game = new Game
+                {
+                    Name = model.Name,
+                    Price = model.Price,
+                    Description = model.Description,
+                    Image = imageData,
+                    Genre = model.Genre,
+                    Language = model.Language,
+                    QuantityOfGoods = model.QuantityOfGoods,
+                    ReleaseDate = model.ReleaseDate,
+                    Publisher = model.Publisher,
+                    Developer = model.Developer,
+                    Features = model.Features,
+                    Region = model.Region,
+                    WhereKeyActivated = model.WhereKeyActivated,
+
+                    RecommendOC = model.RecommendOC,
+                    RecommendCPU = model.RecommendCPU,
+                    RecommendRAM = model.RecommendRAM,
+                    RecommendVideoCard = model.RecommendVideoCard,
+                    RecommendDirectX = model.RecommendDirectX,
+                    RecommendHDD = model.RecommendHDD,
+                    MinimumOC = model.MinimumOC,
+                    MinimumCPU = model.MinimumCPU,
+                    MinimumRAM = model.MinimumRAM,
+                    MinimumVideoCard = model.MinimumVideoCard,
+                    MinimumDirectX = model.MinimumDirectX,
+                    MinimumHDD = model.MinimumHDD
+                };
+
+                await db.Games.AddAsync(game);
+                await db.SaveChangesAsync();
+
+
+                return RedirectToAction("Index");
             }
 
-            Game game = new Game
-            {
-                Name = gamesViewModel.Name,
-                Price = gamesViewModel.Price,
-                Description = gamesViewModel.Description,
-                Image = imageData,
-                Genre = gamesViewModel.Genre,
-                Language = gamesViewModel.Language,
-                QuantityOfGoods = gamesViewModel.QuantityOfGoods,
-                ReleaseDate = gamesViewModel.ReleaseDate,
-                Publisher = gamesViewModel.Publisher,
-                Developer = gamesViewModel.Developer,
-                Features = gamesViewModel.Features,
-                Region = gamesViewModel.Region,
-                WhereKeyActivated = gamesViewModel.WhereKeyActivated,
-
-                RecommendOC = gamesViewModel.RecommendOC,
-                RecommendCPU = gamesViewModel.RecommendCPU,
-                RecommendRAM = gamesViewModel.RecommendRAM,
-                RecommendVideoCard = gamesViewModel.RecommendVideoCard,
-                RecommendDirectX = gamesViewModel.RecommendDirectX,
-                RecommendHDD = gamesViewModel.RecommendHDD,
-                MinimumOC = gamesViewModel.MinimumOC,
-                MinimumCPU = gamesViewModel.MinimumCPU,
-                MinimumRAM = gamesViewModel.MinimumRAM,
-                MinimumVideoCard = gamesViewModel.MinimumVideoCard,
-                MinimumDirectX = gamesViewModel.MinimumDirectX,
-                MinimumHDD = gamesViewModel.MinimumHDD
-            };
-
-            await db.Games.AddAsync(game);
-            await db.SaveChangesAsync();
-
-
-            return RedirectToAction("Index");
+            return View(model);
         }
 
         [HttpGet]
