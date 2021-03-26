@@ -20,49 +20,127 @@
         <div class="main-page-catalog">
             <div class="main-tabs">
                 <ul class="tabs">
-                    <li class="item-tabs">Новинки</li>
-                    <li class="item-tabs">Лидеры продажи</li>
-                    <li class="item-tabs">Ожидаемые</li>
+                    <li class="item-tabs" catalog="catalog1"><a href="javascript: void(0)">Новинки</a></li>
+                    <li class="item-tabs item-tabs-active" catalog="catalog2"><a href="javascript: void(0)">Лидеры продажи</a></li>
+                    <li class="item-tabs" catalog="catalog3"><a href="javascript: void(0)">Ожидаемые</a></li>
                 </ul>
             </div>
 
             <div class="catalog">
-                @foreach (var m in Model)
-                {
-                    @if (counter == 8)
+                <div class="catalog-novetly">
+                    @foreach (var m in Model.OrderBy(item => item.Name))
                     {
-                        counter = 0;
-                        break;
-                    }
-                    <a class="catalog-item">
-                        <div class="block-img-catalog-item">
-                            <img class="img-catalog-item" src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg"><img />
-                        </div>
+                        @if (counter == 8)
+                        {
+                            counter = 0;
+                            break;
+                        }
+                        <a class="catalog-item">
+                            <div class="block-img-catalog-item">
+                                <img class="img-catalog-item" src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg"><img />
+                            </div>
 
-                        <div class="catalog-item-info">
-                            <div class="name-product">@m.Name</div>
-                            <div class="more-info">
-                                <div class="where-activate-product">
-                                    <img src="~/img/steam.png" alt="Steam">
+                            <div class="catalog-item-info">
+                                <div class="name-product">@m.Name</div>
+                                <div class="more-info">
+                                    <div class="where-activate-product">
+                                        <img src="~/img/steam.png" alt="Steam">
+                                    </div>
+                                    <div class="genre-product"> Экшены, RPG</div>
                                 </div>
-                                <div class="genre-product"> Экшены, RPG</div>
                             </div>
-                        </div>
-                        <div class="item-price">
-                            <div class="discount-item">
-                                -36%
+                            <div class="item-price">
+                                <div class="discount-item">
+                                    -36%
+                                </div>
+                                <div class="cur-price-item">
+                                    @m.Price $.
+                                </div>
                             </div>
-                            <div class="cur-price-item">
-                                @m.Price $.
-                            </div>
-                        </div>
-                    </a>
-                    counter++;
-                }
+                        </a>
+                        counter++;
+                    }
 
-                <a class="catalog-item-more-games" href="">
-                    ЕЩЕ 4234 ИГР
-                </a>
+                    <a class="catalog-item-more-games" href="">
+                        ЕЩЕ 4234 ИГР
+                    </a>
+                </div>
+                <div class="catalog-leaders-sells">
+                    @foreach (var m in Model)
+                    {
+                        @if (counter == 8)
+                        {
+                            counter = 0;
+                            break;
+                        }
+                        <a class="catalog-item">
+                            <div class="block-img-catalog-item">
+                                <img class="img-catalog-item" src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg"><img />
+                            </div>
+
+                            <div class="catalog-item-info">
+                                <div class="name-product">@m.Name</div>
+                                <div class="more-info">
+                                    <div class="where-activate-product">
+                                        <img src="~/img/steam.png" alt="Steam">
+                                    </div>
+                                    <div class="genre-product"> Экшены, RPG</div>
+                                </div>
+                            </div>
+                            <div class="item-price">
+                                <div class="discount-item">
+                                    -36%
+                                </div>
+                                <div class="cur-price-item">
+                                    @m.Price $.
+                                </div>
+                            </div>
+                        </a>
+                        counter++;
+                    }
+
+                    <a class="catalog-item-more-games" href="">
+                        ЕЩЕ 4234 ИГР
+                    </a>
+                </div>
+                <div class="catalog-expected">
+                    @foreach (var m in Model.OrderBy(item => item.Price))
+                    {
+                        @if (counter == 8)
+                        {
+                            counter = 0;
+                            break;
+                        }
+                        <a class="catalog-item">
+                            <div class="block-img-catalog-item">
+                                <img class="img-catalog-item" src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg"><img />
+                            </div>
+
+                            <div class="catalog-item-info">
+                                <div class="name-product">@m.Name</div>
+                                <div class="more-info">
+                                    <div class="where-activate-product">
+                                        <img src="~/img/steam.png" alt="Steam">
+                                    </div>
+                                    <div class="genre-product"> Экшены, RPG</div>
+                                </div>
+                            </div>
+                            <div class="item-price">
+                                <div class="discount-item">
+                                    -36%
+                                </div>
+                                <div class="cur-price-item">
+                                    @m.Price $.
+                                </div>
+                            </div>
+                        </a>
+                        counter++;
+                    }
+
+                    <a class="catalog-item-more-games" href="">
+                        ЕЩЕ 4234 ИГР
+                    </a>
+                </div>
             </div>
 
         </div>
@@ -150,4 +228,5 @@
 
 @section Scripts{
     <script src="~/js/HomePage/HomePage.js"></script>
+
 }

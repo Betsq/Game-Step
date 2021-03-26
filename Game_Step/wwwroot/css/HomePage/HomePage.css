@@ -21,22 +21,30 @@ a:hover{
 }
 
 .main-tabs {
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 28px;
 }
 
 .tabs {
     list-style: none;
     display: flex;
     font-size: 18px;
+    margin: 0;
+    padding: 0;
 }
 
 .item-tabs {
-    margin: 10px;
+    padding: 0 15px 30px 15px;
+    cursor: pointer;
 }
 
-.catalog {
-    padding-top: 24px;
-    flex: 1;
+.item-tabs-active {
+    border-bottom: 2px solid #ff9900;
+}
+
+.item-tabs a {
+    text-decoration: none;
+    color: black;
 }
 
 .catalog-item {
@@ -56,6 +64,18 @@ a:hover{
         -moz-box-shadow: 0px 0px 17px 0px rgba(34, 60, 80, 0.4);
         box-shadow: 0px 0px 17px 0px rgba(34, 60, 80, 0.4);
     }
+
+.catalog-novetly{
+    display: none;
+}
+
+.catalog-leaders-sells {
+    display: none;
+}
+
+.catalog-expected{
+    display: none;
+}
 
 .block-img-catalog-item {
     width: 152px;
