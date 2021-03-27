@@ -1,0 +1,159 @@
+﻿.product-content {
+    margin-top: 0;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-page {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 45px;
+}
+
+.main-form-add {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.block-input {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.name-input, .name-input-img-add {
+    width: 70%;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.main-form-input {
+    width: 70%;
+    height: 35px;
+    border: 1px solid #ccc;
+    outline: none;
+    background-color: #fff7f7;
+    font-size: 18px;
+}
+
+    .main-form-input:hover {
+        background-color: white;
+        border: 1px solid #ff9900;
+    }
+
+    .main-form-input:focus {
+        border: none;
+        background-color: white;
+    }
+
+.image-preview {
+    width: 300px;
+    min-height: 100px;
+    border: 2px solid #ddd;
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #ccc;
+}
+
+.add-image__icon-plus {
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+}
+
+.image-preview__image {
+    display: none;
+    width: 100%;
+}
+
+.main-form-input-file {
+    display: none;
+}
+
+.select-box {
+    cursor: pointer;
+    position: relative;
+    width: 70%;
+}
+
+
+.select,
+.label {
+    color: #414141;
+    display: block;
+    font: 400 17px/2em 'Source Sans Pro', sans-serif;
+}
+
+.select {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    padding: 5px 0;
+    height: 40px;
+    opacity: 0;
+    background: none transparent;
+    border: 0 none;
+}
+
+.select-box-color {
+    background: #ececec;
+}
+
+.label {
+    position: relative;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.open .label::after {
+    content: "▲";
+}
+
+.label::after {
+    content: "▼";
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px 15px;
+    border-left: 5px solid #fff;
+}
+
+.name-input-img-add {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 25px;
+    margin-top: 20px;
+}
+
+.send {
+    font-weight: 700;
+    color: white;
+    text-decoration: none;
+    padding: .8em 1em calc(.8em + 3px);
+    border-radius: 3px;
+    background: rgb(64,199,129);
+    box-shadow: 0 -3px rgb(53,167,110) inset;
+    transition: 0.2s;
+    border: none;
+    outline: none;
+    width: 15%;
+    margin-bottom: 200px;
+}
+
+    .send:hover {
+        background: rgb(53, 167, 110);
+    }
+
+    .send:active {
+        background: rgb(33,147,90);
+        box-shadow: 0 3px rgb(33,147,90) inset;
+    }
