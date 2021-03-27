@@ -55,6 +55,7 @@ namespace Game_Step.Controllers
                 {
                     Name = model.Name,
                     Price = model.Price,
+                    Discount = model.Discount,
                     Description = model.Description,
                     Image = imageData,
                     Genre = model.Genre,

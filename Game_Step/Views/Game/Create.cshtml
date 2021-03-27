@@ -33,6 +33,17 @@
                 <span asp-validation-for="Price"></span>
             </div>
 
+            <div class="block-input">
+                Add discount
+                <input type="checkbox" id="discount-check" />
+            </div>
+            <div class="block-input" id="discount" style="display: none;">
+                <label asp-for="Discount" class="name-input">Discount percent</label>
+                <input class="main-form-input" id="input-discount" type="number" asp-for="Discount"
+                       value="0" min="0" max="99" placeholder="Discount" >
+                <span asp-validation-for="Discount"></span>
+            </div>
+
             <textarea asp-for="Description" style="width: 70%;"></textarea>
 
             <div class="block-input">
@@ -251,4 +262,18 @@
 
         });
     </script>
+
+    <script>
+        $(document).ready(function () {
+            $("#discount-check").change(function () {
+                if ($(this).prop('checked')) {
+                    $('#discount').fadeIn().show();
+                } else {
+                    $('#discount').fadeOut(300);
+                }
+            });
+        })
+    </script>
+
+    
 }

@@ -14,6 +14,8 @@ namespace Game_Step.ViewModels
         [Required]
         public string Name { get; set; }
         
+        public int Discount { get; set; }
+
         [Required]
         public int Price { get; set; }
         
