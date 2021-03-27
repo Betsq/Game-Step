@@ -82,14 +82,12 @@ namespace Game_Step.Controllers
                 };
 
                 int disc = model.Discount;
-
                 if (disc < 0 || disc > 99 || model.IsDiscount == false)
                 {
                     disc = 0;
                     model.IsDiscount = false;
                 }
                     
-
                 int discountPrice = 0;
                 if (model.IsDiscount == true)
                 {
@@ -177,54 +175,72 @@ namespace Game_Step.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(GamesViewModel gamesViewModel)
+        public async Task<IActionResult> Update(GamesViewModel model)
         {
-            Game game = db.Games.FirstOrDefault(item => item.Id == gamesViewModel.Id);
-
-            if (gamesViewModel.Image != null)
+            Game game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Id);
+            var priceGame = await db.GamePrices.FirstOrDefaultAsync(item => item.GameId == model.Id);
+            if (model.Image != null)
             {
                 byte[] imageData = null;
-                using (var binaryReader = new BinaryReader(gamesViewModel.Image.OpenReadStream()))
+                using (var binaryReader = new BinaryReader(model.Image.OpenReadStream()))
                 {
-                    imageData = binaryReader.ReadBytes((int)gamesViewModel.Image.Length);
+                    imageData = binaryReader.ReadBytes((int)model.Image.Length);
                 }
                 game.Image = imageData;
             }
 
             if (game != null)
             {
-                game.Id = gamesViewModel.Id;
-                game.Name = gamesViewModel.Name;
-                game.Description = gamesViewModel.Description;
-                game.Genre = gamesViewModel.Genre;
-                game.Language = gamesViewModel.Language;
-                game.QuantityOfGoods = gamesViewModel.QuantityOfGoods;
-                game.ReleaseDate = gamesViewModel.ReleaseDate;
-                game.Publisher = gamesViewModel.Publisher;
-                game.Developer = gamesViewModel.Developer;
-                game.Features = gamesViewModel.Features;
-                game.Region = gamesViewModel.Region;
-                game.WhereKeyActivated = gamesViewModel.WhereKeyActivated;
+                game.Id = model.Id;
+                game.Name = model.Name;
+                game.Description = model.Description;
+                game.Genre = model.Genre;
+                game.Language = model.Language;
+                game.QuantityOfGoods = model.QuantityOfGoods;
+                game.ReleaseDate = model.ReleaseDate;
+                game.Publisher = model.Publisher;
+                game.Developer = model.Developer;
+                game.Features = model.Features;
+                game.Region = model.Region;
+                game.WhereKeyActivated = model.WhereKeyActivated;
 
-                game.RecommendOC = gamesViewModel.RecommendOC;
-                game.RecommendCPU = gamesViewModel.RecommendCPU;
-                game.RecommendRAM = gamesViewModel.RecommendRAM;
-                game.RecommendVideoCard = gamesViewModel.RecommendVideoCard;
-                game.RecommendDirectX = gamesViewModel.RecommendDirectX;
-                game.RecommendHDD = gamesViewModel.RecommendHDD;
-                game.MinimumOC = gamesViewModel.MinimumOC;
-                game.MinimumCPU = gamesViewModel.MinimumCPU;
-                game.MinimumRAM = gamesViewModel.MinimumRAM;
-                game.MinimumVideoCard = gamesViewModel.MinimumVideoCard;
-                game.MinimumDirectX = gamesViewModel.MinimumDirectX;
-                game.MinimumHDD = gamesViewModel.MinimumHDD;
+                game.RecommendOC = model.RecommendOC;
+                game.RecommendCPU = model.RecommendCPU;
+                game.RecommendRAM = model.RecommendRAM;
+                game.RecommendVideoCard = model.RecommendVideoCard;
+                game.RecommendDirectX = model.RecommendDirectX;
+                game.RecommendHDD = model.RecommendHDD;
+                game.MinimumOC = model.MinimumOC;
+                game.MinimumCPU = model.MinimumCPU;
+                game.MinimumRAM = model.MinimumRAM;
+                game.MinimumVideoCard = model.MinimumVideoCard;
+                game.MinimumDirectX = model.MinimumDirectX;
+                game.MinimumHDD = model.MinimumHDD;
             };
 
-            
-            
-            
+            int disc = model.Discount;
+            if (disc < 0 || disc > 99 || model.IsDiscount == false)
+            {
+                disc = 0;
+                model.IsDiscount = false;
+            }
 
-            db.Games.Update(game);
+            int discountPrice = 0;
+            if (model.IsDiscount == true)
+            {
+                discountPrice = model.Price - ((model.Price * model.Discount) / 100);
+            }
+
+            if (priceGame != null)
+            {
+                priceGame.Price = model.Price;
+                priceGame.IsDiscount = model.IsDiscount;
+                priceGame.Discount = model.Discount;
+                priceGame.DiscountPrice = discountPrice;
+                priceGame.Game = game;
+            }
+
+            db.GamePrices.Update(priceGame);
             db.SaveChanges();
 
             return RedirectToAction("Index");
