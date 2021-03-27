@@ -7,7 +7,7 @@
 }
 
 @section Style{
-    <link href="/css/CRUD operation/General.css" rel="stylesheet" />
+    <link href="~/css/Game/Create_Update.css" rel="stylesheet" />
 }
 
 <div class="main-content">
@@ -79,7 +79,7 @@
             <div class="block-input">
                 <div class="name-input-img-add">Image* (.png, .jpg, .jpeg)</div>
                 <input class="main-form-input-file" type="file" id="inpFile1" accept=".png, .jpg, .jpeg" asp-for="Image">
-                <img class="add-image__icon-plus" id="upfile1" src="/img/CRUD operation/icon-plus.svg" alt="Add image">
+                <img class="add-image__icon-plus" id="upfile1" src="/img/Game/icon-plus.svg" alt="Add image">
                 <div class="image-preview" id="image-preview">
                     <img src="" alt="Image Preview" class="image-preview__image">
                     <span class="image-preview__default-text">Image Preview</span>
@@ -203,75 +203,5 @@
 
 @section Scripts{
     <script src="/lib/ckeditor/ckeditor.js"></script>
-    <script>CKEDITOR.replace('Description')</script>
-
-    <script>
-        const inpFile = document.getElementById("inpFile1");
-        const previewContainer = document.getElementById("image-preview");
-        const previewImage = previewContainer.querySelector(".image-preview__image");
-        const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
-
-        inpFile.addEventListener("change", function () {
-            const file = this.files[0];
-
-            if (file) {
-                const reader = new FileReader();
-
-                previewDefaultText.style.display = "none";
-                previewImage.style.display = "block";
-
-                reader.addEventListener("load", function () {
-                    previewImage.setAttribute("src", this.result);
-                });
-
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
-
-    <script>
-        $("#upfile1").click(function () {
-            $("#inpFile1").trigger("click");
-        });
-    </script>
-
-
-    <script>
-        $("select").on("click", function () {
-
-            $(this).parent(".select-box").toggleClass("open");
-
-        });
-
-        $(document).mouseup(function (e) {
-            var container = $(".select-box");
-
-            if (container.has(e.target).length === 0) {
-                container.removeClass("open");
-            }
-        });
-
-
-        $("select").on("change", function () {
-
-            var selection = $(this).find("option:selected").text(),
-                labelFor = $(this).attr("id"),
-                label = $("[for='" + labelFor + "']");
-
-            label.find(".label-desc").html(selection);
-
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $("#discount-check").change(function () {
-                if ($(this).prop('checked')) {
-                    $('#discount').show(350);
-                } else {
-                    $('#discount').hide(350);
-                }
-            });
-        })
-    </script>
+    <script src="~/js/Game/Create_Update.js"></script>
 }

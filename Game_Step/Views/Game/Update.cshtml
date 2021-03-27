@@ -6,47 +6,206 @@
     ViewBag.Title = "Update " + Model.Name;
 }
 
-<div class="container">
-    <form asp-action="Update" asp-controller="Game" method="post" enctype="multipart/form-data">
-        Info about games
-        <input class="col-md-12 mb-3" type="text" asp-for="Name" placeholder="Name" />
-        <input class="col-md-12 mb-3" type="number" asp-for="Price" placeholder="Price" />
-        <select class="col-md-12 mb-3" asp-for="Genre" asp-items="Game_Step.Util.SelectItemHelper.GetGenre()"></select>
-        <input class="col-md-12 mb-3" type="file" asp-for="Image" accept=".png, .jpg, .jpeg" />
-        <textarea asp-for="Description"></textarea>
-        <input class="col-md-12 mb-3" type="text" asp-for="Language" placeholder="Language" />
-        <input class="col-md-12 mb-3" type="number" asp-for="QuantityOfGoods" placeholder="Quantity of goods" />
-        <label class="col-md-12 mb-3" asp-for="ReleaseDate"></label>
-        <input class="col-md-12 mb-3" type="date" asp-for="ReleaseDate" />
-        <select class="col-md-12 mb-3" asp-for="Publisher" asp-items="select.GetPublisher()"></select>
-        <select class="col-md-12 mb-3" asp-for="Developer" asp-items="select.GetDeveloper()"></select>
-        <input class="col-md-12 mb-3" type="text" asp-for="Features" placeholder="Features" />
-        <input class="col-md-12 mb-3" type="text" asp-for="Region" placeholder="Region" />
-        <select class="col-md-12 mb-3" asp-for="WhereKeyActivated"
-                asp-items="Game_Step.Util.SelectItemHelper.GetWhereKeyActivated()"></select>
+@section Style{
+    <link href="~/css/Game/Create_Update.css" rel="stylesheet" />
+}
 
-        Minimum System Requirements
-        <input class="col-md-12 mb-3" type="text" asp-for="MinimumOC" placeholder="OC" />
-        <input class="col-md-12 mb-3" type="text" asp-for="MinimumCPU" placeholder="CPU" />
-        <input class="col-md-12 mb-3" type="text" asp-for="MinimumRAM" placeholder="RAM" />
-        <input class="col-md-12 mb-3" type="text" asp-for="MinimumVideoCard" placeholder="VideoCard" />
-        <input class="col-md-12 mb-3" type="text" asp-for="MinimumDirectX" placeholder="DirectX" />
-        <input class="col-md-12 mb-3" type="text" asp-for="MinimumHDD" placeholder="HDD" />
+<div class="main-content">
 
-        Recommended System Requirements
-        <input class="col-md-12 mb-3" type="text" asp-for="RecommendOC" placeholder="OC" />
-        <input class="col-md-12 mb-3" type="text" asp-for="RecommendCPU" placeholder="CPU" />
-        <input class="col-md-12 mb-3" type="text" asp-for="RecommendRAM" placeholder="RAM" />
-        <input class="col-md-12 mb-3" type="text" asp-for="RecommendVideoCard" placeholder="VideoCard" />
-        <input class="col-md-12 mb-3" type="text" asp-for="RecommendDirectX" placeholder="DirectX" />
-        <input class="col-md-12 mb-3" type="text" asp-for="RecommendHDD" placeholder="HDD" />
+    <div class="product-content">
 
-        <input type="submit" value="Update" />
-    </form>
+        <div class="info-page">
+            Обновление @Model.Name
+        </div>
+
+        <form class="main-form-add" asp-action="Update" asp-controller="Game" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All"></div>
+
+            <div class="block-input">
+                <label asp-for="Name" class="name-input">Name*</label>
+                <input class="main-form-input" type="text" asp-for="Name" placeholder="Name">
+                <span asp-validation-for="Name"></span>
+            </div>
+
+            <div class="block-input">
+                <label asp-for="Price" class="name-input">Price</label>
+                <input class="main-form-input" type="number" asp-for="Price" placeholder="Price">
+                <span asp-validation-for="Price"></span>
+            </div>
+
+            <div class="block-input">
+                Add discount
+                <input type="checkbox" id="discount-check" asp-for="IsDiscount" checked/>
+            </div>
+            <div class="block-input" id="discount" style="display: none;">
+                <label asp-for="Discount" class="name-input">Discount percent</label>
+                <input class="main-form-input" id="discount-inp" type="number" asp-for="Discount"
+                       min="0" max="99" placeholder="Discount">
+                <span asp-validation-for="Discount"></span>
+            </div>
+
+            <textarea asp-for="Description" style="width: 70%;"></textarea>
+
+            <div class="block-input">
+                <label asp-for="ReleaseDate" class="name-input">Release date</label>
+                <input class="main-form-input" type="date" asp-for="ReleaseDate">
+                <span asp-validation-for="ReleaseDate"></span>
+            </div>
+
+            <div class="block-input">
+                <label asp-for="QuantityOfGoods" class="name-input">Quantity of goods</label>
+                <input class="main-form-input" type="number" asp-for="QuantityOfGoods" placeholder="Quantity of goods">
+                <span asp-validation-for="QuantityOfGoods"></span>
+            </div>
+
+            <div class="block-input">
+                <label asp-for="Language" class="name-input">Language</label>
+                <input class="main-form-input" type="text" asp-for="Language" placeholder="Language">
+                <span asp-validation-for="Language"></span>
+            </div>
+
+            <div class="block-input">
+                <label asp-for="Features" class="name-input">Features</label>
+                <input class="main-form-input" type="text" asp-for="Features" placeholder="Features">
+                <span asp-validation-for="Features"></span>
+            </div>
+
+            <div class="block-input">
+                <label asp-for="Region" class="name-input">Region</label>
+                <input class="main-form-input" type="text" asp-for="Region" placeholder="Region">
+                <span asp-validation-for="Region"></span>
+            </div>
+
+            <div class="block-input">
+                <div class="name-input-img-add">Image* (.png, .jpg, .jpeg)</div>
+
+                <input class="main-form-input-file" type="file" id="inpFile1" accept=".png, .jpg, .jpeg" asp-for="Image">
+
+                <img class="add-image__icon-plus" id="upfile1" src="/img/Game/icon-plus.svg" alt="Add image">
+
+                <div class="image-preview" id="image-preview">
+                    <img src="" alt="Image Preview" class="image-preview__image">
+                    <span class="image-preview__default-text">Image Preview</span>
+                </div>
+
+            </div>
+
+
+            <div class="block-input">
+                <div class="select-box">
+                    <label for="select-box1" class="label select-box1 select-box-color">
+                        <span class="label-desc">Choose genre</span>
+                    </label>
+                    <select id="select-box1" class="select" asp-for="Genre" asp-items="Game_Step.Util.SelectItemHelper.GetGenre()">
+                    </select>
+                </div>
+            </div>
+
+            <div class="block-input">
+                <div class="select-box">
+                    <label for="select-box2" class="label select-box2 select-box-color">
+                        <span class="label-desc">Choose publisher</span>
+                    </label>
+                    <select id="select-box2" class="select" asp-for="Publisher" asp-items="select.GetPublisher()">
+                    </select>
+                </div>
+            </div>
+
+            <div class="block-input">
+                <div class="select-box">
+                    <label for="select-box3" class="label select-box3 select-box-color">
+                        <span class="label-desc">Choose developer</span>
+                    </label>
+                    <select id="select-box3" class="select" asp-for="Developer" asp-items="select.GetDeveloper()">
+                    </select>
+                </div>
+            </div>
+
+            <div class="block-input">
+                <div class="select-box">
+                    <label for="select-box4" class="label select-box4 select-box-color">
+                        <span class="label-desc">Key activation platform</span>
+                    </label>
+                    <select id="select-box4" class="select" asp-for="WhereKeyActivated"
+                            asp-items="Game_Step.Util.SelectItemHelper.GetWhereKeyActivated()">
+                    </select>
+                </div>
+            </div>
+
+
+            Minimum System Requirements
+            <div class="block-input">
+                <label asp-for="MinimumOC" class="name-input">OC</label>
+                <input class="main-form-input" type="text" asp-for="MinimumOC" placeholder="OC" />
+                <span asp-validation-for="MinimumOC"></span>
+            </div>
+
+            <div class="block-input">
+                <label asp-for="MinimumCPU" class="name-input">CPU</label>
+                <input class="main-form-input" type="text" asp-for="MinimumCPU" placeholder="CPU">
+                <span asp-validation-for="MinimumCPU"></span>
+            </div>
+            <div class="block-input">
+                <label asp-for="MinimumRAM" class="name-input">RAM</label>
+                <input class="main-form-input" type="text" asp-for="MinimumRAM" placeholder="RAM">
+                <span asp-validation-for="MinimumRAM"></span>
+            </div>
+            <div class="block-input">
+                <label asp-for="MinimumVideoCard" class="name-input">Video card</label>
+                <input class="main-form-input" type="text" asp-for="MinimumVideoCard" placeholder="VideoCard">
+                <span asp-validation-for="MinimumVideoCard"></span>
+            </div>
+            <div class="block-input">
+                <label asp-for="MinimumDirectX" class="name-input">DirectX</label>
+                <input class="main-form-input" type="text" asp-for="MinimumDirectX" placeholder="DirectX">
+                <span asp-validation-for="MinimumDirectX"></span>
+            </div>
+            <div class="block-input">
+                <label asp-for="MinimumHDD" class="name-input">HDD</label>
+                <input class="main-form-input" type="text" asp-for="MinimumHDD" placeholder="HDD">
+                <span asp-validation-for="MinimumHDD"></span>
+            </div>
+
+
+            Recommend System Requirements
+            <div class="block-input">
+                <label asp-for="RecommendOC" class="name-input">OC</label>
+                <input class="main-form-input" type="text" asp-for="RecommendOC" placeholder="OC" />
+                <span asp-validation-for="RecommendOC"></span>
+            </div>
+
+            <div class="block-input">
+                <label asp-for="RecommendCPU" class="name-input">CPU</label>
+                <input class="main-form-input" type="text" asp-for="RecommendCPU" placeholder="CPU">
+                <span asp-validation-for="RecommendCPU"></span>
+            </div>
+            <div class="block-input">
+                <label asp-for="RecommendRAM" class="name-input">RAM</label>
+                <input class="main-form-input" type="text" asp-for="RecommendRAM" placeholder="RAM">
+                <span asp-validation-for="RecommendRAM"></span>
+            </div>
+            <div class="block-input">
+                <label asp-for="RecommendVideoCard" class="name-input">Video card</label>
+                <input class="main-form-input" type="text" asp-for="RecommendVideoCard" placeholder="VideoCard">
+                <span asp-validation-for="RecommendVideoCard"></span>
+            </div>
+            <div class="block-input">
+                <label asp-for="RecommendDirectX" class="name-input">DirectX</label>
+                <input class="main-form-input" type="text" asp-for="RecommendDirectX" placeholder="DirectX">
+                <span asp-validation-for="RecommendDirectX"></span>
+            </div>
+            <div class="block-input">
+                <label asp-for="RecommendHDD" class="name-input">HDD</label>
+                <input class="main-form-input" type="text" asp-for="RecommendHDD" placeholder="HDD">
+                <span asp-validation-for="RecommendHDD"></span>
+            </div>
+
+            <button class="send">Update</button>
+        </form>
+    </div>
 </div>
-
 
 @section Scripts{
     <script src="/lib/ckeditor/ckeditor.js"></script>
-    <script>CKEDITOR.replace('Description')</script>
+    <script src="~/js/Game/Create_Update.js"></script>
 }

@@ -136,12 +136,16 @@ namespace Game_Step.Controllers
             if (id != null)
             {
                 var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
+                var priceGame = await db.GamePrices.FirstOrDefaultAsync(item => item.GameId == id);
                 if (game != null)
                 {
                     GamesViewModel gamesViewModel = new GamesViewModel
                     {
                         Id = game.Id,
                         Name = game.Name,
+                        Price = priceGame.Price,
+                        IsDiscount = priceGame.IsDiscount,
+                        Discount = priceGame.Discount,
                         Description = game.Description,
                         Genre = game.Genre,
                         Language = game.Language,
