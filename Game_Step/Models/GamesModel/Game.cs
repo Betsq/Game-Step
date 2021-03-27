@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Game_Step.Models.GamesModel;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,9 +10,7 @@ namespace Game_Step.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public int Price { get; set; }
         public int QuantityOfGoods { get; set; }
-        public int Discount { get; set; }
         public string Description { get; set; }
         public string Language { get; set; }
         public string Genre { get; set; }
@@ -23,6 +22,7 @@ namespace Game_Step.Models
         public DateTime ReleaseDate { get; set; }
         public byte[] Image { get; set; }
         public List<GameKey> GameKeys { get; set; } = new List<GameKey>();
+        public List<GamePrice> GamePrices { get; set; } = new List<GamePrice>();
 
         public string RecommendOC { get; set; }
         public string RecommendCPU { get; set; }

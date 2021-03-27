@@ -19,7 +19,7 @@
     </div>
     <div class="product-content">
         <div class="product-left">
-            <div class="scale-img">
+            <div class="scale-img main-img">
                 <img class="scale-img" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
             </div>
 
@@ -86,18 +86,36 @@
                 </div>
                 <div class="product-cart-block">
                     <div class="price-block">
-                        <div class="price-discount">
-                            -10%
-                        </div>
-                        <div class="product-price">
-                            <div class="old-price">
-                                456 руб.
-                            </div>
-                            <div class="current-price-product">
-                                @Model.Price
-                                <sup class="sup-price-cur">РУБ.</sup>
-                            </div>
-                        </div>
+                        @foreach (var price in Model.GamePrices)
+                        {
+                            if (price.IsDiscount)
+                            {
+                                <div class="price-discount">
+                                    @price.Discount%
+                                </div>
+
+                                <div class="product-price">
+
+                                    <div class="old-price">
+                                        @price.Price руб.
+                                    </div>
+                                    <div class="current-price-product">
+                                        @price.DiscountPrice
+                                        <sup class="sup-price-cur">РУБ.</sup>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="product-price">
+                                    <div class="current-price-product">
+                                        @price.Price
+                                        <sup class="sup-price-cur">РУБ.</sup>
+                                    </div>
+                                </div>
+                            }
+                        }
+
                     </div>
                     <div class="product-md-block">
                         <a href="javascript: void(0)" class="buy-button no-cart" data-id="@Model.Id">
@@ -142,7 +160,7 @@
                 @Html.Raw(Model.Description)
             </div>
 
-           
+
             <div class="requirements-system">
                 <h2>Minimum system requirements</h2>
                 <ul>

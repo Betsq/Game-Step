@@ -1,4 +1,5 @@
 ﻿using Game_Step.Models;
+using Game_Step.Models.GamesModel;
 using Game_Step.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -54,8 +55,6 @@ namespace Game_Step.Controllers
                 Game game = new Game
                 {
                     Name = model.Name,
-                    Price = model.Price,
-                    Discount = model.Discount,
                     Description = model.Description,
                     Image = imageData,
                     Genre = model.Genre,
@@ -82,7 +81,32 @@ namespace Game_Step.Controllers
                     MinimumHDD = model.MinimumHDD
                 };
 
-                await db.Games.AddAsync(game);
+                int disc = model.Discount;
+
+                if (disc < 0 || disc > 99 || model.IsDiscount == false)
+                {
+                    disc = 0;
+                    model.IsDiscount = false;
+                }
+                    
+
+                int discountPrice = 0;
+                if (model.IsDiscount == true)
+                {
+                    discountPrice = model.Price - ((model.Price * model.Discount)/100);
+                }
+
+                GamePrice gamePrice = new GamePrice
+                {
+                    Price = model.Price,
+                    IsDiscount = model.IsDiscount,
+                    Discount = disc,
+                    DiscountPrice = discountPrice,
+                    Game = game
+                };
+
+
+                await db.GamePrices.AddAsync(gamePrice);
                 await db.SaveChangesAsync();
 
 
@@ -118,7 +142,6 @@ namespace Game_Step.Controllers
                     {
                         Id = game.Id,
                         Name = game.Name,
-                        Price = game.Price,
                         Description = game.Description,
                         Genre = game.Genre,
                         Language = game.Language,
@@ -168,7 +191,6 @@ namespace Game_Step.Controllers
             {
                 game.Id = gamesViewModel.Id;
                 game.Name = gamesViewModel.Name;
-                game.Price = gamesViewModel.Price;
                 game.Description = gamesViewModel.Description;
                 game.Genre = gamesViewModel.Genre;
                 game.Language = gamesViewModel.Language;
@@ -237,7 +259,7 @@ namespace Game_Step.Controllers
         {
             if (id != null)
             {
-                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
+                var game = await db.Games.Include(price => price.GamePrices).FirstOrDefaultAsync(item => item.Id == id);
                 if (game != null)
                     return View(game);
             }

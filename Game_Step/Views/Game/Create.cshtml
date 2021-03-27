@@ -35,11 +35,11 @@
 
             <div class="block-input">
                 Add discount
-                <input type="checkbox" id="discount-check" />
+                <input type="checkbox" id="discount-check" asp-for="IsDiscount"/>
             </div>
             <div class="block-input" id="discount" style="display: none;">
                 <label asp-for="Discount" class="name-input">Discount percent</label>
-                <input class="main-form-input" id="input-discount" type="number" asp-for="Discount"
+                <input class="main-form-input" id="discount-inp" type="number" asp-for="Discount"
                        value="0" min="0" max="99" placeholder="Discount" >
                 <span asp-validation-for="Discount"></span>
             </div>
@@ -267,13 +267,11 @@
         $(document).ready(function () {
             $("#discount-check").change(function () {
                 if ($(this).prop('checked')) {
-                    $('#discount').fadeIn().show();
+                    $('#discount').show(350);
                 } else {
-                    $('#discount').fadeOut(300);
+                    $('#discount').hide(350);
                 }
             });
         })
     </script>
-
-    
 }

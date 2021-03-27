@@ -19,6 +19,10 @@
     width: 375px;
 }
 
+.main-img{
+    width: 375px;
+    height: 479px;
+}
 .scale-img {
     display: inline-block;
     overflow: hidden;
@@ -258,6 +262,7 @@
 
     .scale-img {
         width: 100%;
+        height: 100%;
         padding: 10px;
     }
 

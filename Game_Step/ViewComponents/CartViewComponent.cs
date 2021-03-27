@@ -28,7 +28,6 @@ namespace Game_Step.ViewComponent
                         {
                             Id = game.Id,
                             Name = game.Name,
-                            Price = game.Price,
                         };
                         carts.Add(cart);
                     }
