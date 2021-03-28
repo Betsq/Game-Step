@@ -43,7 +43,7 @@
                             counter = 0;
                             break;
                         }
-                        <a class="catalog-item">
+                        <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@m.Id">
                             <div class="block-img-catalog-item">
                                 <img class="img-catalog-item" src="data:image/jpeg;base64,@(Convert.ToBase64String(m.Image))"><img />
                             </div>
@@ -93,7 +93,7 @@
                             counter = 0;
                             break;
                         }
-                        <a class="catalog-item">
+                        <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@m.Id">
                             <div class="block-img-catalog-item">
                                 <img class="img-catalog-item" src="data:image/jpeg;base64,@(Convert.ToBase64String(m.Image))"><img />
                             </div>
@@ -143,7 +143,7 @@
                             counter = 0;
                             break;
                         }
-                        <a class="catalog-item">
+                        <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@m.Id">
                             <div class="block-img-catalog-item">
                                 <img class="img-catalog-item" src="data:image/jpeg;base64,@(Convert.ToBase64String(m.Image))"><img />
                             </div>
