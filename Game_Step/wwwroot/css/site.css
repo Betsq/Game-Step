@@ -52,33 +52,6 @@ a{
     rgb(241, 20, 140), rgb(240, 0, 144));
 }
 
-.main-content {
-    max-width: 100%;
-}
-
-@media (min-width: 576px) {
-    .main-content {
-        max-width: 540px;
-    }
-}
-
-@media (min-width: 768px) {
-    .main-content {
-        max-width: 720px;
-    }
-}
-
-@media (min-width: 992px) {
-    .main-content {
-        max-width: 960px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .main-content {
-        max-width: 1140px;
-    }
-}
 
 a.navbar-brand {
     white-space: normal;

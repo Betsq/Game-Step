@@ -10,6 +10,9 @@ namespace Game_Step.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
+        public bool IsDiscount { get; set; }
+        public int Discount { get; set; }
+        public int DiscountPrice { get; set; }
         public int Quantity { get; set; }
     }
 }

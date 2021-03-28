@@ -219,14 +219,15 @@ namespace Game_Step.Controllers
             };
 
             int disc = model.Discount;
-            if (disc < 0 || disc > 99 || model.IsDiscount == false)
+            bool isDesc = model.IsDiscount;
+            if (disc <= 0 || disc > 99 || isDesc == false)
             {
                 disc = 0;
-                model.IsDiscount = false;
+                isDesc = false;
             }
 
             int discountPrice = 0;
-            if (model.IsDiscount == true)
+            if (isDesc == true)
             {
                 discountPrice = model.Price - ((model.Price * model.Discount) / 100);
             }
@@ -234,8 +235,8 @@ namespace Game_Step.Controllers
             if (priceGame != null)
             {
                 priceGame.Price = model.Price;
-                priceGame.IsDiscount = model.IsDiscount;
-                priceGame.Discount = model.Discount;
+                priceGame.IsDiscount = isDesc;
+                priceGame.Discount = disc;
                 priceGame.DiscountPrice = discountPrice;
                 priceGame.Game = game;
             }

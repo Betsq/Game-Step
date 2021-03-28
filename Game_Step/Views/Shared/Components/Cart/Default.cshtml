@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Game_Step.Models.Cart>
 
-@{ 
+@{
     Layout = "/Views/Shared/_CartLayout.cshtml";
 }
 <div class="popup" id="popup-1">
@@ -16,7 +16,15 @@
                     <button class="btnDelProdCart" type="button" del-data-id="@prod.Id">Remove</button>
                 </div>
                 <div class="col-md-12">@prod.Name</div>
-                <div class="col-md-12">@prod.Price</div>
+                @if (prod.IsDiscount)
+                {
+                    <div class="col-md-12">@prod.DiscountPrice</div>
+                }
+                else
+                {
+                    <div class="col-md-12">@prod.Price</div>
+                }
+
             }
         </p>
     </div>
