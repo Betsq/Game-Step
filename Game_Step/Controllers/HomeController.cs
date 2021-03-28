@@ -1,6 +1,7 @@
 ﻿using Game_Step.Models;
 using Game_Step.Util;
 using Game_Step.ViewComponent;
+using Game_Step.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,7 @@ namespace Game_Step.Controllers
         public async Task<IActionResult> Index()
         {
             var game = await db.Games.ToListAsync();
+            
             return View(game);
         }
 

@@ -45,7 +45,7 @@
                         }
                         <a class="catalog-item">
                             <div class="block-img-catalog-item">
-                                <img class="img-catalog-item" src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg"><img />
+                                <img class="img-catalog-item" src="data:image/jpeg;base64,@(Convert.ToBase64String(m.Image))"><img />
                             </div>
 
                             <div class="catalog-item-info">
@@ -58,12 +58,24 @@
                                 </div>
                             </div>
                             <div class="item-price">
-                                <div class="discount-item">
-                                    -36%
-                                </div>
-                                <div class="cur-price-item">
-                                    111 $.
-                                </div>
+                                @foreach (var price in m.GamePrices)
+                                {
+                                    if (price.IsDiscount)
+                                    {
+                                        <div class="discount-item">
+                                            @price.Discount%
+                                        </div>
+                                        <div class="cur-price-item">
+                                            @price.DiscountPrice $.
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="cur-price-item">
+                                            @price.Price $.
+                                        </div>
+                                    }
+                                }
                             </div>
                         </a>
                         counter++;
@@ -74,23 +86,16 @@
                     </a>
                 </div>
                 <div class="catalog-leaders-sells">
-                    @foreach (var m in Model)
+                    @foreach (var m in Model.OrderBy(item => item.Name))
                     {
                         @if (counter == 8)
                         {
                             counter = 0;
                             break;
                         }
-                        <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@m.Id">
+                        <a class="catalog-item">
                             <div class="block-img-catalog-item">
-                                @if (m.Image != null)
-                                {
-                                    <img class="img-catalog-item" src="data:image/jpeg;base64,@(Convert.ToBase64String(m.Image))"><img />
-                                }
-                                else
-                                {
-                                    <img class="img-catalog-item" src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg"><img />
-                                }
+                                <img class="img-catalog-item" src="data:image/jpeg;base64,@(Convert.ToBase64String(m.Image))"><img />
                             </div>
 
                             <div class="catalog-item-info">
@@ -103,12 +108,24 @@
                                 </div>
                             </div>
                             <div class="item-price">
-                                <div class="discount-item">
-                                    -36%
-                                </div>
-                                <div class="cur-price-item">
-                                    111 $.
-                                </div>
+                                @foreach (var price in m.GamePrices)
+                                {
+                                    if (price.IsDiscount)
+                                    {
+                                        <div class="discount-item">
+                                            @price.Discount%
+                                        </div>
+                                        <div class="cur-price-item">
+                                            @price.DiscountPrice $.
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="cur-price-item">
+                                            @price.Price $.
+                                        </div>
+                                    }
+                                }
                             </div>
                         </a>
                         counter++;
@@ -128,7 +145,7 @@
                         }
                         <a class="catalog-item">
                             <div class="block-img-catalog-item">
-                                <img class="img-catalog-item" src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg"><img />
+                                <img class="img-catalog-item" src="data:image/jpeg;base64,@(Convert.ToBase64String(m.Image))"><img />
                             </div>
 
                             <div class="catalog-item-info">
@@ -141,12 +158,24 @@
                                 </div>
                             </div>
                             <div class="item-price">
-                                <div class="discount-item">
-                                    -36%
-                                </div>
-                                <div class="cur-price-item">
-                                    111 $.
-                                </div>
+                                @foreach (var price in m.GamePrices)
+                                {
+                                    if (price.IsDiscount)
+                                    {
+                                        <div class="discount-item">
+                                            @price.Discount%
+                                        </div>
+                                        <div class="cur-price-item">
+                                            @price.DiscountPrice $.
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="cur-price-item">
+                                            @price.Price $.
+                                        </div>
+                                    }
+                                }
                             </div>
                         </a>
                         counter++;
