@@ -98,7 +98,6 @@
 </div>
 
 @section Scripts{
-
     <script>
         $(document).ready(function () {
             $(".btnDelProdCart").click(function () {
@@ -122,7 +121,7 @@
                 $(".input-quantity-product").attr('min', 1);
 
                 this.nextElementSibling.stepDown();
-                this.nextElementSibling.onchange();
+                this.nextElementSibling.onchange();  
             });
 
             $(".btnPlus").click(function () {
