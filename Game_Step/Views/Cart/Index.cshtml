@@ -1,4 +1,150 @@
-﻿
-@{ 
+﻿@model IEnumerable<Game_Step.Models.Cart>
+
+@{
     ViewBag.Title = "Корзина покупок";
 }
+
+@section Style {
+    <link href="/css/Cart/Cart.css" rel="stylesheet" />
+}
+
+<div class="main-content">
+    <div class="cart-content">
+        <a class="logo" asp-action="Index" asp-controller="Home">Game Step</a>
+        <div class="info-block">Корзина</div>
+
+
+        <div class="catalog-item">
+            @foreach (var product in Model)
+            {
+                <div class="product-in-cart">
+                    <div class="block-img-catalog-item">
+                        <a asp-action="Game" asp-controller="Game" asp-route-id="@product.Id">
+                            <img class="img-catalog-item" src="https://media.cntraveler.com/photos/5d72b0ef7ffc50000818c6c7/3:2/w_3879,h_2586,c_limit/Seoul,-Korea_GettyImages-560065591.jpg"><img />
+                        </a>
+                    </div>
+
+                    <div class="catalog-item-info">
+                        <div class="name-product">@product.Name</div>
+                        <div class="more-info">
+                            <div class="where-activate-product">
+                                <img src="/img/steam.png" alt="Steam">
+                            </div>
+                            <div class="genre-region">Регион: Россия, Украни, СНГ</div>
+                        </div>
+                    </div>
+                    <div class="item-price">
+                        <div class="block-input-quantity">
+                            <button type="button" class="btnMinus">-</button>
+                            <input class="input-quantity-product" type="number" max="5" min="1" value="1" readonly>
+                            <button type="button" class="btnPlus"> +</button>
+                        </div>
+
+                        <div class="cur-price-item">
+                            @if (product.IsDiscount)
+                            {
+                                @product.DiscountPrice <span>$</span>
+                            }
+                            else
+                            {
+                                @product.Price <span>$</span>
+                            }
+                        </div>
+
+                        <div class="remove-from-cart" del-data-id="@product.Id">RE</div>
+                    </div>
+                </div>
+            }
+
+            <div class="final-price">
+                Итого: 1534$
+            </div>
+            <div class="payment-method">
+                <span>Способ оплаты</span>
+                <div class="choise-payment-method">
+                    <select class="select-payment-method">
+                        <option value="WebMoney">WebMoney</option>
+                        <option value="PayPal">PayPal</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="container-promocode">
+                <span>У вас есть промо-код?</span>
+                <div class="container-input-promocode">
+                    <input class="input-promocode" type="text" placeholder="Promocode">
+
+                    <div class="btn-promocode">
+                        Применить
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container-email">
+                <span id="email-span">Email</span>
+                <input class="input-email" type="text" placeholder="Введите Email">
+                <input class="input-email" type="text" placeholder="Повторите Email">
+            </div>
+
+            <div class="container-agreement">
+                <input class="checkbox-agreement" type="checkbox">
+                <div>Я ознакомлен с пользовательским соглашением, описанием товара и региональными ограничениями, политикой конфиденциальности и даю согласие на обработку персональных данных.</div>
+            </div>
+
+            <div class="btn-further">Далее</div>
+        </div>   
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+            $(".btnDelProdCart").click(function () {
+                var modelCartId = this.getAttribute('del-data-id');
+                $.ajax({
+                    url: window.location.origin + "/Cart/DeleteProductInCart",
+                    type: "Get",
+                    data: { 'id': modelCartId },
+                    success: function (result) {
+                        location.reload();
+                    },
+                });
+            })
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+
+            $(".btnMinus").click(function () {
+                $(".input-quantity-product").attr('min', 1);
+
+                this.nextElementSibling.stepDown();
+                this.nextElementSibling.onchange();
+            });
+
+            $(".btnPlus").click(function () {
+                $(".input-quantity-product").attr('max', 5);
+
+                this.previousElementSibling.stepUp();
+                this.previousElementSibling.onchange();
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('.input-quantity-product').on('input', function () {
+
+                let value = $(this).val();
+
+                if ((value !== '') && (value.indexOf('.') === -1)) {
+
+                    $(this).val(Math.max(Math.min(value, 5), 1));
+                }
+            });
+        });
+    </script>
+} 

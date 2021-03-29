@@ -15,6 +15,39 @@ namespace Game_Step.Controllers
         }
 
         [HttpGet]
+        public IActionResult Index()
+        {
+            var listId = HttpContext.Session.Get<List<int>>("CartId");
+            List<Cart> carts = new List<Cart>();
+            if (listId != null)
+            {
+                foreach (var id in listId)
+                {
+                    var game = db.Games.Find(id);
+                    var priceGame = db.GamePrices.FirstOrDefault(item => item.GameId == id);
+                    if (game != null)
+                    {
+                        Cart cart = new Cart
+                        {
+                            Id = game.Id,
+                            Name = game.Name,
+                            Price = priceGame.Price,
+                            Quantity = game.QuantityOfGoods,
+                            IsDiscount = priceGame.IsDiscount,
+                            Discount = priceGame.Discount,
+                            DiscountPrice = priceGame.DiscountPrice,
+                        };
+                        carts.Add(cart);
+                    }
+                }
+            }
+
+            return View(carts);
+        }
+
+
+
+        [HttpGet]
         public IActionResult CallCart()
         {
             return ViewComponent("Cart");
@@ -149,5 +182,6 @@ namespace Game_Step.Controllers
             }
             return ViewComponent("Cart");
         }
+
     }
 }

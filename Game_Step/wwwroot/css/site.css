@@ -78,12 +78,6 @@ html {
     background-color: #F3F3F3;
 }
 
-@media (min-width: 768px) {
-    html {
-        font-size: 16px;
-    }
-}
-
 .border-top {
     border-top: 1px solid #e5e5e5;
 }
@@ -147,10 +141,4 @@ body {
 .button-cart :hover {
     border-radius: 3px;
     background-color: rgb(190, 190, 190, 0.5)
-}
-
-@media (max-width: 991px) {
-    .main-content {
-        max-width: 980px;
-    }
 }

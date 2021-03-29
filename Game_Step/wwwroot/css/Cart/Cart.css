@@ -1,0 +1,283 @@
+﻿.cart-content {
+    max-width: 820px;
+    margin: auto auto;
+    padding-top: 45px;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+    font-size: 48px;
+    width: 300px;
+    padding: 3px;
+    border-radius: 28px;
+    margin: 0 auto 45px auto;
+    background-color: #ff9900;
+    color: white;
+    text-decoration: none;
+}
+
+.logo:hover{
+    color: white;
+    text-decoration: none;
+}
+
+.info-block {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.product-in-cart {
+    width: 100%;
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 12px;
+    padding-top: 2px;
+    margin-bottom: 10px;
+}
+
+.catalog-item {
+    padding: 19px 22px;
+    flex: 1;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    margin-bottom: 3px;
+}
+
+.catalog-novetly {
+    display: none;
+}
+
+.catalog-leaders-sells {
+    display: none;
+}
+
+.catalog-expected {
+    display: none;
+}
+
+.block-img-catalog-item {
+    width: 152px;
+    min-width: 152px;
+    max-height: 72px;
+}
+
+.img-catalog-item {
+    max-width: 100%;
+    max-height: 72px;
+}
+
+.catalog-item-info {
+    margin-left: 5px;
+    vertical-align: middle;
+    align-items: center;
+}
+
+.name-product {
+    font-size: 16px;
+}
+
+.more-info {
+    display: flex;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.genre-region {
+    color: #D7D7D7;
+    display: flex;
+    align-items: center;
+}
+
+.where-activate-product {
+    margin-right: 20px;
+    width: 25px;
+    min-width: 25px;
+}
+
+    .where-activate-product img {
+        width: 100%;
+    }
+
+.item-price {
+    flex: 1 auto;
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+}
+
+.cur-price-item {
+    font-weight: 700;
+    font-size: 18px;
+    min-width: 63px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.block-input-quantity {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-quantity-product {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+    outline: none;
+    border: 1px solid #ccc;
+    text-align: center;
+    -moz-appearance: textfield;
+    -webkit-appearance: textfield;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    display: none;
+}
+
+.btnMinus, .btnPlus {
+    margin: 0;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    outline: none;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+    .btnMinus:focus, .btnPlus:focus {
+        outline: none;
+    }
+
+.btnPlus {
+    border-left: 0;
+}
+
+.btnMinus {
+    border-right: 0;
+}
+
+.remove-from-cart {
+    margin-left: 20px;
+}
+
+.final-price {
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.payment-method {
+    width: 100%;
+}
+
+    .payment-method span {
+        display: flex;
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+.choise-payment-method {
+    display: flex;
+}
+
+.select-payment-method {
+    margin-top: 10px;
+    width: 220px;
+    height: 35px;
+    font-size: 18px;
+}
+
+.container-promocode {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+    .container-promocode span {
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+.container-input-promocode {
+    border: 1px solid #ccc;
+    width: 450px;
+    display: flex;
+    padding: 20px;
+    background-color: rgba(1, 181, 154, 0.25);
+}
+
+.input-promocode {
+    width: 100%;
+    height: 35px;
+    border-radius: 0;
+    outline: none;
+    border: 1px solid #ccc;
+    font-size: 18px;
+}
+
+.btn-promocode {
+    display: flex;
+    align-items: center;
+    padding: 7px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+}
+
+#email-span {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.container-email {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.input-email {
+    width: 270px;
+    height: 35px;
+    margin-bottom: 5px;
+    outline: none;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.container-agreement {
+    display: flex;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.checkbox-agreement {
+    height: 50px;
+    width: 50px;
+    margin: 0;
+    padding: 0;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.btn-further {
+    margin-top: 20px;
+    width: 300px;
+    padding: 10px 0 10px 0;
+    color: white;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 18px;
+    margin-bottom: 50px;
+    cursor: pointer;
+}
