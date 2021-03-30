@@ -117,7 +117,8 @@ a:hover{
 }
 
     .where-activate-product img {
-        width: 100%;
+        width: 32px;
+        height: 100%;
     }
 
 .item-price {

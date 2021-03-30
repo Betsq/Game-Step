@@ -83,4 +83,6 @@
 .quantity-goods {
     position: absolute;
     pointer-events: none;
+    bottom: -1px;
+    right: 0;
 }
