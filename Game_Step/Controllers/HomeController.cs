@@ -33,7 +33,7 @@ namespace Game_Step.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var game = await db.Games.Include(price => price.GamePrices).ToListAsync();
+            var game = await db.Games.Include(price => price.GamePrice).ToListAsync();
             
             return View(game);
         }

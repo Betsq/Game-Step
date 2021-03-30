@@ -280,7 +280,7 @@ namespace Game_Step.Controllers
         {
             if (id != null)
             {
-                var game = await db.Games.Include(price => price.GamePrices).FirstOrDefaultAsync(item => item.Id == id);
+                var game = await db.Games.Include(price => price.GamePrice).FirstOrDefaultAsync(item => item.Id == id);
                 if (game != null)
                     return View(game);
             }

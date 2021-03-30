@@ -21,8 +21,8 @@ namespace Game_Step.Models
         public string WhereKeyActivated { get; set; }
         public DateTime ReleaseDate { get; set; }
         public byte[] Image { get; set; }
+        public GamePrice GamePrice { get; set; }
         public List<GameKey> GameKeys { get; set; } = new List<GameKey>();
-        public List<GamePrice> GamePrices { get; set; } = new List<GamePrice>();
 
         public string RecommendOC { get; set; }
         public string RecommendCPU { get; set; }

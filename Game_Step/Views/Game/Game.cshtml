@@ -86,21 +86,18 @@
                 </div>
                 <div class="product-cart-block">
                     <div class="price-block">
-                        @foreach (var price in Model.GamePrices)
-                        {
-                            if (price.IsDiscount)
+                            @if (Model.GamePrice.IsDiscount)
                             {
                                 <div class="price-discount">
-                                    @price.Discount%
+                                    @Model.GamePrice.Discount%
                                 </div>
-
                                 <div class="product-price">
 
                                     <div class="old-price">
-                                        @price.Price руб.
+                                        @Model.GamePrice.Price руб.
                                     </div>
                                     <div class="current-price-product">
-                                        @price.DiscountPrice
+                                        @Model.GamePrice.DiscountPrice
                                         <sup class="sup-price-cur">РУБ.</sup>
                                     </div>
                                 </div>
@@ -109,12 +106,11 @@
                             {
                                 <div class="product-price">
                                     <div class="current-price-product">
-                                        @price.Price
+                                        @Model.GamePrice.Price
                                         <sup class="sup-price-cur">РУБ.</sup>
                                     </div>
                                 </div>
                             }
-                        }
 
                     </div>
                     <div class="product-md-block">

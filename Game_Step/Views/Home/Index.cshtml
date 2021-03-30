@@ -58,24 +58,21 @@
                                 </div>
                             </div>
                             <div class="item-price">
-                                @foreach (var price in m.GamePrices)
-                                {
-                                    if (price.IsDiscount)
+                                    @if (m.GamePrice.IsDiscount)
                                     {
                                         <div class="discount-item">
-                                            @price.Discount%
+                                            @m.GamePrice.Discount%
                                         </div>
                                         <div class="cur-price-item">
-                                            @price.DiscountPrice $.
+                                            @m.GamePrice.DiscountPrice $.
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="cur-price-item">
-                                            @price.Price $.
+                                            @m.GamePrice.Price $.
                                         </div>
                                     }
-                                }
                             </div>
                         </a>
                         counter++;
@@ -108,24 +105,21 @@
                                 </div>
                             </div>
                             <div class="item-price">
-                                @foreach (var price in m.GamePrices)
-                                {
-                                    if (price.IsDiscount)
+                                    @if (m.GamePrice.IsDiscount)
                                     {
                                         <div class="discount-item">
-                                            @price.Discount%
+                                            @m.GamePrice.Discount%
                                         </div>
                                         <div class="cur-price-item">
-                                            @price.DiscountPrice $.
+                                            @m.GamePrice.DiscountPrice $.
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="cur-price-item">
-                                            @price.Price $.
+                                            @m.GamePrice.Price $.
                                         </div>
                                     }
-                                }
                             </div>
                         </a>
                         counter++;
@@ -158,24 +152,21 @@
                                 </div>
                             </div>
                             <div class="item-price">
-                                @foreach (var price in m.GamePrices)
-                                {
-                                    if (price.IsDiscount)
+                                    @if (m.GamePrice.IsDiscount)
                                     {
                                         <div class="discount-item">
-                                            @price.Discount%
+                                            @m.GamePrice.Discount%
                                         </div>
                                         <div class="cur-price-item">
-                                            @price.DiscountPrice $.
+                                            @m.GamePrice.DiscountPrice $.
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="cur-price-item">
-                                            @price.Price $.
+                                            @m.GamePrice.Price $.
                                         </div>
                                     }
-                                }
                             </div>
                         </a>
                         counter++;
