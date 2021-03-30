@@ -37,7 +37,7 @@
 
             <div class="catalog">
                 <div class="catalog-novetly">
-                    @foreach (var m in Model.OrderBy(item => item.Name))
+                    @foreach (var m in Model.OrderBy(item => item.ReleaseDate))
                     {
                         @if (counter == 8)
                         {
@@ -53,7 +53,22 @@
                                 <div class="name-product">@m.Name</div>
                                 <div class="more-info">
                                     <div class="where-activate-product">
-                                        <img src="" alt="Steam">
+                                        @if (m.WhereKeyActivated == "Steam")
+                                        {
+                                            <img src="/img/Game/logo/steam.png" alt="@m.WhereKeyActivated">
+                                        }
+                                        else if (m.WhereKeyActivated == "GOG")
+                                        {
+                                            <img src="/img/Game/logo/GOG.png" alt="@m.WhereKeyActivated">
+                                        }
+                                        else if (m.WhereKeyActivated == "Origin")
+                                        {
+                                            <img src="/img/Game/logo/origin.png" alt="@m.WhereKeyActivated">
+                                        }
+                                        else if (m.WhereKeyActivated == "Epic Games Store")
+                                        {
+                                            <img src="/img/Game/logo/epic_games.png" alt="@m.WhereKeyActivated">
+                                        }
                                     </div>
                                     <div class="genre-product"> Экшены, RPG</div>
                                 </div>
@@ -78,6 +93,7 @@
                         </a>
                         counter++;
                     }
+
 
                     <a class="catalog-item-more-games" href="">
                         ЕЩЕ 4234 ИГР
@@ -146,7 +162,7 @@
                     </a>
                 </div>
                 <div class="catalog-expected">
-                    @foreach (var m in Model.OrderBy(item => item.Name))
+                    @foreach (var m in Model.OrderBy(item => item.GamePrice.Price))
                     {
                         @if (counter == 8)
                         {
@@ -162,7 +178,22 @@
                                 <div class="name-product">@m.Name</div>
                                 <div class="more-info">
                                     <div class="where-activate-product">
-                                        <img src="~/img/steam.png" alt="Steam">
+                                        @if (m.WhereKeyActivated == "Steam")
+                                        {
+                                            <img src="/img/Game/logo/steam.png" alt="@m.WhereKeyActivated">
+                                        }
+                                        else if (m.WhereKeyActivated == "GOG")
+                                        {
+                                            <img src="/img/Game/logo/GOG.png" alt="@m.WhereKeyActivated">
+                                        }
+                                        else if (m.WhereKeyActivated == "Origin")
+                                        {
+                                            <img src="/img/Game/logo/origin.png" alt="@m.WhereKeyActivated">
+                                        }
+                                        else if (m.WhereKeyActivated == "Epic Games Store")
+                                        {
+                                            <img src="/img/Game/logo/epic_games.png" alt="@m.WhereKeyActivated">
+                                        }
                                     </div>
                                     <div class="genre-product"> Экшены, RPG</div>
                                 </div>
@@ -188,6 +219,7 @@
                         counter++;
                     }
 
+
                     <a class="catalog-item-more-games" href="">
                         ЕЩЕ 4234 ИГР
                     </a>
@@ -208,17 +240,28 @@
                         counter = 0;
                         break;
                     }
-                    <a href="" class="discount-product-aside">
+                    <a asp-action="Game" asp-controller="Game" asp-route-id="@g.Id" class="discount-product-aside">
                         <div class="discount-product-aside-img">
-                            <img src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg" alt="xxx">
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(g.Image))" alt="@g.Name">
                         </div>
 
-                        <div class="discount-product-aside-name">Fallout 4 </div>
+                        <div class="discount-product-aside-name">@g.Name</div>
                         <div class="discount-product-aside-price">
-                            <div class="discount-prod-aside">
-                                <span>-32%</span>
-                            </div>
-                            435 $.
+                            @if (g.GamePrice.IsDiscount)
+                            {
+                                <div class="discount-prod-aside">
+                                    <span>@g.GamePrice.Discount</span>
+                                </div>
+                                <div class="aside-cur-price">
+                                    @g.GamePrice.DiscountPrice <span>$</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="aside-cur-price">
+                                    @g.GamePrice.Price<span>$</span>
+                                </div>
+                            }
                         </div>
                     </a>
                     counter++;
@@ -240,17 +283,28 @@
                         counter = 0;
                         break;
                     }
-                    <a href="" class="discount-product-aside">
+                    <a asp-action="Game" asp-controller="Game" asp-route-id="@g.Id" class="discount-product-aside">
                         <div class="discount-product-aside-img">
-                            <img src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg" alt="xxx">
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(g.Image))" alt="@g.Name">
                         </div>
 
-                        <div class="discount-product-aside-name">Fallout 4 </div>
+                        <div class="discount-product-aside-name">@g.Name</div>
                         <div class="discount-product-aside-price">
-                            <div class="discount-prod-aside">
-                                <span>-32%</span>
-                            </div>
-                            435 $.
+                            @if (g.GamePrice.IsDiscount)
+                            {
+                                <div class="discount-prod-aside">
+                                    <span>@g.GamePrice.Discount</span>
+                                </div>
+                                <div class="aside-cur-price">
+                                    @g.GamePrice.DiscountPrice <span>$</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="aside-cur-price">
+                                    @g.GamePrice.Price<span>$</span>
+                                </div>
+                            }
                         </div>
                     </a>
                     counter++;

@@ -205,7 +205,7 @@ a:hover{
 
 .discount-product-aside-name {
     margin: 0 10px 0 10px;
-    max-width: 200px;
+    max-width: 160px;
     height: 50px;
     display: flex;
     align-items: center;
@@ -214,18 +214,25 @@ a:hover{
 
 .discount-product-aside-price {
     flex: 1 auto;
-    flex-direction: column;
     font-size: 16px;
     display: flex;
-    align-items: flex-end;
+    justify-content: flex-end;
 }
 
 .discount-prod-aside {
     font-size: 12px;
     display: flex;
+    align-items: center;
     justify-content: center;
     padding: 1px 7px 1px 7px;
     color: white;
+}
+
+.aside-cur-price {
+    min-width: 47px;
+    margin-left: 10px;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .more-discount-product-aside {
