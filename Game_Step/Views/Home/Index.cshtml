@@ -4,6 +4,7 @@
     ViewBag.Title = "Game Step";
 
     int counter = 0;
+
 }
 
 @section Style{
@@ -52,27 +53,27 @@
                                 <div class="name-product">@m.Name</div>
                                 <div class="more-info">
                                     <div class="where-activate-product">
-                                        <img src="~/img/steam.png" alt="Steam">
+                                        <img src="" alt="Steam">
                                     </div>
                                     <div class="genre-product"> Экшены, RPG</div>
                                 </div>
                             </div>
                             <div class="item-price">
-                                    @if (m.GamePrice.IsDiscount)
-                                    {
-                                        <div class="discount-item">
-                                            @m.GamePrice.Discount%
-                                        </div>
-                                        <div class="cur-price-item">
-                                            @m.GamePrice.DiscountPrice $.
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="cur-price-item">
-                                            @m.GamePrice.Price $.
-                                        </div>
-                                    }
+                                @if (m.GamePrice.IsDiscount)
+                                {
+                                    <div class="discount-item">
+                                        @m.GamePrice.Discount%
+                                    </div>
+                                    <div class="cur-price-item">
+                                        @m.GamePrice.DiscountPrice $.
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="cur-price-item">
+                                        @m.GamePrice.Price $.
+                                    </div>
+                                }
                             </div>
                         </a>
                         counter++;
@@ -99,27 +100,42 @@
                                 <div class="name-product">@m.Name</div>
                                 <div class="more-info">
                                     <div class="where-activate-product">
-                                        <img src="~/img/steam.png" alt="Steam">
+                                        @if (m.WhereKeyActivated == "Steam")
+                                        {
+                                            <img src="/img/Game/logo/steam.png" alt="@m.WhereKeyActivated">
+                                        }
+                                        else if (m.WhereKeyActivated == "GOG")
+                                        {
+                                            <img src="/img/Game/logo/GOG.png" alt="@m.WhereKeyActivated">
+                                        }
+                                        else if (m.WhereKeyActivated == "Origin")
+                                        {
+                                            <img src="/img/Game/logo/origin.png" alt="@m.WhereKeyActivated">
+                                        }
+                                        else if (m.WhereKeyActivated == "Epic Games Store")
+                                        {
+                                            <img src="/img/Game/logo/epic_games.png" alt="@m.WhereKeyActivated">
+                                        }
                                     </div>
                                     <div class="genre-product"> Экшены, RPG</div>
                                 </div>
                             </div>
                             <div class="item-price">
-                                    @if (m.GamePrice.IsDiscount)
-                                    {
-                                        <div class="discount-item">
-                                            @m.GamePrice.Discount%
-                                        </div>
-                                        <div class="cur-price-item">
-                                            @m.GamePrice.DiscountPrice $.
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="cur-price-item">
-                                            @m.GamePrice.Price $.
-                                        </div>
-                                    }
+                                @if (m.GamePrice.IsDiscount)
+                                {
+                                    <div class="discount-item">
+                                        @m.GamePrice.Discount%
+                                    </div>
+                                    <div class="cur-price-item">
+                                        @m.GamePrice.DiscountPrice $.
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="cur-price-item">
+                                        @m.GamePrice.Price $.
+                                    </div>
+                                }
                             </div>
                         </a>
                         counter++;
@@ -152,21 +168,21 @@
                                 </div>
                             </div>
                             <div class="item-price">
-                                    @if (m.GamePrice.IsDiscount)
-                                    {
-                                        <div class="discount-item">
-                                            @m.GamePrice.Discount%
-                                        </div>
-                                        <div class="cur-price-item">
-                                            @m.GamePrice.DiscountPrice $.
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="cur-price-item">
-                                            @m.GamePrice.Price $.
-                                        </div>
-                                    }
+                                @if (m.GamePrice.IsDiscount)
+                                {
+                                    <div class="discount-item">
+                                        @m.GamePrice.Discount%
+                                    </div>
+                                    <div class="cur-price-item">
+                                        @m.GamePrice.DiscountPrice $.
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="cur-price-item">
+                                        @m.GamePrice.Price $.
+                                    </div>
+                                }
                             </div>
                         </a>
                         counter++;
