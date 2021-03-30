@@ -66,13 +66,13 @@ namespace Game_Step.Controllers
                 if (countOfGoods <= 0)
                 {
                     HttpContext.Session.Remove("CountOfGoods");
-                    return Json("");
+                    return Json(0);
                 }
 
                 return Json(countOfGoods);
             }
 
-            return Json("");
+            return Json(0);
         }
 
         [HttpPost]
