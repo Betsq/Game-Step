@@ -164,6 +164,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .remove-from-cart {
     margin-left: 20px;
+    cursor: pointer;
 }
 
 .final-price {

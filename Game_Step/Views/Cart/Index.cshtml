@@ -36,18 +36,21 @@
                     <div class="item-price">
                         <div class="block-input-quantity">
                             <button type="button" class="btnMinus">-</button>
-                            <input class="input-quantity-product" type="number" max="5" min="1" value="1" readonly>
+
+                            <input class="input-quantity-product" type="number" max="5" min="1" value="1"
+                                   readonly data-id="@product.Id">
+
                             <button type="button" class="btnPlus"> +</button>
                         </div>
 
                         <div class="cur-price-item">
                             @if (product.IsDiscount)
                             {
-                                @product.DiscountPrice <span>$</span>
+                                <div class="prod-price" id="@product.Id">@product.DiscountPrice</div><span>$</span>
                             }
                             else
                             {
-                                @product.Price <span>$</span>
+                                <div class="prod-price" id="@product.Id">@product.Price</div><span>$</span>
                             }
                         </div>
 
@@ -57,7 +60,7 @@
             }
 
             <div class="final-price">
-                Итого: 1534$
+                Итого: 0$
             </div>
             <div class="payment-method">
                 <span>Способ оплаты</span>
@@ -93,14 +96,15 @@
             </div>
 
             <div class="btn-further">Далее</div>
-        </div>   
+        </div>
     </div>
 </div>
 
 @section Scripts{
+
     <script>
         $(document).ready(function () {
-            $(".btnDelProdCart").click(function () {
+            $(".remove-from-cart").click(function () {
                 var modelCartId = this.getAttribute('del-data-id');
                 $.ajax({
                     url: window.location.origin + "/Cart/DeleteProductInCart",
@@ -110,24 +114,78 @@
                         location.reload();
                     },
                 });
-            })
+            });
         });
     </script>
 
     <script>
-        $(document).ready(function () {
 
+        //Function for displaying the total price of goods
+        function ChangeTotalPrice() {
+
+            let totalPrice = 0;
+
+            //Parse and add the price of all goods
+            $('.prod-price').each(function (index, obj) {
+                totalPrice += parseInt(($(this).text()));
+            });
+
+            //Displaying the total price
+            $(".final-price").text("Итого: " + totalPrice + "$");
+        };
+
+        //Change call function and display of a specific product
+        function ChangePriceProduct(getId, getAmountProduct) {
+            $.ajax({
+                url: window.location.origin + "/Cart/CountPrice",
+                type: "Post",
+                data: { 'id': getId, 'amountProduct': getAmountProduct },
+                success: function (result) {
+                    $("#" + getId).text(result);
+
+                    ChangeTotalPrice();
+                },
+            });
+        };
+
+        //When the page loads, it calls the function
+        $(document).ready(function () {
+            ChangeTotalPrice();
+        });
+
+
+        $(document).ready(function () {
+            //Function to decrease the value in input using buttons
             $(".btnMinus").click(function () {
+
+                //Sets the minimum input threshold "1" for products
                 $(".input-quantity-product").attr('min', 1);
 
+                //Changes the value in input to -1
                 this.nextElementSibling.stepDown();
-                this.nextElementSibling.onchange();  
+
+                //Gets the id of the product to be passed to the function
+                let getId = $(this).next().attr('data-id');
+                //Gets the quantity of ordered one item of goods
+                let getAmountProduct = $(this).next().val();
+
+
+                ChangePriceProduct(getId, getAmountProduct);
+
+                this.nextElementSibling.onchange();
             });
 
             $(".btnPlus").click(function () {
                 $(".input-quantity-product").attr('max', 5);
 
                 this.previousElementSibling.stepUp();
+
+                let getId = $(this).prev().attr('data-id');
+                let getAmountProduct = $(this).prev().val();
+
+                ChangePriceProduct(getId, getAmountProduct);
+
+                //Saves the change to input
                 this.previousElementSibling.onchange();
             });
         });
@@ -135,6 +193,7 @@
 
     <script>
         $(document).ready(function () {
+
             $('.input-quantity-product').on('input', function () {
 
                 let value = $(this).val();
@@ -146,4 +205,5 @@
             });
         });
     </script>
+
 } 

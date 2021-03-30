@@ -183,5 +183,41 @@ namespace Game_Step.Controllers
             return ViewComponent("PopupCart");
         }
 
+        [HttpPost]
+        public JsonResult CountPrice(int? id, int? amountProduct)
+        {
+            if (id != null)
+            {
+                if (amountProduct != null)
+                {
+                    //If the "cart" session is set
+                    if (HttpContext.Session.Keys.Contains("CartId"))
+                    {
+                        //get the list with id
+                        var listId = HttpContext.Session.Get<List<int>>("CartId");
+
+                        //Check if the incoming "id" is already in the list
+                        //DON'T FORGET TO CHANGE
+                        foreach (var lsId in listId)
+                        {
+                            if (lsId == id)
+                            {
+                                var gamePrice = db.GamePrices.FirstOrDefault(item => item.GameId == id);
+                                if (gamePrice.IsDiscount)
+                                {
+                                    return Json(gamePrice.DiscountPrice * amountProduct); 
+                                }
+                                else
+                                {
+                                    return Json(gamePrice.Price * amountProduct);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            return Json("");
+        }
+
     }
 }
