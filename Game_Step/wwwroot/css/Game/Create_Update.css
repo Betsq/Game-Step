@@ -51,30 +51,17 @@
         background-color: white;
     }
 
-.image-preview {
-    width: 300px;
-    min-height: 100px;
-    border: 2px solid #ddd;
-    margin-top: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    color: #ccc;
-}
-
 .add-image__icon-plus {
     cursor: pointer;
     width: 50px;
     height: 50px;
 }
 
-.image-preview__image {
+.image-preview{
     display: none;
-    width: 100%;
 }
 
-.main-form-input-file {
+.img-inp {
     display: none;
 }
 

@@ -77,20 +77,22 @@
             </div>
 
             <div class="block-input">
-                <div class="name-input-img-add">Image* (.png, .jpg, .jpeg)</div>
-                <input class="main-form-input-file" type="file" id="inpFile1" accept=".png, .jpg, .jpeg">
-                <img class="add-image__icon-plus" id="upfile1" src="/img/icon/icon-plus.svg" alt="Add image">
-                <div class="image-preview" id="image-preview">
-                    <img src="" alt="Image Preview" class="image-preview__image">
-                    <span class="image-preview__default-text">Image Preview</span>
-                </div>
+                <img class="add-image__icon-plus clickInpImage" src="/img/icon/icon-plus.svg" alt="Add image">
+                <input class="img-inp" type="file" asp-for="MainImage" />
+                <img class="image-preview" src="#"/>
             </div>
 
+            <div class="block-input">
+                <img class="add-image__icon-plus clickInpImage" src="/img/icon/icon-plus.svg" alt="Add image">
+                <input class="img-inp" type="file" asp-for="InnerImage"/>
+                <img class="image-preview" src="#"/>
+            </div>
 
-            <input type="file" asp-for="MainImage">MainImage
-            <input type="file" asp-for="InnerImage">Inner Image
-            <input type="file" asp-for="ImageInCatalog">Image In Catalog
-
+            <div class="block-input">
+                <img class="add-image__icon-plus clickInpImage" src="/img/icon/icon-plus.svg" alt="Add image">
+                <input class="img-inp" type="file" asp-for="ImageInCatalog"/>
+                <img class="image-preview" src="#"/>
+            </div>
 
             <div class="block-input">
                 <div class="select-box">
