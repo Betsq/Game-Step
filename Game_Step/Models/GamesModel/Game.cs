@@ -22,6 +22,8 @@ namespace Game_Step.Models
         public DateTime ReleaseDate { get; set; }
         public byte[] Image { get; set; }
         public GamePrice GamePrice { get; set; }
+        public GameImage GameImage { get; set; }
+        public List<GameScreenshot> GameScreenshots { get; set; } = new List<GameScreenshot>();
         public List<GameKey> GameKeys { get; set; } = new List<GameKey>();
 
         public string RecommendOC { get; set; }
