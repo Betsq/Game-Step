@@ -20,7 +20,7 @@
     <div class="product-content">
         <div class="product-left">
             <div class="scale-img main-img">
-                <img class="scale-img" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
+                <img class="scale-img" src="@Model.GameImage?.InnerImage" />
             </div>
 
             <div class="product-advantages-mobile">

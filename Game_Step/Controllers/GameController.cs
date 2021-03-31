@@ -1,6 +1,7 @@
 ﻿using Game_Step.Models;
 using Game_Step.Models.GamesModel;
 using Game_Step.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,10 +18,12 @@ namespace Game_Step.Controllers
     public class GameController : Controller
     {
         private readonly ApplicationContext db;
+        private readonly IWebHostEnvironment appEnvironment;
 
-        public GameController(ApplicationContext context)
+        public GameController(ApplicationContext context, IWebHostEnvironment appEnvironment)
         {
             db = context;
+            this.appEnvironment = appEnvironment;
         }
 
         [HttpGet]
@@ -87,11 +90,54 @@ namespace Game_Step.Controllers
                     disc = 0;
                     model.IsDiscount = false;
                 }
-                    
+
                 int discountPrice = 0;
                 if (model.IsDiscount == true)
                 {
-                    discountPrice = model.Price - ((model.Price * model.Discount)/100);
+                    discountPrice = model.Price - ((model.Price * model.Discount) / 100);
+                }
+
+                if (model.MainImage != null)
+                {
+                    string folderGame = model.Name;
+
+                    Directory.CreateDirectory(appEnvironment.WebRootPath + "/img/Game/Games/" + folderGame);
+
+                    string pathMainImage = "/img/Game/Games/" + folderGame + "/" + model.MainImage.FileName;
+                    string pathInnerImage = "/img/Game/Games/" + folderGame + "/" + model.InnerImage.FileName;
+                    string pathImageInCatalog = "/img/Game/Games/" + folderGame + "/" + model.ImageInCatalog.FileName;
+
+                    using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
+                    {
+                        await model.MainImage.CopyToAsync(filesStream);
+                    }
+
+                    if (model.InnerImage != null)
+                    {
+                        using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
+                        {
+                            await model.InnerImage.CopyToAsync(filesStream);
+
+                        }
+                    }
+
+                    if (model.ImageInCatalog != null)
+                    {
+                        using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
+                        {
+                            await model.ImageInCatalog.CopyToAsync(filesStream);
+                        }
+                    }
+
+                    GameImage gameImage = new GameImage
+                    {
+                        MainImage = pathMainImage,
+                        InnerImage = pathInnerImage,
+                        ImageInCatalog = pathImageInCatalog,
+                        Game = game,
+                    };
+
+                    db.GameImages.Add(gameImage);
                 }
 
                 GamePrice gamePrice = new GamePrice
@@ -280,7 +326,9 @@ namespace Game_Step.Controllers
         {
             if (id != null)
             {
-                var game = await db.Games.Include(price => price.GamePrice).FirstOrDefaultAsync(item => item.Id == id);
+                var game = await db.Games.Include(price => price.GamePrice)
+                    .Include(image => image.GameImage)
+                    .FirstOrDefaultAsync(item => item.Id == id);
                 if (game != null)
                     return View(game);
             }

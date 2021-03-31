@@ -21,6 +21,13 @@ namespace Game_Step.ViewModels
 
         public int Discount { get; set; }
 
+        public IFormFile MainImage { get; set; }
+        public IFormFile InnerImage { get; set; }
+        public IFormFile ImageInCatalog { get; set; }
+
+        public IFormFile Screenshot { get; set; }
+
+
         [Required]
         public IFormFile Image { get; set; }
         
