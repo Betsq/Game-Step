@@ -20,7 +20,6 @@ namespace Game_Step.Models
         public string Region { get; set; }
         public string WhereKeyActivated { get; set; }
         public DateTime ReleaseDate { get; set; }
-        public byte[] Image { get; set; }
         public GamePrice GamePrice { get; set; }
         public GameImage GameImage { get; set; }
         public List<GameScreenshot> GameScreenshots { get; set; } = new List<GameScreenshot>();

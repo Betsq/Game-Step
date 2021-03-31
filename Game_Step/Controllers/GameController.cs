@@ -46,20 +46,11 @@ namespace Game_Step.Controllers
         {
             if (ModelState.IsValid)
             {
-                byte[] imageData = null;
-                if (model.Image != null)
-                {
-                    using (var binaryReader = new BinaryReader(model.Image.OpenReadStream()))
-                    {
-                        imageData = binaryReader.ReadBytes((int)model.Image.Length);
-                    }
-                }
 
                 Game game = new Game
                 {
                     Name = model.Name,
                     Description = model.Description,
-                    Image = imageData,
                     Genre = model.Genre,
                     Language = model.Language,
                     QuantityOfGoods = model.QuantityOfGoods,
@@ -225,16 +216,7 @@ namespace Game_Step.Controllers
         {
             Game game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Id);
             var priceGame = await db.GamePrices.FirstOrDefaultAsync(item => item.GameId == model.Id);
-            if (model.Image != null)
-            {
-                byte[] imageData = null;
-                using (var binaryReader = new BinaryReader(model.Image.OpenReadStream()))
-                {
-                    imageData = binaryReader.ReadBytes((int)model.Image.Length);
-                }
-                game.Image = imageData;
-            }
-
+            
             if (game != null)
             {
                 game.Id = model.Id;
