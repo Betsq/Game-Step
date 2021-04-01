@@ -42,10 +42,20 @@ namespace Game_Step.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(GamesViewModel model)
+        public async Task<IActionResult> Create(GamesCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
+                int disc = model.Discount;
+                int discountPrice = 0;
+                if (disc < 0 || disc > 99 || model.IsDiscount == false)
+                {
+                    disc = 0;
+                    model.IsDiscount = false;
+                }
+                else
+                    discountPrice = model.Price - ((model.Price * model.Discount) / 100);
+
 
                 Game game = new Game
                 {
@@ -75,49 +85,30 @@ namespace Game_Step.Controllers
                     MinimumHDD = model.MinimumHDD
                 };
 
-                int disc = model.Discount;
-                if (disc < 0 || disc > 99 || model.IsDiscount == false)
-                {
-                    disc = 0;
-                    model.IsDiscount = false;
-                }
-
-                int discountPrice = 0;
-                if (model.IsDiscount == true)
-                {
-                    discountPrice = model.Price - ((model.Price * model.Discount) / 100);
-                }
-
                 if (model.MainImage != null)
                 {
-                    string folderGame = model.Name;
+                    string nameFolderGame = model.Name + "/";
+                    string folderAllGames = "/img/Game/Games/";
 
-                    Directory.CreateDirectory(appEnvironment.WebRootPath + "/img/Game/Games/" + folderGame);
+                    Directory.CreateDirectory(appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
 
-                    string pathMainImage = "/img/Game/Games/" + folderGame + "/" + model.MainImage.FileName;
-                    string pathInnerImage = "/img/Game/Games/" + folderGame + "/" + model.InnerImage.FileName;
-                    string pathImageInCatalog = "/img/Game/Games/" + folderGame + "/" + model.ImageInCatalog.FileName;
+                    string pathMainImage = folderAllGames + nameFolderGame + "Main_Image.jpg";
+                    string pathInnerImage = folderAllGames + nameFolderGame + "Inner_Image.jpg";
+                    string pathImageInCatalog = folderAllGames + nameFolderGame + "Image_In_Catalog.jpg";
 
                     using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
-                    {
                         await model.MainImage.CopyToAsync(filesStream);
-                    }
 
                     if (model.InnerImage != null)
                     {
                         using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
-                        {
                             await model.InnerImage.CopyToAsync(filesStream);
-
-                        }
                     }
 
                     if (model.ImageInCatalog != null)
                     {
                         using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
-                        {
                             await model.ImageInCatalog.CopyToAsync(filesStream);
-                        }
                     }
 
                     GameImage gameImage = new GameImage
@@ -144,12 +135,11 @@ namespace Game_Step.Controllers
                 await db.GamePrices.AddAsync(gamePrice);
                 await db.SaveChangesAsync();
 
-
                 return RedirectToAction("Index");
             }
-
             return View(model);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Read(int? id)
@@ -172,15 +162,14 @@ namespace Game_Step.Controllers
             {
                 var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
                 var priceGame = await db.GamePrices.FirstOrDefaultAsync(item => item.GameId == id);
+                var imageGame = await db.GameImages.FirstOrDefaultAsync(item => item.GameId == id);
+
                 if (game != null)
                 {
-                    GamesViewModel gamesViewModel = new GamesViewModel
+                    GamesUpdateViewModel gamesViewModel = new GamesUpdateViewModel
                     {
                         Id = game.Id,
                         Name = game.Name,
-                        Price = priceGame.Price,
-                        IsDiscount = priceGame.IsDiscount,
-                        Discount = priceGame.Discount,
                         Description = game.Description,
                         Genre = game.Genre,
                         Language = game.Language,
@@ -191,6 +180,10 @@ namespace Game_Step.Controllers
                         Features = game.Features,
                         Region = game.Region,
                         WhereKeyActivated = game.WhereKeyActivated,
+
+                        Price = priceGame.Price,
+                        IsDiscount = priceGame.IsDiscount,
+                        Discount = priceGame.Discount,
 
                         RecommendOC = game.RecommendOC,
                         RecommendCPU = game.RecommendCPU,
@@ -212,11 +205,12 @@ namespace Game_Step.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(GamesViewModel model)
+        public async Task<IActionResult> Update(GamesUpdateViewModel model)
         {
-            Game game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Id);
+            var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Id);
             var priceGame = await db.GamePrices.FirstOrDefaultAsync(item => item.GameId == model.Id);
-            
+            var imageGame = await db.GameImages.FirstOrDefaultAsync(item => item.GameId == model.Id);
+
             if (game != null)
             {
                 game.Id = model.Id;
@@ -248,17 +242,15 @@ namespace Game_Step.Controllers
 
             int disc = model.Discount;
             bool isDesc = model.IsDiscount;
+            int discountPrice = 0;
             if (disc <= 0 || disc > 99 || isDesc == false)
             {
                 disc = 0;
                 isDesc = false;
             }
-
-            int discountPrice = 0;
-            if (isDesc == true)
-            {
+            else
                 discountPrice = model.Price - ((model.Price * model.Discount) / 100);
-            }
+
 
             if (priceGame != null)
             {
@@ -269,6 +261,43 @@ namespace Game_Step.Controllers
                 priceGame.Game = game;
             }
 
+
+            string nameFolderGame = model.Name + "/";
+            string folderAllGames = "/img/Game/Games/";
+
+            Directory.CreateDirectory(appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
+
+            string pathMainImage = folderAllGames + nameFolderGame + "Main_Image.jpg";
+            string pathInnerImage = folderAllGames + nameFolderGame + "Inner_Image.jpg";
+            string pathImageInCatalog = folderAllGames + nameFolderGame + "Image_In_Catalog.jpg";
+
+            if (model.MainImage != null)
+            {
+                using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
+                    await model.MainImage.CopyToAsync(filesStream);
+            }
+
+            if (model.InnerImage != null)
+            {
+                using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
+                    await model.InnerImage.CopyToAsync(filesStream);
+            }
+
+            if (model.ImageInCatalog != null)
+            {
+                using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
+                    await model.ImageInCatalog.CopyToAsync(filesStream);
+            }
+
+            if (imageGame != null)
+            {
+                imageGame.MainImage = pathMainImage;
+                imageGame.InnerImage = pathInnerImage;
+                imageGame.ImageInCatalog = pathImageInCatalog;
+                imageGame.Game = game;
+            }
+
+            db.GameImages.Update(imageGame);
             db.GamePrices.Update(priceGame);
             db.SaveChanges();
 

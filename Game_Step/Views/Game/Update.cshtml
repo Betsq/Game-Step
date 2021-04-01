@@ -1,4 +1,4 @@
-﻿@model Game_Step.ViewModels.GamesViewModel
+﻿@model Game_Step.ViewModels.GamesUpdateViewModel
 @using Game_Step.Util
 @inject SelectItemHelper select
 
@@ -35,7 +35,7 @@
 
             <div class="block-input">
                 Add discount
-                <input type="checkbox" id="discount-check" asp-for="IsDiscount"/>
+                <input type="checkbox" id="discount-check" asp-for="IsDiscount" />
             </div>
             <div class="block-input" id="discount" style="display: none;">
                 <label asp-for="Discount" class="name-input">Discount percent</label>
@@ -61,7 +61,7 @@
             <div class="block-input">
                 <label asp-for="Language" class="name-input">Language</label>
                 <input class="main-form-input" type="text" asp-for="Language" placeholder="Language">
-                <span asp-validation-for="Language"></span>
+                <span asp-validation-for="Discount"></span>
             </div>
 
             <div class="block-input">
@@ -76,17 +76,28 @@
                 <span asp-validation-for="Region"></span>
             </div>
 
-            <div class="block-input">
-                <div class="name-input-img-add">Image* (.png, .jpg, .jpeg)</div>
+            <div class="block-input block-img-input">
+                <div class="info-input-image">Главная картинка (1920*1080)</div>
+                <img class="add-image__icon-plus clickInpImage" src="/img/icon/icon-plus.svg" alt="Add image">
+                <input class="img-inp" type="file" asp-for="MainImage" />
+                <img class="image-preview" src="#" />
+                <div class="preview-container">Preview Image</div>
+            </div>
 
-                <input class="main-form-input-file" type="file" id="inpFile1" accept=".png, .jpg, .jpeg" >
+            <div class="block-input block-img-input">
+                <div class="info-input-image">Картинка на старнцие товара (375*480)</div>
+                <img class="add-image__icon-plus clickInpImage" src="/img/icon/icon-plus.svg" alt="Add image">
+                <input class="img-inp" type="file" asp-for="InnerImage" />
+                <img class="image-preview" src="#" style="width: 375px; height: 480px;" />
+                <div class="preview-container" style="width: 375px; height: 480px;">Preview Image</div>
+            </div>
 
-                <img class="add-image__icon-plus" id="upfile1" src="/img/Game/icon-plus.svg" alt="Add image">
-
-                <div class="image-preview" id="image-preview">
-                    <img src="" alt="Image Preview" class="image-preview__image">
-                    <span class="image-preview__default-text">Image Preview</span>
-                </div>
+            <div class="block-input block-img-input">
+                <div class="info-input-image">Картинка в каталоге (153*72)</div>
+                <img class="add-image__icon-plus clickInpImage" src="/img/icon/icon-plus.svg" alt="Add image">
+                <input class="img-inp" type="file" asp-for="ImageInCatalog" />
+                <img class="image-preview" src="#" style="width: 153px; height: 72px;" />
+                <div class="preview-container" style="width: 153px; height: 72px;">Preview Image</div>
             </div>
 
 
@@ -95,7 +106,7 @@
                     <label for="select-box1" class="label select-box1 select-box-color">
                         <span class="label-desc">Choose genre</span>
                     </label>
-                    <select id="select-box1" class="select" asp-for="Genre" asp-items="Game_Step.Util.SelectItemHelper.GetGenre()">
+                    <select id="select-box1" class="select" asp-for="Genre" asp-items="SelectItemHelper.GetGenre()">
                     </select>
                 </div>
             </div>
@@ -105,7 +116,7 @@
                     <label for="select-box2" class="label select-box2 select-box-color">
                         <span class="label-desc">Choose publisher</span>
                     </label>
-                    <select id="select-box2" class="select" asp-for="Publisher" asp-items="select.GetPublisher()">
+                    <select id="select-box2" class="select" asp-for="ReleaseDate" asp-items="select.GetPublisher()">
                     </select>
                 </div>
             </div>
@@ -115,7 +126,7 @@
                     <label for="select-box3" class="label select-box3 select-box-color">
                         <span class="label-desc">Choose developer</span>
                     </label>
-                    <select id="select-box3" class="select" asp-for="Developer" asp-items="select.GetDeveloper()">
+                    <select id="select-box3" class="select" asp-for="QuantityOfGoods" asp-items="select.GetDeveloper()">
                     </select>
                 </div>
             </div>
@@ -126,7 +137,7 @@
                         <span class="label-desc">Key activation platform</span>
                     </label>
                     <select id="select-box4" class="select" asp-for="WhereKeyActivated"
-                            asp-items="Game_Step.Util.SelectItemHelper.GetWhereKeyActivated()">
+                            asp-items="SelectItemHelper.GetWhereKeyActivated()">
                     </select>
                 </div>
             </div>
@@ -134,7 +145,7 @@
 
             Minimum System Requirements
             <div class="block-input">
-                <label asp-for="MinimumOC" class="name-input">OC</label>
+                <label asp-for="QuantityOfGoods" class="name-input">OC</label>
                 <input class="main-form-input" type="text" asp-for="MinimumOC" placeholder="OC" />
                 <span asp-validation-for="MinimumOC"></span>
             </div>
@@ -147,17 +158,17 @@
             <div class="block-input">
                 <label asp-for="MinimumRAM" class="name-input">RAM</label>
                 <input class="main-form-input" type="text" asp-for="MinimumRAM" placeholder="RAM">
-                <span asp-validation-for="MinimumRAM"></span>
+                <span asp-validation-for="Language"></span>
             </div>
             <div class="block-input">
-                <label asp-for="MinimumVideoCard" class="name-input">Video card</label>
-                <input class="main-form-input" type="text" asp-for="MinimumVideoCard" placeholder="VideoCard">
-                <span asp-validation-for="MinimumVideoCard"></span>
+                <label asp-for="Features" class="name-input">Video card</label>
+                <input class="main-form-input" type="text" asp-for="Features" placeholder="VideoCard">
+                <span asp-validation-for="Features"></span>
             </div>
             <div class="block-input">
-                <label asp-for="MinimumDirectX" class="name-input">DirectX</label>
-                <input class="main-form-input" type="text" asp-for="MinimumDirectX" placeholder="DirectX">
-                <span asp-validation-for="MinimumDirectX"></span>
+                <label asp-for="Region" class="name-input">DirectX</label>
+                <input class="main-form-input" type="text" asp-for="Region" placeholder="DirectX">
+                <span asp-validation-for="Region"></span>
             </div>
             <div class="block-input">
                 <label asp-for="MinimumHDD" class="name-input">HDD</label>
@@ -194,7 +205,7 @@
                 <span asp-validation-for="RecommendDirectX"></span>
             </div>
             <div class="block-input">
-                <label asp-for="RecommendHDD" class="name-input">HDD</label>
+                <label asp-for="Genre" class="name-input">HDD</label>
                 <input class="main-form-input" type="text" asp-for="RecommendHDD" placeholder="HDD">
                 <span asp-validation-for="RecommendHDD"></span>
             </div>
