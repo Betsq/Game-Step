@@ -28,9 +28,24 @@
                         <div class="name-product">@product.Name</div>
                         <div class="more-info">
                             <div class="where-activate-product">
-                                <img src="/img/steam.png" alt="Steam">
+                                @if (product.PlatformActivate == "Steam")
+                                {
+                                    <img src="/img/Game/logo/steam.png" alt="@product.PlatformActivate">
+                                }
+                                else if (product.PlatformActivate == "GOG")
+                                {
+                                    <img src="/img/Game/logo/GOG.png" alt="@product.PlatformActivate">
+                                }
+                                else if (product.PlatformActivate == "Origin")
+                                {
+                                    <img src="/img/Game/logo/origin.png" alt="@product.PlatformActivate">
+                                }
+                                else if (product.PlatformActivate == "Epic Games Store")
+                                {
+                                    <img src="/img/Game/logo/epic_games.png" alt="@product.PlatformActivate">
+                                }
                             </div>
-                            <div class="genre-region">Регион: Россия, Украни, СНГ</div>
+                            <div class="genre-region">Регион: @product.Region</div>
                         </div>
                     </div>
                     <div class="item-price">

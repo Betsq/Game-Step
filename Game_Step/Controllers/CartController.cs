@@ -32,12 +32,15 @@ namespace Game_Step.Controllers
                         {
                             Id = game.Id,
                             Name = game.Name,
-                            Price = priceGame.Price,
                             Quantity = game.QuantityOfGoods,
+                            PlatformActivate = game.WhereKeyActivated,
+                            Region = game.Region,
+                            Price = priceGame.Price,
                             IsDiscount = priceGame.IsDiscount,
                             Discount = priceGame.Discount,
                             DiscountPrice = priceGame.DiscountPrice,
                             Image = imageGame.ImageInCatalog,
+                           
                         };
                         carts.Add(cart);
                     }
