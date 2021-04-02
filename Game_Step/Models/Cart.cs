@@ -14,5 +14,6 @@ namespace Game_Step.Models
         public int Discount { get; set; }
         public int DiscountPrice { get; set; }
         public int Quantity { get; set; }
+        public string Image { get; set; }
     }
 }
