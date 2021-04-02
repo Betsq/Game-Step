@@ -80,24 +80,49 @@
                 <div class="info-input-image">Главная картинка (1920*1080)</div>
                 <img class="add-image__icon-plus clickInpImage" src="/img/icon/icon-plus.svg" alt="Add image">
                 <input class="img-inp" type="file" asp-for="MainImage" />
-                <img class="image-preview" src="#" />
-                <div class="preview-container">Preview Image</div>
+                @if (Model.MainImagePath != null)
+                {
+                    <img class="image-preview" src="@Model.MainImagePath" style="display: block;" />
+                    <div class="preview-container" style="display: none;">Preview Image</div>
+                }
+                else
+                {
+                    <img class="image-preview" src="" />
+                    <div class="preview-container">Preview Image</div>
+                }
+
             </div>
 
             <div class="block-input block-img-input">
                 <div class="info-input-image">Картинка на старнцие товара (375*480)</div>
                 <img class="add-image__icon-plus clickInpImage" src="/img/icon/icon-plus.svg" alt="Add image">
                 <input class="img-inp" type="file" asp-for="InnerImage" />
-                <img class="image-preview" src="#" style="width: 375px; height: 480px;" />
-                <div class="preview-container" style="width: 375px; height: 480px;">Preview Image</div>
+                @if (Model.InnerImagePath != null)
+                {
+                    <img class="image-preview" src="@Model.InnerImagePath" style="width: 375px; height: 480px; display: block;" />
+                    <div class="preview-container" style="width: 375px; height: 480px; display: none;">Preview Image</div>
+                }
+                else
+                {
+                    <img class="image-preview" src="#" style="width: 375px; height: 480px;" />
+                    <div class="preview-container" style="width: 375px; height: 480px;">Preview Image</div>
+                }
             </div>
 
             <div class="block-input block-img-input">
                 <div class="info-input-image">Картинка в каталоге (153*72)</div>
                 <img class="add-image__icon-plus clickInpImage" src="/img/icon/icon-plus.svg" alt="Add image">
                 <input class="img-inp" type="file" asp-for="ImageInCatalog" />
-                <img class="image-preview" src="#" style="width: 153px; height: 72px;" />
-                <div class="preview-container" style="width: 153px; height: 72px;">Preview Image</div>
+                @if (Model.ImageInCatalogPath != null)
+                {
+                    <img class="image-preview" src="@Model.ImageInCatalogPath" style="width: 153px; height: 72px; display: block;" />
+                    <div class="preview-container" style="width: 153px; height: 72px; display: none;">Preview Image</div>
+                }
+                else
+                {
+                    <img class="image-preview" src="#" style="width: 153px; height: 72px;" />
+                    <div class="preview-container" style="width: 153px; height: 72px;">Preview Image</div>
+                }
             </div>
 
 

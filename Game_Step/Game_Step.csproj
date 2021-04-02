@@ -13,6 +13,70 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\%2a%2a" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="wwwroot\css\Cart\Cart.css" />
+    <Content Include="wwwroot\css\Cart\CartPoupup.css" />
+    <Content Include="wwwroot\css\Game\Create_Update.css" />
+    <Content Include="wwwroot\css\Game\Game.css" />
+    <Content Include="wwwroot\css\HomePage\HomePage.css" />
+    <Content Include="wwwroot\css\HomePage\Slider.css" />
+    <Content Include="wwwroot\css\site.css" />
+    <Content Include="wwwroot\favicon.ico" />
+    <Content Include="wwwroot\fonts\OpenSans-Regular.ttf" />
+    <Content Include="wwwroot\fonts\Roboto-Regular.ttf" />
+    <Content Include="wwwroot\img\Game\logo\epic_games.png" />
+    <Content Include="wwwroot\img\Game\logo\GOG.png" />
+    <Content Include="wwwroot\img\Game\logo\origin.png" />
+    <Content Include="wwwroot\img\Game\logo\steam.png" />
+    <Content Include="wwwroot\img\icon\icon-plus.svg" />
+    <Content Include="wwwroot\img\icon\ShoppingCart.png" />
+    <Content Include="wwwroot\img\Warhammer.jpg" />
+    <Content Include="wwwroot\js\Cart\Cart.js" />
+    <Content Include="wwwroot\js\Cart\CartPopup.js" />
+    <Content Include="wwwroot\js\Game\Create_Update.js" />
+    <Content Include="wwwroot\js\Game\Game.js" />
+    <Content Include="wwwroot\js\HomePage\HomePage.js" />
+    <Content Include="wwwroot\js\HomePage\Slider.js" />
+    <Content Include="wwwroot\js\site.js" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css.map" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.css.map" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css.map" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map" />
+    <Content Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js" />
+    <Content Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.js.map" />
+    <Content Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js" />
+    <Content Include="wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js.map" />
+    <Content Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <Content Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js.map" />
+    <Content Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js" />
+    <Content Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js.map" />
+    <Content Include="wwwroot\lib\bootstrap\LICENSE" />
+    <Content Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <Content Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js" />
+    <Content Include="wwwroot\lib\jquery-validation-unobtrusive\LICENSE.txt" />
+    <Content Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <Content Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js" />
+    <Content Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <Content Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js" />
+    <Content Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <Content Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <Content Include="wwwroot\lib\jquery\dist\jquery.min.js" />
+    <Content Include="wwwroot\lib\jquery\dist\jquery.min.map" />
+    <Content Include="wwwroot\lib\jquery\LICENSE.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\lib\ckeditor\adapters\jquery.js" />
     <None Include="wwwroot\lib\ckeditor\build-config.js" />
     <None Include="wwwroot\lib\ckeditor\CHANGES.md" />

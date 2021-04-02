@@ -185,6 +185,10 @@ namespace Game_Step.Controllers
                         IsDiscount = priceGame.IsDiscount,
                         Discount = priceGame.Discount,
 
+                        MainImagePath = imageGame.MainImage,
+                        InnerImagePath = imageGame.InnerImage,
+                        ImageInCatalogPath = imageGame.ImageInCatalog,
+
                         RecommendOC = game.RecommendOC,
                         RecommendCPU = game.RecommendCPU,
                         RecommendRAM = game.RecommendRAM,
