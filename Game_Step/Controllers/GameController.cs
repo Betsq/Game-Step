@@ -85,13 +85,13 @@ namespace Game_Step.Controllers
                     MinimumHDD = model.MinimumHDD
                 };
 
+                string nameFolderGame = model.Name + "/";
+                string folderAllGames = "/img/Game/Games/";
+
+                Directory.CreateDirectory(appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
+
                 if (model.MainImage != null)
                 {
-                    string nameFolderGame = model.Name + "/";
-                    string folderAllGames = "/img/Game/Games/";
-
-                    Directory.CreateDirectory(appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
-
                     string pathMainImage = folderAllGames + nameFolderGame + "Main_Image.jpg";
                     string pathInnerImage = folderAllGames + nameFolderGame + "Inner_Image.jpg";
                     string pathImageInCatalog = folderAllGames + nameFolderGame + "Image_In_Catalog.jpg";
@@ -120,6 +120,27 @@ namespace Game_Step.Controllers
                     };
 
                     db.GameImages.Add(gameImage);
+                }
+
+                if (model.Screenshots != null)
+                {
+                    int countScreenshot = 1;
+                    foreach (var files in model.Screenshots)
+                    {
+                        string pathToScreenshot = folderAllGames + nameFolderGame + "Screenshot" + countScreenshot.ToString() + ".jpg";
+                        using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathToScreenshot, FileMode.Create))
+                        {
+                            await files.CopyToAsync(filesStream);
+                        }
+                        countScreenshot++;
+                        GameScreenshot gameScreenshot = new GameScreenshot
+                        {
+                            Screenshot = pathToScreenshot,
+                            Game = game,
+                        };
+                        db.GameScreenshots.Add(gameScreenshot);
+                    }
+                    
                 }
 
                 GamePrice gamePrice = new GamePrice
@@ -329,6 +350,12 @@ namespace Game_Step.Controllers
             var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
             if (game != null)
             {
+                string folderGame = appEnvironment.WebRootPath + "/img/Game/Games/" + game.Name;
+                if (Directory.Exists(folderGame))
+                {
+                    Directory.Delete(folderGame, true);
+                }
+ 
                 db.Games.Remove(game);
                 await db.SaveChangesAsync();
 

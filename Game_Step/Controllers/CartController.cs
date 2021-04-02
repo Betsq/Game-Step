@@ -40,7 +40,6 @@ namespace Game_Step.Controllers
                             Discount = priceGame.Discount,
                             DiscountPrice = priceGame.DiscountPrice,
                             Image = imageGame.ImageInCatalog,
-                           
                         };
                         carts.Add(cart);
                     }
@@ -210,7 +209,7 @@ namespace Game_Step.Controllers
                                 var gamePrice = db.GamePrices.FirstOrDefault(item => item.GameId == id);
                                 if (gamePrice.IsDiscount)
                                 {
-                                    return Json(gamePrice.DiscountPrice * amountProduct); 
+                                    return Json(gamePrice.DiscountPrice * amountProduct);
                                 }
                                 else
                                 {

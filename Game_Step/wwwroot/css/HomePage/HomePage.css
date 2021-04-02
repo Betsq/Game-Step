@@ -1,12 +1,12 @@
-﻿a{
+﻿a {
     text-decoration: none;
     color: black;
 }
 
-a:hover{
-    text-decoration: none;
-    color: black;
-}
+    a:hover {
+        text-decoration: none;
+        color: black;
+    }
 
 .block-slider {
     min-height: 500px;
@@ -65,7 +65,7 @@ a:hover{
         box-shadow: 0px 0px 17px 0px rgba(34, 60, 80, 0.4);
     }
 
-.catalog-novetly{
+.catalog-novetly {
     display: none;
 }
 
@@ -73,7 +73,7 @@ a:hover{
     display: none;
 }
 
-.catalog-expected{
+.catalog-expected {
     display: none;
 }
 
@@ -89,7 +89,7 @@ a:hover{
 }
 
 .catalog-item-info {
-    margin-left: 20px;
+    margin-left: 22px;
     vertical-align: middle;
     align-items: center;
 }
@@ -151,13 +151,11 @@ a:hover{
 }
 
 .catalog-item-more-games {
-    background-color: white;
     display: flex;
     justify-content: center;
     text-decoration: none;
     color: black;
     padding: 25px 0 25px 0;
-    flex: 1;
     font-size: 14px;
     font-weight: 600;
 }
@@ -184,7 +182,7 @@ a:hover{
     }
 
 .discount-product-aside {
-    padding: 12px 18px;
+    padding: 18px 16px;
     background-color: white;
     flex: 1 auto;
     align-items: center;
@@ -249,7 +247,7 @@ a:hover{
 }
 
 .last-sell {
-    margin-top: 35px;
+    margin-top: 58px;
 }
 
 .last-sell-info {
