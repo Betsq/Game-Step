@@ -109,7 +109,7 @@
                         }
                         <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@m.Id">
                             <div class="block-img-catalog-item">
-                                <img class="img-catalog-item" src=""><img />
+                                <img class="img-catalog-item" src="@m.GameImage?.ImageInCatalog"><img />
                             </div>
 
                             <div class="catalog-item-info">
