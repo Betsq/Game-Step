@@ -1,4 +1,5 @@
 ﻿using Game_Step.Models;
+using Game_Step.Models.GamesModel;
 using Game_Step.ViewModels.GamesViewModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,7 @@ namespace Game_Step.Controllers.AllGameController
                 {
                     var screenshotViewModel = new GamesScreenshotViewModel()
                     {
-                        Id = game.Id,
+                        GameId = game.Id,
                         Name = game.Name,
                         PathImage = gameImage.InnerImage,
                         GameScreenshotsList = gameScreenshot,
@@ -69,6 +70,58 @@ namespace Game_Step.Controllers.AllGameController
                 }
             }
             return Json(false);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddScreenshot(GamesScreenshotViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.GameId);
+
+                if (game != null)
+                {
+                    string folderAllGames = "/img/Game/Games/" + game.Name + "/";
+                    int countScreenshot = 1;
+
+                    if (model.Screenshots != null)
+                    {
+                        foreach (var screenshot in model.Screenshots)
+                        {
+
+                            bool isHaveScreenshot = true;
+                            while (isHaveScreenshot)
+                            {
+                                string pathToScreenshot = folderAllGames + "Screenshot" + countScreenshot.ToString() + ".jpg";
+                                FileInfo fileImg = new FileInfo(appEnvironment.WebRootPath + pathToScreenshot);
+                                if (!fileImg.Exists)
+                                {
+                                    countScreenshot++;
+                                    isHaveScreenshot = false;
+                                    using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathToScreenshot, FileMode.Create))
+                                    {
+                                        await screenshot.CopyToAsync(filesStream);
+                                    }
+
+                                    GameScreenshot gameScreenshot = new GameScreenshot
+                                    {
+                                        Screenshot = pathToScreenshot,
+                                        Game = game,
+                                    };
+                                    db.GameScreenshots.Add(gameScreenshot);
+
+                                }
+                                else
+                                {
+                                    countScreenshot++;
+                                }
+                            }
+                        }
+                        await db.SaveChangesAsync();
+                    }
+                }
+            }
+            return RedirectToAction("Update", "GameScreenshot", new {id =  model.GameId});
         }
     }
 }

@@ -103,3 +103,18 @@
     cursor: pointer;
     color: white;
 }
+
+.btn-send-screenshot {
+    color: white;
+    padding: 10px;
+    border-radius: 16px;
+    background-color: tomato;
+    margin-top: 18px;
+    border: 0;
+}
+
+button:active,
+button:focus {
+    outline: none;
+    border: 0;
+}

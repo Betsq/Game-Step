@@ -1,10 +1,10 @@
 ﻿@model Game_Step.ViewModels.GamesViewModel.GamesScreenshotViewModel
 
-@{ 
+@{
     ViewBag.Title = "Скриншоты " + Model.Name;
 }
 
-@section Style{ 
+@section Style{
     <link href="~/css/Game/GameScreenshot.css" rel="stylesheet" />
 }
 
@@ -18,9 +18,14 @@
         </div>
 
         <div class="container-button-add">
-            <div class="button-add">
-                Добавить
-            </div>
+            <form asp-action="AddScreenshot" asp-controller="GameScreenshot" method="post" enctype="multipart/form-data">
+                <input type="number" asp-for="GameId" value="@Model.GameId" style="display: none"/>
+                <div class="button-add">
+                    Добавить
+                </div>
+                <input type="file" asp-for="Screenshots" multiple style="display:none"/>
+                <button class="btn-send-screenshot" type="submit">Отправить</button>
+            </form>
         </div>
 
         <div class="container-with-screenshots">
@@ -47,7 +52,7 @@
     </div>
 </div>
 
-@section Scripts{ 
+@section Scripts{
     <script>
         $(document).ready(function () {
             $(".del-button").click(function () {
@@ -58,10 +63,16 @@
                     data: { 'id': getId },
                     success: function (result) {
                         location.reload();
-                    }, 
+                    },
                 });
-                
+
             });
         });
     </script>
+
+    <script>
+        $(".button-add").click(function () {
+            $(this).next().trigger("click");
+        });
+    </script>   
 }
