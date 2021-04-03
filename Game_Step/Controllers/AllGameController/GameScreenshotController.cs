@@ -55,7 +55,7 @@ namespace Game_Step.Controllers.AllGameController
                 var gameScreenshot = await db.GameScreenshots.FirstOrDefaultAsync(image => image.Id == id);
                 if (gameScreenshot != null)
                 {
-                    string pathScreenshot = appEnvironment.WebRootPath + gameScreenshot;
+                    string pathScreenshot = appEnvironment.WebRootPath + gameScreenshot.Screenshot;
                     if (Directory.Exists(pathScreenshot))
                     {
                         Directory.Delete(pathScreenshot, true);
