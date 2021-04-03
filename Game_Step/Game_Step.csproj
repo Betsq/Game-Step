@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\css\Game\GameScreenshot.css" />
     <Content Include="wwwroot\css\Cart\Cart.css" />
     <Content Include="wwwroot\css\Cart\CartPoupup.css" />
     <Content Include="wwwroot\css\Game\Create_Update.css" />
@@ -27,6 +28,33 @@
     <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\fonts\OpenSans-Regular.ttf" />
     <Content Include="wwwroot\fonts\Roboto-Regular.ttf" />
+    <Content Include="wwwroot\img\Game\Games\DEATH STRANDING\Image_In_Catalog.jpg" />
+    <Content Include="wwwroot\img\Game\Games\DEATH STRANDING\Inner_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\DEATH STRANDING\Main_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\DEVIL MAY CRY 5 - DELUXE EDITION\Image_In_Catalog.jpg" />
+    <Content Include="wwwroot\img\Game\Games\DEVIL MAY CRY 5 - DELUXE EDITION\Inner_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\DEVIL MAY CRY 5 - DELUXE EDITION\Main_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\FALLOUT 4\Image_In_Catalog.jpg" />
+    <Content Include="wwwroot\img\Game\Games\FALLOUT 4\Inner_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\FALLOUT 4\Main_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\HORIZON ZERO DAWN COMPLETE EDITION\Image_In_Catalog.jpg" />
+    <Content Include="wwwroot\img\Game\Games\HORIZON ZERO DAWN COMPLETE EDITION\Inner_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\HORIZON ZERO DAWN COMPLETE EDITION\Main_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\MONSTER HUNTER WORLD\Image_In_Catalog.jpg" />
+    <Content Include="wwwroot\img\Game\Games\MONSTER HUNTER WORLD\Inner_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\MONSTER HUNTER WORLD\Main_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\QUANTUM BREAK\Image_In_Catalog.jpg" />
+    <Content Include="wwwroot\img\Game\Games\QUANTUM BREAK\Inner_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\QUANTUM BREAK\Main_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\Sims 4\Image_In_Catalog.jpg" />
+    <Content Include="wwwroot\img\Game\Games\Sims 4\Inner_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\Sims 4\Main_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\TERRARIA\Image_In_Catalog.jpg" />
+    <Content Include="wwwroot\img\Game\Games\TERRARIA\Inner_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\TERRARIA\Main_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\TROPICO 6 EL PREZ EDITION\Image_In_Catalog.jpg" />
+    <Content Include="wwwroot\img\Game\Games\TROPICO 6 EL PREZ EDITION\Inner_Image.jpg" />
+    <Content Include="wwwroot\img\Game\Games\TROPICO 6 EL PREZ EDITION\Main_Image.jpg" />
     <Content Include="wwwroot\img\Game\logo\epic_games.png" />
     <Content Include="wwwroot\img\Game\logo\GOG.png" />
     <Content Include="wwwroot\img\Game\logo\origin.png" />
@@ -397,10 +425,6 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\img\Game\Games\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>

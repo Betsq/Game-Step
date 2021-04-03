@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Game_Step.Models.GamesModel.GameScreenshot>
+
+@{ 
+    ViewBag.Title = "Скриншоты";
+}
+
+@section Style{ 
+    <link href="~/css/Game/GameScreenshot.css" rel="stylesheet" />
+}
+
+<div class="main-content">
+    <div class="content">
+        <div class="info-about-game">
+            <div class="info-about-game__name-game">Скриншоты игры Terraria</div>
+            <a href="">
+                <img class="info-about-game__img" src="/terraria.jpg" alt="">
+            </a>
+        </div>
+
+        <div class="container-button-add">
+            <div class="button-add">
+                Добавить
+            </div>
+        </div>
+
+
+        <div class="container-with-screenshots">
+            <div class="container-screnshot">
+                <img class="screenshot" src="/img/Game/Games/TERRARIA/Main_Image.jpg" alt="">
+                <div class="container-info-screenshot">
+                    <div class="path-to-screnshot">
+                        <div class="info-screenshot">
+                            <span>Путь к файлу:</span>
+                            /img/Game/Games/Activision/Screenshot1.jpg
+                        </div>
+                    </div>
+                    <div class="container-buttons">
+                        <div class="del-button">
+                            Удалить
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

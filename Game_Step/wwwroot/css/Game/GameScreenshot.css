@@ -1,0 +1,103 @@
+﻿.content {
+    position: relative;
+    max-width: 1236px;
+    margin: auto auto;
+}
+
+.info-about-game {
+    flex: 1 auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 18px;
+    border-bottom: 1px solid #ccc;
+}
+
+.info-about-game__name-game {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    background-color: #ff9900;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.info-about-game__img {
+    max-width: 230px;
+    border: 3px solid #ff9900;
+}
+
+.container-button-add {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.button-add {
+    background-color: yellowgreen;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.container-with-screenshots {
+    flex: 1 auto;
+}
+
+.container-screnshot {
+    display: flex;
+    margin-top: 20px;
+}
+
+.container-info-screenshot {
+    display: flex;
+    flex: 1 auto;
+    border-top: 1px solid #0094E9;
+    border-right: 1px solid #0094E9;
+    border-bottom: 1px solid #0094E9;
+}
+
+.path-to-screnshot {
+    display: flex;
+    margin-left: 30px;
+}
+
+.screenshot {
+    max-width: 400px;
+    border: 1px solid #ff9900;
+}
+
+.info-screenshot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .info-screenshot span {
+        font-size: 18px;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 3px;
+    }
+
+.container-buttons {
+    flex: 1 auto;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-right: 25px;
+}
+
+.del-button {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: #FF3300;
+    padding: 15px;
+    border-radius: 15px;
+    cursor: pointer;
+    color: white;
+}
