@@ -179,8 +179,6 @@ namespace Game_Step.Controllers
                         //Set the session object with a new value
                         HttpContext.Session.Set("CountOfGoods", countOfGoods);
 
-                        return ViewComponent("PopupCart");
-
                     }
                 }
             }

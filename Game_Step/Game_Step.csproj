@@ -7,9 +7,13 @@
 
   <ItemGroup>
     <Compile Remove="ViewComponent\**" />
+    <Compile Remove="wwwroot\img\Game\Games\Activision552\**" />
     <Content Remove="ViewComponent\**" />
+    <Content Remove="wwwroot\img\Game\Games\Activision552\**" />
     <EmbeddedResource Remove="ViewComponent\**" />
+    <EmbeddedResource Remove="wwwroot\img\Game\Games\Activision552\**" />
     <None Remove="ViewComponent\**" />
+    <None Remove="wwwroot\img\Game\Games\Activision552\**" />
   </ItemGroup>
 
   <ItemGroup>

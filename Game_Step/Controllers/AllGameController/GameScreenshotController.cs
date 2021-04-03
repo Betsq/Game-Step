@@ -47,25 +47,28 @@ namespace Game_Step.Controllers.AllGameController
         }
 
 
-        [HttpPost]
-        public async Task<IActionResult> Delete(int? id)
+        [HttpGet]
+        public async Task<JsonResult> Delete(int? id)
         {
             if (id != null)
             {
                 var gameScreenshot = await db.GameScreenshots.FirstOrDefaultAsync(image => image.Id == id);
                 if (gameScreenshot != null)
                 {
-                    string pathScreenshot = appEnvironment.WebRootPath + gameScreenshot.Screenshot;
-                    if (Directory.Exists(pathScreenshot))
+                    string pathToFile = appEnvironment.WebRootPath + gameScreenshot.Screenshot;
+                    FileInfo fileImg = new FileInfo(pathToFile);
+                    if (fileImg.Exists)
                     {
-                        Directory.Delete(pathScreenshot, true);
+                        fileImg.Delete();
                     }
 
                     db.GameScreenshots.Remove(gameScreenshot);
                     await db.SaveChangesAsync();
+
+                    return Json(true);
                 }
             }
-            return View();
+            return Json(false);
         }
     }
 }
