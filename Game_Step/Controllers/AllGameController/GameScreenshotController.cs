@@ -1,4 +1,5 @@
 ﻿using Game_Step.Models;
+using Game_Step.ViewModels.GamesViewModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -26,10 +27,19 @@ namespace Game_Step.Controllers.AllGameController
             if (id != null)
             {
                 var gameScreenshot = await db.GameScreenshots.OrderByDescending(item => item.GameId == id).ToListAsync();
+                var gameImage = await db.GameImages.FirstOrDefaultAsync(image => image.GameId == id);
+                var game = await db.Games.FirstOrDefaultAsync(image => image.Id == id);
 
-                if (gameScreenshot != null)
+                if (gameScreenshot != null && gameImage != null && game != null)
                 {
-                    return View(gameScreenshot);
+                    var screenshotViewModel = new GamesScreenshotViewModel()
+                    {
+                        Id = game.Id,
+                        Name = game.Name,
+                        PathImage = gameImage.InnerImage,
+                        GameScreenshotsList = gameScreenshot,
+                    };
+                    return View(screenshotViewModel);
                 }
             }
             return NotFound();

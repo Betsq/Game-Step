@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Game_Step.Models.GamesModel.GameScreenshot>
+﻿@model Game_Step.ViewModels.GamesViewModel.GamesScreenshotViewModel
 
 @{ 
-    ViewBag.Title = "Скриншоты";
+    ViewBag.Title = "Скриншоты" + Model.Name;
 }
 
 @section Style{ 
@@ -11,9 +11,9 @@
 <div class="main-content">
     <div class="content">
         <div class="info-about-game">
-            <div class="info-about-game__name-game">Скриншоты игры Terraria</div>
+            <div class="info-about-game__name-game">Скриншоты игры @Model.Name</div>
             <a href="">
-                <img class="info-about-game__img" src="/terraria.jpg" alt="">
+                <img class="info-about-game__img" src="@Model.PathImage" alt="">
             </a>
         </div>
 
@@ -23,24 +23,26 @@
             </div>
         </div>
 
-
         <div class="container-with-screenshots">
-            <div class="container-screnshot">
-                <img class="screenshot" src="/img/Game/Games/TERRARIA/Main_Image.jpg" alt="">
-                <div class="container-info-screenshot">
-                    <div class="path-to-screnshot">
-                        <div class="info-screenshot">
-                            <span>Путь к файлу:</span>
-                            /img/Game/Games/Activision/Screenshot1.jpg
+            @foreach (var scrennshot in Model.GameScreenshotsList)
+            {
+                <div class="container-screnshot">
+                    <img class="screenshot" src="@scrennshot.Screenshot">
+                    <div class="container-info-screenshot">
+                        <div class="path-to-screnshot">
+                            <div class="info-screenshot">
+                                <span>Путь к файлу:</span>
+                                @scrennshot.Screenshot
+                            </div>
                         </div>
-                    </div>
-                    <div class="container-buttons">
-                        <div class="del-button">
-                            Удалить
+                        <div class="container-buttons">
+                            <div class="del-button">
+                                Удалить
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            }
         </div>
     </div>
 </div>
