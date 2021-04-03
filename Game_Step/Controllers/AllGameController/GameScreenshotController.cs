@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -43,6 +44,28 @@ namespace Game_Step.Controllers.AllGameController
                 }
             }
             return NotFound();
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id != null)
+            {
+                var gameScreenshot = await db.GameScreenshots.FirstOrDefaultAsync(image => image.Id == id);
+                if (gameScreenshot != null)
+                {
+                    string pathScreenshot = appEnvironment.WebRootPath + gameScreenshot;
+                    if (Directory.Exists(pathScreenshot))
+                    {
+                        Directory.Delete(pathScreenshot, true);
+                    }
+
+                    db.GameScreenshots.Remove(gameScreenshot);
+                    await db.SaveChangesAsync();
+                }
+            }
+            return View();
         }
     }
 }
