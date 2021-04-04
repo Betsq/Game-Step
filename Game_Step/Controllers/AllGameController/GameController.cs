@@ -122,27 +122,6 @@ namespace Game_Step.Controllers
                     db.GameImages.Add(gameImage);
                 }
 
-                if (model.Screenshots != null)
-                {
-                    int countScreenshot = 1;
-                    foreach (var files in model.Screenshots)
-                    {
-                        string pathToScreenshot = folderAllGames + nameFolderGame + "Screenshot" + countScreenshot.ToString() + ".jpg";
-                        using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathToScreenshot, FileMode.Create))
-                        {
-                            await files.CopyToAsync(filesStream);
-                        }
-                        countScreenshot++;
-                        GameScreenshot gameScreenshot = new GameScreenshot
-                        {
-                            Screenshot = pathToScreenshot,
-                            Game = game,
-                        };
-                        db.GameScreenshots.Add(gameScreenshot);
-                    }
-                    
-                }
-
                 GamePrice gamePrice = new GamePrice
                 {
                     Price = model.Price,

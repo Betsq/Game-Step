@@ -25,8 +25,6 @@ namespace Game_Step.ViewModels
         public IFormFile InnerImage { get; set; }
         public IFormFile ImageInCatalog { get; set; }
 
-        public IFormFileCollection Screenshots { get; set; }
-
         public string Description { get; set; }
 
         [Required]
