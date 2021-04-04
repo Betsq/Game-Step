@@ -22,6 +22,7 @@
 .main-img{
     width: 375px;
     height: 479px;
+    position: relative;
 }
 .scale-img {
     display: inline-block;
@@ -36,6 +37,20 @@
         .scale-img img:hover {
             transform: scale(1.05);
         }
+
+.text-screenshot {
+    color: white;
+    position: absolute;
+    bottom: 60px;
+    right: 22%;
+    padding: 20px 40px 20px 40px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.text-screenshot:hover {
+    background-color: rgb(255, 153, 0, 0.7);
+}
 
 .product-info, .product-info--mobile {
     width: 375px;

@@ -7,6 +7,7 @@
 
 @section Style{
     <link href="~/css/Game/Game.css" rel="stylesheet" />
+    <link href="/css/Game/GameScreenshotPopup.css" rel="stylesheet" />
 }
 
 <div class="position-relative">
@@ -20,7 +21,8 @@
     <div class="product-content">
         <div class="product-left">
             <div class="scale-img main-img">
-                <img class="scale-img" src="@Model.GameImage?.InnerImage" />
+                <img class="scale-img" src="@Model.GameImage?.InnerImage"/>
+                <div class="text-screenshot" onclick="toggleScreenshotPopup()">Скриншоты</div>
             </div>
 
             <div class="product-advantages-mobile">
@@ -218,28 +220,38 @@
                 <div class="btn-show-req">ПОКАЗАТЬ РЕКОМЕНДУЕМЫЕ<i id="arrow-show-req" class="arrow arrow-down"></i></div>
             </div>
         </div>
-        <div id="show-popup-screenshot"></div>
 
-        <div class="call-popup-screenshot">Call</div>
+        <div class="popup-screenshot" id="popup-screenshot">
+            <div class="overlay-popup-screenshot" onclick="toggleScreenshotPopup()"></div>
+            <div class="content-screenshots">
+                <img src="/img/icon/close_btn.png" class="close-btn" onclick="toggleScreenshotPopup()" />
+                <div class="slideshow-screenshot-container">
+
+                    <div class="slide-image fade-anim">
+                        <img src="/img/Game/Games/DEVIL MAY CRY 5 - DELUXE EDITION/Main_Image.jpg">
+                    </div>
+                    <div class="slide-image fade-anim">
+                        <img src="/img/Game/Games/FALLOUT 4/Main_Image.jpg">
+                    </div>
+                    <div class="slide-image fade-anim">
+                        <img src="/img/Game/Games/TERRARIA/Main_Image.jpg">
+                    </div>
+
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+                    <div style="text-align:center">
+                        <span class="dot" onclick="currentSlide(1)"></span>
+                        <span class="dot" onclick="currentSlide(2)"></span>
+                        <span class="dot" onclick="currentSlide(3)"></span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 @section Scripts{
     <script src="~/js/Game/Game.js"></script>
-
-    <script>
-        $(document).ready(function () {
-            $(".call-popup-screenshot").click(function () {
-                $.ajax({
-                    url: window.location.origin + "/GameScreenshot/CallScreenshotPopup",
-                    type: "Get",
-                    success: function (result) {
-                        $("#show-popup-screenshot").html(result);
-
-                        $("#popup-screenshot").attr("class", "popup-screenshot screenshot-active");
-                    },
-                });
-            });
-        });
-    </script>
 }

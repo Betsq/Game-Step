@@ -69,7 +69,6 @@
     <Content Include="wwwroot\img\icon\ShoppingCart.png" />
     <Content Include="wwwroot\img\Warhammer.jpg" />
     <Content Include="wwwroot\js\Cart\Cart.js" />
-    <Content Include="wwwroot\js\Game\GameScreenshotPopup.js" />
     <Content Include="wwwroot\js\Game\GameScreenshot.js" />
     <Content Include="wwwroot\js\Cart\CartPopup.js" />
     <Content Include="wwwroot\js\Game\Create_Update.js" />
