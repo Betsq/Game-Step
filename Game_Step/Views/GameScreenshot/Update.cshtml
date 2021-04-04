@@ -53,26 +53,5 @@
 </div>
 
 @section Scripts{
-    <script>
-        $(document).ready(function () {
-            $(".del-button").click(function () {
-                let getId = $(this).attr('data-id');
-                $.ajax({
-                    url: window.location.origin + "/GameScreenshot/Delete",
-                    type: "Get",
-                    data: { 'id': getId },
-                    success: function (result) {
-                        location.reload();
-                    },
-                });
-
-            });
-        });
-    </script>
-
-    <script>
-        $(".button-add").click(function () {
-            $(this).next().trigger("click");
-        });
-    </script>   
+    <script src="~/js/Game/GameScreenshot.js"></script>
 }
