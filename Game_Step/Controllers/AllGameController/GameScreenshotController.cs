@@ -32,7 +32,7 @@ namespace Game_Step.Controllers.AllGameController
                 var gameImage = await db.GameImages.FirstOrDefaultAsync(image => image.GameId == id);
                 var game = await db.Games.FirstOrDefaultAsync(image => image.Id == id);
 
-                if (gameScreenshot != null && gameImage != null && game != null)
+                if (gameImage != null && game != null)
                 {
                     var screenshotViewModel = new GamesScreenshotViewModel()
                     {

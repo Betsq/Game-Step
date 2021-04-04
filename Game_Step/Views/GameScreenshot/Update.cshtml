@@ -12,8 +12,8 @@
     <div class="content">
         <div class="info-about-game">
             <div class="info-about-game__name-game">Скриншоты игры @Model.Name</div>
-            <a href="">
-                <img class="info-about-game__img" src="@Model.PathImage" alt="">
+            <a asp-action="Game" asp-controller="Game" asp-route-id="@Model.GameId">
+                <img class="info-about-game__img" src="@Model.PathImage" alt="@Model.Name">
             </a>
         </div>
 
