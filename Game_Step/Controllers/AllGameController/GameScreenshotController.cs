@@ -124,5 +124,11 @@ namespace Game_Step.Controllers.AllGameController
             }
             return RedirectToAction("Update", "GameScreenshot", new {id =  model.GameId});
         }
+
+        [HttpGet]
+        public IActionResult CallScreenshotPopup()
+        {
+            return ViewComponent("Screenshot");
+        }
     }
 }

@@ -86,31 +86,31 @@
                 </div>
                 <div class="product-cart-block">
                     <div class="price-block">
-                            @if (Model.GamePrice.IsDiscount)
-                            {
-                                <div class="price-discount">
-                                    @Model.GamePrice.Discount%
-                                </div>
-                                <div class="product-price">
+                        @if (Model.GamePrice.IsDiscount)
+                        {
+                            <div class="price-discount">
+                                @Model.GamePrice.Discount%
+                            </div>
+                            <div class="product-price">
 
-                                    <div class="old-price">
-                                        @Model.GamePrice.Price руб.
-                                    </div>
-                                    <div class="current-price-product">
-                                        @Model.GamePrice.DiscountPrice
-                                        <sup class="sup-price-cur">РУБ.</sup>
-                                    </div>
+                                <div class="old-price">
+                                    @Model.GamePrice.Price руб.
                                 </div>
-                            }
-                            else
-                            {
-                                <div class="product-price">
-                                    <div class="current-price-product">
-                                        @Model.GamePrice.Price
-                                        <sup class="sup-price-cur">РУБ.</sup>
-                                    </div>
+                                <div class="current-price-product">
+                                    @Model.GamePrice.DiscountPrice
+                                    <sup class="sup-price-cur">РУБ.</sup>
                                 </div>
-                            }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="product-price">
+                                <div class="current-price-product">
+                                    @Model.GamePrice.Price
+                                    <sup class="sup-price-cur">РУБ.</sup>
+                                </div>
+                            </div>
+                        }
 
                     </div>
                     <div class="product-md-block">
@@ -218,9 +218,28 @@
                 <div class="btn-show-req">ПОКАЗАТЬ РЕКОМЕНДУЕМЫЕ<i id="arrow-show-req" class="arrow arrow-down"></i></div>
             </div>
         </div>
+        <div id="show-popup-screenshot"></div>
+
+        <div class="call-popup-screenshot">Call</div>
     </div>
 </div>
 
 @section Scripts{
     <script src="~/js/Game/Game.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".call-popup-screenshot").click(function () {
+                $.ajax({
+                    url: window.location.origin + "/GameScreenshot/CallScreenshotPopup",
+                    type: "Get",
+                    success: function (result) {
+                        $("#show-popup-screenshot").html(result);
+
+                        $("#popup-screenshot").attr("class", "popup-screenshot screenshot-active");
+                    },
+                });
+            });
+        });
+    </script>
 }

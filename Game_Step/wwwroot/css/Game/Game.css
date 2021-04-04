@@ -249,6 +249,10 @@
     min-width: 25%;
 }
 
+.call-popup-screenshot{
+    color: white;
+}
+
 @media (max-width: 442px) {
     .product-help {
         display: flex;

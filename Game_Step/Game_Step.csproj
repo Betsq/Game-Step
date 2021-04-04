@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="wwwroot\css\Game\GameScreenshotPopup.css" />
     <Content Include="wwwroot\css\Game\GameScreenshot.css" />
     <Content Include="wwwroot\css\Cart\Cart.css" />
     <Content Include="wwwroot\css\Cart\CartPoupup.css" />
@@ -63,10 +64,12 @@
     <Content Include="wwwroot\img\Game\logo\GOG.png" />
     <Content Include="wwwroot\img\Game\logo\origin.png" />
     <Content Include="wwwroot\img\Game\logo\steam.png" />
+    <Content Include="wwwroot\img\icon\close_btn.png" />
     <Content Include="wwwroot\img\icon\icon-plus.svg" />
     <Content Include="wwwroot\img\icon\ShoppingCart.png" />
     <Content Include="wwwroot\img\Warhammer.jpg" />
     <Content Include="wwwroot\js\Cart\Cart.js" />
+    <Content Include="wwwroot\js\Game\GameScreenshotPopup.js" />
     <Content Include="wwwroot\js\Game\GameScreenshot.js" />
     <Content Include="wwwroot\js\Cart\CartPopup.js" />
     <Content Include="wwwroot\js\Game\Create_Update.js" />
