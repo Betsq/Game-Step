@@ -28,7 +28,8 @@ namespace Game_Step.Controllers.AllGameController
         {
             if (id != null)
             {
-                var gameScreenshot = await db.GameScreenshots.OrderByDescending(item => item.GameId == id).ToListAsync();
+                var gameScreenshot = await db.GameScreenshots.Where(item => item.GameId == id)
+                    .OrderBy(item => item.Screenshot).ToListAsync();
                 var gameImage = await db.GameImages.FirstOrDefaultAsync(image => image.GameId == id);
                 var game = await db.Games.FirstOrDefaultAsync(image => image.Id == id);
 
