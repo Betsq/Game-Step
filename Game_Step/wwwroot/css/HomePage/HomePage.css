@@ -1,12 +1,12 @@
-﻿a{
+﻿a {
     text-decoration: none;
     color: black;
 }
 
-a:hover{
-    text-decoration: none;
-    color: black;
-}
+    a:hover {
+        text-decoration: none;
+        color: black;
+    }
 
 .block-slider {
     min-height: 500px;
@@ -65,7 +65,7 @@ a:hover{
         box-shadow: 0px 0px 17px 0px rgba(34, 60, 80, 0.4);
     }
 
-.catalog-novetly{
+.catalog-novetly {
     display: none;
 }
 
@@ -73,7 +73,7 @@ a:hover{
     display: none;
 }
 
-.catalog-expected{
+.catalog-expected {
     display: none;
 }
 
@@ -89,7 +89,7 @@ a:hover{
 }
 
 .catalog-item-info {
-    margin-left: 5px;
+    margin-left: 22px;
     vertical-align: middle;
     align-items: center;
 }
@@ -151,13 +151,11 @@ a:hover{
 }
 
 .catalog-item-more-games {
-    background-color: white;
     display: flex;
     justify-content: center;
     text-decoration: none;
     color: black;
     padding: 25px 0 25px 0;
-    flex: 1;
     font-size: 14px;
     font-weight: 600;
 }
@@ -184,7 +182,7 @@ a:hover{
     }
 
 .discount-product-aside {
-    padding: 12px 18px;
+    padding: 18px 16px;
     background-color: white;
     flex: 1 auto;
     align-items: center;
@@ -249,7 +247,7 @@ a:hover{
 }
 
 .last-sell {
-    margin-top: 35px;
+    margin-top: 58px;
 }
 
 .last-sell-info {
@@ -260,54 +258,3 @@ a:hover{
 }
 
 
-.category-block {
-    background-color: #0D0E10;
-    width: 100%;
-    color: white;
-}
-
-.category-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    margin: -18px -9px 40px;
-}
-
-.main-categories-list-item {
-    width: 180px;
-    padding: 0 9px;
-    margin-top: 18px;
-}
-
-.main-category-item {
-    display: block;
-    -webkit-transition: background-color .3s ease;
-    transition: background-color .3s ease;
-    background-color: #252627;
-    padding: 22px;
-    color: #fff;
-}
-
-.main-categories-item-image {
-    text-align: center;
-    margin-bottom: 15px;
-}
-
-    .main-categories-item-image img {
-        width: 50px;
-        height: 50px;
-    }
-
-.main-category-title {
-    font-family: Play,Arial,sans-serif;
-    font-size: 14px;
-    text-align: center;
-    color: #fff;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}

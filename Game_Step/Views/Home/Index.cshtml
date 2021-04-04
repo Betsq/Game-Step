@@ -46,7 +46,7 @@
                         }
                         <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@m.Id">
                             <div class="block-img-catalog-item">
-                                <img class="img-catalog-item" src="data:image/jpeg;base64,@(Convert.ToBase64String(m.Image))"><img />
+                                <img class="img-catalog-item" src="@m.GameImage?.ImageInCatalog"><img />
                             </div>
 
                             <div class="catalog-item-info">
@@ -109,7 +109,7 @@
                         }
                         <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@m.Id">
                             <div class="block-img-catalog-item">
-                                <img class="img-catalog-item" src="data:image/jpeg;base64,@(Convert.ToBase64String(m.Image))"><img />
+                                <img class="img-catalog-item" src="@m.GameImage?.ImageInCatalog"><img />
                             </div>
 
                             <div class="catalog-item-info">
@@ -171,7 +171,7 @@
                         }
                         <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@m.Id">
                             <div class="block-img-catalog-item">
-                                <img class="img-catalog-item" src="data:image/jpeg;base64,@(Convert.ToBase64String(m.Image))"><img />
+                                <img class="img-catalog-item" src="@m.GameImage?.ImageInCatalog"><img />
                             </div>
 
                             <div class="catalog-item-info">
@@ -241,7 +241,7 @@
                     }
                     <a asp-action="Game" asp-controller="Game" asp-route-id="@g.Id" class="discount-product-aside">
                         <div class="discount-product-aside-img">
-                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(g.Image))" alt="@g.Name">
+                            <img src="@g.GameImage?.ImageInCatalog" alt="@g.Name">
                         </div>
 
                         <div class="discount-product-aside-name">@g.Name</div>
@@ -284,7 +284,7 @@
                     }
                     <a asp-action="Game" asp-controller="Game" asp-route-id="@g.Id" class="discount-product-aside">
                         <div class="discount-product-aside-img">
-                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(g.Image))" alt="@g.Name">
+                            <img src="@g.GameImage?.ImageInCatalog" alt="@g.Name">
                         </div>
 
                         <div class="discount-product-aside-name">@g.Name</div>
@@ -313,22 +313,7 @@
     </div>
 </div>
 
-<div class="category-block">
-    <div class="product-content">
-        <ul class="category-list">
-            <li class="main-categories-list-item">
-                <a class="main-category-item" href="">
-                    <div class="main-categories-item-image">
-                        <img src="https://i.pinimg.com/originals/61/e7/8b/61e78b08a8dd18779132812218a9f2a8.jpg" alt="">
-                    </div>
-                    <div class="main-category-title">
-                        Zombie
-                    </div>
-                </a>
-            </li>
-        </ul>
-    </div>
-</div>
+
 
 @section Scripts{
     <script src="~/js/HomePage/HomePage.js"></script>

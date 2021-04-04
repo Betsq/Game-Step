@@ -53,9 +53,6 @@ namespace Game_Step.Migrations
                     b.Property<string>("Genre")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
-
                     b.Property<string>("Language")
                         .HasColumnType("nvarchar(max)");
 
@@ -138,6 +135,33 @@ namespace Game_Step.Migrations
                     b.ToTable("GameKeys");
                 });
 
+            modelBuilder.Entity("Game_Step.Models.GamesModel.GameImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageInCatalog")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("InnerImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MainImage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId")
+                        .IsUnique();
+
+                    b.ToTable("GameImages");
+                });
+
             modelBuilder.Entity("Game_Step.Models.GamesModel.GamePrice", b =>
                 {
                     b.Property<int>("Id")
@@ -166,6 +190,26 @@ namespace Game_Step.Migrations
                         .IsUnique();
 
                     b.ToTable("GamePrices");
+                });
+
+            modelBuilder.Entity("Game_Step.Models.GamesModel.GameScreenshot", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Screenshot")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameId");
+
+                    b.ToTable("GameScreenshots");
                 });
 
             modelBuilder.Entity("Game_Step.Models.Publisher", b =>
@@ -411,11 +455,33 @@ namespace Game_Step.Migrations
                     b.Navigation("Game");
                 });
 
+            modelBuilder.Entity("Game_Step.Models.GamesModel.GameImage", b =>
+                {
+                    b.HasOne("Game_Step.Models.Game", "Game")
+                        .WithOne("GameImage")
+                        .HasForeignKey("Game_Step.Models.GamesModel.GameImage", "GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+                });
+
             modelBuilder.Entity("Game_Step.Models.GamesModel.GamePrice", b =>
                 {
                     b.HasOne("Game_Step.Models.Game", "Game")
                         .WithOne("GamePrice")
                         .HasForeignKey("Game_Step.Models.GamesModel.GamePrice", "GameId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+                });
+
+            modelBuilder.Entity("Game_Step.Models.GamesModel.GameScreenshot", b =>
+                {
+                    b.HasOne("Game_Step.Models.Game", "Game")
+                        .WithMany("GameScreenshots")
+                        .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -475,9 +541,13 @@ namespace Game_Step.Migrations
 
             modelBuilder.Entity("Game_Step.Models.Game", b =>
                 {
+                    b.Navigation("GameImage");
+
                     b.Navigation("GameKeys");
 
                     b.Navigation("GamePrice");
+
+                    b.Navigation("GameScreenshots");
                 });
 #pragma warning restore 612, 618
         }

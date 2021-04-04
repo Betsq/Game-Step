@@ -1,0 +1,57 @@
+﻿@model Game_Step.ViewModels.GamesViewModel.GamesScreenshotViewModel
+
+@{
+    ViewBag.Title = "Скриншоты " + Model.Name;
+}
+
+@section Style{
+    <link href="~/css/Game/GameScreenshot.css" rel="stylesheet" />
+}
+
+<div class="main-content">
+    <div class="content">
+        <div class="info-about-game">
+            <div class="info-about-game__name-game">Скриншоты игры @Model.Name</div>
+            <a asp-action="Game" asp-controller="Game" asp-route-id="@Model.GameId">
+                <img class="info-about-game__img" src="@Model.PathImage" alt="@Model.Name">
+            </a>
+        </div>
+
+        <div class="container-button-add">
+            <form asp-action="AddScreenshot" asp-controller="GameScreenshot" method="post" enctype="multipart/form-data">
+                <input type="number" asp-for="GameId" value="@Model.GameId" style="display: none"/>
+                <div class="button-add">
+                    Добавить
+                </div>
+                <input type="file" asp-for="Screenshots" multiple style="display:none"/>
+                <button class="btn-send-screenshot" type="submit">Отправить</button>
+            </form>
+        </div>
+
+        <div class="container-with-screenshots">
+            @foreach (var scrennshot in Model.GameScreenshotsList)
+            {
+                <div class="container-screnshot">
+                    <img class="screenshot" src="@scrennshot.Screenshot">
+                    <div class="container-info-screenshot">
+                        <div class="path-to-screnshot">
+                            <div class="info-screenshot">
+                                <span>Путь к файлу:</span>
+                                @scrennshot.Screenshot
+                            </div>
+                        </div>
+                        <div class="container-buttons">
+                            <div class="del-button" data-id="@scrennshot.Id">
+                                Удалить
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/js/Game/GameScreenshot.js"></script>
+}

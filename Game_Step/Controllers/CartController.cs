@@ -25,17 +25,21 @@ namespace Game_Step.Controllers
                 {
                     var game = db.Games.Find(id);
                     var priceGame = db.GamePrices.FirstOrDefault(item => item.GameId == id);
+                    var imageGame = db.GameImages.FirstOrDefault(item => item.GameId == id);
                     if (game != null)
                     {
                         Cart cart = new Cart
                         {
                             Id = game.Id,
                             Name = game.Name,
-                            Price = priceGame.Price,
                             Quantity = game.QuantityOfGoods,
+                            PlatformActivate = game.WhereKeyActivated,
+                            Region = game.Region,
+                            Price = priceGame.Price,
                             IsDiscount = priceGame.IsDiscount,
                             Discount = priceGame.Discount,
                             DiscountPrice = priceGame.DiscountPrice,
+                            Image = imageGame.ImageInCatalog,
                         };
                         carts.Add(cart);
                     }
@@ -175,8 +179,6 @@ namespace Game_Step.Controllers
                         //Set the session object with a new value
                         HttpContext.Session.Set("CountOfGoods", countOfGoods);
 
-                        return ViewComponent("PopupCart");
-
                     }
                 }
             }
@@ -205,7 +207,7 @@ namespace Game_Step.Controllers
                                 var gamePrice = db.GamePrices.FirstOrDefault(item => item.GameId == id);
                                 if (gamePrice.IsDiscount)
                                 {
-                                    return Json(gamePrice.DiscountPrice * amountProduct); 
+                                    return Json(gamePrice.DiscountPrice * amountProduct);
                                 }
                                 else
                                 {

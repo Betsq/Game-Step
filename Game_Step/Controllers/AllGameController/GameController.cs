@@ -1,6 +1,7 @@
 ﻿using Game_Step.Models;
 using Game_Step.Models.GamesModel;
 using Game_Step.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -17,10 +18,12 @@ namespace Game_Step.Controllers
     public class GameController : Controller
     {
         private readonly ApplicationContext db;
+        private readonly IWebHostEnvironment appEnvironment;
 
-        public GameController(ApplicationContext context)
+        public GameController(ApplicationContext context, IWebHostEnvironment appEnvironment)
         {
             db = context;
+            this.appEnvironment = appEnvironment;
         }
 
         [HttpGet]
@@ -39,24 +42,25 @@ namespace Game_Step.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(GamesViewModel model)
+        public async Task<IActionResult> Create(GamesCreateViewModel model)
         {
             if (ModelState.IsValid)
             {
-                byte[] imageData = null;
-                if (model.Image != null)
+                int disc = model.Discount;
+                int discountPrice = 0;
+                if (disc < 0 || disc > 99 || model.IsDiscount == false)
                 {
-                    using (var binaryReader = new BinaryReader(model.Image.OpenReadStream()))
-                    {
-                        imageData = binaryReader.ReadBytes((int)model.Image.Length);
-                    }
+                    disc = 0;
+                    model.IsDiscount = false;
                 }
+                else
+                    discountPrice = model.Price - ((model.Price * model.Discount) / 100);
+
 
                 Game game = new Game
                 {
                     Name = model.Name,
                     Description = model.Description,
-                    Image = imageData,
                     Genre = model.Genre,
                     Language = model.Language,
                     QuantityOfGoods = model.QuantityOfGoods,
@@ -81,17 +85,41 @@ namespace Game_Step.Controllers
                     MinimumHDD = model.MinimumHDD
                 };
 
-                int disc = model.Discount;
-                if (disc < 0 || disc > 99 || model.IsDiscount == false)
+                string nameFolderGame = model.Name + "/";
+                string folderAllGames = "/img/Game/Games/";
+
+                Directory.CreateDirectory(appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
+
+                if (model.MainImage != null)
                 {
-                    disc = 0;
-                    model.IsDiscount = false;
-                }
-                    
-                int discountPrice = 0;
-                if (model.IsDiscount == true)
-                {
-                    discountPrice = model.Price - ((model.Price * model.Discount)/100);
+                    string pathMainImage = folderAllGames + nameFolderGame + "Main_Image.jpg";
+                    string pathInnerImage = folderAllGames + nameFolderGame + "Inner_Image.jpg";
+                    string pathImageInCatalog = folderAllGames + nameFolderGame + "Image_In_Catalog.jpg";
+
+                    using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
+                        await model.MainImage.CopyToAsync(filesStream);
+
+                    if (model.InnerImage != null)
+                    {
+                        using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
+                            await model.InnerImage.CopyToAsync(filesStream);
+                    }
+
+                    if (model.ImageInCatalog != null)
+                    {
+                        using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
+                            await model.ImageInCatalog.CopyToAsync(filesStream);
+                    }
+
+                    GameImage gameImage = new GameImage
+                    {
+                        MainImage = pathMainImage,
+                        InnerImage = pathInnerImage,
+                        ImageInCatalog = pathImageInCatalog,
+                        Game = game,
+                    };
+
+                    db.GameImages.Add(gameImage);
                 }
 
                 GamePrice gamePrice = new GamePrice
@@ -107,12 +135,11 @@ namespace Game_Step.Controllers
                 await db.GamePrices.AddAsync(gamePrice);
                 await db.SaveChangesAsync();
 
-
                 return RedirectToAction("Index");
             }
-
             return View(model);
         }
+
 
         [HttpGet]
         public async Task<IActionResult> Read(int? id)
@@ -135,15 +162,14 @@ namespace Game_Step.Controllers
             {
                 var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
                 var priceGame = await db.GamePrices.FirstOrDefaultAsync(item => item.GameId == id);
+                var imageGame = await db.GameImages.FirstOrDefaultAsync(item => item.GameId == id);
+
                 if (game != null)
                 {
-                    GamesViewModel gamesViewModel = new GamesViewModel
+                    GamesUpdateViewModel gamesViewModel = new GamesUpdateViewModel
                     {
                         Id = game.Id,
                         Name = game.Name,
-                        Price = priceGame.Price,
-                        IsDiscount = priceGame.IsDiscount,
-                        Discount = priceGame.Discount,
                         Description = game.Description,
                         Genre = game.Genre,
                         Language = game.Language,
@@ -154,6 +180,14 @@ namespace Game_Step.Controllers
                         Features = game.Features,
                         Region = game.Region,
                         WhereKeyActivated = game.WhereKeyActivated,
+
+                        Price = priceGame.Price,
+                        IsDiscount = priceGame.IsDiscount,
+                        Discount = priceGame.Discount,
+
+                        MainImagePath = imageGame?.MainImage,
+                        InnerImagePath = imageGame?.InnerImage,
+                        ImageInCatalogPath = imageGame?.ImageInCatalog,
 
                         RecommendOC = game.RecommendOC,
                         RecommendCPU = game.RecommendCPU,
@@ -175,19 +209,11 @@ namespace Game_Step.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(GamesViewModel model)
+        public async Task<IActionResult> Update(GamesUpdateViewModel model)
         {
-            Game game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Id);
+            var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Id);
             var priceGame = await db.GamePrices.FirstOrDefaultAsync(item => item.GameId == model.Id);
-            if (model.Image != null)
-            {
-                byte[] imageData = null;
-                using (var binaryReader = new BinaryReader(model.Image.OpenReadStream()))
-                {
-                    imageData = binaryReader.ReadBytes((int)model.Image.Length);
-                }
-                game.Image = imageData;
-            }
+            var imageGame = await db.GameImages.FirstOrDefaultAsync(item => item.GameId == model.Id);
 
             if (game != null)
             {
@@ -220,17 +246,15 @@ namespace Game_Step.Controllers
 
             int disc = model.Discount;
             bool isDesc = model.IsDiscount;
+            int discountPrice = 0;
             if (disc <= 0 || disc > 99 || isDesc == false)
             {
                 disc = 0;
                 isDesc = false;
             }
-
-            int discountPrice = 0;
-            if (isDesc == true)
-            {
+            else
                 discountPrice = model.Price - ((model.Price * model.Discount) / 100);
-            }
+
 
             if (priceGame != null)
             {
@@ -241,6 +265,43 @@ namespace Game_Step.Controllers
                 priceGame.Game = game;
             }
 
+
+            string nameFolderGame = model.Name + "/";
+            string folderAllGames = "/img/Game/Games/";
+
+            Directory.CreateDirectory(appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
+
+            string pathMainImage = folderAllGames + nameFolderGame + "Main_Image.jpg";
+            string pathInnerImage = folderAllGames + nameFolderGame + "Inner_Image.jpg";
+            string pathImageInCatalog = folderAllGames + nameFolderGame + "Image_In_Catalog.jpg";
+
+            if (model.MainImage != null)
+            {
+                using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
+                    await model.MainImage.CopyToAsync(filesStream);
+            }
+
+            if (model.InnerImage != null)
+            {
+                using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
+                    await model.InnerImage.CopyToAsync(filesStream);
+            }
+
+            if (model.ImageInCatalog != null)
+            {
+                using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
+                    await model.ImageInCatalog.CopyToAsync(filesStream);
+            }
+
+            if (imageGame != null)
+            {
+                imageGame.MainImage = pathMainImage;
+                imageGame.InnerImage = pathInnerImage;
+                imageGame.ImageInCatalog = pathImageInCatalog;
+                imageGame.Game = game;
+            }
+
+            db.GameImages.Update(imageGame);
             db.GamePrices.Update(priceGame);
             db.SaveChanges();
 
@@ -268,6 +329,12 @@ namespace Game_Step.Controllers
             var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
             if (game != null)
             {
+                string folderGame = appEnvironment.WebRootPath + "/img/Game/Games/" + game.Name;
+                if (Directory.Exists(folderGame))
+                {
+                    Directory.Delete(folderGame, true);
+                }
+ 
                 db.Games.Remove(game);
                 await db.SaveChangesAsync();
 
@@ -280,7 +347,10 @@ namespace Game_Step.Controllers
         {
             if (id != null)
             {
-                var game = await db.Games.Include(price => price.GamePrice).FirstOrDefaultAsync(item => item.Id == id);
+                var game = await db.Games.Include(price => price.GamePrice)
+                    .Include(image => image.GameImage)
+                    .Include(screenshot => screenshot.GameScreenshots)
+                    .FirstOrDefaultAsync(item => item.Id == id);
                 if (game != null)
                     return View(game);
             }

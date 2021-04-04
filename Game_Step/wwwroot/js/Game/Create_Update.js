@@ -1,61 +1,48 @@
 ﻿CKEDITOR.replace('Description')
 
 
-$(document).ready(function () {
-    const inpFile = document.getElementById("inpFile1");
-    const previewContainer = document.getElementById("image-preview");
-    const previewImage = previewContainer.querySelector(".image-preview__image");
-    const previewDefaultText = previewContainer.querySelector(".image-preview__default-text");
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
 
-    inpFile.addEventListener("change", function () {
-        const file = this.files[0];
+        reader.onload = function (e) {
+            $(input).next().attr('src', e.target.result);
 
-        if (file) {
-            const reader = new FileReader();
+            $(input).next().css("display", "block");
 
-            previewDefaultText.style.display = "none";
-            previewImage.style.display = "block";
-
-            reader.addEventListener("load", function () {
-                previewImage.setAttribute("src", this.result);
-            });
-
-            reader.readAsDataURL(file);
+            $(input).next().next().css("display", "none");
         }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+$(".clickInpImage").click(function () {
+    $(this).next().trigger("click");
+
+    $(this).next().change(function () {
+        readURL(this);
     });
 });
 
-$(document).ready(function () {
-    $("#upfile1").click(function () {
-        $("#inpFile1").trigger("click");
-    });
+
+$(document).mouseup(function (e) {
+    var container = $(".select-box");
+
+    if (container.has(e.target).length === 0) {
+        container.removeClass("open");
+    }
 });
 
-$(document).ready(function () {
-    $("select").on("click", function () {
 
-        $(this).parent(".select-box").toggleClass("open");
+$("select").on("change", function () {
 
-    });
+    var selection = $(this).find("option:selected").text(),
+        labelFor = $(this).attr("id"),
+        label = $("[for='" + labelFor + "']");
 
-    $(document).mouseup(function (e) {
-        var container = $(".select-box");
+    label.find(".label-desc").html(selection);
 
-        if (container.has(e.target).length === 0) {
-            container.removeClass("open");
-        }
-    });
-
-
-    $("select").on("change", function () {
-
-        var selection = $(this).find("option:selected").text(),
-            labelFor = $(this).attr("id"),
-            label = $("[for='" + labelFor + "']");
-
-        label.find(".label-desc").html(selection);
-
-    });
 });
 
 $(document).ready(function () {
