@@ -349,6 +349,7 @@ namespace Game_Step.Controllers
             {
                 var game = await db.Games.Include(price => price.GamePrice)
                     .Include(image => image.GameImage)
+                    .Include(screenshot => screenshot.GameScreenshots)
                     .FirstOrDefaultAsync(item => item.Id == id);
                 if (game != null)
                     return View(game);

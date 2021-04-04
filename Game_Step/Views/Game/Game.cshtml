@@ -3,6 +3,8 @@
 @{
     ViewBag.Title = Model.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int count = 1;
 }
 
 @section Style{
@@ -21,7 +23,7 @@
     <div class="product-content">
         <div class="product-left">
             <div class="scale-img main-img">
-                <img class="scale-img" src="@Model.GameImage?.InnerImage"/>
+                <img class="scale-img" src="@Model.GameImage?.InnerImage" />
                 <div class="text-screenshot" onclick="toggleScreenshotPopup()">Скриншоты</div>
             </div>
 
@@ -226,26 +228,23 @@
             <div class="content-screenshots">
                 <img src="/img/icon/close_btn.png" class="close-btn" onclick="toggleScreenshotPopup()" />
                 <div class="slideshow-screenshot-container">
+                    @foreach (var scr in Model.GameScreenshots)
+                    {
+                        <div class="slide-image fade-anim">
+                            <img src="@scr.Screenshot">
+                        </div>
+                        count++;
+                    }
 
-                    <div class="slide-image fade-anim">
-                        <img src="/img/Game/Games/DEVIL MAY CRY 5 - DELUXE EDITION/Main_Image.jpg">
-                    </div>
-                    <div class="slide-image fade-anim">
-                        <img src="/img/Game/Games/FALLOUT 4/Main_Image.jpg">
-                    </div>
-                    <div class="slide-image fade-anim">
-                        <img src="/img/Game/Games/TERRARIA/Main_Image.jpg">
+                    <div style="text-align: center">
+                        @for (int i = 1; i < count; i++)
+                        {
+                            <span class="dot" onclick="currentSlide(@i)"></span>
+                        }
                     </div>
 
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
                     <a class="next" onclick="plusSlides(1)">&#10095;</a>
-
-                    <div style="text-align:center">
-                        <span class="dot" onclick="currentSlide(1)"></span>
-                        <span class="dot" onclick="currentSlide(2)"></span>
-                        <span class="dot" onclick="currentSlide(3)"></span>
-                    </div>
-
                 </div>
             </div>
         </div>
