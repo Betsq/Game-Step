@@ -162,10 +162,10 @@ namespace Game_Step.Controllers
             if (HttpContext.Session.Keys.Contains("CartId"))
             {
                 //get the list with id
-                var listId = HttpContext.Session.Get<List<int>>("CartId");
+                List<int> listId = HttpContext.Session.Get<List<int>>("CartId");
 
                 //Check if the passed "id" is in the list, if true, remove "id" from the list
-                foreach (var lsId in listId)
+                foreach (var lsId in listId.ToList())
                 {
                     if (lsId == id)
                     {
