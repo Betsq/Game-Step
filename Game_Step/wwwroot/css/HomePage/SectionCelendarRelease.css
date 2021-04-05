@@ -22,6 +22,7 @@
     flex: 1 auto;
     display: flex;
     overflow: hidden;
+    padding-bottom: 45px;
 }
 
 .conrainer-preorders-games__game {

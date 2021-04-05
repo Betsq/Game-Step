@@ -11,6 +11,7 @@
     <link href="/css/HomePage/HomePage.css" rel="stylesheet" />
     <link href="~/css/HomePage/SectionCategory.css" rel="stylesheet" />
     <link href="~/css/HomePage/SectionCelendarRelease.css" rel="stylesheet" />
+    <link href="~/css/HomePage/SectionPopular.css" rel="stylesheet" />
 }
 
 <div class="main-content">
@@ -322,7 +323,7 @@
             Категории
         </div>
         <ul class="list-categorys">
-            @for (int i = 0; i < 20; i++)
+            @for (int i = 0; i < 18; i++)
             {
                 <li class="list-categorys__list-item">
                     <a class="list-categorys__item" href="#">
@@ -360,7 +361,40 @@
     </div>
 </section>
 
-
+<section class="popular">
+    <div class="container-fluid-popular">
+        <div class="popular__header">
+            <div class="popular__title">Популярные игры</div>
+            <div class="popular__header-content">
+                <ul class="populat__header-tabs">
+                    <li>Все</li>
+                    <li>До 100 руб</li>
+                    <li>До 300 руб</li>
+                    <li>До 500 руб</li>
+                    <li>До 800 руб</li>
+                </ul>
+            </div>
+        </div>
+        <ul class="popular__list">
+            @for (int i = 0; i < 8; i++)
+            {
+                <li>
+                    <a class="game__a" href="">
+                        <div class="game__image">
+                            <img src="~/img/Game/Games/Sims 4/Main_Image.jpg" alt="">
+                        </div>
+                        <div class="game__desc">
+                            <div class="game__container-price">
+                                <div class="game__price">182 $</div>
+                                <div class="game_discount">-24%</div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>
+</section>
 
 @section Scripts{
     <script src="~/js/HomePage/HomePage.js"></script>
