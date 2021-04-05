@@ -1,4 +1,4 @@
-﻿section {
+﻿.release-calendar {
     position: relative;
     margin: 0 auto;
     max-width: 100%;
@@ -6,13 +6,13 @@
     padding-right: 24px;
 }
 
-.container-release-celendar {
+.container-release-calendar {
     position: relative;
     max-width: 1236px;
     margin: auto auto;
 }
 
-.container-release-celendar__name {
+.container-release-calendar__name {
     font-size: 18px;
     font-weight: 600;
     margin-top: 40px;
