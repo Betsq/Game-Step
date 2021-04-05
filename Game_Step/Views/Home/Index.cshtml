@@ -9,6 +9,7 @@
 
 @section Style{
     <link href="/css/HomePage/HomePage.css" rel="stylesheet" />
+    <link href="~/css/HomePage/HomePageCategory.css" rel="stylesheet" />
 }
 
 <div class="main-content">
@@ -310,6 +311,27 @@
                 }
             </div>
         </div>
+    </div>
+</div>
+
+
+<div class="main-content-category">
+    <div class="container-category">
+        <ul class="list-categorys">
+            @for (int i = 0; i < 20; i++)
+            {
+                <li class="list-categorys__list-item">
+                    <a class="list-categorys__item" href="#">
+                        <div class="list-categorys__item-image">
+                            <img src="~/img/category/zombie_hand.png" alt="">
+                        </div>
+                        <div class="list-categorys__item-title">
+                            Зомби
+                        </div>
+                    </a>
+                </li>
+            }
+        </ul>
     </div>
 </div>
 
