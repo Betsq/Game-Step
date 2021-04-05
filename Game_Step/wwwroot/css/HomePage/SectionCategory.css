@@ -13,16 +13,24 @@
     margin: auto auto;
     margin-top: 24px;
     color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.container-category__name {
+    margin-top: 15px;
+    font-size: 20px;
 }
 
 .list-categorys {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
+    padding: 0;
 }
 
 .list-categorys__list-item {
-    width: 15%;
+    width: 16.6666%;
     padding: 0 9px;
     margin-top: 18px;
 }

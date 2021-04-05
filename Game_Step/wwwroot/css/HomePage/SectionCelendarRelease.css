@@ -1,0 +1,40 @@
+﻿section {
+    position: relative;
+    margin: 0 auto;
+    max-width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.container-release-celendar {
+    position: relative;
+    max-width: 1236px;
+    margin: auto auto;
+}
+
+.container-release-celendar__name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 40px;
+}
+
+.conrainer-preorders-games {
+    flex: 1 auto;
+    display: flex;
+    overflow: hidden;
+}
+
+.conrainer-preorders-games__game {
+    margin-right: 30px;
+    margin-top: 40px;
+}
+
+.preorders__game-image {
+    max-width: 214px;
+    margin-bottom: 25px;
+}
+
+.preorders__game-data-release {
+    padding-top: 12px;
+    border-top: 2px solid #01B49A;
+}

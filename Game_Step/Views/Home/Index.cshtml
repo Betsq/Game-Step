@@ -9,7 +9,8 @@
 
 @section Style{
     <link href="/css/HomePage/HomePage.css" rel="stylesheet" />
-    <link href="~/css/HomePage/HomePageCategory.css" rel="stylesheet" />
+    <link href="~/css/HomePage/SectionCategory.css" rel="stylesheet" />
+    <link href="~/css/HomePage/SectionCelendarRelease.css" rel="stylesheet" />
 }
 
 <div class="main-content">
@@ -317,6 +318,9 @@
 
 <div class="main-content-category">
     <div class="container-category">
+        <div class="container-category__name">
+            Категории
+        </div>
         <ul class="list-categorys">
             @for (int i = 0; i < 20; i++)
             {
@@ -334,6 +338,27 @@
         </ul>
     </div>
 </div>
+
+<section>
+    <div class="container-release-celendar">
+        <div class="container-release-celendar__name">
+            Календарь релизов
+        </div>
+        <div class="conrainer-preorders-games">
+            @for (int i = 0; i < 4; i++)
+            {
+                <div class="conrainer-preorders-games__game">
+                    <a href="">
+                        <img class="preorders__game-image" src="~/img/Game/Games/TERRARIA/Inner_Image.jpg" alt="">
+                    </a>
+                    <div class="preorders__game-data-release">
+                        7 Мая 2021
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
 
 
 
