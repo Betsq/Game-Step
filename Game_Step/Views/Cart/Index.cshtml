@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Корзина покупок";
+    bool isItemInCart = false;
 }
 
 @section Style {
@@ -17,10 +18,11 @@
         <div class="catalog-item">
             @foreach (var product in Model)
             {
+                isItemInCart = true;
                 <div class="product-in-cart">
                     <div class="block-img-catalog-item">
                         <a asp-action="Game" asp-controller="Game" asp-route-id="@product.Id">
-                            <img class="img-catalog-item" src="https://media.cntraveler.com/photos/5d72b0ef7ffc50000818c6c7/3:2/w_3879,h_2586,c_limit/Seoul,-Korea_GettyImages-560065591.jpg"><img />
+                            <img class="img-catalog-item" src="@product.Image"><img />
                         </a>
                     </div>
 
@@ -28,9 +30,24 @@
                         <div class="name-product">@product.Name</div>
                         <div class="more-info">
                             <div class="where-activate-product">
-                                <img src="/img/steam.png" alt="Steam">
+                                @if (product.PlatformActivate == "Steam")
+                                {
+                                    <img src="/img/Game/logo/steam.png" alt="@product.PlatformActivate">
+                                }
+                                else if (product.PlatformActivate == "GOG")
+                                {
+                                    <img src="/img/Game/logo/GOG.png" alt="@product.PlatformActivate">
+                                }
+                                else if (product.PlatformActivate == "Origin")
+                                {
+                                    <img src="/img/Game/logo/origin.png" alt="@product.PlatformActivate">
+                                }
+                                else if (product.PlatformActivate == "Epic Games Store")
+                                {
+                                    <img src="/img/Game/logo/epic_games.png" alt="@product.PlatformActivate">
+                                }
                             </div>
-                            <div class="genre-region">Регион: Россия, Украни, СНГ</div>
+                            <div class="genre-region">Регион: @product.Region</div>
                         </div>
                     </div>
                     <div class="item-price">
@@ -58,46 +75,56 @@
                     </div>
                 </div>
             }
-
-            <div class="final-price">
-                Итого: 0$
-            </div>
-            <div class="payment-method">
-                <span>Способ оплаты</span>
-                <div class="choise-payment-method">
-                    <select class="select-payment-method">
-                        <option value="WebMoney">WebMoney</option>
-                        <option value="PayPal">PayPal</option>
-                    </select>
+            @if (isItemInCart)
+            {
+                <div class="final-price">
+                    Итого: 0$
                 </div>
-            </div>
-
-            <div class="container-promocode">
-                <span>У вас есть промо-код?</span>
-                <div class="container-input-promocode">
-                    <input class="input-promocode" type="text" placeholder="Promocode">
-
-                    <div class="btn-promocode">
-                        Применить
+                <div class="payment-method">
+                    <span>Способ оплаты</span>
+                    <div class="choise-payment-method">
+                        <select class="select-payment-method">
+                            <option value="WebMoney">WebMoney</option>
+                            <option value="PayPal">PayPal</option>
+                        </select>
                     </div>
-
                 </div>
-            </div>
 
-            <div class="container-email">
-                <span id="email-span">Email</span>
-                <input class="input-email" type="text" placeholder="Введите Email">
-                <input class="input-email" type="text" placeholder="Повторите Email">
-            </div>
+                <div class="container-promocode">
+                    <span>У вас есть промо-код?</span>
+                    <div class="container-input-promocode">
+                        <input class="input-promocode" type="text" placeholder="Promocode">
 
-            <div class="container-agreement">
-                <input class="checkbox-agreement" type="checkbox" id="agreementUser">
+                        <div class="btn-promocode">
+                            Применить
+                        </div>
 
-                <div>Я ознакомлен с пользовательским соглашением, описанием товара и региональными ограничениями,
-                    политикой конфиденциальности и даю согласие на обработку персональных данных.</div>
-            </div>
+                    </div>
+                </div>
 
-            <input class="btn-further" id="btnFurtherOrder" type="submit" disabled = "disabled" value="Далее">
+                <div class="container-email">
+                    <span id="email-span">Email</span>
+                    <input class="input-email" type="text" placeholder="Введите Email">
+                    <input class="input-email" type="text" placeholder="Повторите Email">
+                </div>
+
+                <div class="container-agreement">
+                    <input class="checkbox-agreement" type="checkbox" id="agreementUser">
+
+                    <div>
+                        Я ознакомлен с пользовательским соглашением, описанием товара и региональными ограничениями,
+                        политикой конфиденциальности и даю согласие на обработку персональных данных.
+                    </div>
+                </div>
+
+
+                <input class="btn-further" id="btnFurtherOrder" type="submit" disabled="disabled" value="Далее">
+
+            }
+            else
+            {
+                <div class="cart-is-empty">Корзина пуста:(</div>
+            }
         </div>
     </div>
 </div>

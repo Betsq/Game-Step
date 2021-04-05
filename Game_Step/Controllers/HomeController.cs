@@ -24,7 +24,7 @@ namespace Game_Step.Controllers
             _logger = logger;
         }
 
-        
+
 
         public IActionResult ControlPanel()
         {
@@ -33,8 +33,8 @@ namespace Game_Step.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var game = await db.Games.Include(price => price.GamePrice).ToListAsync();
-            
+            var game = await db.Games.Include(price => price.GamePrice).Include(image => image.GameImage).ToListAsync();
+
             return View(game);
         }
 

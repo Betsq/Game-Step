@@ -293,3 +293,8 @@ input[type="number"]::-webkit-inner-spin-button {
     outline: none;
     border: none;
 }
+
+.cart-is-empty{
+    display: flex;
+    justify-content: center;
+}

@@ -25,6 +25,7 @@ namespace Game_Step.Controllers
                 {
                     var game = db.Games.Find(id);
                     var priceGame = db.GamePrices.FirstOrDefault(item => item.GameId == id);
+                    var imageGame = db.GameImages.FirstOrDefault(item => item.GameId == id);
                     if (game != null)
                     {
                         Cart cart = new Cart

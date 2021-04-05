@@ -3,10 +3,13 @@
 @{
     ViewBag.Title = Model.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int count = 1;
 }
 
 @section Style{
     <link href="~/css/Game/Game.css" rel="stylesheet" />
+    <link href="/css/Game/GameScreenshotPopup.css" rel="stylesheet" />
 }
 
 <div class="position-relative">
@@ -20,7 +23,8 @@
     <div class="product-content">
         <div class="product-left">
             <div class="scale-img main-img">
-                <img class="scale-img" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Image))" />
+                <img class="scale-img" src="@Model.GameImage?.InnerImage" />
+                <div class="text-screenshot" onclick="toggleScreenshotPopup()">Скриншоты</div>
             </div>
 
             <div class="product-advantages-mobile">
@@ -86,31 +90,31 @@
                 </div>
                 <div class="product-cart-block">
                     <div class="price-block">
-                            @if (Model.GamePrice.IsDiscount)
-                            {
-                                <div class="price-discount">
-                                    @Model.GamePrice.Discount%
-                                </div>
-                                <div class="product-price">
+                        @if (Model.GamePrice.IsDiscount)
+                        {
+                            <div class="price-discount">
+                                @Model.GamePrice.Discount%
+                            </div>
+                            <div class="product-price">
 
-                                    <div class="old-price">
-                                        @Model.GamePrice.Price руб.
-                                    </div>
-                                    <div class="current-price-product">
-                                        @Model.GamePrice.DiscountPrice
-                                        <sup class="sup-price-cur">РУБ.</sup>
-                                    </div>
+                                <div class="old-price">
+                                    @Model.GamePrice.Price руб.
                                 </div>
-                            }
-                            else
-                            {
-                                <div class="product-price">
-                                    <div class="current-price-product">
-                                        @Model.GamePrice.Price
-                                        <sup class="sup-price-cur">РУБ.</sup>
-                                    </div>
+                                <div class="current-price-product">
+                                    @Model.GamePrice.DiscountPrice
+                                    <sup class="sup-price-cur">РУБ.</sup>
                                 </div>
-                            }
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="product-price">
+                                <div class="current-price-product">
+                                    @Model.GamePrice.Price
+                                    <sup class="sup-price-cur">РУБ.</sup>
+                                </div>
+                            </div>
+                        }
 
                     </div>
                     <div class="product-md-block">
@@ -216,6 +220,32 @@
                     </ul>
                 </div>
                 <div class="btn-show-req">ПОКАЗАТЬ РЕКОМЕНДУЕМЫЕ<i id="arrow-show-req" class="arrow arrow-down"></i></div>
+            </div>
+        </div>
+
+        <div class="popup-screenshot" id="popup-screenshot">
+            <div class="overlay-popup-screenshot" onclick="toggleScreenshotPopup()"></div>
+            <div class="content-screenshots">
+                <img src="/img/icon/close_btn.png" class="close-btn" onclick="toggleScreenshotPopup()" />
+                <div class="slideshow-screenshot-container">
+                    @foreach (var scr in Model.GameScreenshots)
+                    {
+                        <div class="slide-image fade-anim">
+                            <img src="@scr.Screenshot">
+                        </div>
+                        count++;
+                    }
+
+                    <div style="text-align: center">
+                        @for (int i = 1; i < count; i++)
+                        {
+                            <span class="dot" onclick="currentSlide(@i)"></span>
+                        }
+                    </div>
+
+                    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+                </div>
             </div>
         </div>
     </div>
