@@ -71,6 +71,10 @@
     color: white;
 }
 
+.game__a:hover {
+    color: white;
+}
+
 .game__image {
     position: relative;
     padding-top: 55.7391%;

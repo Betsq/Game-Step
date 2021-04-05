@@ -1,0 +1,21 @@
+﻿.price-reduction {
+    position: relative;
+    margin: 0 auto;
+    max-width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+    background-color: #fff;
+}
+
+.game__image-prc-red {
+    position: relative;
+    padding-top: 61.7391%;
+}
+
+
+    .game__image-prc-red img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
