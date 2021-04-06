@@ -9,7 +9,7 @@ namespace Game_Step.ViewModels
 {
     public class HomePageViewModel
     {
-        public Game game { get; set; }
-        public GamePrice gamePrice { get; set; }
+        public List<Game> Games { get; set; }
+        public List<Category> Categories { get; set; }
     }
 }

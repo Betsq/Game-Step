@@ -34,8 +34,14 @@ namespace Game_Step.Controllers
         public async Task<IActionResult> Index()
         {
             var game = await db.Games.Include(price => price.GamePrice).Include(image => image.GameImage).ToListAsync();
+            var ct = await db.Categories.ToListAsync();
 
-            return View(game);
+            HomePageViewModel homePage = new HomePageViewModel
+            {
+                Games = game,
+                Categories = ct,
+            };
+            return View(homePage);
         }
 
 

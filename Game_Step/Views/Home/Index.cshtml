@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Game_Step.Models.Game>
+﻿@model Game_Step.ViewModels.HomePageViewModel
 
 @{
     ViewBag.Title = "Game Step";
@@ -41,202 +41,204 @@
 
             <div class="catalog">
                 <div class="catalog-novetly">
-                    @foreach (var m in Model.OrderBy(item => item.ReleaseDate))
+                    @foreach (var g in Model.Games.OrderByDescending(item => item.Name))
                     {
                         @if (counter == 8)
                         {
                             counter = 0;
                             break;
                         }
-                        <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@m.Id">
+                        <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@g.Id">
                             <div class="block-img-catalog-item">
-                                <img class="img-catalog-item" src="@m.GameImage?.ImageInCatalog"><img />
+                                <img class="img-catalog-item" src="@g.GameImage?.ImageInCatalog"><img />
                             </div>
 
                             <div class="catalog-item-info">
-                                <div class="name-product">@m.Name</div>
+                                <div class="name-product">@g.Name</div>
                                 <div class="more-info">
                                     <div class="where-activate-product">
-                                        @if (m.WhereKeyActivated == "Steam")
+                                        @if (g.WhereKeyActivated == "Steam")
                                         {
-                                            <img src="/img/Game/logo/steam.png" alt="@m.WhereKeyActivated">
+                                            <img src="/img/Game/logo/steam.png" alt="@g.WhereKeyActivated">
                                         }
-                                        else if (m.WhereKeyActivated == "GOG")
+                                        else if (g.WhereKeyActivated == "GOG")
                                         {
-                                            <img src="/img/Game/logo/GOG.png" alt="@m.WhereKeyActivated">
+                                            <img src="/img/Game/logo/GOG.png" alt="@g.WhereKeyActivated">
                                         }
-                                        else if (m.WhereKeyActivated == "Origin")
+                                        else if (g.WhereKeyActivated == "Origin")
                                         {
-                                            <img src="/img/Game/logo/origin.png" alt="@m.WhereKeyActivated">
+                                            <img src="/img/Game/logo/origin.png" alt="@g.WhereKeyActivated">
                                         }
-                                        else if (m.WhereKeyActivated == "Epic Games Store")
+                                        else if (g.WhereKeyActivated == "Epic Games Store")
                                         {
-                                            <img src="/img/Game/logo/epic_games.png" alt="@m.WhereKeyActivated">
+                                            <img src="/img/Game/logo/epic_games.png" alt="@g.WhereKeyActivated">
                                         }
                                     </div>
                                     <div class="genre-product"> Экшены, RPG</div>
                                 </div>
                             </div>
+
                             <div class="item-price">
-                                @if (m.GamePrice.IsDiscount)
+                                @if (g.GamePrice.IsDiscount)
                                 {
                                     <div class="discount-item">
-                                        -@m.GamePrice.Discount%
+                                        -@g.GamePrice.Discount%
                                     </div>
                                     <div class="cur-price-item">
-                                        @m.GamePrice.DiscountPrice $.
+                                        @g.GamePrice.DiscountPrice $.
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="cur-price-item">
-                                        @m.GamePrice.Price $.
+                                        @g.GamePrice.Price $.
                                     </div>
                                 }
                             </div>
                         </a>
                         counter++;
                     }
-
-
                     <a class="catalog-item-more-games" href="">
                         ЕЩЕ 4234 ИГР
                     </a>
                 </div>
+
                 <div class="catalog-leaders-sells">
-                    @foreach (var m in Model.OrderBy(item => item.Name))
+                    @foreach (var g in Model.Games.OrderBy(item => item.Name))
                     {
                         @if (counter == 8)
                         {
                             counter = 0;
                             break;
                         }
-                        <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@m.Id">
+                        <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@g.Id">
                             <div class="block-img-catalog-item">
-                                <img class="img-catalog-item" src="@m.GameImage?.ImageInCatalog"><img />
+                                <img class="img-catalog-item" src="@g.GameImage?.ImageInCatalog"><img />
                             </div>
 
                             <div class="catalog-item-info">
-                                <div class="name-product">@m.Name</div>
+                                <div class="name-product">@g.Name</div>
                                 <div class="more-info">
                                     <div class="where-activate-product">
-                                        @if (m.WhereKeyActivated == "Steam")
+                                        @if (g.WhereKeyActivated == "Steam")
                                         {
-                                            <img src="/img/Game/logo/steam.png" alt="@m.WhereKeyActivated">
+                                            <img src="/img/Game/logo/steam.png" alt="@g.WhereKeyActivated">
                                         }
-                                        else if (m.WhereKeyActivated == "GOG")
+                                        else if (g.WhereKeyActivated == "GOG")
                                         {
-                                            <img src="/img/Game/logo/GOG.png" alt="@m.WhereKeyActivated">
+                                            <img src="/img/Game/logo/GOG.png" alt="@g.WhereKeyActivated">
                                         }
-                                        else if (m.WhereKeyActivated == "Origin")
+                                        else if (g.WhereKeyActivated == "Origin")
                                         {
-                                            <img src="/img/Game/logo/origin.png" alt="@m.WhereKeyActivated">
+                                            <img src="/img/Game/logo/origin.png" alt="@g.WhereKeyActivated">
                                         }
-                                        else if (m.WhereKeyActivated == "Epic Games Store")
+                                        else if (g.WhereKeyActivated == "Epic Games Store")
                                         {
-                                            <img src="/img/Game/logo/epic_games.png" alt="@m.WhereKeyActivated">
+                                            <img src="/img/Game/logo/epic_games.png" alt="@g.WhereKeyActivated">
                                         }
                                     </div>
                                     <div class="genre-product"> Экшены, RPG</div>
                                 </div>
                             </div>
+
                             <div class="item-price">
-                                @if (m.GamePrice.IsDiscount)
+                                @if (g.GamePrice.IsDiscount)
                                 {
                                     <div class="discount-item">
-                                        -@m.GamePrice.Discount%
+                                        -@g.GamePrice.Discount%
                                     </div>
                                     <div class="cur-price-item">
-                                        @m.GamePrice.DiscountPrice $.
+                                        @g.GamePrice.DiscountPrice $.
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="cur-price-item">
-                                        @m.GamePrice.Price $.
+                                        @g.GamePrice.Price $.
                                     </div>
                                 }
                             </div>
                         </a>
                         counter++;
                     }
+
 
                     <a class="catalog-item-more-games" href="">
                         ЕЩЕ 4234 ИГР
                     </a>
                 </div>
                 <div class="catalog-expected">
-                    @foreach (var m in Model.OrderBy(item => item.Name))
+                    @foreach (var g in Model.Games.OrderByDescending(item => item.QuantityOfGoods))
                     {
                         @if (counter == 8)
                         {
                             counter = 0;
                             break;
                         }
-                        <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@m.Id">
+                        <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@g.Id">
                             <div class="block-img-catalog-item">
-                                <img class="img-catalog-item" src="@m.GameImage?.ImageInCatalog"><img />
+                                <img class="img-catalog-item" src="@g.GameImage?.ImageInCatalog"><img />
                             </div>
 
                             <div class="catalog-item-info">
-                                <div class="name-product">@m.Name</div>
+                                <div class="name-product">@g.Name</div>
                                 <div class="more-info">
                                     <div class="where-activate-product">
-                                        @if (m.WhereKeyActivated == "Steam")
+                                        @if (g.WhereKeyActivated == "Steam")
                                         {
-                                            <img src="/img/Game/logo/steam.png" alt="@m.WhereKeyActivated">
+                                            <img src="/img/Game/logo/steam.png" alt="@g.WhereKeyActivated">
                                         }
-                                        else if (m.WhereKeyActivated == "GOG")
+                                        else if (g.WhereKeyActivated == "GOG")
                                         {
-                                            <img src="/img/Game/logo/GOG.png" alt="@m.WhereKeyActivated">
+                                            <img src="/img/Game/logo/GOG.png" alt="@g.WhereKeyActivated">
                                         }
-                                        else if (m.WhereKeyActivated == "Origin")
+                                        else if (g.WhereKeyActivated == "Origin")
                                         {
-                                            <img src="/img/Game/logo/origin.png" alt="@m.WhereKeyActivated">
+                                            <img src="/img/Game/logo/origin.png" alt="@g.WhereKeyActivated">
                                         }
-                                        else if (m.WhereKeyActivated == "Epic Games Store")
+                                        else if (g.WhereKeyActivated == "Epic Games Store")
                                         {
-                                            <img src="/img/Game/logo/epic_games.png" alt="@m.WhereKeyActivated">
+                                            <img src="/img/Game/logo/epic_games.png" alt="@g.WhereKeyActivated">
                                         }
                                     </div>
                                     <div class="genre-product"> Экшены, RPG</div>
                                 </div>
                             </div>
+
                             <div class="item-price">
-                                @if (m.GamePrice.IsDiscount)
+                                @if (g.GamePrice.IsDiscount)
                                 {
                                     <div class="discount-item">
-                                        -@m.GamePrice.Discount%
+                                        -@g.GamePrice.Discount%
                                     </div>
                                     <div class="cur-price-item">
-                                        @m.GamePrice.DiscountPrice $.
+                                        @g.GamePrice.DiscountPrice $.
                                     </div>
                                 }
                                 else
                                 {
                                     <div class="cur-price-item">
-                                        @m.GamePrice.Price $.
+                                        @g.GamePrice.Price $.
                                     </div>
                                 }
                             </div>
                         </a>
                         counter++;
                     }
-
                     <a class="catalog-item-more-games" href="">
                         ЕЩЕ 4234 ИГР
                     </a>
                 </div>
             </div>
-
         </div>
+
         <div class="main-aside">
             <div class="product-with-discount">
                 <div class="info-sicount-product-aside">
                     Скидки
                     <sup>от 40%</sup>
                 </div>
-                @foreach (var g in Model.Where(item => item.GamePrice.Discount >= 40))
+                @foreach (var g in Model.Games.Where(item => item.GamePrice.Discount >= 40))
                 {
                     @if (counter == 4)
                     {
@@ -279,7 +281,7 @@
                 <div class="last-sell-info">
                     Последние продажи
                 </div>
-                @foreach (var g in Model)
+                @foreach (var g in Model.Games.OrderByDescending(item => item.Publisher))
                 {
                     @if (counter == 4)
                     {
@@ -324,12 +326,12 @@
             Категории
         </div>
         <ul class="list-categorys">
-            @for (int i = 0; i < 18; i++)
+            @foreach (var ct in Model.Categories)
             {
                 <li class="list-categorys__list-item">
                     <a class="list-categorys__item" href="#">
                         <div class="list-categorys__item-image">
-                            <img src="~/img/category/zombie_hand.png" alt="">
+                            <img src="data:image/jpeg;base64,@(Convert.ToBase64String(ct.Image))" alt="">
                         </div>
                         <div class="list-categorys__item-title">
                             Зомби
@@ -347,7 +349,7 @@
             Календарь релизов
         </div>
         <div class="conrainer-preorders-games">
-            @foreach (var g in Model.OrderByDescending(item => item.ReleaseDate))
+            @foreach (var g in Model.Games.OrderByDescending(item => item.ReleaseDate))
             {
                 if (counter == 4)
                 {
@@ -383,7 +385,7 @@
             </div>
         </div>
         <ul class="popular__list">
-            @foreach (var g in Model.OrderBy(item => item.QuantityOfGoods))
+            @foreach (var g in Model.Games.OrderBy(item => item.QuantityOfGoods))
             {
                 if (counter == 8)
                 {
@@ -423,7 +425,7 @@
             <div class="popular__title">Снижение цен</div>
         </div>
         <ul class="popular__list">
-            @foreach (var g in Model.OrderByDescending(item => item.WhereKeyActivated))
+            @foreach (var g in Model.Games.OrderByDescending(item => item.WhereKeyActivated))
             {
                 if (counter == 4)
                 {
@@ -468,6 +470,7 @@
                 Наш магазин делает все для того, чтобы ваши покупки проходили быстро,
                 с максимальным удобством и безопасностью, а цены оставались максимально доступными.
             </p>
+
             <p>
                 Для покупки достаточно лишь указать электронный адрес при оформлении заказа и выбрать
                 удобный способ оплаты. После этого Вам на почту придет пароль доступа в личный кабинет,
@@ -479,5 +482,4 @@
 
 @section Scripts{
     <script src="~/js/HomePage/HomePage.js"></script>
-
 }
