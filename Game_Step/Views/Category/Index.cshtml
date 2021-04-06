@@ -1,1 +1,23 @@
-﻿
+﻿@model IEnumerable<Game_Step.Models.Category>
+
+@{
+    ViewBag.Title = "Category";
+}
+
+<div class="container">
+    <a asp-action="Create" asp-controller="Category">Create</a>
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-12">
+            Name - @item.Name
+            <a asp-action="Update" asp-controller="Category" asp-route-id="@item.Id">Update</a>
+            <form asp-action="Delete" asp-controller="Categort" asp-route-id="@item.Id" method="post">
+                <button type="submit" class="btn btn-sm btn-danger">
+                    Delete
+                </button>
+            </form>
+        </div>
+
+    }
+</div>
