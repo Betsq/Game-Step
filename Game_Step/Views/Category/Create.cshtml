@@ -1,1 +1,13 @@
-﻿
+﻿@model Game_Step.Models.Category
+
+@{
+    ViewBag.Title = "Create developer";
+}
+
+<div class="container">
+    <form asp-action="Create" asp-controller="Category" method="post">
+        <input type="text" asp-for="Name" />
+        <input type="file" asp-for="Image" accept=".png"/>
+        <input type="submit" value="Create" />
+    </form>
+</div>
