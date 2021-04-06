@@ -10,6 +10,7 @@ namespace Game_Step.ViewModels
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public byte[] byteImage { get; set; }
         public IFormFile Image { get; set; }
     }
 }

@@ -64,7 +64,14 @@ namespace Game_Step.Controllers
 
                 if (ct != null)
                 {
-                    return View(ct);
+                    CategoryViewModel cvt = new CategoryViewModel
+                    {
+                        Id = ct.Id,
+                        Name = ct.Name,
+                        byteImage = ct.Image,
+                    };
+
+                    return View(cvt);
                 }
             }
             return NotFound();
