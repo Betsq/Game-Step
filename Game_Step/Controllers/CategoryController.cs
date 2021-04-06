@@ -86,7 +86,7 @@ namespace Game_Step.Controllers
             {
                 ct.Name = model.Name;
 
-                if (ct.Name != null)
+                if (model.Image != null)
                 {
                     byte[] imageData = null;
 
@@ -101,7 +101,7 @@ namespace Game_Step.Controllers
                 db.Categories.Update(ct);
                 await db.SaveChangesAsync();
             }
-            return NotFound();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]

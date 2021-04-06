@@ -1,3 +1,11 @@
 ﻿@model Game_Step.ViewModels.CategoryViewModel
 
- 
+    <div class="container">
+        <form asp-action="Update" asp-controller="Category" method="post" enctype="multipart/form-data">
+            <input type="number" asp-for="Id" value="@Model.Id" hidden readonly />
+            <input type="text" asp-for="Name" />
+            <input type="file" asp-for="Image" accept=".png"/>
+
+            <input type="submit" value="Update" />
+        </form>
+    </div>
