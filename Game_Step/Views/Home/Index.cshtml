@@ -236,7 +236,7 @@
                     Скидки
                     <sup>от 40%</sup>
                 </div>
-                @foreach (var g in Model)
+                @foreach (var g in Model.Where(item => item.GamePrice.Discount >= 40))
                 {
                     @if (counter == 4)
                     {
@@ -347,16 +347,22 @@
             Календарь релизов
         </div>
         <div class="conrainer-preorders-games">
-            @for (int i = 0; i < 4; i++)
+            @foreach (var g in Model.OrderByDescending(item => item.ReleaseDate))
             {
+                if (counter == 4)
+                {
+                    counter = 0;
+                    break;
+                }
                 <div class="conrainer-preorders-games__game">
-                    <a href="">
-                        <img class="preorders__game-image" src="~/img/Game/Games/TERRARIA/Inner_Image.jpg" alt="">
+                    <a asp-action="Game" asp-controller="Game" asp-route-id="@g.Id">
+                        <img class="preorders__game-image" src="@g.GameImage.InnerImage" alt="">
                     </a>
                     <div class="preorders__game-data-release">
                         7 Мая 2021
                     </div>
                 </div>
+                counter++;
             }
         </div>
     </div>
@@ -377,21 +383,34 @@
             </div>
         </div>
         <ul class="popular__list">
-            @for (int i = 0; i < 8; i++)
+            @foreach (var g in Model.OrderBy(item => item.QuantityOfGoods))
             {
+                if (counter == 8)
+                {
+                    counter = 0;
+                    break;
+                }
                 <li>
-                    <a class="game__a" href="">
+                    <a class="game__a" asp-action="Game" asp-controller="Game" asp-route-id="@g.Id">
                         <div class="game__image">
-                            <img src="~/img/Game/Games/Sims 4/Main_Image.jpg" alt="">
+                            <img src="@g.GameImage.MainImage" alt="">
                         </div>
                         <div class="game__desc">
                             <div class="game__container-price">
-                                <div class="game__price">182 $</div>
-                                <div class="game_discount">-24%</div>
+                                @if (g.GamePrice.IsDiscount)
+                                {
+                                    <div class="game__price">@g.GamePrice.DiscountPrice</div>
+                                    <div class="game_discount">-@g.GamePrice.Discount %</div>
+                                }
+                                else
+                                {
+                                    <div class="game__price">@g.GamePrice.Price</div>
+                                }
                             </div>
                         </div>
                     </a>
                 </li>
+                counter++;
             }
         </ul>
     </div>
@@ -404,23 +423,36 @@
             <div class="popular__title">Снижение цен</div>
         </div>
         <ul class="popular__list">
-            @for (int i = 0; i < 4; i++)
+            @foreach (var g in Model.OrderByDescending(item => item.WhereKeyActivated))
             {
+                if (counter == 4)
+                {
+                    counter = 0;
+                    break;
+                }
                 <li>
-                    <a class="game__a" href="">
+                    <a class="game__a" asp-action="Game" asp-controller="Game" asp-route-id="@g.Id">
                         <div class="game__image-prc-red">
-                            <img src="~/img/Game/Games/TERRARIA/Main_Image.jpg" alt="">
+                            <img src="@g.GameImage.MainImage" alt="">
                         </div>
                         <div class="game__desc">
                             <div class="game__container-price">
-                                <div class="game__price">182 $</div>
-                                <div class="game_discount">-24%</div>
+                                @if (g.GamePrice.IsDiscount)
+                                {
+                                    <div class="game__price">@g.GamePrice.DiscountPrice</div>
+                                    <div class="game_discount">-@g.GamePrice.Discount %</div>
+                                }
+                                else
+                                {
+                                    <div class="game__price">@g.GamePrice.Price</div>
+                                }
                             </div>
                         </div>
                     </a>
                 </li>
+                counter++;
             }
-            </ul>      
+        </ul>
     </div>
 </section>
 

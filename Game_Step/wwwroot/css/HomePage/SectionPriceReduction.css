@@ -9,7 +9,7 @@
 
 .game__image-prc-red {
     position: relative;
-    padding-top: 61.7391%;
+    padding-top: 55.7391%;
 }
 
 
@@ -17,5 +17,6 @@
         position: absolute;
         top: 0;
         left: 0;
+        max-height: 157px;
         width: 100%;
     }
