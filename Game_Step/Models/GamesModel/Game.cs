@@ -1,4 +1,5 @@
-﻿using Game_Step.Models.GamesModel;
+﻿using Game_Step.Models.Comments;
+using Game_Step.Models.GamesModel;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,8 @@ namespace Game_Step.Models
         public GameImage GameImage { get; set; }
         public List<GameScreenshot> GameScreenshots { get; set; } = new List<GameScreenshot>();
         public List<GameKey> GameKeys { get; set; } = new List<GameKey>();
+
+        public List<MainComment> MainComments { get; set; }
 
         public string RecommendOC { get; set; }
         public string RecommendCPU { get; set; }
