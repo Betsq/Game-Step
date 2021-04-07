@@ -4,6 +4,7 @@ using Game_Step.ViewModels.GamesViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Threading.Tasks;
 
 namespace Game_Step.Controllers.AllGameController
 {
@@ -16,7 +17,8 @@ namespace Game_Step.Controllers.AllGameController
             this.db = db;
         }
 
-        public async System.Threading.Tasks.Task<IActionResult> AddMainComment(GameViewModel model)
+        [HttpPost]
+        public async Task<IActionResult> AddMainComment(GameViewModel model)
         {
             var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Game.Id);
             if (game != null)
@@ -32,7 +34,30 @@ namespace Game_Step.Controllers.AllGameController
                 await db.SaveChangesAsync();
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Game", "Game", new {id = model.Game.Id});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddSubComment(GameViewModel model)
+        {
+            var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Game.Id);
+            if (game != null)
+            {
+                var mainComment = await db.MainComments.FirstOrDefaultAsync(item => item.Id == model.MainComment.Id);
+                if (mainComment != null)
+                {
+                    SubComment subComment = new SubComment
+                    {
+                        Message = model.MainComment.Message,
+                        TimeCreated = DateTime.Now,
+                        MainComment = mainComment,
+                    };
+
+                    await db.SubComments.AddAsync(subComment);
+                    await db.SaveChangesAsync();
+                }
+            }
+            return RedirectToAction("Game", "Game", new {id = model.Game.Id} );
         }
     }
 }

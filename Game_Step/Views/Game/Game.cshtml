@@ -228,7 +228,12 @@
             {
                 @comment.Message
 
-                
+                <form asp-action="AddSubComment" asp-controller="Comment" method="post">
+                    <input type="number" asp-for="Game.Id" value="@Model.Game.Id" hidden readonly />
+                    <input type="number" asp-for="MainComment.Id" value="@comment.Id" hidden readonly />
+                    <input type="text" asp-for="MainComment.Message" placeholder="Comment" />
+                    <input type="submit" value="send" />
+                </form>
             }
 
             <form asp-action="AddMainComment" asp-controller="Comment" method="post">
