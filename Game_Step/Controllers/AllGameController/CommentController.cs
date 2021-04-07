@@ -16,20 +16,23 @@ namespace Game_Step.Controllers.AllGameController
             this.db = db;
         }
 
-        public async System.Threading.Tasks.Task<IActionResult> AddMainComment(CommentsViewModel model)
+        public async System.Threading.Tasks.Task<IActionResult> AddMainComment(GameViewModel model)
         {
-            var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.GameId);
+            var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Game.Id);
             if (game != null)
             {
                 MainComment mainComment = new MainComment
                 {
-                    Message = model.Message,
+                    Message = model.MainComment.Message,
                     TimeCreated = DateTime.Now,
                     Game = game,
                 };
+
+                await db.MainComments.AddAsync(mainComment);
+                await db.SaveChangesAsync();
             }
 
-            return RedirectToAction("Game", new {id = model.GameId });
+            return RedirectToAction("Index", "Home");
         }
     }
 }

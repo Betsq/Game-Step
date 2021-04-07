@@ -222,6 +222,21 @@
                 <div class="btn-show-req">ПОКАЗАТЬ РЕКОМЕНДУЕМЫЕ<i id="arrow-show-req" class="arrow arrow-down"></i></div>
             </div>
         </div>
+        <div>
+
+            @foreach (var comment in Model.Game.MainComments)
+            {
+                @comment.Message
+
+                
+            }
+
+            <form asp-action="AddMainComment" asp-controller="Comment" method="post">
+                <input type="number" asp-for="Game.Id" value="@Model.Game.Id" readonly hidden />
+                <input type="text" asp-for="MainComment.Message" placeholder="Comment" />
+                <input type="submit" value="send" />
+            </form>
+        </div>
 
         <div class="popup-screenshot" id="popup-screenshot">
             <div class="overlay-popup-screenshot" onclick="toggleScreenshotPopup()"></div>
