@@ -1,7 +1,7 @@
-﻿@model Game_Step.Models.Game
+﻿@model Game_Step.ViewModels.GamesViewModel.GameViewModel
 
 @{
-    ViewBag.Title = Model.Name;
+    ViewBag.Title = Model.Game.Name;
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     int count = 1;
@@ -13,17 +13,17 @@
 }
 
 <div class="position-relative">
-    <img class="product-bg" src="~/img/Warhammer.jpg" alt="@Model.Name" />
+    <img class="product-bg" src="~/img/Warhammer.jpg" alt="@Model.Game.Name" />
 </div>
 
 <div class="main-content">
     <div class="product-name">
-        <h1>@Model.Name</h1>
+        <h1>@Model.Game.Name</h1>
     </div>
     <div class="product-content">
         <div class="product-left">
             <div class="scale-img main-img">
-                <img class="scale-img" src="@Model.GameImage?.InnerImage" />
+                <img class="scale-img" src="@Model.Game.GameImage?.InnerImage" />
                 <div class="text-screenshot" onclick="toggleScreenshotPopup()">Скриншоты</div>
             </div>
 
@@ -48,23 +48,23 @@
                 <ul>
                     <li>
                         <div class="product-info-key">Genre</div>
-                        <div class="product-info-value">@Model.Genre</div>
+                        <div class="product-info-value">@Model.Game.Genre</div>
                     </li>
                     <li>
                         <div class="product-info-key">Publisher</div>
-                        <div class="product-info-value">@Model.Publisher</div>
+                        <div class="product-info-value">@Model.Game.Publisher</div>
                     </li>
                     <li>
                         <div class="product-info-key">Developer</div>
-                        <div class="product-info-value">@Model.Developer</div>
+                        <div class="product-info-value">@Model.Game.Developer</div>
                     </li>
                     <li>
                         <div class="product-info-key">Features</div>
-                        <div class="product-info-value">@Model.Features</div>
+                        <div class="product-info-value">@Model.Game.Features</div>
                     </li>
                     <li>
                         <div class="product-info-key">Region</div>
-                        <div class="product-info-value">@Model.Region</div>
+                        <div class="product-info-value">@Model.Game.Region</div>
                     </li>
                 </ul>
             </div>
@@ -81,7 +81,7 @@
                             Моментальная доставка
                         </li>
                         <li>
-                            Лицензионный ключ активации в @Model.WhereKeyActivated
+                            Лицензионный ключ активации в @Model.Game.WhereKeyActivated
                         </li>
                         <li>
                             Накопительная скидка до 10%
@@ -90,18 +90,18 @@
                 </div>
                 <div class="product-cart-block">
                     <div class="price-block">
-                        @if (Model.GamePrice.IsDiscount)
+                        @if (Model.Game.GamePrice.IsDiscount)
                         {
                             <div class="price-discount">
-                                @Model.GamePrice.Discount%
+                                @Model.Game.GamePrice.Discount%
                             </div>
                             <div class="product-price">
 
                                 <div class="old-price">
-                                    @Model.GamePrice.Price руб.
+                                    @Model.Game.GamePrice.Price руб.
                                 </div>
                                 <div class="current-price-product">
-                                    @Model.GamePrice.DiscountPrice
+                                    @Model.Game.GamePrice.DiscountPrice
                                     <sup class="sup-price-cur">РУБ.</sup>
                                 </div>
                             </div>
@@ -110,7 +110,7 @@
                         {
                             <div class="product-price">
                                 <div class="current-price-product">
-                                    @Model.GamePrice.Price
+                                    @Model.Game.GamePrice.Price
                                     <sup class="sup-price-cur">РУБ.</sup>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
 
                     </div>
                     <div class="product-md-block">
-                        <a href="javascript: void(0)" class="buy-button no-cart" data-id="@Model.Id">
+                        <a href="javascript: void(0)" class="buy-button no-cart" data-id="@Model.Game.Id">
                             В КОРЗИНУ
                         </a>
                         <div class="product-help">
@@ -136,28 +136,28 @@
                 <ul>
                     <li>
                         <div class="product-info-key">Genre</div>
-                        <div class="product-info-value">@Model.Genre</div>
+                        <div class="product-info-value">@Model.Game.Genre</div>
                     </li>
                     <li>
                         <div class="product-info-key">Publisher</div>
-                        <div class="product-info-value">@Model.Publisher</div>
+                        <div class="product-info-value">@Model.Game.Publisher</div>
                     </li>
                     <li>
                         <div class="product-info-key">Developer</div>
-                        <div class="product-info-value">@Model.Developer</div>
+                        <div class="product-info-value">@Model.Game.Developer</div>
                     </li>
                     <li>
                         <div class="product-info-key">Features</div>
-                        <div class="product-info-value">@Model.Features</div>
+                        <div class="product-info-value">@Model.Game.Features</div>
                     </li>
                     <li>
                         <div class="product-info-key">Region</div>
-                        <div class="product-info-value">@Model.Region</div>
+                        <div class="product-info-value">@Model.Game.Region</div>
                     </li>
                 </ul>
             </div>
             <div class="description">
-                @Html.Raw(Model.Description)
+                @Html.Raw(Model.Game.Description)
             </div>
 
 
@@ -166,27 +166,27 @@
                 <ul>
                     <li>
                         <div class="requirements-system-key">OC</div>
-                        <div>@Model.MinimumOC</div>
+                        <div>@Model.Game.MinimumOC</div>
                     </li>
                     <li>
                         <div class="requirements-system-key">CPU</div>
-                        <div>@Model.MinimumCPU</div>
+                        <div>@Model.Game.MinimumCPU</div>
                     </li>
                     <li>
                         <div class="requirements-system-key">RAM</div>
-                        <div>@Model.MinimumRAM</div>
+                        <div>@Model.Game.MinimumRAM</div>
                     </li>
                     <li>
                         <div class="requirements-system-key">VideoCard</div>
-                        <div>@Model.MinimumVideoCard</div>
+                        <div>@Model.Game.MinimumVideoCard</div>
                     </li>
                     <li>
                         <div class="requirements-system-key">DirectX</div>
-                        <div>@Model.MinimumDirectX</div>
+                        <div>@Model.Game.MinimumDirectX</div>
                     </li>
                     <li>
                         <div class="requirements-system-key">HDD</div>
-                        <div>@Model.MinimumHDD</div>
+                        <div>@Model.Game.MinimumHDD</div>
                     </li>
                 </ul>
 
@@ -195,27 +195,27 @@
                     <ul>
                         <li>
                             <div class="requirements-system-key">OC</div>
-                            <div>@Model.MinimumOC</div>
+                            <div>@Model.Game.MinimumOC</div>
                         </li>
                         <li>
                             <div class="requirements-system-key">CPU</div>
-                            <div>@Model.MinimumCPU</div>
+                            <div>@Model.Game.MinimumCPU</div>
                         </li>
                         <li>
                             <div class="requirements-system-key">RAM</div>
-                            <div>@Model.MinimumRAM</div>
+                            <div>@Model.Game.MinimumRAM</div>
                         </li>
                         <li>
                             <div class="requirements-system-key">VideoCard</div>
-                            <div>@Model.MinimumVideoCard</div>
+                            <div>@Model.Game.MinimumVideoCard</div>
                         </li>
                         <li>
                             <div class="requirements-system-key">DirectX</div>
-                            <div>@Model.MinimumDirectX</div>
+                            <div>@Model.Game.MinimumDirectX</div>
                         </li>
                         <li>
                             <div class="requirements-system-key">HDD</div>
-                            <div>@Model.MinimumHDD</div>
+                            <div>@Model.Game.MinimumHDD</div>
                         </li>
                     </ul>
                 </div>
@@ -228,7 +228,7 @@
             <div class="content-screenshots">
                 <img src="/img/icon/close_btn.png" class="close-btn" onclick="toggleScreenshotPopup()" />
                 <div class="slideshow-screenshot-container">
-                    @foreach (var scr in Model.GameScreenshots)
+                    @foreach (var scr in Model.Game.GameScreenshots)
                     {
                         <div class="slide-image fade-anim">
                             <img src="@scr.Screenshot">

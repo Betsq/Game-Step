@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Game_Step.ViewModels
 {
-    public class GamesUpdateViewModel : GameViewModel
+    public class GamesUpdateViewModel : GamesCreateViewModel
     {
         public string MainImagePath { get; set; }
         public string InnerImagePath { get; set; }

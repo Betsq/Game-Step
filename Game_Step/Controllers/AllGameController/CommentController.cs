@@ -29,7 +29,7 @@ namespace Game_Step.Controllers.AllGameController
                 };
             }
 
-            return RedirectToAction();
+            return RedirectToAction("Game", new {id = model.GameId });
         }
     }
 }

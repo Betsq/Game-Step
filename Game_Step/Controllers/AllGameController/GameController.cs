@@ -1,6 +1,7 @@
 ﻿using Game_Step.Models;
 using Game_Step.Models.GamesModel;
 using Game_Step.ViewModels;
+using Game_Step.ViewModels.GamesViewModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -352,7 +353,14 @@ namespace Game_Step.Controllers
                     .Include(screenshot => screenshot.GameScreenshots)
                     .FirstOrDefaultAsync(item => item.Id == id);
                 if (game != null)
-                    return View(game);
+                {
+                    GameViewModel model = new GameViewModel
+                    {
+                        Game = game,
+                    };
+                    return View(model);
+                }
+                    
             }
             return NotFound();
         }
