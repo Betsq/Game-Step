@@ -7,7 +7,7 @@
         success: function (result) {
             if (result === true) {
                 //When the product in cart, it changes the link of the button to go to the cart
-                $('a.buy-button').attr('href', '/Game');
+                $('a.buy-button').attr('href', window.location.origin + '/Cart');
                 //When the product in cart, it changes the class
                 $('a.buy-button').attr('class', 'buy-button in-cart');
 
