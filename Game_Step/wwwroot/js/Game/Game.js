@@ -20,22 +20,24 @@
 //Call function add item to cart
 $(document).ready(function () {
     $("a.buy-button").click(function () {
-        //Get from the attribute Id of the product
-        var modelId = this.getAttribute('data-id');
-        $.ajax({
-            url: window.location.origin + "/Cart/AddToCart",
-            type: "Get",
-            data: { 'id': modelId },
-            success: function (result) {
-                $("#cart").html(result);
-                //When adding a product, it changes the link of the button to go to the cart
-                $('a.buy-button').attr('href', window.location.origin + '/Cart');
-                //When adding a product, it changes the class
-                $('a.buy-button').attr('class', 'buy-button in-cart');
+        if (!$(this).hasClass("in-cart")) {
+            //Get from the attribute Id of the product
+            var modelId = this.getAttribute('data-id');
+            $.ajax({
+                url: window.location.origin + "/Cart/AddToCart",
+                type: "Get",
+                data: { 'id': modelId },
+                success: function (result) {
+                    $("#cart").html(result);
+                    //When adding a product, it changes the link of the button to go to the cart
+                    $('a.buy-button').attr('href', window.location.origin + '/Cart');
+                    //When adding a product, it changes the class
+                    $('a.buy-button').attr('class', 'buy-button in-cart');
 
-                $('a.buy-button').text('В КОРЗИНЕ');
-            },
-        });
+                    $('a.buy-button').text('В КОРЗИНЕ');
+                },
+            });
+        }
     });
 });
 
