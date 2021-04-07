@@ -10,6 +10,7 @@
 @section Style{
     <link href="~/css/Game/Game.css" rel="stylesheet" />
     <link href="/css/Game/GameScreenshotPopup.css" rel="stylesheet" />
+    <link href="/css/Game/Comment.css" rel="stylesheet" />
 }
 
 <div class="position-relative">
@@ -221,27 +222,95 @@
                 </div>
                 <div class="btn-show-req">ПОКАЗАТЬ РЕКОМЕНДУЕМЫЕ<i id="arrow-show-req" class="arrow arrow-down"></i></div>
             </div>
-        </div>
-        <div>
 
-            @foreach (var comment in Model.Game.MainComments)
-            {
-                @comment.Message
+            <div class="comments">
+                <div class="comments__name">
+                    Комментарии
+                </div>
 
-                <form asp-action="AddSubComment" asp-controller="Comment" method="post">
-                    <input type="number" asp-for="Game.Id" value="@Model.Game.Id" hidden readonly />
-                    <input type="number" asp-for="MainComment.Id" value="@comment.Id" hidden readonly />
-                    <input type="text" asp-for="MainComment.Message" placeholder="Comment" />
-                    <input type="submit" value="send" />
+                <form class="comments__container" asp-action="AddMainComment" asp-controller="Comment" method="post">
+                    <input type="number" asp-for="Game.Id" value="@Model.Game.Id" readonly hidden />
+
+                    <div class="comments__avatar">
+                        <img class="profile-avatar-img" src="/img/Warhammer.jpg" alt="Avatar">
+                    </div>
+                    <div class="comments__tetx-field">
+                        <div class="comments__comment-header">
+                            <div class="comments__profile-name">
+                                Betsq9
+                            </div>
+                        </div>
+                        <textarea class="comments_textarea" placeholder="Напишите ваш комментарий" asp-for="MainComment.Message"></textarea>
+                        <div class="comments__btn-send">
+                            <button type="submit">Опубликовать</button>
+                        </div>
+                    </div>
                 </form>
-            }
 
-            <form asp-action="AddMainComment" asp-controller="Comment" method="post">
-                <input type="number" asp-for="Game.Id" value="@Model.Game.Id" readonly hidden />
-                <input type="text" asp-for="MainComment.Message" placeholder="Comment" />
-                <input type="submit" value="send" />
-            </form>
+                @foreach (var comment in Model.Game.MainComments)
+                {
+                    <ul class="comments__list">
+                        <li class="comments__item">
+                            <div class="comments__container">
+                                <div class="commets__item-comment">
+                                    <div class="comments__avatar">
+                                        <img class="profile-avatar-img" src="/img/Warhammer.jpg" alt="Avatar">
+                                    </div>
+                                    <div class="commnets__item-content">
+                                        <div class="comments__comment-header">
+                                            <div class="comments__profile-name">Wonka</div>
+                                            @comment.TimeCreated.ToShortDateString(), в @comment.TimeCreated.ToShortTimeString()
+                                        </div>
+                                        <div class="comments__comment">
+                                            @comment.Message
+                                        </div>
+                                        <div class="comments__reply">
+                                            Ответить
+                                        </div>
+                                        <form class="comments__reply-container" style="display: none;" asp-action="AddSubComment" asp-controller="Comment" method="post">
+                                            <input type="number" asp-for="Game.Id" value="@Model.Game.Id" hidden readonly />
+                                            <input type="number" asp-for="MainComment.Id" value="@comment.Id" hidden readonly />
+                                            <textarea class="comments_textarea" placeholder="Напишите ваш ответ" asp-for="MainComment.Message"></textarea>
+                                            <div class="comments__btns-reply">
+                                                <div class="comments__close-textarea">Закрыть</div>
+                                                <input type="submit" class="comments__btn-reply" value="Ответить"/>
+                                            </div>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            @foreach (var subComments in comment.SubComments)
+                            {
+                                <ul>
+                                    <li class="comments__list comments__list--children">
+                                        <div class="comments__container">
+                                            <div class="commets__item-comment">
+                                                <div class="comments__avatar">
+                                                    <img class="profile-avatar-img" src="/img/Warhammer.jpg" alt="Avatar">
+                                                </div>
+                                                <div class="commnets__item-content">
+                                                    <div class="comments__comment-header">
+                                                        <div class="comments__profile-name">Gans</div>
+                                                        @subComments.TimeCreated.ToShortDateString(), в @subComments.TimeCreated.ToShortTimeString()
+                                                    </div>
+                                                    <div class="comments__comment">
+                                                        @subComments.Message
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            }
+                        </li>
+                    </ul>
+                }
+
+            </div>
         </div>
+
+
 
         <div class="popup-screenshot" id="popup-screenshot">
             <div class="overlay-popup-screenshot" onclick="toggleScreenshotPopup()"></div>
@@ -273,4 +342,32 @@
 
 @section Scripts{
     <script src="~/js/Game/Game.js"></script>
+    
+    <script>
+        //method for dispalying the ccomment container of the reply
+
+        $(document).ready(function () {
+            $(".comments__reply").click(function () {
+
+                let checker = $(this).next().hasClass("reply-container-active");
+                if (checker !== true) {
+                    $(".comments__reply-container").hide(200);
+                }
+
+                $(".comments__reply-container").removeClass("reply-container-active");
+
+                $(this).next().addClass("reply-container-active");
+                $(this).next().show(500);
+            });
+        });
+
+        //method for hide the comment container of the reply
+        $(document).ready(function () {
+            $(".comments__close-textarea").click(function () {
+                $(this).parent().parent().removeClass("reply-container-active");
+                $(this).parent().parent().hide(500);
+            });
+        });
+    </script>
 }
+

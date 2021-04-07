@@ -29,7 +29,7 @@ $(document).ready(function () {
             success: function (result) {
                 $("#cart").html(result);
                 //When adding a product, it changes the link of the button to go to the cart
-                $('a.buy-button').attr('href', '/Game');
+                $('a.buy-button').attr('href', window.location.origin + '/Cart');
                 //When adding a product, it changes the class
                 $('a.buy-button').attr('class', 'buy-button in-cart');
 
@@ -87,3 +87,8 @@ function showSlides(n) {
     slides[slideIndex - 1].style.display = "block";
     dots[slideIndex - 1].className += " active";
 }
+
+
+
+
+
