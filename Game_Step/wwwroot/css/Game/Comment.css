@@ -21,6 +21,7 @@
 .comments__tetx-field {
     width: 100%;
     position: relative;
+    margin-bottom: 20px;
 }
 
 .comments__profile-name {
@@ -145,4 +146,8 @@
     color: white;
     outline: none;
     border: none;
+}
+
+.comment-removed{
+    text-decoration-line: line-through!important;
 }

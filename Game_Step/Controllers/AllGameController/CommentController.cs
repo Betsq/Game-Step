@@ -4,6 +4,7 @@ using Game_Step.ViewModels.GamesViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Game_Step.Controllers.AllGameController
@@ -58,6 +59,26 @@ namespace Game_Step.Controllers.AllGameController
                 }
             }
             return RedirectToAction("Game", "Game", new {id = model.Game.Id} );
+        }
+
+        [HttpPost]
+        public JsonResult RemoveMainComment(int? id)
+        {
+            if (id != null)
+            {
+                var mainComment = db.MainComments
+                                .FirstOrDefault(item => item.Id == id);
+
+                if (mainComment != null)
+                {
+                    db.MainComments.Remove(mainComment);
+                    db.SaveChanges();
+
+                    return Json(true);
+                }
+
+            }
+            return Json(false);
         }
     }
 }
