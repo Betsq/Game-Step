@@ -264,10 +264,14 @@
                                         <div class="comments__comment">
                                             @comment.Message
                                         </div>
-                                        <div class="comments__reply">
-                                            Ответить
+
+                                        <div class="commets__reply-rem">
+                                            <div class="comments__reply">
+                                                Ответить
+                                            </div>
+
+                                            <div class="btn-remove-comment" data-id="@comment.Id">Удалить</div>
                                         </div>
-                                        <div class="btn-remove-comment" data-id="@comment.Id" style="cursor: pointer">Удалить</div>
 
                                         <form class="comments__reply-container" style="display: none;" asp-action="AddSubComment" asp-controller="Comment" method="post">
                                             <input type="number" asp-for="Game.Id" value="@Model.Game.Id" hidden readonly />
@@ -347,23 +351,26 @@
     <script>
         $(document).ready(function () {
             $(".btn-remove-comment").click(function () {
-                const getId = $(this).attr("data-id");
-                const thisButton = $(this);
-                $.ajax({
-                    url: window.location.origin + "/Comment/RemoveMainComment",
-                    type: "POST",
-                    data: { "id": getId },
-                    success: function (result) {
-                        if (result === true) {
-                            $(thisButton).parentsUntil("ul.comments__list").hide(250, function () {
-                                $(thisButton).parentsUntil("ul.comments__list").remove();
-                            });
-                        }
-                        else {
-                            alert("Произошла ошибка, комментарий не удален");
-                        }
-                    },
-                });
+                if (confirm("Вы действительно хотите удалить?")) {
+                    const getId = $(this).attr("data-id");
+                    const thisButton = $(this);
+                    $.ajax({
+                        url: window.location.origin + "/Comment/RemoveMainComment",
+                        type: "POST",
+                        data: { "id": getId },
+                        success: function (result) {
+                            if (result === true) {
+                                $(thisButton).parentsUntil("ul.comments__list").hide(250, function () {
+                                    $(thisButton).parentsUntil("ul.comments__list").remove();
+                                });
+                            }
+                            else {
+                                alert("Произошла ошибка, комментарий не удален");
+                            }
+                        },
+                    });
+
+                }
             });
         });
     </script>
@@ -381,16 +388,16 @@
 
                 $(".comments__reply-container").removeClass("reply-container-active");
 
-                $(this).next().addClass("reply-container-active");
-                $(this).next().show(500);
+                $(this).parent().next().addClass("reply-container-active");
+                $(this).parent().next().show(500);
             });
         });
 
         //method for hide the comment container of the reply
         $(document).ready(function () {
             $(".comments__close-textarea").click(function () {
-                $(this).parent().parent().removeClass("reply-container-active");
-                $(this).parent().parent().hide(500);
+                $(this).parent().parent().parent().removeClass("reply-container-active");
+                $(this).parent().parent().parent().hide(500);
             });
         });
     </script>

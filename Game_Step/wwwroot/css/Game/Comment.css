@@ -101,7 +101,7 @@
 .comments__reply {
     color: #ff9900;
     cursor: pointer;
-    max-width: 75px;
+    max-width: 60px;
     font-size: 13px;
 }
 
@@ -148,6 +148,14 @@
     border: none;
 }
 
-.comment-removed{
-    text-decoration-line: line-through!important;
+.btn-remove-comment {
+    cursor: pointer;
+    font-size: 13px;
+    color: red;
+    max-width: 60px;
+    margin-left: 40px;
+}
+
+.commets__reply-rem{
+    display: flex;
 }
