@@ -247,7 +247,7 @@
                     </div>
                 </form>
 
-                @foreach (var comment in Model.Game.MainComments)
+                @foreach (var comment in Model.Game.MainComments.OrderByDescending(item => item.TimeCreated))
                 {
                     <ul class="comments__list">
                         <li class="comments__item">
@@ -287,12 +287,12 @@
                             </div>
                             @foreach (var subComments in comment.SubComments)
                             {
-                                <ul>
+                                <ul class="sub-ul-comment">
                                     <li class="comments__list comments__list--children">
                                         <div class="comments__container">
                                             <div class="commets__item-comment">
                                                 <div class="comments__avatar">
-                                                    <img class="profile-avatar-img" src="/img/Warhammer.jpg" alt="Avatar">
+                                                    <img class="profile-avatar-img" src="~/img/Game/logo/epic_games.png" alt="Avatar">
                                                 </div>
                                                 <div class="commnets__item-content">
                                                     <div class="comments__comment-header">
@@ -301,6 +301,9 @@
                                                     </div>
                                                     <div class="comments__comment">
                                                         @subComments.Message
+                                                    </div>
+                                                    <div class="commets__reply-rem">
+                                                        <div class="btn-remove-sub-comment" data-id="@subComments.Id">Удалить</div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -362,6 +365,31 @@
                             if (result === true) {
                                 $(thisButton).parentsUntil("ul.comments__list").hide(250, function () {
                                     $(thisButton).parentsUntil("ul.comments__list").remove();
+                                });
+                            }
+                            else {
+                                alert("Произошла ошибка, комментарий не удален");
+                            }
+                        },
+                    });
+
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $(".btn-remove-sub-comment").click(function () {
+                if (confirm("Вы действительно хотите удалить?")) {
+                    const getId = $(this).attr("data-id");
+                    const thisButton = $(this);
+                    $.ajax({
+                        url: window.location.origin + "/Comment/RemoveSubComment",
+                        type: "POST",
+                        data: { "id": getId },
+                        success: function (result) {
+                            if (result === true) {
+                                $(thisButton).parentsUntil("ul.sub-ul-comment").hide(250, function () {
+                                    $(thisButton).parentsUntil("ul.sub-ul-comment").remove();
                                 });
                             }
                             else {

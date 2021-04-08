@@ -101,7 +101,6 @@
 .comments__reply {
     color: #ff9900;
     cursor: pointer;
-    max-width: 60px;
     font-size: 13px;
 }
 
@@ -148,14 +147,17 @@
     border: none;
 }
 
-.btn-remove-comment {
+.btn-remove-comment, .btn-remove-sub-comment {
     cursor: pointer;
     font-size: 13px;
     color: red;
-    max-width: 60px;
     margin-left: 40px;
 }
 
 .commets__reply-rem{
     display: flex;
+}
+
+.btn-remove-sub-comment{
+    margin: 0;
 }

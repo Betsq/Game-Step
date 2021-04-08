@@ -80,6 +80,26 @@ namespace Game_Step.Controllers.AllGameController
             }
             return Json(false);
         }
+
+        [HttpPost]
+        public JsonResult RemoveSubComment(int? id)
+        {
+            if (id != null)
+            {
+                var subComment = db.SubComments
+                                .FirstOrDefault(item => item.Id == id);
+
+                if (subComment != null)
+                {
+                    db.SubComments.Remove(subComment);
+                    db.SaveChanges();
+
+                    return Json(true);
+                }
+
+            }
+            return Json(false);
+        }
     }
 }
 
