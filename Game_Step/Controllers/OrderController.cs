@@ -63,13 +63,13 @@ namespace Game_Step.Controllers
                                         gamePrice = game.GamePrice.DiscountPrice;
 
                                         //Adding the price of the current game to the total price
-                                        totalPrice += game.GamePrice.DiscountPrice;
+                                        totalPrice += game.GamePrice.DiscountPrice * item.Value;
                                     }
                                     else
                                     {
                                         gamePrice = game.GamePrice.Price;
 
-                                        totalPrice += game.GamePrice.Price;
+                                        totalPrice += game.GamePrice.Price * item.Value;
                                     }
 
                                     Order order = new Order
