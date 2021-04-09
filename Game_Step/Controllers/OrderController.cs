@@ -38,6 +38,7 @@ namespace Game_Step.Controllers
                         UserAgreement = model.UserAgreement,
                         PaymentMethod = model.PaymentMethod,
                         Promocode = model.Promocode,
+                        OrderTime = DateTime.Now,
                     };
 
                     //Retrives a dictionary
