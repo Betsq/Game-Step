@@ -17,6 +17,7 @@
 
         <div class="catalog-item">
             <form asp-action="Order" asp-controller="Order" method="post">
+                <div asp-validation-summary="ModelOnly"></div>
                 @foreach (var product in Model.InCart)
                 {
                     isItemInCart = true;
@@ -56,9 +57,9 @@
                                 <button type="button" class="btnMinus">-</button>
 
                                 <input class="input-quantity-product" type="number" max="5" min="1" value="1"
-                                       readonly data-id="@product.Id" name="items[@product.Id]">
+                                       readonly data-id="@product.Id" name="Items[@product.Id]">
 
-                                <button type="button" class="btnPlus"> +</button>
+                                <button type="button" class="btnPlus">+</button>
                             </div>
 
                             <div class="cur-price-item">
@@ -84,7 +85,7 @@
                     <div class="payment-method">
                         <span>Способ оплаты</span>
                         <div class="choise-payment-method">
-                            <select class="select-payment-method">
+                            <select class="select-payment-method" asp-for="@Model.PaymentMethod">
                                 <option value="WebMoney">WebMoney</option>
                                 <option value="PayPal">PayPal</option>
                             </select>
@@ -94,7 +95,7 @@
                     <div class="container-promocode">
                         <span>У вас есть промо-код?</span>
                         <div class="container-input-promocode">
-                            <input class="input-promocode" type="text" placeholder="Promocode">
+                            <input class="input-promocode" type="text" placeholder="Promocode" asp-for="Promocode">
 
                             <div class="btn-promocode">
                                 Применить
@@ -105,12 +106,12 @@
 
                     <div class="container-email">
                         <span id="email-span">Email</span>
-                        <input class="input-email" type="text" placeholder="Введите Email">
-                        <input class="input-email" type="text" placeholder="Повторите Email">
+                        <input class="input-email" type="text" placeholder="Введите Email" asp-for="@Model.Email">
+                        <input class="input-email" type="text" placeholder="Повторите Email" asp-for="@Model.EmailComapre">
                     </div>
 
                     <div class="container-agreement">
-                        <input class="checkbox-agreement" type="checkbox" id="agreementUser">
+                        <input class="checkbox-agreement" type="checkbox" id="agreementUser" asp-for="@Model.UserAgreement">
 
                         <div>
                             Я ознакомлен с пользовательским соглашением, описанием товара и региональными ограничениями,
