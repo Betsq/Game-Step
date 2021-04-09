@@ -10,6 +10,14 @@ namespace Game_Step.ViewModels
     {
         public List<Cart> InCart { get; set; }
 
-        public OrderNumber OrderNumber { get; set; }
+        public string Email { get; set; }
+
+        public bool UserAgreement { get; set; }
+
+        public string PaymentMethod { get; set; }
+
+        public string Promocode { get; set; }
+
+        Dictionary<int, int> items { get; set; }
     }
 }
