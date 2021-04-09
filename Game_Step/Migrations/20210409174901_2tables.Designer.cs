@@ -4,14 +4,16 @@ using Game_Step.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Game_Step.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210409174901_2tables")]
+    partial class _2tables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -289,9 +291,6 @@ namespace Game_Step.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("OrderNumberId")
-                        .HasColumnType("int");
-
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
@@ -299,8 +298,6 @@ namespace Game_Step.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OrderNumberId");
 
                     b.ToTable("Orders");
                 });
@@ -618,17 +615,6 @@ namespace Game_Step.Migrations
                     b.Navigation("Game");
                 });
 
-            modelBuilder.Entity("Game_Step.Models.Order", b =>
-                {
-                    b.HasOne("Game_Step.Models.OrderNumber", "OrderNumber")
-                        .WithMany("Orders")
-                        .HasForeignKey("OrderNumberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("OrderNumber");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -696,11 +682,6 @@ namespace Game_Step.Migrations
                     b.Navigation("GameScreenshots");
 
                     b.Navigation("MainComments");
-                });
-
-            modelBuilder.Entity("Game_Step.Models.OrderNumber", b =>
-                {
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
