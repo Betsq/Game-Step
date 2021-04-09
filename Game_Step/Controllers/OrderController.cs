@@ -44,11 +44,11 @@ namespace Game_Step.Controllers
                                     int gamePrice;
                                     if (game.GamePrice.IsDiscount)
                                     {
-                                        gamePrice = game.GamePrice.DiscountPrice * item.Value;
+                                        gamePrice = game.GamePrice.DiscountPrice;
                                     }
                                     else
                                     {
-                                        gamePrice = game.GamePrice.Price * item.Value;
+                                        gamePrice = game.GamePrice.Price;
                                     }
 
                                     Order order = new Order
@@ -56,7 +56,6 @@ namespace Game_Step.Controllers
                                         ProductId = item.Key,
                                         AmountProduct = item.Value,
                                         ProductPrice = gamePrice,
-                                        Email = "gmain2@gmail.com",
                                         OrderNumber = orderNumber,
                                     };
 

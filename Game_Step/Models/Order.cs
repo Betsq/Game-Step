@@ -13,8 +13,6 @@ namespace Game_Step.Models
         public int ProductPrice { get; set; }
         public int AmountProduct { get; set; }
 
-        public string Email { get; set; }
-
         public int OrderNumberId { get; set; }
         public OrderNumber OrderNumber { get; set; }
     }
