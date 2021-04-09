@@ -18,6 +18,6 @@ namespace Game_Step.ViewModels
 
         public string Promocode { get; set; }
 
-        Dictionary<int, int> items { get; set; }
+        public Dictionary<int, int> Items { get; set; } = new Dictionary<int, int>();
     }
 }
