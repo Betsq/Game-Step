@@ -16,115 +16,117 @@
 
 
         <div class="catalog-item">
-            @foreach (var product in Model)
-            {
-                isItemInCart = true;
-                <div class="product-in-cart">
-                    <div class="block-img-catalog-item">
-                        <a asp-action="Game" asp-controller="Game" asp-route-id="@product.Id">
-                            <img class="img-catalog-item" src="@product.Image"><img />
-                        </a>
-                    </div>
+            <form asp-action="Order" asp-controller="Order" method="post">
+                @foreach (var product in Model)
+                {
+                    isItemInCart = true;
+                    <div class="product-in-cart">
+                        <div class="block-img-catalog-item">
+                            <a asp-action="Game" asp-controller="Game" asp-route-id="@product.Id">
+                                <img class="img-catalog-item" src="@product.Image"><img />
+                            </a>
+                        </div>
 
-                    <div class="catalog-item-info">
-                        <div class="name-product">@product.Name</div>
-                        <div class="more-info">
-                            <div class="where-activate-product">
-                                @if (product.PlatformActivate == "Steam")
+                        <div class="catalog-item-info">
+                            <div class="name-product">@product.Name</div>
+                            <div class="more-info">
+                                <div class="where-activate-product">
+                                    @if (product.PlatformActivate == "Steam")
+                                    {
+                                        <img src="/img/Game/logo/steam.png" alt="@product.PlatformActivate">
+                                    }
+                                    else if (product.PlatformActivate == "GOG")
+                                    {
+                                        <img src="/img/Game/logo/GOG.png" alt="@product.PlatformActivate">
+                                    }
+                                    else if (product.PlatformActivate == "Origin")
+                                    {
+                                        <img src="/img/Game/logo/origin.png" alt="@product.PlatformActivate">
+                                    }
+                                    else if (product.PlatformActivate == "Epic Games Store")
+                                    {
+                                        <img src="/img/Game/logo/epic_games.png" alt="@product.PlatformActivate">
+                                    }
+                                </div>
+                                <div class="genre-region">Регион: @product.Region</div>
+                            </div>
+                        </div>
+                        <div class="item-price">
+                            <div class="block-input-quantity">
+                                <button type="button" class="btnMinus">-</button>
+
+                                <input class="input-quantity-product" type="number" max="5" min="1" value="1"
+                                       readonly data-id="@product.Id" name="items[@product.Id]">
+
+                                <button type="button" class="btnPlus"> +</button>
+                            </div>
+
+                            <div class="cur-price-item">
+                                @if (product.IsDiscount)
                                 {
-                                    <img src="/img/Game/logo/steam.png" alt="@product.PlatformActivate">
+                                    <div class="prod-price" id="@product.Id">@product.DiscountPrice</div><span>$</span>
                                 }
-                                else if (product.PlatformActivate == "GOG")
+                                else
                                 {
-                                    <img src="/img/Game/logo/GOG.png" alt="@product.PlatformActivate">
-                                }
-                                else if (product.PlatformActivate == "Origin")
-                                {
-                                    <img src="/img/Game/logo/origin.png" alt="@product.PlatformActivate">
-                                }
-                                else if (product.PlatformActivate == "Epic Games Store")
-                                {
-                                    <img src="/img/Game/logo/epic_games.png" alt="@product.PlatformActivate">
+                                    <div class="prod-price" id="@product.Id">@product.Price</div><span>$</span>
                                 }
                             </div>
-                            <div class="genre-region">Регион: @product.Region</div>
+
+                            <div class="remove-from-cart" del-data-id="@product.Id">RE</div>
                         </div>
                     </div>
-                    <div class="item-price">
-                        <div class="block-input-quantity">
-                            <button type="button" class="btnMinus">-</button>
-
-                            <input class="input-quantity-product" type="number" max="5" min="1" value="1"
-                                   readonly data-id="@product.Id">
-
-                            <button type="button" class="btnPlus"> +</button>
+                }
+                @if (isItemInCart)
+                {
+                    <div class="final-price">
+                        Итого: 0$
+                    </div>
+                    <div class="payment-method">
+                        <span>Способ оплаты</span>
+                        <div class="choise-payment-method">
+                            <select class="select-payment-method">
+                                <option value="WebMoney">WebMoney</option>
+                                <option value="PayPal">PayPal</option>
+                            </select>
                         </div>
+                    </div>
 
-                        <div class="cur-price-item">
-                            @if (product.IsDiscount)
-                            {
-                                <div class="prod-price" id="@product.Id">@product.DiscountPrice</div><span>$</span>
-                            }
-                            else
-                            {
-                                <div class="prod-price" id="@product.Id">@product.Price</div><span>$</span>
-                            }
+                    <div class="container-promocode">
+                        <span>У вас есть промо-код?</span>
+                        <div class="container-input-promocode">
+                            <input class="input-promocode" type="text" placeholder="Promocode">
+
+                            <div class="btn-promocode">
+                                Применить
+                            </div>
+
                         </div>
-
-                        <div class="remove-from-cart" del-data-id="@product.Id">RE</div>
                     </div>
-                </div>
-            }
-            @if (isItemInCart)
-            {
-                <div class="final-price">
-                    Итого: 0$
-                </div>
-                <div class="payment-method">
-                    <span>Способ оплаты</span>
-                    <div class="choise-payment-method">
-                        <select class="select-payment-method">
-                            <option value="WebMoney">WebMoney</option>
-                            <option value="PayPal">PayPal</option>
-                        </select>
+
+                    <div class="container-email">
+                        <span id="email-span">Email</span>
+                        <input class="input-email" type="text" placeholder="Введите Email">
+                        <input class="input-email" type="text" placeholder="Повторите Email">
                     </div>
-                </div>
 
-                <div class="container-promocode">
-                    <span>У вас есть промо-код?</span>
-                    <div class="container-input-promocode">
-                        <input class="input-promocode" type="text" placeholder="Promocode">
+                    <div class="container-agreement">
+                        <input class="checkbox-agreement" type="checkbox" id="agreementUser">
 
-                        <div class="btn-promocode">
-                            Применить
+                        <div>
+                            Я ознакомлен с пользовательским соглашением, описанием товара и региональными ограничениями,
+                            политикой конфиденциальности и даю согласие на обработку персональных данных.
                         </div>
-
                     </div>
-                </div>
-
-                <div class="container-email">
-                    <span id="email-span">Email</span>
-                    <input class="input-email" type="text" placeholder="Введите Email">
-                    <input class="input-email" type="text" placeholder="Повторите Email">
-                </div>
-
-                <div class="container-agreement">
-                    <input class="checkbox-agreement" type="checkbox" id="agreementUser">
-
-                    <div>
-                        Я ознакомлен с пользовательским соглашением, описанием товара и региональными ограничениями,
-                        политикой конфиденциальности и даю согласие на обработку персональных данных.
-                    </div>
-                </div>
 
 
-                <input class="btn-further" id="btnFurtherOrder" type="submit" disabled="disabled" value="Далее">
+                    <input class="btn-further" id="btnFurtherOrder" type="submit" disabled="disabled" value="Далее">
 
-            }
-            else
-            {
-                <div class="cart-is-empty">Корзина пуста:(</div>
-            }
+                }
+                else
+                {
+                    <div class="cart-is-empty">Корзина пуста:(</div>
+                }
+            </form>
         </div>
     </div>
 </div>
