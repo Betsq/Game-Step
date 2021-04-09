@@ -20,6 +20,8 @@ namespace Game_Step.Models
 
         public string Promocode { get; set; }
 
+        public DateTime OrderTime { get; set; }
+
         public List<Order> Orders { get; set; } = new List<Order>();
     }
 }
