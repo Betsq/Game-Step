@@ -1,5 +1,7 @@
 ﻿using Game_Step.Models;
+using Game_Step.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,13 +21,15 @@ namespace Game_Step.Controllers
         {
             var listId = HttpContext.Session.Get<List<int>>("CartId");
             List<Cart> carts = new List<Cart>();
+
             if (listId != null)
             {
                 foreach (var id in listId)
                 {
-                    var game = db.Games.Find(id);
-                    var priceGame = db.GamePrices.FirstOrDefault(item => item.GameId == id);
-                    var imageGame = db.GameImages.FirstOrDefault(item => item.GameId == id);
+                    var game = db.Games.Include(price => price.GamePrice)
+                        .Include(image => image.GameImage)
+                        .FirstOrDefault(game => game.Id == id);
+
                     if (game != null)
                     {
                         Cart cart = new Cart
@@ -35,18 +39,23 @@ namespace Game_Step.Controllers
                             Quantity = game.QuantityOfGoods,
                             PlatformActivate = game.WhereKeyActivated,
                             Region = game.Region,
-                            Price = priceGame.Price,
-                            IsDiscount = priceGame.IsDiscount,
-                            Discount = priceGame.Discount,
-                            DiscountPrice = priceGame.DiscountPrice,
-                            Image = imageGame.ImageInCatalog,
+                            Price = game.GamePrice.Price,
+                            IsDiscount = game.GamePrice.IsDiscount,
+                            Discount = game.GamePrice.Discount,
+                            DiscountPrice = game.GamePrice.DiscountPrice,
+                            Image = game.GameImage.ImageInCatalog,
                         };
                         carts.Add(cart);
                     }
-                }
+                }   
             }
 
-            return View(carts);
+            CartOrderViewModel cartOrder = new CartOrderViewModel
+            {
+                InCart = carts,
+            };
+
+            return View(cartOrder);
         }
 
 

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Game_Step.Models.Cart>
+﻿@model Game_Step.ViewModels.CartOrderViewModel
 
 @{
     ViewBag.Title = "Корзина покупок";
@@ -17,7 +17,7 @@
 
         <div class="catalog-item">
             <form asp-action="Order" asp-controller="Order" method="post">
-                @foreach (var product in Model)
+                @foreach (var product in Model.InCart)
                 {
                     isItemInCart = true;
                     <div class="product-in-cart">
