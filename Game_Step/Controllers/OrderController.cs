@@ -22,81 +22,86 @@ namespace Game_Step.Controllers
         [HttpPost]
         public IActionResult Order(CartOrderViewModel model)
         {
-            var listProdId = HttpContext.Session.Get<List<int>>("CartId");
-            if (listProdId.Count() >= 0)
+            if (ModelState.IsValid)
             {
-                //if one or more product valide, it will be true 
-                bool isOrderValide = false;
-                //The total price of all products 
-                int totalPrice = 0;
-
-                OrderNumber orderNumber = new OrderNumber {
-                    Email = model.Email,
-                    UserAgreement = model.UserAgreement,
-                    PaymentMethod = model.PaymentMethod,
-                    Promocode = model.Promocode,
-                };
-
-                //Retrives a dictionary
-                foreach (var item in model.Items)
+                var listProdId = HttpContext.Session.Get<List<int>>("CartId");
+                if (listProdId.Count() >= 0)
                 {
-                    //Get a list with an Id 
-                    foreach (var prodId in listProdId)
+                    //if one or more product valide, it will be true 
+                    bool isOrderValide = false;
+                    //The total price of all products 
+                    int totalPrice = 0;
+
+                    OrderNumber orderNumber = new OrderNumber
                     {
-                        //Comparing an Id from a dictionary with a list  
-                        if (item.Key == prodId)
+                        Email = model.Email,
+                        UserAgreement = model.UserAgreement,
+                        PaymentMethod = model.PaymentMethod,
+                        Promocode = model.Promocode,
+                    };
+
+                    //Retrives a dictionary
+                    foreach (var item in model.Items)
+                    {
+                        //Get a list with an Id 
+                        foreach (var prodId in listProdId)
                         {
-                            var game = db.Games.Include(price => price.GamePrice).FirstOrDefault(g => g.Id == item.Key);
-                            if (game != null)
+                            //Comparing an Id from a dictionary with a list  
+                            if (item.Key == prodId)
                             {
-                                isOrderValide = true;
-
-                                //Price of the current game
-                                int gamePrice;
-
-                                //If there is a discount on the game
-                                if (game.GamePrice.IsDiscount)
+                                var game = db.Games.Include(price => price.GamePrice).FirstOrDefault(g => g.Id == item.Key);
+                                if (game != null)
                                 {
-                                    gamePrice = game.GamePrice.DiscountPrice;
+                                    isOrderValide = true;
 
-                                    //Adding the price of the current game to the total price
-                                    totalPrice += game.GamePrice.DiscountPrice;
+                                    //Price of the current game
+                                    int gamePrice;
+
+                                    //If there is a discount on the game
+                                    if (game.GamePrice.IsDiscount)
+                                    {
+                                        gamePrice = game.GamePrice.DiscountPrice;
+
+                                        //Adding the price of the current game to the total price
+                                        totalPrice += game.GamePrice.DiscountPrice;
+                                    }
+                                    else
+                                    {
+                                        gamePrice = game.GamePrice.Price;
+
+                                        totalPrice += game.GamePrice.Price;
+                                    }
+
+                                    Order order = new Order
+                                    {
+                                        ProductId = item.Key,
+                                        AmountProduct = item.Value,
+                                        ProductPrice = gamePrice,
+                                        OrderNumber = orderNumber,
+                                    };
+
+                                    db.Orders.Add(order);
+
+                                    break;
                                 }
-                                else
-                                {
-                                    gamePrice = game.GamePrice.Price;
-
-                                    totalPrice += game.GamePrice.Price;
-                                }
-
-                                Order order = new Order
-                                {
-                                    ProductId = item.Key,
-                                    AmountProduct = item.Value,
-                                    ProductPrice = gamePrice,
-                                    OrderNumber = orderNumber,
-                                };
-
-                                db.Orders.Add(order);
-
-                                break;
                             }
                         }
                     }
-                }
 
-                //It's work if one or more product valide,
-                if (isOrderValide)
-                {
-                    orderNumber.TotalPrice = totalPrice;
+                    //It's work if one or more product valide,
+                    if (isOrderValide)
+                    {
+                        orderNumber.TotalPrice = totalPrice;
 
-                    db.OrderNumbers.Add(orderNumber);
-                    HttpContext.Session.Remove("CartId");
-                    HttpContext.Session.Remove("CountOfGoods");
-                    db.SaveChanges();
+                        db.OrderNumbers.Add(orderNumber);
+                        HttpContext.Session.Remove("CartId");
+                        HttpContext.Session.Remove("CountOfGoods");
+                        db.SaveChanges();
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Cart", model);
         }
     }
 }
