@@ -48,7 +48,7 @@ namespace Game_Step.Controllers
                         foreach (var prodId in listProdId)
                         {
                             //Comparing an Id from a dictionary with a list  
-                            if (item.Key == prodId)
+                            if (item.Key == prodId && model.UserAgreement == true)
                             {
                                 var game = db.Games.Include(price => price.GamePrice).FirstOrDefault(g => g.Id == item.Key);
                                 if (game != null)
