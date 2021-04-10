@@ -48,14 +48,21 @@ $(document).ready(function () {
         $("#panel-show-req").slideToggle("slow", function () {
             const arrow = $("#arrow-show-req");
             const textBtn = $("#show-req-container__text");
+            const timeAnimation = 100;
 
             if ($(arrow).hasClass("arrow arrow-down")) {
                 $(arrow).attr("class", "arrow arrow-up");
-                textBtn.text("CКРЫТЬ РЕКОМЕНДУЕМЫЕ");
+
+                textBtn.fadeOut(timeAnimation, function () {
+                    $(this).text("CКРЫТЬ РЕКОМЕНДУЕМЫЕ").fadeIn(timeAnimation);
+                });
             }
             else {
                 $(arrow).attr("class", "arrow arrow-down");
-                textBtn.text("ПОКАЗАТЬ РЕКОМЕНДУЕМЫЕ");
+                
+                textBtn.fadeOut(timeAnimation, function () {
+                    $(this).text("ПОКАЗАТЬ РЕКОМЕНДУЕМЫЕ").fadeIn(timeAnimation);
+                });
             }
         });
     });

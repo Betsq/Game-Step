@@ -225,15 +225,19 @@
     display: none;
 }
 
-.show-req-container span {
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 600;
+.show-req-container {
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.show-req-container span {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    
 }
 
 .arrow {
