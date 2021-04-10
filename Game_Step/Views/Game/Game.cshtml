@@ -228,7 +228,7 @@
                     Комментарии
                 </div>
 
-                <form class="comments__container" asp-action="AddMainComment" asp-controller="Comment" method="post">
+                <form id="AddMainComment" class="comments__container" asp-action="AddMainComment" asp-controller="Comment" method="post">
                     <input type="number" asp-for="Game.Id" value="@Model.Game.Id" readonly hidden />
 
                     <div class="comments__avatar">
@@ -241,8 +241,8 @@
                             </div>
                         </div>
                         <textarea class="comments_textarea" placeholder="Напишите ваш комментарий" asp-for="MainComment.Message"></textarea>
-                        <div class="comments__btn-send">
-                            <button type="submit">Опубликовать</button>
+                        <div class="comments__container-btn">
+                            <div id="btn-adding-main-comment" type="submit">Опубликовать</div>
                         </div>
                     </div>
                 </form>
@@ -350,6 +350,23 @@
 
 @section Scripts{
     <script src="~/js/Game/Game.js"></script>
+    
+    <script>
+        $(document).ready(function () {
+            $("#btn-adding-main-comment").click(function () {
+                const serializeForm = $("#AddMainComment").serialize(); 
+
+                $.ajax({
+                    url: window.location.origin + "/Comment/AddMainComment",
+                    type: "POST",
+                    data: serializeForm,
+                    success() {
+                        location.reload();
+                    },
+                });
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function () {
