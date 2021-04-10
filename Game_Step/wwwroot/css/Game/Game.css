@@ -225,9 +225,15 @@
     display: none;
 }
 
-.btn-show-req {
+.show-req-container span {
     cursor: pointer;
     font-size: 13px;
+    font-weight: 600;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .arrow {

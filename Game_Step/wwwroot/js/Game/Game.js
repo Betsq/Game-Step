@@ -44,14 +44,20 @@ $(document).ready(function () {
 //function to call the slide panel 
 $(document).ready(function () {
 
-    $(".btn-show-req").click(function () {
-        $("#panel-show-req").slideToggle("slow");
-        if ($("#arrow-show-req").hasClass("arrow arrow-down")) {
-            $("#arrow-show-req").attr("class", "arrow arrow-up");
-        }
-        else {
-            $("#arrow-show-req").attr("class", "arrow arrow-down");
-        }
+    $("#show-req-container__text").click(function () {
+        $("#panel-show-req").slideToggle("slow", function () {
+            const arrow = $("#arrow-show-req");
+            const textBtn = $("#show-req-container__text");
+
+            if ($(arrow).hasClass("arrow arrow-down")) {
+                $(arrow).attr("class", "arrow arrow-up");
+                textBtn.text("CКРЫТЬ РЕКОМЕНДУЕМЫЕ");
+            }
+            else {
+                $(arrow).attr("class", "arrow arrow-down");
+                textBtn.text("ПОКАЗАТЬ РЕКОМЕНДУЕМЫЕ");
+            }
+        });
     });
 });
 

@@ -220,7 +220,10 @@
                         </li>
                     </ul>
                 </div>
-                <div class="btn-show-req">ПОКАЗАТЬ РЕКОМЕНДУЕМЫЕ<i id="arrow-show-req" class="arrow arrow-down"></i></div>
+                <div class="show-req-container">
+                    <span id="show-req-container__text">ПОКАЗАТЬ РЕКОМЕНДУЕМЫЕ</span>
+                    <i id="arrow-show-req" class="arrow arrow-down"></i>
+                </div>
             </div>
 
             <div class="comments">
@@ -350,11 +353,11 @@
 
 @section Scripts{
     <script src="~/js/Game/Game.js"></script>
-    
+
     <script>
         $(document).ready(function () {
             $("#btn-adding-main-comment").click(function () {
-                const serializeForm = $("#AddMainComment").serialize(); 
+                const serializeForm = $("#AddMainComment").serialize();
 
                 $.ajax({
                     url: window.location.origin + "/Comment/AddMainComment",
