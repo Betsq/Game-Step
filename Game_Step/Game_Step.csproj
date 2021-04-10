@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\js\CommentChecking\CommentChecing.js" />
     <Content Remove="wwwroot\js\Game\Comment.js" />
   </ItemGroup>
 
@@ -20,6 +21,7 @@
     <None Include="wwwroot\img\icon\icon-plus.svg" />
     <None Include="wwwroot\js\Cart\Cart.js" />
     <None Include="wwwroot\js\Cart\CartPopup.js" />
+    <None Include="wwwroot\js\CommentChecking\CommentChecing.js" />
     <None Include="wwwroot\js\Game\Comment.js" />
     <None Include="wwwroot\js\Game\Create_Update.js" />
     <None Include="wwwroot\js\Game\Game.js" />

@@ -13,11 +13,14 @@
         <div style="width: 100%; margin-top: 30px">
             <div style="margin-right: 20px">@comment.Message</div>
             <input type="checkbox" name="Items[@comment.Id]" value="true"/>
-
-
+            
+            <div class="del-comment" data-id="@comment.Id">Удалить</div>
         </div>
     }
     <input type="submit" value="Отправить" />
 </form>
 
+@section Scripts{ 
+    <script src="~/js/CommentChecking/CommentChecing.js"></script>
+}
 
