@@ -161,9 +161,10 @@ namespace Game_Step.Controllers
         {
             if (id != null)
             {
-                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
-                var priceGame = await db.GamePrices.FirstOrDefaultAsync(item => item.GameId == id);
-                var imageGame = await db.GameImages.FirstOrDefaultAsync(item => item.GameId == id);
+                var game = await db.Games
+                    .Include(item => item.GamePrice)
+                    .Include(item => item.GameImage)
+                    .FirstOrDefaultAsync(item => item.Id == id);
 
                 if (game != null)
                 {
@@ -182,13 +183,13 @@ namespace Game_Step.Controllers
                         Region = game.Region,
                         WhereKeyActivated = game.WhereKeyActivated,
 
-                        Price = priceGame.Price,
-                        IsDiscount = priceGame.IsDiscount,
-                        Discount = priceGame.Discount,
+                        Price = game.GamePrice.Price,
+                        IsDiscount = game.GamePrice.IsDiscount,
+                        Discount = game.GamePrice.Discount,
 
-                        MainImagePath = imageGame?.MainImage,
-                        InnerImagePath = imageGame?.InnerImage,
-                        ImageInCatalogPath = imageGame?.ImageInCatalog,
+                        MainImagePath = game.GameImage?.MainImage,
+                        InnerImagePath = game.GameImage?.InnerImage,
+                        ImageInCatalogPath = game.GameImage?.ImageInCatalog,
 
                         RecommendOC = game.RecommendOC,
                         RecommendCPU = game.RecommendCPU,
@@ -212,9 +213,10 @@ namespace Game_Step.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(GamesUpdateViewModel model)
         {
-            var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Id);
-            var priceGame = await db.GamePrices.FirstOrDefaultAsync(item => item.GameId == model.Id);
-            var imageGame = await db.GameImages.FirstOrDefaultAsync(item => item.GameId == model.Id);
+            var game = await db.Games
+                .Include(item => item.GamePrice)
+                .Include(item => item.GameImage)
+                .FirstOrDefaultAsync(item => item.Id == model.Id);
 
             if (game != null)
             {
@@ -257,14 +259,11 @@ namespace Game_Step.Controllers
                 discountPrice = model.Price - ((model.Price * model.Discount) / 100);
 
 
-            if (priceGame != null)
-            {
-                priceGame.Price = model.Price;
-                priceGame.IsDiscount = isDesc;
-                priceGame.Discount = disc;
-                priceGame.DiscountPrice = discountPrice;
-                priceGame.Game = game;
-            }
+            game.GamePrice.Price = model.Price;
+            game.GamePrice.IsDiscount = isDesc;
+            game.GamePrice.Discount = disc;
+            game.GamePrice.DiscountPrice = discountPrice;
+            game.GamePrice.Game = game;
 
 
             string nameFolderGame = model.Name + "/";
@@ -294,16 +293,12 @@ namespace Game_Step.Controllers
                     await model.ImageInCatalog.CopyToAsync(filesStream);
             }
 
-            if (imageGame != null)
-            {
-                imageGame.MainImage = pathMainImage;
-                imageGame.InnerImage = pathInnerImage;
-                imageGame.ImageInCatalog = pathImageInCatalog;
-                imageGame.Game = game;
-            }
+            game.GameImage.MainImage = pathMainImage;
+            game.GameImage.InnerImage = pathInnerImage;
+            game.GameImage.ImageInCatalog = pathImageInCatalog;
+            game.GameImage.Game = game;
 
-            db.GameImages.Update(imageGame);
-            db.GamePrices.Update(priceGame);
+            db.Games.Update(game);
             db.SaveChanges();
 
             return RedirectToAction("Index");
@@ -335,7 +330,7 @@ namespace Game_Step.Controllers
                 {
                     Directory.Delete(folderGame, true);
                 }
- 
+
                 db.Games.Remove(game);
                 await db.SaveChangesAsync();
 
@@ -362,7 +357,7 @@ namespace Game_Step.Controllers
                     };
                     return View(model);
                 }
-                    
+
             }
             return NotFound();
         }
