@@ -44,24 +44,28 @@ namespace Game_Step.Controllers.AllGameController
         [HttpPost]
         public async Task<IActionResult> AddSubComment(GameViewModel model)
         {
-            var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Game.Id);
-            if (game != null)
+            if (ModelState.IsValid)
             {
-                var mainComment = await db.MainComments.FirstOrDefaultAsync(item => item.Id == model.MainComment.Id);
-                if (mainComment != null)
+                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Game.Id);
+                if (game != null)
                 {
-                    SubComment subComment = new SubComment
+                    var mainComment = await db.MainComments.FirstOrDefaultAsync(item => item.Id == model.MainComment.Id);
+                    if (mainComment != null)
                     {
-                        Message = model.MainComment.Message,
-                        TimeCreated = DateTime.Now,
-                        MainComment = mainComment,
-                    };
+                        SubComment subComment = new SubComment
+                        {
+                            Message = model.MainComment.Message,
+                            TimeCreated = DateTime.Now,
+                            MainComment = mainComment,
+                        };
 
-                    await db.SubComments.AddAsync(subComment);
-                    await db.SaveChangesAsync();
+                        await db.SubComments.AddAsync(subComment);
+                        await db.SaveChangesAsync();
+                        return Json(true);
+                    }
                 }
             }
-            return Json("");
+            return RedirectToAction("Game", "Game", model);
         }
 
         [HttpPost]

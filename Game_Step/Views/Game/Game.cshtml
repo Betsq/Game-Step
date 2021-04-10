@@ -250,7 +250,7 @@
                             </div>
                         </div>
                     </div>
-                    <span asp-validation-for="MainComment.Message"></span>
+                    <span class="valid-comment" asp-validation-for="MainComment.Message"></span>
                 </form>
 
                 @foreach (var comment in Model.Game.MainComments.OrderByDescending(item => item.TimeCreated))
@@ -280,14 +280,18 @@
                                         </div>
 
                                         <form class="comments__reply-container" asp-action="AddSubComment" asp-controller="Comment" method="post">
-                                            <input type="number" asp-for="Game.Id" value="@Model.Game.Id" hidden readonly />
-                                            <input type="number" asp-for="MainComment.Id" value="@comment.Id" hidden readonly />
-                                            <textarea class="comments_textarea" placeholder="Напишите ваш ответ" asp-for="MainComment.Message"></textarea>
-                                            <div class="comments__btns-reply">
-                                                <div class="comments__close-textarea">Закрыть</div>
-                                                <div class="comments__btn-reply">Ответить</div>
+                                            <div class="comments__container-helper">
+                                                <input type="number" asp-for="Game.Id" value="@Model.Game.Id" hidden readonly />
+                                                <input type="number" asp-for="MainComment.Id" value="@comment.Id" hidden readonly />
+                                                <textarea class="comments_textarea" placeholder="Напишите ваш ответ" asp-for="MainComment.Message"></textarea>
+                                                <div class="comments__btns-reply">
+                                                    <div class="comments__close-textarea">Закрыть</div>
+                                                    <div class="comments__btn-reply">Ответить</div>
+                                                </div>
                                             </div>
+                                            <span class="valid-comment" asp-validation-for="MainComment.Message"></span>
                                         </form>
+
                                     </div>
                                 </div>
                             </div>
@@ -450,7 +454,7 @@
         $(document).ready(function () {
             $(".comments__reply").click(function () {
 
-                let checker = $(this).next().hasClass("reply-container-active");
+                let checker = $(this).parent().next().hasClass("reply-container-active");
                 if (checker !== true) {
                     $(".comments__reply-container").hide(200);
                 }
@@ -465,8 +469,8 @@
         //method for hide the comment container of the reply
         $(document).ready(function () {
             $(".comments__close-textarea").click(function () {
-                $(this).parent().parent().removeClass("reply-container-active");
-                $(this).parent().parent().hide(500);
+                $(this).parent().parent().parent().removeClass("reply-container-active");
+                $(this).parent().parent().parent().hide(500);
             });
         });
     </script>

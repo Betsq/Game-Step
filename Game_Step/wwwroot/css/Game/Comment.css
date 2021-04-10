@@ -174,3 +174,8 @@
 .btn-remove-sub-comment {
     margin: 0;
 }
+
+.valid-comment{
+    display: flex;
+    justify-content: center;
+}
