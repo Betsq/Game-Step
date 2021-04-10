@@ -232,22 +232,25 @@
                 </div>
 
                 <form id="AddMainComment" class="comments__container" asp-action="AddMainComment" asp-controller="Comment" method="post">
-                    <input type="number" asp-for="Game.Id" value="@Model.Game.Id" readonly hidden />
+                    <div class="comments__container-helper">
+                        <input type="number" asp-for="Game.Id" value="@Model.Game.Id" readonly hidden />
 
-                    <div class="comments__avatar">
-                        <img class="profile-avatar-img" src="/img/Warhammer.jpg" alt="Avatar">
-                    </div>
-                    <div class="comments__tetx-field">
-                        <div class="comments__comment-header">
-                            <div class="comments__profile-name">
-                                Betsq9
+                        <div class="comments__avatar">
+                            <img class="profile-avatar-img" src="/img/Warhammer.jpg" alt="Avatar">
+                        </div>
+                        <div class="comments__tetx-field">
+                            <div class="comments__comment-header">
+                                <div class="comments__profile-name">
+                                    Betsq9
+                                </div>
+                            </div>
+                            <textarea class="comments_textarea" placeholder="Напишите ваш комментарий" asp-for="MainComment.Message"></textarea>
+                            <div class="comments__container-btn">
+                                <div id="btn-adding-main-comment" type="submit">Опубликовать</div>
                             </div>
                         </div>
-                        <textarea class="comments_textarea" placeholder="Напишите ваш комментарий" asp-for="MainComment.Message"></textarea>
-                        <div class="comments__container-btn">
-                            <div id="btn-adding-main-comment" type="submit">Опубликовать</div>
-                        </div>
                     </div>
+                    <span asp-validation-for="MainComment.Message"></span>
                 </form>
 
                 @foreach (var comment in Model.Game.MainComments.OrderByDescending(item => item.TimeCreated))
@@ -353,7 +356,8 @@
 
 @section Scripts{
     <script src="~/js/Game/Game.js"></script>
-
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script>
         $(document).ready(function () {
             $("#btn-adding-main-comment").click(function () {

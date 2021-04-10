@@ -21,21 +21,24 @@ namespace Game_Step.Controllers.AllGameController
         [HttpPost]
         public async Task<IActionResult> AddMainComment(GameViewModel model)
         {
-            var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Game.Id);
-            if (game != null)
+            if (ModelState.IsValid)
             {
-                MainComment mainComment = new MainComment
+                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Game.Id);
+                if (game != null)
                 {
-                    Message = model.MainComment.Message,
-                    TimeCreated = DateTime.Now,
-                    Game = game,
-                };
+                    MainComment mainComment = new MainComment
+                    {
+                        Message = model.MainComment.Message,
+                        TimeCreated = DateTime.Now,
+                        Game = game,
+                    };
 
-                await db.MainComments.AddAsync(mainComment);
-                await db.SaveChangesAsync();
+                    await db.MainComments.AddAsync(mainComment);
+                    await db.SaveChangesAsync();
+                    return Json(true);
+                }
             }
-
-            return RedirectToAction("Game", "Game", new {id = model.Game.Id});
+            return RedirectToAction("Game", "Game", model);
         }
 
         [HttpPost]
@@ -58,7 +61,7 @@ namespace Game_Step.Controllers.AllGameController
                     await db.SaveChangesAsync();
                 }
             }
-            return RedirectToAction("Game", "Game", new {id = model.Game.Id} );
+            return Json("");
         }
 
         [HttpPost]

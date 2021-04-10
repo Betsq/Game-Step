@@ -43,16 +43,19 @@ $(document).ready(function () {
 
 //function to call the slide panel 
 $(document).ready(function () {
-
     $("#show-req-container__text").click(function () {
+
         $("#panel-show-req").slideToggle("slow", function () {
+
             const arrow = $("#arrow-show-req");
             const textBtn = $("#show-req-container__text");
             const timeAnimation = 100;
 
+            //If the container is open, change the text and rotate the arrow
             if ($(arrow).hasClass("arrow arrow-down")) {
                 $(arrow).attr("class", "arrow arrow-up");
 
+                //Text change animation
                 textBtn.fadeOut(timeAnimation, function () {
                     $(this).text("CКРЫТЬ РЕКОМЕНДУЕМЫЕ").fadeIn(timeAnimation);
                 });

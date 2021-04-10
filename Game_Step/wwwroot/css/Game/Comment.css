@@ -11,6 +11,10 @@
 }
 
 .comments__container {
+    padding: 0 40px;
+}
+
+.comments__container-helper{
     display: flex;
 }
 
@@ -79,10 +83,6 @@
 
 .comments__container, .comments__item-comment {
     border-bottom: 1px solid #f4f4f4;
-}
-
-.comments__container {
-    padding: 0 40px;
 }
 
 .commets__item-comment {
