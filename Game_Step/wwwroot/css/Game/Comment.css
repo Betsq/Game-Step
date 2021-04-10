@@ -14,8 +14,9 @@
     padding: 0 40px;
 }
 
-.comments__container-helper{
+.comments__container-helper {
     display: flex;
+    position: relative;
 }
 
 .comments__avatar {
@@ -107,6 +108,10 @@
     color: #ff9900;
     cursor: pointer;
     font-size: 13px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .comments__comment-header {

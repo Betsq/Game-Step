@@ -382,7 +382,7 @@
     <script>
         $(document).ready(function () {
             $(".comments__btn-reply").click(function () {
-                const serializeForm = $(this).parent().parent().serialize();
+                const serializeForm = $(this).parent().parent().parent().serialize();
 
                 $.ajax({
                     url: window.location.origin + "/Comment/AddSubComment",
