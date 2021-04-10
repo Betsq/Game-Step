@@ -273,13 +273,13 @@
                                             <div class="btn-remove-comment" data-id="@comment.Id">Удалить</div>
                                         </div>
 
-                                        <form class="comments__reply-container" style="display: none;" asp-action="AddSubComment" asp-controller="Comment" method="post">
+                                        <form class="comments__reply-container" asp-action="AddSubComment" asp-controller="Comment" method="post">
                                             <input type="number" asp-for="Game.Id" value="@Model.Game.Id" hidden readonly />
                                             <input type="number" asp-for="MainComment.Id" value="@comment.Id" hidden readonly />
                                             <textarea class="comments_textarea" placeholder="Напишите ваш ответ" asp-for="MainComment.Message"></textarea>
                                             <div class="comments__btns-reply">
                                                 <div class="comments__close-textarea">Закрыть</div>
-                                                <input type="submit" class="comments__btn-reply" value="Ответить" />
+                                                <div class="comments__btn-reply">Ответить</div>
                                             </div>
                                         </form>
                                     </div>
@@ -350,6 +350,23 @@
 
 @section Scripts{
     <script src="~/js/Game/Game.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            $(".comments__btn-reply").click(function () {
+                const serializeForm = $(this).parent().parent().serialize();
+
+                $.ajax({
+                    url: window.location.origin + "/Comment/AddSubComment",
+                    type: "POST",
+                    data: serializeForm,
+                    success: function () {
+                        location.reload();
+                    },
+                });
+            });
+        });
+    </script>
 
     <script>
         $(document).ready(function () {
@@ -424,8 +441,8 @@
         //method for hide the comment container of the reply
         $(document).ready(function () {
             $(".comments__close-textarea").click(function () {
-                $(this).parent().parent().parent().removeClass("reply-container-active");
-                $(this).parent().parent().parent().hide(500);
+                $(this).parent().parent().removeClass("reply-container-active");
+                $(this).parent().parent().hide(500);
             });
         });
     </script>
