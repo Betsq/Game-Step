@@ -1,5 +1,6 @@
 ﻿using Game_Step.Models;
 using Game_Step.Models.Comments;
+using Game_Step.ViewModels;
 using Game_Step.ViewModels.GamesViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -106,6 +107,37 @@ namespace Game_Step.Controllers.AllGameController
 
             }
             return Json(false);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> MainCommentChecking()
+        {
+            var mainComments = await db.MainComments.Where(confirm => confirm.IsCommentChecked == false).ToListAsync();
+            CommentCheckingViewModel model = new CommentCheckingViewModel
+            {
+               MainComment = mainComments,
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MainCommentChecking(CommentCheckingViewModel model)
+        {
+            foreach (var item in model.Items)
+            {
+                if (item.Value == true)
+                {
+                    var mainComment = await db.MainComments
+                        .FirstOrDefaultAsync(comm => comm.Id == item.Key);
+                    if (mainComment != null)
+                    {
+                        mainComment.IsCommentChecked = true;
+                        db.MainComments.Update(mainComment);
+                    }
+                }
+            }
+            await db.SaveChangesAsync();
+            return RedirectToAction("ControlPanel", "Home");
         }
     }
 }
