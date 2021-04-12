@@ -361,5 +361,13 @@ namespace Game_Step.Controllers
             }
             return NotFound();
         }
+
+
+
+
+        public IActionResult Catalog()
+        {
+            return View();
+        }
     }
 }
