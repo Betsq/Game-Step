@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $(".del-button").click(function () {
-        let getId = $(this).attr('data-id');
+        let getId = $(this).attr("data-id");
         $.ajax({
             url: window.location.origin + "/GameScreenshot/Delete",
             type: "Get",

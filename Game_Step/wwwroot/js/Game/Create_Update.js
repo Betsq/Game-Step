@@ -1,4 +1,4 @@
-﻿CKEDITOR.replace('Description')
+﻿CKEDITOR.replace("Description")
 
 
 function readURL(input) {
@@ -6,7 +6,7 @@ function readURL(input) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            $(input).next().attr('src', e.target.result);
+            $(input).next().attr("src", e.target.result);
 
             $(input).next().css("display", "block");
 
@@ -46,15 +46,15 @@ $("select").on("change", function () {
 });
 
 $(document).ready(function () {
-    if ($("#discount-check").attr("checked") === 'checked') {
-        $('#discount').show(1);
+    if ($("#discount-check").attr("checked") === "checked") {
+        $("#discount").show(1);
     }
 
     $("#discount-check").change(function () {
-        if ($(this).prop('checked')) {
-            $('#discount').show(350);
+        if ($(this).prop("checked")) {
+            $("#discount").show(350);
         } else {
-            $('#discount').hide(350);
+            $("#discount").hide(350);
         }
     });
 });

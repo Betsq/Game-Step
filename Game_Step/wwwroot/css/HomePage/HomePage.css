@@ -16,6 +16,7 @@
 }
 
 .main-page-catalog {
+    -webkit-flex: 1;
     flex: 1;
     margin-right: 12px;
 }
@@ -49,6 +50,7 @@
 
 .catalog-item {
     padding: 19px 22px;
+    -webkit-flex: 1;
     flex: 1;
     display: flex;
     align-items: center;
@@ -60,9 +62,12 @@
 
     .catalog-item:hover {
         color: black;
-        -webkit-box-shadow: 0px 0px 17px 0px rgba(34, 60, 80, 0.4);
-        -moz-box-shadow: 0px 0px 17px 0px rgba(34, 60, 80, 0.4);
-        box-shadow: 0px 0px 17px 0px rgba(34, 60, 80, 0.4);
+        -webkit-box-shadow: 0 0 17px 0 #223c50;
+        -webkit-box-shadow: 0 0 17px 0 rgba(34, 60, 80, 0.4);
+        -moz-box-shadow: 0 0 17px 0 #223c50;
+        -moz-box-shadow: 0 0 17px 0 rgba(34, 60, 80, 0.4);
+        box-shadow: 0 0 17px 0 #223c50;
+        box-shadow: 0 0 17px 0 rgba(34, 60, 80, 0.4);
     }
 
 .catalog-novetly {

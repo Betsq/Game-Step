@@ -1,5 +1,3 @@
-using System;
-
 namespace Game_Step.Models
 {
     public class ErrorViewModel

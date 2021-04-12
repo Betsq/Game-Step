@@ -1,14 +1,9 @@
 ﻿using Game_Step.Models;
-using Game_Step.Util;
-using Game_Step.ViewComponent;
 using Game_Step.ViewModels;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Game_Step.Controllers

@@ -1,9 +1,7 @@
 ﻿using Game_Step.Models.Comments;
 using Game_Step.Models.GamesModel;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace Game_Step.Models
 {

@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    var modelId = $(".buy-button").attr('data-id');
+    var modelId = $(".buy-button").attr("data-id");
     $.ajax({
         url: window.location.origin + "/Cart/IsProsuctInCart",
         type: "POST",
@@ -7,11 +7,11 @@
         success: function (result) {
             if (result === true) {
                 //When the product in cart, it changes the link of the button to go to the cart
-                $('a.buy-button').attr('href', window.location.origin + '/Cart');
+                $("a.buy-button").attr("href", window.location.origin + "/Cart");
                 //When the product in cart, it changes the class
-                $('a.buy-button').attr('class', 'buy-button in-cart');
+                $("a.buy-button").attr("class", "buy-button in-cart");
 
-                $('a.buy-button').text('В КОРЗИНЕ');
+                $("a.buy-button").text("В КОРЗИНЕ");
             }
         },
     });
@@ -22,7 +22,7 @@ $(document).ready(function () {
     $("a.buy-button").click(function () {
         if (!$(this).hasClass("in-cart")) {
             //Get from the attribute Id of the product
-            var modelId = this.getAttribute('data-id');
+            var modelId = this.getAttribute("data-id");
             $.ajax({
                 url: window.location.origin + "/Cart/AddToCart",
                 type: "Get",
@@ -30,11 +30,11 @@ $(document).ready(function () {
                 success: function (result) {
                     $("#cart").html(result);
                     //When adding a product, it changes the link of the button to go to the cart
-                    $('a.buy-button').attr('href', window.location.origin + '/Cart');
+                    $("a.buy-button").attr("href", window.location.origin + "/Cart");
                     //When adding a product, it changes the class
-                    $('a.buy-button').attr('class', 'buy-button in-cart');
+                    $("a.buy-button").attr("class", "buy-button in-cart");
 
-                    $('a.buy-button').text('В КОРЗИНЕ');
+                    $("a.buy-button").text("В КОРЗИНЕ");
                 },
             });
         }

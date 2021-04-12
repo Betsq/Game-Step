@@ -8,8 +8,8 @@
 }
 
 html, body{
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
 }
 
 main {
@@ -87,6 +87,7 @@ html {
 }
 
 .box-shadow {
+    box-shadow: 0 .25rem .75rem #000000;
     box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
@@ -140,7 +141,7 @@ body {
 
 .button-cart :hover {
     border-radius: 3px;
-    background-color: rgb(190, 190, 190, 0.5)
+    background-color: rgb(190, 190, 190)
 }
 
 

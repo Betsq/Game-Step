@@ -1,36 +1,30 @@
-﻿using Game_Step.Models;
+﻿using System.IO;
+using System.Threading.Tasks;
+using Game_Step.Models;
 using Game_Step.Models.GamesModel;
 using Game_Step.ViewModels;
 using Game_Step.ViewModels.GamesViewModel;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
-
-namespace Game_Step.Controllers
+namespace Game_Step.Controllers.AllGameController
 {
     public class GameController : Controller
     {
-        private readonly ApplicationContext db;
-        private readonly IWebHostEnvironment appEnvironment;
+        private readonly ApplicationContext _db;
+        private readonly IWebHostEnvironment _appEnvironment;
 
         public GameController(ApplicationContext context, IWebHostEnvironment appEnvironment)
         {
-            db = context;
-            this.appEnvironment = appEnvironment;
+            _db = context;
+            _appEnvironment = appEnvironment;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var games = await db.Games.ToListAsync();
+            var games = await _db.Games.ToListAsync();
 
 
             return View(games);
@@ -89,7 +83,7 @@ namespace Game_Step.Controllers
                 string nameFolderGame = model.Name + "/";
                 string folderAllGames = "/img/Game/Games/";
 
-                Directory.CreateDirectory(appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
+                Directory.CreateDirectory(_appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
 
                 if (model.MainImage != null)
                 {
@@ -97,18 +91,18 @@ namespace Game_Step.Controllers
                     string pathInnerImage = folderAllGames + nameFolderGame + "Inner_Image.jpg";
                     string pathImageInCatalog = folderAllGames + nameFolderGame + "Image_In_Catalog.jpg";
 
-                    using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
+                    using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
                         await model.MainImage.CopyToAsync(filesStream);
 
                     if (model.InnerImage != null)
                     {
-                        using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
+                        using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
                             await model.InnerImage.CopyToAsync(filesStream);
                     }
 
                     if (model.ImageInCatalog != null)
                     {
-                        using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
+                        using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
                             await model.ImageInCatalog.CopyToAsync(filesStream);
                     }
 
@@ -120,7 +114,7 @@ namespace Game_Step.Controllers
                         Game = game,
                     };
 
-                    db.GameImages.Add(gameImage);
+                    _db.GameImages.Add(gameImage);
                 }
 
                 GamePrice gamePrice = new GamePrice
@@ -133,8 +127,8 @@ namespace Game_Step.Controllers
                 };
 
 
-                await db.GamePrices.AddAsync(gamePrice);
-                await db.SaveChangesAsync();
+                await _db.GamePrices.AddAsync(gamePrice);
+                await _db.SaveChangesAsync();
 
                 return RedirectToAction("Index");
             }
@@ -147,7 +141,7 @@ namespace Game_Step.Controllers
         {
             if (id != null)
             {
-                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
+                var game = await _db.Games.FirstOrDefaultAsync(item => item.Id == id);
                 if (game != null)
                 {
                     return View(game);
@@ -161,7 +155,7 @@ namespace Game_Step.Controllers
         {
             if (id != null)
             {
-                var game = await db.Games
+                var game = await _db.Games
                     .Include(item => item.GamePrice)
                     .Include(item => item.GameImage)
                     .FirstOrDefaultAsync(item => item.Id == id);
@@ -213,7 +207,7 @@ namespace Game_Step.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(GamesUpdateViewModel model)
         {
-            var game = await db.Games
+            var game = await _db.Games
                 .Include(item => item.GamePrice)
                 .Include(item => item.GameImage)
                 .FirstOrDefaultAsync(item => item.Id == model.Id);
@@ -269,7 +263,7 @@ namespace Game_Step.Controllers
             string nameFolderGame = model.Name + "/";
             string folderAllGames = "/img/Game/Games/";
 
-            Directory.CreateDirectory(appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
+            Directory.CreateDirectory(_appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
 
             string pathMainImage = folderAllGames + nameFolderGame + "Main_Image.jpg";
             string pathInnerImage = folderAllGames + nameFolderGame + "Inner_Image.jpg";
@@ -277,19 +271,19 @@ namespace Game_Step.Controllers
 
             if (model.MainImage != null)
             {
-                using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
+                using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
                     await model.MainImage.CopyToAsync(filesStream);
             }
 
             if (model.InnerImage != null)
             {
-                using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
+                using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
                     await model.InnerImage.CopyToAsync(filesStream);
             }
 
             if (model.ImageInCatalog != null)
             {
-                using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
+                using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
                     await model.ImageInCatalog.CopyToAsync(filesStream);
             }
 
@@ -298,8 +292,8 @@ namespace Game_Step.Controllers
             game.GameImage.ImageInCatalog = pathImageInCatalog;
             game.GameImage.Game = game;
 
-            db.Games.Update(game);
-            db.SaveChanges();
+            _db.Games.Update(game);
+            await _db.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
@@ -308,13 +302,12 @@ namespace Game_Step.Controllers
         [ActionName("Delete")]
         public async Task<IActionResult> ConfirmDelete(int? id)
         {
-            if (id != null)
+            if (id == null) return NotFound();
+
+            var game = await _db.Games.FirstOrDefaultAsync(item => item.Id == id);
+            if (game != null)
             {
-                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
-                if (game != null)
-                {
-                    return View(game);
-                }
+                return View(game);
             }
             return NotFound();
         }
@@ -322,48 +315,41 @@ namespace Game_Step.Controllers
         [HttpPost]
         public async Task<IActionResult> Delete(int? id)
         {
-            var game = await db.Games.FirstOrDefaultAsync(item => item.Id == id);
-            if (game != null)
+            var game = await _db.Games.FirstOrDefaultAsync(item => item.Id == id);
+
+            if (game == null) return NotFound();
+
+            string folderGame = _appEnvironment.WebRootPath + "/img/Game/Games/" + game.Name;
+            if (Directory.Exists(folderGame))
             {
-                string folderGame = appEnvironment.WebRootPath + "/img/Game/Games/" + game.Name;
-                if (Directory.Exists(folderGame))
-                {
-                    Directory.Delete(folderGame, true);
-                }
-
-                db.Games.Remove(game);
-                await db.SaveChangesAsync();
-
-                return RedirectToAction("Index");
+                Directory.Delete(folderGame, true);
             }
-            return NotFound();
+
+            _db.Games.Remove(game);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> Game(int? id)
         {
-            if (id != null)
+            if (id == null) return NotFound();
+
+            var game = await _db.Games.Include(price => price.GamePrice)
+                .Include(image => image.GameImage)
+                .Include(screenshots => screenshots.GameScreenshots)
+                .Include(comment => comment.MainComments)
+                .ThenInclude(subComment => subComment.SubComments)
+                .FirstOrDefaultAsync(item => item.Id == id);
+            
+            if (game == null) return NotFound();
+
+            var model = new GameViewModel
             {
-                var game = await db.Games.Include(price => price.GamePrice)
-                    .Include(image => image.GameImage)
-                    .Include(screenshot => screenshot.GameScreenshots)
-                    .Include(Comment => Comment.MainComments)
-                    .ThenInclude(SubComment => SubComment.SubComments)
-                    .FirstOrDefaultAsync(item => item.Id == id);
-                if (game != null)
-                {
-                    GameViewModel model = new GameViewModel
-                    {
-                        Game = game,
-                    };
-                    return View(model);
-                }
-
-            }
-            return NotFound();
+                Game = game,
+            };
+            return View(model);
         }
-
-
-
 
         public IActionResult Catalog()
         {

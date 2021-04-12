@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $(".remove-from-cart").click(function () {
-        var modelCartId = this.getAttribute('del-data-id');
+        const modelCartId = this.getAttribute("del-data-id");
         $.ajax({
             url: window.location.origin + "/Cart/DeleteProductInCart",
             type: "Get",
@@ -18,7 +18,7 @@ function ChangeTotalPrice() {
     let totalPrice = 0;
 
     //Parse and add the price of all goods
-    $('.prod-price').each(function (index, obj) {
+    $(".prod-price").each(function (index, obj) {
         totalPrice += parseInt(($(this).text()));
     });
 
@@ -51,15 +51,15 @@ $(document).ready(function () {
     $(".btnMinus").click(function () {
 
         //Sets the minimum input threshold "1" for products
-        $(".input-quantity-product").attr('min', 1);
+        $(".input-quantity-product").attr("min", 1);
 
         //Changes the value in input to -1
         this.nextElementSibling.stepDown();
 
         //Gets the id of the product to be passed to the function
-        let getId = $(this).next().attr('data-id');
+        const getId = $(this).next().attr("data-id");
         //Gets the quantity of ordered one item of goods
-        let getAmountProduct = $(this).next().val();
+        const getAmountProduct = $(this).next().val();
 
 
         ChangePriceProduct(getId, getAmountProduct);
@@ -68,12 +68,12 @@ $(document).ready(function () {
     });
 
     $(".btnPlus").click(function () {
-        $(".input-quantity-product").attr('max', 5);
+        $(".input-quantity-product").attr("max", 5);
 
         this.previousElementSibling.stepUp();
 
-        let getId = $(this).prev().attr('data-id');
-        let getAmountProduct = $(this).prev().val();
+        const getId = $(this).prev().attr("data-id");
+        const getAmountProduct = $(this).prev().val();
 
         ChangePriceProduct(getId, getAmountProduct);
 
@@ -85,11 +85,11 @@ $(document).ready(function () {
 //A function for the fact that if the user removes "readonly" in the input,
 //this function will not allow going beyond the range of values
 $(document).ready(function () {
-    $('.input-quantity-product').on('input', function () {
+    $(".input-quantity-product").on("input", function () {
 
-        let value = $(this).val();
+        const value = $(this).val();
 
-        if ((value !== '') && (value.indexOf('.') === -1)) {
+        if ((value !== "") && (value.indexOf(".") === -1)) {
 
             $(this).val(Math.max(Math.min(value, 5), 1));
         }

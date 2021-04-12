@@ -214,6 +214,7 @@ input[type="number"]::-webkit-inner-spin-button {
     width: 450px;
     display: flex;
     padding: 20px;
+    background-color: #01b59a;
     background-color: rgba(1, 181, 154, 0.25);
 }
 

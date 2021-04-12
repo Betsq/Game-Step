@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
     $(".btnDelProdCart").click(function () {
-        var modelCartId = this.getAttribute('del-data-id');
+        var modelCartId = this.getAttribute("del-data-id");
         $.ajax({
             url: window.location.origin + "/Cart/DeleteProductInCart",
             type: "Get",
@@ -8,11 +8,11 @@
             success: function (result) {
                 $("#cart").html(result);
                 //When remove from the shopping cart we change to this value
-                $('a.buy-button').attr('href', 'javascript: void(0)');
+                $("a.buy-button").attr("href", "javascript: void(0)");
                 //When remove a product, it changes the class
-                $('a.buy-button').attr('class', 'buy-button no-cart');
+                $("a.buy-button").attr("class", "buy-button no-cart");
 
-                $('a.buy-button').text('В КОРЗИНУ');
+                $("a.buy-button").text("В КОРЗИНУ");
             },
         });
     })

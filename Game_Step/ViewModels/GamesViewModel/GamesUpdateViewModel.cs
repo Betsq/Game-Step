@@ -1,7 +1,4 @@
-﻿using Game_Step.ViewModels.GamesViewModel;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace Game_Step.ViewModels
 {
