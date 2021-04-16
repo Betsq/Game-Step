@@ -40,7 +40,7 @@ namespace Game_Step.Controllers
         {
             if (id != null)
             {
-               var developer = await db.Developers.FirstOrDefaultAsync(item => item.Id == id);
+                var developer = await db.Developers.FirstOrDefaultAsync(item => item.Id == id);
                 if (developer != null)
                 {
                     return View(developer);
@@ -52,15 +52,15 @@ namespace Game_Step.Controllers
         [HttpGet]
         public async Task<IActionResult> Update(int? id)
         {
-            if (id != null)
-            {
-                var developer = await db.Developers.FirstOrDefaultAsync(item => item.Id == id);
-                if (developer != null)
-                {
-                    return View(developer);
-                }
-            }
-            return NotFound();
+            if (id == null)
+                return NotFound();
+
+            var developer = await db.Developers.FirstOrDefaultAsync(item => item.Id == id);
+
+            if (developer == null)
+                return NotFound();
+
+            return View(developer);
         }
 
         [HttpPost]
@@ -101,7 +101,7 @@ namespace Game_Step.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            return NotFound();   
+            return NotFound();
         }
     }
 }
