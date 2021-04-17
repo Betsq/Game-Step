@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "scripts": {
+    "ng": "ng",
+    "start": "echo hello && ng serve",
+    "build": "ng build"
+  },
+  "dependencies": {
+    "@angular/common": "~11.2.10",
+    "@angular/compiler": "~11.2.10",
+    "@angular/core": "~11.2.10",
+    "@angular/forms": "~11.2.10",
+    "@angular/platform-browser": "~11.2.10",
+    "@angular/platform-browser-dynamic": "~11.2.10",
+    "@angular/router": "~11.2.10",
+    "rxjs": "~6.6.7",
+    "zone.js": "~0.10.3"
+  },
+  "devDependencies": {
+    "@angular-devkit/build-angular": "~0.1000.0",
+    "@angular/cli": "~10.0.0",
+    "@angular/compiler-cli": "~10.0.0",
+    "@types/node": "~14.0.14",
+    "typescript": "~3.9.5"
+  }
+}
