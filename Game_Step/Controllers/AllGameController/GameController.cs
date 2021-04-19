@@ -1,10 +1,12 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using Game_Step.Models;
 using Game_Step.Models.GamesModel;
 using Game_Step.ViewModels;
 using Game_Step.ViewModels.GamesViewModel;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -202,17 +204,26 @@ namespace Game_Step.Controllers.AllGameController
                 isDesc = false;
             }
             else
-                discountPrice = model.Price - ((model.Price * model.Discount) / 100);
+                discountPrice = model.Price.Price - ((model.Price.Price * model.Price.Discount) / 100);
 
 
-            game.GamePrice.Price = model.Price;
+            game.GamePrice.Price = model.Price.Price;
             game.GamePrice.IsDiscount = isDesc;
             game.GamePrice.Discount = disc;
             game.GamePrice.DiscountPrice = discountPrice;
             game.GamePrice.Game = game;
 
+            await AddUpdateGameImageAsync(game, model.MainImage, model.InnerImage, model.ImageInCatalog)
 
-            string nameFolderGame = model.Name + "/";
+            _db.Games.Update(game);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+        public async Task AddUpdateGameImageAsync(Game game, IFormFile MainImage, IFormFile InnerImage, IFormFile ImageInCatalog)
+        {
+            string nameFolderGame = game.Name + "/";
             string folderAllGames = "/img/Game/Games/";
 
             Directory.CreateDirectory(_appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
@@ -221,34 +232,24 @@ namespace Game_Step.Controllers.AllGameController
             string pathInnerImage = folderAllGames + nameFolderGame + "Inner_Image.jpg";
             string pathImageInCatalog = folderAllGames + nameFolderGame + "Image_In_Catalog.jpg";
 
-            if (model.MainImage != null)
-            {
-                using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
-                    await model.MainImage.CopyToAsync(filesStream);
-            }
 
-            if (model.InnerImage != null)
-            {
-                using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
-                    await model.InnerImage.CopyToAsync(filesStream);
-            }
+            using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
+                await MainImage.CopyToAsync(filesStream);
 
-            if (model.ImageInCatalog != null)
-            {
-                using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
-                    await model.ImageInCatalog.CopyToAsync(filesStream);
-            }
+            using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
+                await InnerImage.CopyToAsync(filesStream);
+
+            using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
+                await ImageInCatalog.CopyToAsync(filesStream);
+
 
             game.GameImage.MainImage = pathMainImage;
             game.GameImage.InnerImage = pathInnerImage;
             game.GameImage.ImageInCatalog = pathImageInCatalog;
             game.GameImage.Game = game;
-
-            _db.Games.Update(game);
-            await _db.SaveChangesAsync();
-
-            return RedirectToAction("Index");
         }
+
+
 
         [HttpGet]
         [ActionName("Delete")]
