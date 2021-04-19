@@ -36,104 +36,104 @@ namespace Game_Step.Controllers.AllGameController
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create(GamesCreateViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                int disc = model.Discount;
-                int discountPrice = 0;
-                if (disc < 0 || disc > 99 || model.IsDiscount == false)
-                {
-                    disc = 0;
-                    model.IsDiscount = false;
-                }
-                else
-                    discountPrice = model.Price - ((model.Price * model.Discount) / 100);
+        //[HttpPost]
+        //public async Task<IActionResult> Create(GamesCreateViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        int disc = model.Discount;
+        //        int discountPrice = 0;
+        //        if (disc < 0 || disc > 99 || model.IsDiscount == false)
+        //        {
+        //            disc = 0;
+        //            model.IsDiscount = false;
+        //        }
+        //        else
+        //            discountPrice = model.Price - ((model.Price * model.Discount) / 100);
 
 
-                Game game = new Game
-                {
-                    Name = model.Name,
-                    Description = model.Description,
-                    Genre = model.Genre,
-                    Language = model.Language,
-                    QuantityOfGoods = model.QuantityOfGoods,
-                    ReleaseDate = model.ReleaseDate,
-                    Publisher = model.Publisher,
-                    Developer = model.Developer,
-                    Features = model.Features,
-                    Region = model.Region,
-                    WhereKeyActivated = model.WhereKeyActivated,
+        //        Game game = new Game
+        //        {
+        //            Name = model.Name,
+        //            Description = model.Description,
+        //            Genre = model.Genre,
+        //            Language = model.Language,
+        //            QuantityOfGoods = model.QuantityOfGoods,
+        //            ReleaseDate = model.ReleaseDate,
+        //            Publisher = model.Publisher,
+        //            Developer = model.Developer,
+        //            Features = model.Features,
+        //            Region = model.Region,
+        //            WhereKeyActivated = model.WhereKeyActivated,
 
-                    RecommendOC = model.RecommendOC,
-                    RecommendCPU = model.RecommendCPU,
-                    RecommendRAM = model.RecommendRAM,
-                    RecommendVideoCard = model.RecommendVideoCard,
-                    RecommendDirectX = model.RecommendDirectX,
-                    RecommendHDD = model.RecommendHDD,
-                    MinimumOC = model.MinimumOC,
-                    MinimumCPU = model.MinimumCPU,
-                    MinimumRAM = model.MinimumRAM,
-                    MinimumVideoCard = model.MinimumVideoCard,
-                    MinimumDirectX = model.MinimumDirectX,
-                    MinimumHDD = model.MinimumHDD
-                };
+        //            RecommendOC = model.RecommendOC,
+        //            RecommendCPU = model.RecommendCPU,
+        //            RecommendRAM = model.RecommendRAM,
+        //            RecommendVideoCard = model.RecommendVideoCard,
+        //            RecommendDirectX = model.RecommendDirectX,
+        //            RecommendHDD = model.RecommendHDD,
+        //            MinimumOC = model.MinimumOC,
+        //            MinimumCPU = model.MinimumCPU,
+        //            MinimumRAM = model.MinimumRAM,
+        //            MinimumVideoCard = model.MinimumVideoCard,
+        //            MinimumDirectX = model.MinimumDirectX,
+        //            MinimumHDD = model.MinimumHDD
+        //        };
 
-                string nameFolderGame = model.Name + "/";
-                string folderAllGames = "/img/Game/Games/";
+        //        string nameFolderGame = model.Name + "/";
+        //        string folderAllGames = "/img/Game/Games/";
 
-                Directory.CreateDirectory(_appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
+        //        Directory.CreateDirectory(_appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
 
-                if (model.MainImage != null)
-                {
-                    string pathMainImage = folderAllGames + nameFolderGame + "Main_Image.jpg";
-                    string pathInnerImage = folderAllGames + nameFolderGame + "Inner_Image.jpg";
-                    string pathImageInCatalog = folderAllGames + nameFolderGame + "Image_In_Catalog.jpg";
+        //        if (model.MainImage != null)
+        //        {
+        //            string pathMainImage = folderAllGames + nameFolderGame + "Main_Image.jpg";
+        //            string pathInnerImage = folderAllGames + nameFolderGame + "Inner_Image.jpg";
+        //            string pathImageInCatalog = folderAllGames + nameFolderGame + "Image_In_Catalog.jpg";
 
-                    using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
-                        await model.MainImage.CopyToAsync(filesStream);
+        //            using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
+        //                await model.MainImage.CopyToAsync(filesStream);
 
-                    if (model.InnerImage != null)
-                    {
-                        using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
-                            await model.InnerImage.CopyToAsync(filesStream);
-                    }
+        //            if (model.InnerImage != null)
+        //            {
+        //                using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
+        //                    await model.InnerImage.CopyToAsync(filesStream);
+        //            }
 
-                    if (model.ImageInCatalog != null)
-                    {
-                        using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
-                            await model.ImageInCatalog.CopyToAsync(filesStream);
-                    }
+        //            if (model.ImageInCatalog != null)
+        //            {
+        //                using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
+        //                    await model.ImageInCatalog.CopyToAsync(filesStream);
+        //            }
 
-                    GameImage gameImage = new GameImage
-                    {
-                        MainImage = pathMainImage,
-                        InnerImage = pathInnerImage,
-                        ImageInCatalog = pathImageInCatalog,
-                        Game = game,
-                    };
+        //            GameImage gameImage = new GameImage
+        //            {
+        //                MainImage = pathMainImage,
+        //                InnerImage = pathInnerImage,
+        //                ImageInCatalog = pathImageInCatalog,
+        //                Game = game,
+        //            };
 
-                    _db.GameImages.Add(gameImage);
-                }
+        //            _db.GameImages.Add(gameImage);
+        //        }
 
-                GamePrice gamePrice = new GamePrice
-                {
-                    Price = model.Price,
-                    IsDiscount = model.IsDiscount,
-                    Discount = disc,
-                    DiscountPrice = discountPrice,
-                    Game = game
-                };
+        //        GamePrice gamePrice = new GamePrice
+        //        {
+        //            Price = model.Price,
+        //            IsDiscount = model.IsDiscount,
+        //            Discount = disc,
+        //            DiscountPrice = discountPrice,
+        //            Game = game
+        //        };
 
 
-                await _db.GamePrices.AddAsync(gamePrice);
-                await _db.SaveChangesAsync();
+        //        await _db.GamePrices.AddAsync(gamePrice);
+        //        await _db.SaveChangesAsync();
 
-                return RedirectToAction("Index");
-            }
-            return View(model);
-        }
+        //        return RedirectToAction("Index");
+        //    }
+        //    return View(model);
+        //}
 
 
         [HttpGet]
@@ -153,55 +153,28 @@ namespace Game_Step.Controllers.AllGameController
         [HttpGet]
         public async Task<IActionResult> Update(int? id)
         {
-            if (id != null)
-            {
-                var game = await _db.Games
+            if (id == null)
+                return NotFound();
+
+            var game = await _db.Games
                     .Include(item => item.GamePrice)
                     .Include(item => item.GameImage)
                     .FirstOrDefaultAsync(item => item.Id == id);
 
-                if (game != null)
-                {
-                    GamesUpdateViewModel gamesViewModel = new GamesUpdateViewModel
-                    {
-                        Id = game.Id,
-                        Name = game.Name,
-                        Description = game.Description,
-                        Genre = game.Genre,
-                        Language = game.Language,
-                        QuantityOfGoods = game.QuantityOfGoods,
-                        ReleaseDate = game.ReleaseDate,
-                        Publisher = game.Publisher,
-                        Developer = game.Developer,
-                        Features = game.Features,
-                        Region = game.Region,
-                        WhereKeyActivated = game.WhereKeyActivated,
+            if (game == null)
+                return NotFound();
 
-                        Price = game.GamePrice.Price,
-                        IsDiscount = game.GamePrice.IsDiscount,
-                        Discount = game.GamePrice.Discount,
+            GamesUpdateViewModel gamesViewModel = new GamesUpdateViewModel
+            {
+                Game = game,
+                Price = game.GamePrice,
 
-                        MainImagePath = game.GameImage?.MainImage,
-                        InnerImagePath = game.GameImage?.InnerImage,
-                        ImageInCatalogPath = game.GameImage?.ImageInCatalog,
+                MainImagePath = game.GameImage?.MainImage,
+                InnerImagePath = game.GameImage?.InnerImage,
+                ImageInCatalogPath = game.GameImage?.ImageInCatalog,
+            };
 
-                        RecommendOC = game.RecommendOC,
-                        RecommendCPU = game.RecommendCPU,
-                        RecommendRAM = game.RecommendRAM,
-                        RecommendVideoCard = game.RecommendVideoCard,
-                        RecommendDirectX = game.RecommendDirectX,
-                        RecommendHDD = game.RecommendHDD,
-                        MinimumOC = game.MinimumOC,
-                        MinimumCPU = game.MinimumCPU,
-                        MinimumRAM = game.MinimumRAM,
-                        MinimumVideoCard = game.MinimumVideoCard,
-                        MinimumDirectX = game.MinimumDirectX,
-                        MinimumHDD = game.MinimumHDD
-                    };
-                    return View(gamesViewModel);
-                }
-            }
-            return NotFound();
+            return View(gamesViewModel);
         }
 
         [HttpPost]
@@ -210,41 +183,20 @@ namespace Game_Step.Controllers.AllGameController
             var game = await _db.Games
                 .Include(item => item.GamePrice)
                 .Include(item => item.GameImage)
-                .FirstOrDefaultAsync(item => item.Id == model.Id);
+                .FirstOrDefaultAsync(item => item.Id == model.Game.Id);
 
-            if (game != null)
-            {
-                game.Id = model.Id;
-                game.Name = model.Name;
-                game.Description = model.Description;
-                game.Genre = model.Genre;
-                game.Language = model.Language;
-                game.QuantityOfGoods = model.QuantityOfGoods;
-                game.ReleaseDate = model.ReleaseDate;
-                game.Publisher = model.Publisher;
-                game.Developer = model.Developer;
-                game.Features = model.Features;
-                game.Region = model.Region;
-                game.WhereKeyActivated = model.WhereKeyActivated;
+            if (game == null)
+                return View(model);
 
-                game.RecommendOC = model.RecommendOC;
-                game.RecommendCPU = model.RecommendCPU;
-                game.RecommendRAM = model.RecommendRAM;
-                game.RecommendVideoCard = model.RecommendVideoCard;
-                game.RecommendDirectX = model.RecommendDirectX;
-                game.RecommendHDD = model.RecommendHDD;
-                game.MinimumOC = model.MinimumOC;
-                game.MinimumCPU = model.MinimumCPU;
-                game.MinimumRAM = model.MinimumRAM;
-                game.MinimumVideoCard = model.MinimumVideoCard;
-                game.MinimumDirectX = model.MinimumDirectX;
-                game.MinimumHDD = model.MinimumHDD;
-            };
+            game = model.Game;
 
-            int disc = model.Discount;
-            bool isDesc = model.IsDiscount;
+
+
+            int disc = model.Price.Discount;
+            bool isDesc = model.Price.IsDiscount;
             int discountPrice = 0;
-            if (disc <= 0 || disc > 99 || isDesc == false)
+
+            if (disc is <= 0 or > 99 || isDesc == false)
             {
                 disc = 0;
                 isDesc = false;
@@ -341,7 +293,7 @@ namespace Game_Step.Controllers.AllGameController
                 .Include(comment => comment.MainComments)
                 .ThenInclude(subComment => subComment.SubComments)
                 .FirstOrDefaultAsync(item => item.Id == id);
-            
+
             if (game == null) return NotFound();
 
             var model = new GameViewModel
