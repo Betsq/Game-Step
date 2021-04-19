@@ -170,6 +170,7 @@ namespace Game_Step.Controllers.AllGameController
             {
                 Game = game,
                 Price = game.GamePrice,
+                Id = game.Id,
 
                 MainImagePath = game.GameImage?.MainImage,
                 InnerImagePath = game.GameImage?.InnerImage,
@@ -185,14 +186,20 @@ namespace Game_Step.Controllers.AllGameController
             var game = await _db.Games
                 .Include(item => item.GamePrice)
                 .Include(item => item.GameImage)
-                .FirstOrDefaultAsync(item => item.Id == model.Game.Id);
+                .FirstOrDefaultAsync(item => item.Id == model.Id);
 
             if (game == null)
                 return View(model);
 
+            var gameCopy = game;
+
             game = model.Game;
+            game.Id = gameCopy.Id;
 
-
+            game.GamePrice = gameCopy.GamePrice;
+            game.GameImage = gameCopy.GameImage;
+            game.GameKeys = gameCopy.GameKeys;
+            game.GameScreenshots = gameCopy.GameScreenshots;
 
             int disc = model.Price.Discount;
             bool isDesc = model.Price.IsDiscount;
@@ -206,22 +213,19 @@ namespace Game_Step.Controllers.AllGameController
             else
                 discountPrice = model.Price.Price - ((model.Price.Price * model.Price.Discount) / 100);
 
-
-            game.GamePrice.Price = model.Price.Price;
+            game.GamePrice.Game = game;
             game.GamePrice.IsDiscount = isDesc;
             game.GamePrice.Discount = disc;
             game.GamePrice.DiscountPrice = discountPrice;
-            game.GamePrice.Game = game;
-
-            await AddUpdateGameImageAsync(game, model.MainImage, model.InnerImage, model.ImageInCatalog)
-
+            game.GamePrice.Price = model.Price.Price;
+            
             _db.Games.Update(game);
             await _db.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
 
-        public async Task AddUpdateGameImageAsync(Game game, IFormFile MainImage, IFormFile InnerImage, IFormFile ImageInCatalog)
+        public GameImage AddUpdateGameImage(Game game, IFormFile mainImage, IFormFile innerImage, IFormFile imageInCatalog)
         {
             string nameFolderGame = game.Name + "/";
             string folderAllGames = "/img/Game/Games/";
@@ -232,21 +236,30 @@ namespace Game_Step.Controllers.AllGameController
             string pathInnerImage = folderAllGames + nameFolderGame + "Inner_Image.jpg";
             string pathImageInCatalog = folderAllGames + nameFolderGame + "Image_In_Catalog.jpg";
 
+            if (mainImage != null)
+            {
+                using var filesStream = new FileStream(_appEnvironment.WebRootPath + pathMainImage, FileMode.Create);
+                mainImage.CopyToAsync(filesStream);
+            }
+            if (innerImage != null)
+            {
+                using var filesStream = new FileStream(_appEnvironment.WebRootPath + pathInnerImage, FileMode.Create);
+                innerImage.CopyToAsync(filesStream);
+            }
+            if (imageInCatalog != null)
+            {
+                using var filesStream = new FileStream(_appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create);
+                imageInCatalog.CopyToAsync(filesStream);
+            }
 
-            using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
-                await MainImage.CopyToAsync(filesStream);
+            GameImage image = game.GameImage;
 
-            using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
-                await InnerImage.CopyToAsync(filesStream);
+            image.MainImage = pathMainImage;
+            image.InnerImage = pathInnerImage;
+            image.ImageInCatalog = pathImageInCatalog;
+            image.Game = game;
 
-            using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
-                await ImageInCatalog.CopyToAsync(filesStream);
-
-
-            game.GameImage.MainImage = pathMainImage;
-            game.GameImage.InnerImage = pathInnerImage;
-            game.GameImage.ImageInCatalog = pathImageInCatalog;
-            game.GameImage.Game = game;
+            return (image);
         }
 
 
