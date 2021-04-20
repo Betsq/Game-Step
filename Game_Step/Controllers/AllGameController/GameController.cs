@@ -29,7 +29,6 @@ namespace Game_Step.Controllers.AllGameController
         {
             var games = await _db.Games.ToListAsync();
 
-
             return View(games);
         }
 
@@ -44,17 +43,6 @@ namespace Game_Step.Controllers.AllGameController
         {
             if (!ModelState.IsValid)
                 return View(model);
-
-            int disc = model.Price.Discount;
-            int discountPrice = 0;
-            if (disc is < 0 or > 99 || model.Price.IsDiscount == false)
-            {
-                disc = 0;
-                model.Price.IsDiscount = false;
-            }
-            else
-                discountPrice = model.Price.Price - ((model.Price.Price * model.Price.Discount) / 100);
-
 
             Game game = new()
             {
@@ -71,17 +59,10 @@ namespace Game_Step.Controllers.AllGameController
                 ReleaseDate = model.Game.ReleaseDate,
             };
 
-            GamePrice gamePrice = new GamePrice
-            {
-                Price = model.Price.Price,
-                IsDiscount = model.Price.IsDiscount,
-                Discount = disc,
-                DiscountPrice = discountPrice,
-                Game = game
-            };
+
 
             _db.GameImages.Add(AddUpdateGameImage(game, model.MainImage, model.InnerImage, model.ImageInCatalog));
-            await _db.GamePrices.AddAsync(gamePrice);
+            _db.GamePrices.Add(PriceCalculation(game, model.Price));
             await _db.SaveChangesAsync();
 
             return RedirectToAction("Index");
@@ -91,15 +72,16 @@ namespace Game_Step.Controllers.AllGameController
         [HttpGet]
         public async Task<IActionResult> Read(int? id)
         {
-            if (id != null)
-            {
-                var game = await _db.Games.FirstOrDefaultAsync(item => item.Id == id);
-                if (game != null)
-                {
-                    return View(game);
-                }
-            }
-            return NotFound();
+            if (id == null)
+                return NotFound();
+
+            var game = await _db.Games.FirstOrDefaultAsync(item => item.Id == id);
+            if (game == null)
+                return NotFound();
+
+            return View(game);
+
+
         }
 
         [HttpGet]
@@ -124,7 +106,6 @@ namespace Game_Step.Controllers.AllGameController
                 Price = game.GamePrice,
                 GameRecommendation = game.Recommendation,
                 GameMinimum = game.Minimum,
-                Id = game.Id,
 
                 MainImagePath = game.GameImage?.MainImage,
                 InnerImagePath = game.GameImage?.InnerImage,
@@ -142,12 +123,10 @@ namespace Game_Step.Controllers.AllGameController
                 .Include(item => item.GameImage)
                 .Include(item => item.Recommendation)
                 .Include(item => item.Minimum)
-                .FirstOrDefaultAsync(item => item.Id == model.Id);
+                .FirstOrDefaultAsync(item => item.Id == model.Game.Id);
 
             if (game == null)
                 return View(model);
-
-            AddUpdateGameImage(game, model.MainImage, model.InnerImage, model.ImageInCatalog);
 
             game.Name = model.Game.Name;
             game.QuantityOfGoods = model.Game.QuantityOfGoods;
@@ -160,29 +139,11 @@ namespace Game_Step.Controllers.AllGameController
             game.Region = model.Game.Region;
             game.WhereKeyActivated = model.Game.WhereKeyActivated;
             game.ReleaseDate = model.Game.ReleaseDate;
-
-
             game.Recommendation = model.GameRecommendation;
             game.Minimum = model.GameMinimum;
 
-            int disc = model.Price.Discount;
-            bool isDesc = model.Price.IsDiscount;
-            int discountPrice = 0;
-
-            if (disc is <= 0 or > 99 || isDesc == false)
-            {
-                disc = 0;
-                isDesc = false;
-            }
-            else
-                discountPrice = model.Price.Price - ((model.Price.Price * model.Price.Discount) / 100);
-
-            game.GamePrice.Game = game;
-            game.GamePrice.IsDiscount = isDesc;
-            game.GamePrice.Discount = disc;
-            game.GamePrice.DiscountPrice = discountPrice;
-            game.GamePrice.Price = model.Price.Price;
-
+            AddUpdateGameImage(game, model.MainImage, model.InnerImage, model.ImageInCatalog);
+            PriceCalculation(game, model.Price);
 
             _db.Games.Update(game);
             await _db.SaveChangesAsync();
@@ -236,10 +197,47 @@ namespace Game_Step.Controllers.AllGameController
                     Game = game,
                 };
             }
-
             return (image);
         }
 
+        public GamePrice PriceCalculation(Game game, GamePrice gamePrice)
+        {
+
+            int percentDiscount = gamePrice.Discount;
+            bool isDesc = gamePrice.IsDiscount;
+            int discountPrice = 0;
+
+            if (percentDiscount is <= 0 or > 99 || isDesc == false)
+            {
+                percentDiscount = 0;
+                isDesc = false;
+            }
+            else
+                discountPrice = gamePrice.Price - ((gamePrice.Price * gamePrice.Discount) / 100);
+
+            GamePrice gp = game.GamePrice;
+
+            if (gp != null)
+            {
+                gp.IsDiscount = isDesc;
+                gp.Discount = percentDiscount;
+                gp.DiscountPrice = discountPrice;
+                gp.Price = gamePrice.Price;
+                gp.Game = game;
+            }
+            else
+            {
+                gp = new GamePrice()
+                {
+                    IsDiscount = isDesc,
+                    Discount = percentDiscount,
+                    DiscountPrice = discountPrice,
+                    Price = gamePrice.Price,
+                    Game = game,
+                };
+            }
+            return (gp);
+        }
 
 
         [HttpGet]
@@ -261,13 +259,14 @@ namespace Game_Step.Controllers.AllGameController
         {
             var game = await _db.Games.FirstOrDefaultAsync(item => item.Id == id);
 
-            if (game == null) return NotFound();
+            if (game == null)
+                return NotFound();
 
             string folderGame = _appEnvironment.WebRootPath + "/img/Game/Games/" + game.Name;
+
             if (Directory.Exists(folderGame))
-            {
                 Directory.Delete(folderGame, true);
-            }
+
 
             _db.Games.Remove(game);
             await _db.SaveChangesAsync();
@@ -277,7 +276,8 @@ namespace Game_Step.Controllers.AllGameController
 
         public async Task<IActionResult> Game(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+                return NotFound();
 
             var game = await _db.Games.Include(price => price.GamePrice)
                 .Include(image => image.GameImage)
@@ -286,7 +286,8 @@ namespace Game_Step.Controllers.AllGameController
                 .ThenInclude(subComment => subComment.SubComments)
                 .FirstOrDefaultAsync(item => item.Id == id);
 
-            if (game == null) return NotFound();
+            if (game == null)
+                return NotFound();
 
             var model = new GameViewModel
             {
@@ -294,7 +295,6 @@ namespace Game_Step.Controllers.AllGameController
             };
             return View(model);
         }
-
         public IActionResult Catalog()
         {
             return View();
