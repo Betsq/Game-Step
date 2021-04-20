@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using Game_Step.Models;
 using Game_Step.Models.GamesModel;
@@ -161,6 +162,8 @@ namespace Game_Step.Controllers.AllGameController
             var game = await _db.Games
                     .Include(item => item.GamePrice)
                     .Include(item => item.GameImage)
+                    .Include(item => item.Recommendation)
+                    .Include(item => item.Minimum)
                     .FirstOrDefaultAsync(item => item.Id == id);
 
             if (game == null)
@@ -170,6 +173,8 @@ namespace Game_Step.Controllers.AllGameController
             {
                 Game = game,
                 Price = game.GamePrice,
+                GameRecommendation = game.Recommendation,
+                GameMinimum = game.Minimum,
                 Id = game.Id,
 
                 MainImagePath = game.GameImage?.MainImage,
@@ -186,20 +191,30 @@ namespace Game_Step.Controllers.AllGameController
             var game = await _db.Games
                 .Include(item => item.GamePrice)
                 .Include(item => item.GameImage)
+                .Include(item => item.Recommendation)
+                .Include(item => item.Minimum)
                 .FirstOrDefaultAsync(item => item.Id == model.Id);
 
             if (game == null)
                 return View(model);
 
-            var gameCopy = game;
+            AddUpdateGameImage(game, model.MainImage, model.InnerImage, model.ImageInCatalog);
 
-            game = model.Game;
-            game.Id = gameCopy.Id;
+            game.Name = model.Game.Name;
+            game.QuantityOfGoods = model.Game.QuantityOfGoods;
+            game.Description = model.Game.Description;
+            game.Language = model.Game.Language;
+            game.Genre = model.Game.Genre;
+            game.Publisher = model.Game.Publisher;
+            game.Developer = model.Game.Developer;
+            game.Features = model.Game.Features;
+            game.Region = model.Game.Region;
+            game.WhereKeyActivated = model.Game.WhereKeyActivated;
+            game.ReleaseDate = model.Game.ReleaseDate;
 
-            game.GamePrice = gameCopy.GamePrice;
-            game.GameImage = gameCopy.GameImage;
-            game.GameKeys = gameCopy.GameKeys;
-            game.GameScreenshots = gameCopy.GameScreenshots;
+
+            game.Recommendation = model.GameRecommendation;
+            game.Minimum = model.GameMinimum;
 
             int disc = model.Price.Discount;
             bool isDesc = model.Price.IsDiscount;
@@ -218,7 +233,8 @@ namespace Game_Step.Controllers.AllGameController
             game.GamePrice.Discount = disc;
             game.GamePrice.DiscountPrice = discountPrice;
             game.GamePrice.Price = model.Price.Price;
-            
+
+
             _db.Games.Update(game);
             await _db.SaveChangesAsync();
 
@@ -239,17 +255,17 @@ namespace Game_Step.Controllers.AllGameController
             if (mainImage != null)
             {
                 using var filesStream = new FileStream(_appEnvironment.WebRootPath + pathMainImage, FileMode.Create);
-                mainImage.CopyToAsync(filesStream);
+                mainImage.CopyTo(filesStream);
             }
             if (innerImage != null)
             {
                 using var filesStream = new FileStream(_appEnvironment.WebRootPath + pathInnerImage, FileMode.Create);
-                innerImage.CopyToAsync(filesStream);
+                innerImage.CopyTo(filesStream);
             }
             if (imageInCatalog != null)
             {
                 using var filesStream = new FileStream(_appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create);
-                imageInCatalog.CopyToAsync(filesStream);
+                imageInCatalog.CopyTo(filesStream);
             }
 
             GameImage image = game.GameImage;
@@ -259,23 +275,23 @@ namespace Game_Step.Controllers.AllGameController
             image.ImageInCatalog = pathImageInCatalog;
             image.Game = game;
 
-            return (image);
+            return  (image);
         }
 
 
 
         [HttpGet]
         [ActionName("Delete")]
-        public async Task<IActionResult> ConfirmDelete(int? id)
+        public IActionResult ConfirmDelete(int? id)
         {
-            if (id == null) return NotFound();
+            if (id == null)
+                return NotFound();
 
-            var game = await _db.Games.FirstOrDefaultAsync(item => item.Id == id);
-            if (game != null)
-            {
-                return View(game);
-            }
-            return NotFound();
+            var game =  _db.Games.FirstOrDefault(item => item.Id == id);
+            if (game == null)
+                return NotFound();
+
+            return View(game);
         }
 
         [HttpPost]

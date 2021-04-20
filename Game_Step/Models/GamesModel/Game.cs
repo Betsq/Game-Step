@@ -21,22 +21,10 @@ namespace Game_Step.Models
         public DateTime ReleaseDate { get; set; }
         public GamePrice GamePrice { get; set; }
         public GameImage GameImage { get; set; }
+        public GameRecommendation Recommendation { get; set; }
+        public GameMinimum Minimum { get; set; }
         public List<GameScreenshot> GameScreenshots { get; set; } = new List<GameScreenshot>();
         public List<GameKey> GameKeys { get; set; } = new List<GameKey>();
-
         public List<MainComment> MainComments { get; set; }
-
-        public string RecommendOC { get; set; }
-        public string RecommendCPU { get; set; }
-        public string RecommendRAM { get; set; }
-        public string RecommendVideoCard { get; set; }
-        public string RecommendDirectX { get; set; }
-        public string RecommendHDD { get; set; }
-        public string MinimumOC { get; set; }
-        public string MinimumCPU { get; set; }
-        public string MinimumRAM { get; set; }
-        public string MinimumVideoCard { get; set; }
-        public string MinimumDirectX { get; set; }
-        public string MinimumHDD { get; set; }
     }
 }

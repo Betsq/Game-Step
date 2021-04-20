@@ -14,6 +14,8 @@ namespace Game_Step.Models
         public DbSet<GameScreenshot> GameScreenshots { get; set; }
         public DbSet<MainComment> MainComments { get; set; }
         public DbSet<SubComment> SubComments { get; set; }
+        public DbSet<GameMinimum> GameMinimums { get; set; }
+        public DbSet<GameRecommendation> GameRecommendations { get; set; }
 
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderNumber> OrderNumbers { get; set; }
