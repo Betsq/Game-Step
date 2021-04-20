@@ -17,7 +17,6 @@ namespace Game_Step.Controllers.AllGameController
     {
         private readonly ApplicationContext _db;
         private readonly IWebHostEnvironment _appEnvironment;
-
         public GameController(ApplicationContext context, IWebHostEnvironment appEnvironment)
         {
             _db = context;
@@ -25,18 +24,10 @@ namespace Game_Step.Controllers.AllGameController
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index()
-        {
-            var games = await _db.Games.ToListAsync();
-
-            return View(games);
-        }
+        public async Task<IActionResult> Index() => View(await _db.Games.ToListAsync());
 
         [HttpGet]
-        public IActionResult Create()
-        {
-            return View();
-        }
+        public IActionResult Create() => View();
 
         [HttpPost]
         public async Task<IActionResult> Create(GamesCreateViewModel model)
@@ -59,15 +50,12 @@ namespace Game_Step.Controllers.AllGameController
                 ReleaseDate = model.Game.ReleaseDate,
             };
 
-
-
             _db.GameImages.Add(AddUpdateGameImage(game, model.MainImage, model.InnerImage, model.ImageInCatalog));
             _db.GamePrices.Add(PriceCalculation(game, model.Price));
             await _db.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
-
 
         [HttpGet]
         public async Task<IActionResult> Read(int? id)
@@ -80,8 +68,6 @@ namespace Game_Step.Controllers.AllGameController
                 return NotFound();
 
             return View(game);
-
-
         }
 
         [HttpGet]
@@ -106,6 +92,7 @@ namespace Game_Step.Controllers.AllGameController
                 Price = game.GamePrice,
                 GameRecommendation = game.Recommendation,
                 GameMinimum = game.Minimum,
+                Id = game.Id,
 
                 MainImagePath = game.GameImage?.MainImage,
                 InnerImagePath = game.GameImage?.InnerImage,
@@ -123,7 +110,7 @@ namespace Game_Step.Controllers.AllGameController
                 .Include(item => item.GameImage)
                 .Include(item => item.Recommendation)
                 .Include(item => item.Minimum)
-                .FirstOrDefaultAsync(item => item.Id == model.Game.Id);
+                .FirstOrDefaultAsync(item => item.Id == model.Id);
 
             if (game == null)
                 return View(model);
@@ -204,13 +191,13 @@ namespace Game_Step.Controllers.AllGameController
         {
 
             int percentDiscount = gamePrice.Discount;
-            bool isDesc = gamePrice.IsDiscount;
+            bool isDiscount = gamePrice.IsDiscount;
             int discountPrice = 0;
 
-            if (percentDiscount is <= 0 or > 99 || isDesc == false)
+            if (percentDiscount is <= 0 or > 99 || isDiscount == false)
             {
                 percentDiscount = 0;
-                isDesc = false;
+                isDiscount = false;
             }
             else
                 discountPrice = gamePrice.Price - ((gamePrice.Price * gamePrice.Discount) / 100);
@@ -219,7 +206,7 @@ namespace Game_Step.Controllers.AllGameController
 
             if (gp != null)
             {
-                gp.IsDiscount = isDesc;
+                gp.IsDiscount = isDiscount;
                 gp.Discount = percentDiscount;
                 gp.DiscountPrice = discountPrice;
                 gp.Price = gamePrice.Price;
@@ -229,7 +216,7 @@ namespace Game_Step.Controllers.AllGameController
             {
                 gp = new GamePrice()
                 {
-                    IsDiscount = isDesc,
+                    IsDiscount = isDiscount,
                     Discount = percentDiscount,
                     DiscountPrice = discountPrice,
                     Price = gamePrice.Price,
