@@ -39,104 +39,53 @@ namespace Game_Step.Controllers.AllGameController
             return View();
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> Create(GamesCreateViewModel model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        int disc = model.Discount;
-        //        int discountPrice = 0;
-        //        if (disc < 0 || disc > 99 || model.IsDiscount == false)
-        //        {
-        //            disc = 0;
-        //            model.IsDiscount = false;
-        //        }
-        //        else
-        //            discountPrice = model.Price - ((model.Price * model.Discount) / 100);
+        [HttpPost]
+        public async Task<IActionResult> Create(GamesCreateViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            int disc = model.Price.Discount;
+            int discountPrice = 0;
+            if (disc is < 0 or > 99 || model.Price.IsDiscount == false)
+            {
+                disc = 0;
+                model.Price.IsDiscount = false;
+            }
+            else
+                discountPrice = model.Price.Price - ((model.Price.Price * model.Price.Discount) / 100);
 
 
-        //        Game game = new Game
-        //        {
-        //            Name = model.Name,
-        //            Description = model.Description,
-        //            Genre = model.Genre,
-        //            Language = model.Language,
-        //            QuantityOfGoods = model.QuantityOfGoods,
-        //            ReleaseDate = model.ReleaseDate,
-        //            Publisher = model.Publisher,
-        //            Developer = model.Developer,
-        //            Features = model.Features,
-        //            Region = model.Region,
-        //            WhereKeyActivated = model.WhereKeyActivated,
+            Game game = new()
+            {
+                Name = model.Game.Name,
+                QuantityOfGoods = model.Game.QuantityOfGoods,
+                Description = model.Game.Description,
+                Language = model.Game.Language,
+                Genre = model.Game.Genre,
+                Publisher = model.Game.Publisher,
+                Developer = model.Game.Developer,
+                Features = model.Game.Features,
+                Region = model.Game.Region,
+                WhereKeyActivated = model.Game.WhereKeyActivated,
+                ReleaseDate = model.Game.ReleaseDate,
+            };
 
-        //            RecommendOC = model.RecommendOC,
-        //            RecommendCPU = model.RecommendCPU,
-        //            RecommendRAM = model.RecommendRAM,
-        //            RecommendVideoCard = model.RecommendVideoCard,
-        //            RecommendDirectX = model.RecommendDirectX,
-        //            RecommendHDD = model.RecommendHDD,
-        //            MinimumOC = model.MinimumOC,
-        //            MinimumCPU = model.MinimumCPU,
-        //            MinimumRAM = model.MinimumRAM,
-        //            MinimumVideoCard = model.MinimumVideoCard,
-        //            MinimumDirectX = model.MinimumDirectX,
-        //            MinimumHDD = model.MinimumHDD
-        //        };
+            GamePrice gamePrice = new GamePrice
+            {
+                Price = model.Price.Price,
+                IsDiscount = model.Price.IsDiscount,
+                Discount = disc,
+                DiscountPrice = discountPrice,
+                Game = game
+            };
 
-        //        string nameFolderGame = model.Name + "/";
-        //        string folderAllGames = "/img/Game/Games/";
+            _db.GameImages.Add(AddUpdateGameImage(game, model.MainImage, model.InnerImage, model.ImageInCatalog));
+            await _db.GamePrices.AddAsync(gamePrice);
+            await _db.SaveChangesAsync();
 
-        //        Directory.CreateDirectory(_appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
-
-        //        if (model.MainImage != null)
-        //        {
-        //            string pathMainImage = folderAllGames + nameFolderGame + "Main_Image.jpg";
-        //            string pathInnerImage = folderAllGames + nameFolderGame + "Inner_Image.jpg";
-        //            string pathImageInCatalog = folderAllGames + nameFolderGame + "Image_In_Catalog.jpg";
-
-        //            using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathMainImage, FileMode.Create))
-        //                await model.MainImage.CopyToAsync(filesStream);
-
-        //            if (model.InnerImage != null)
-        //            {
-        //                using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathInnerImage, FileMode.Create))
-        //                    await model.InnerImage.CopyToAsync(filesStream);
-        //            }
-
-        //            if (model.ImageInCatalog != null)
-        //            {
-        //                using (var filesStream = new FileStream(_appEnvironment.WebRootPath + pathImageInCatalog, FileMode.Create))
-        //                    await model.ImageInCatalog.CopyToAsync(filesStream);
-        //            }
-
-        //            GameImage gameImage = new GameImage
-        //            {
-        //                MainImage = pathMainImage,
-        //                InnerImage = pathInnerImage,
-        //                ImageInCatalog = pathImageInCatalog,
-        //                Game = game,
-        //            };
-
-        //            _db.GameImages.Add(gameImage);
-        //        }
-
-        //        GamePrice gamePrice = new GamePrice
-        //        {
-        //            Price = model.Price,
-        //            IsDiscount = model.IsDiscount,
-        //            Discount = disc,
-        //            DiscountPrice = discountPrice,
-        //            Game = game
-        //        };
-
-
-        //        await _db.GamePrices.AddAsync(gamePrice);
-        //        await _db.SaveChangesAsync();
-
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(model);
-        //}
+            return RedirectToAction("Index");
+        }
 
 
         [HttpGet]
@@ -243,14 +192,14 @@ namespace Game_Step.Controllers.AllGameController
 
         public GameImage AddUpdateGameImage(Game game, IFormFile mainImage, IFormFile innerImage, IFormFile imageInCatalog)
         {
-            string nameFolderGame = game.Name + "/";
-            string folderAllGames = "/img/Game/Games/";
+            string folderAllGames = "/img/Game/Games/" + game.Name + "/";
 
-            Directory.CreateDirectory(_appEnvironment.WebRootPath + folderAllGames + nameFolderGame);
+            if (!Directory.Exists(_appEnvironment.WebRootPath + folderAllGames))
+                Directory.CreateDirectory(_appEnvironment.WebRootPath + folderAllGames);
 
-            string pathMainImage = folderAllGames + nameFolderGame + "Main_Image.jpg";
-            string pathInnerImage = folderAllGames + nameFolderGame + "Inner_Image.jpg";
-            string pathImageInCatalog = folderAllGames + nameFolderGame + "Image_In_Catalog.jpg";
+            string pathMainImage = folderAllGames + "Main_Image.jpg";
+            string pathInnerImage = folderAllGames + "Inner_Image.jpg";
+            string pathImageInCatalog = folderAllGames + "Image_In_Catalog.jpg";
 
             if (mainImage != null)
             {
@@ -270,12 +219,25 @@ namespace Game_Step.Controllers.AllGameController
 
             GameImage image = game.GameImage;
 
-            image.MainImage = pathMainImage;
-            image.InnerImage = pathInnerImage;
-            image.ImageInCatalog = pathImageInCatalog;
-            image.Game = game;
+            if (image != null)
+            {
+                image.MainImage = pathMainImage;
+                image.InnerImage = pathInnerImage;
+                image.ImageInCatalog = pathImageInCatalog;
+                image.Game = game;
+            }
+            else
+            {
+                image = new GameImage
+                {
+                    MainImage = pathMainImage,
+                    InnerImage = pathInnerImage,
+                    ImageInCatalog = pathImageInCatalog,
+                    Game = game,
+                };
+            }
 
-            return  (image);
+            return (image);
         }
 
 
@@ -287,7 +249,7 @@ namespace Game_Step.Controllers.AllGameController
             if (id == null)
                 return NotFound();
 
-            var game =  _db.Games.FirstOrDefault(item => item.Id == id);
+            var game = _db.Games.FirstOrDefault(item => item.Id == id);
             if (game == null)
                 return NotFound();
 
