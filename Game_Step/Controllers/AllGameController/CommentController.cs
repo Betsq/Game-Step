@@ -12,132 +12,97 @@ namespace Game_Step.Controllers.AllGameController
 {
     public class CommentController : Controller
     {
-        private readonly ApplicationContext db;
+        private readonly ApplicationContext _db;
 
         public CommentController(ApplicationContext db)
         {
-            this.db = db;
+            _db = db;
         }
 
         [HttpPost]
         public async Task<IActionResult> AddMainComment(GameViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Game.Id);
-                if (game != null)
-                {
-                    MainComment mainComment = new MainComment
-                    {
-                        Message = model.MainComment.Message,
-                        TimeCreated = DateTime.Now,
-                        Game = game,
-                    };
+            if (!ModelState.IsValid)
+                return Json(false);
 
-                    await db.MainComments.AddAsync(mainComment);
-                    await db.SaveChangesAsync();
-                    return Json(true);
-                }
-            }
-            return RedirectToAction("Game", "Game", model);
+            var game = await _db.Games.FirstOrDefaultAsync(item => item.Id == model.Game.Id);
+
+            if (game == null)
+                return Json(false);
+
+            var mainComment = new MainComment
+            {
+                Message = model.MainComment.Message,
+                TimeCreated = DateTime.Now,
+                Game = game,
+            };
+
+            await _db.MainComments.AddAsync(mainComment);
+            await _db.SaveChangesAsync();
+            return Json(true);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddSubComment(GameViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.Game.Id);
-                if (game != null)
-                {
-                    var mainComment = await db.MainComments.FirstOrDefaultAsync(item => item.Id == model.MainComment.Id);
-                    if (mainComment != null)
-                    {
-                        SubComment subComment = new SubComment
-                        {
-                            Message = model.MainComment.Message,
-                            TimeCreated = DateTime.Now,
-                            MainComment = mainComment,
-                        };
+            if (!ModelState.IsValid)
+                return Json(false);
 
-                        await db.SubComments.AddAsync(subComment);
-                        await db.SaveChangesAsync();
-                        return Json(true);
-                    }
-                }
-            }
-            return RedirectToAction("Game", "Game", model);
+            var game = await _db.Games.FirstOrDefaultAsync(item => item.Id == model.Game.Id);
+
+            if (game == null)
+                return Json(false);
+
+            var mainComment = await _db.MainComments.FirstOrDefaultAsync(item => item.Id == model.MainComment.Id);
+            if (mainComment == null)
+                return Json(false);
+
+            var subComment = new SubComment
+            {
+                Message = model.MainComment.Message,
+                TimeCreated = DateTime.Now,
+                MainComment = mainComment,
+            };
+
+            await _db.SubComments.AddAsync(subComment);
+            await _db.SaveChangesAsync();
+            return Json(true);
         }
 
         [HttpPost]
         public JsonResult RemoveMainComment(int? id)
         {
-            if (id != null)
-            {
-                var mainComment = db.MainComments
-                                .FirstOrDefault(item => item.Id == id);
+            if (id == null)
+                return Json(false);
 
-                if (mainComment != null)
-                {
-                    db.MainComments.Remove(mainComment);
-                    db.SaveChanges();
+            var mainComment = _db.MainComments
+                .FirstOrDefault(item => item.Id == id);
 
-                    return Json(true);
-                }
+            if (mainComment == null)
+                return Json(false);
 
-            }
-            return Json(false);
+            _db.MainComments.Remove(mainComment);
+            _db.SaveChanges();
+
+            return Json(true);
         }
 
         [HttpPost]
         public JsonResult RemoveSubComment(int? id)
         {
-            if (id != null)
-            {
-                var subComment = db.SubComments
-                                .FirstOrDefault(item => item.Id == id);
+            if (id == null)
+                return Json(false);
 
-                if (subComment != null)
-                {
-                    db.SubComments.Remove(subComment);
-                    db.SaveChanges();
+            var subComment = _db.SubComments
+                .FirstOrDefault(item => item.Id == id);
 
-                    return Json(true);
-                }
+            if (subComment == null) 
+                return Json(false);
 
-            }
-            return Json(false);
-        }
+            _db.SubComments.Remove(subComment);
+            _db.SaveChanges();
 
-        [HttpGet]
-        public async Task<IActionResult> MainCommentChecking()
-        {
-            var mainComments = await db.MainComments.Where(confirm => confirm.IsCommentChecked == false).ToListAsync();
-            CommentCheckingViewModel model = new CommentCheckingViewModel
-            {
-               MainComment = mainComments,
-            };
-            return View(model);
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> MainCommentChecking(CommentCheckingViewModel model)
-        {
-            foreach (var item in model.Items)
-            {
-                if (item.Value == true)
-                {
-                    var mainComment = await db.MainComments
-                        .FirstOrDefaultAsync(comm => comm.Id == item.Key);
-                    if (mainComment != null)
-                    {
-                        mainComment.IsCommentChecked = true;
-                        db.MainComments.Update(mainComment);
-                    }
-                }
-            }
-            await db.SaveChangesAsync();
-            return RedirectToAction("ControlPanel", "Home");
+            return Json(true);
         }
     }
 }
