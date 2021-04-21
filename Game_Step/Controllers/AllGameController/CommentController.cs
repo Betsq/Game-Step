@@ -20,7 +20,7 @@ namespace Game_Step.Controllers.AllGameController
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddMainComment(GameViewModel model)
+        public async Task<JsonResult> AddMainComment(GameViewModel model)
         {
             if (!ModelState.IsValid)
                 return Json(false);
@@ -43,7 +43,7 @@ namespace Game_Step.Controllers.AllGameController
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddSubComment(GameViewModel model)
+        public async Task<JsonResult> AddSubComment(GameViewModel model)
         {
             if (!ModelState.IsValid)
                 return Json(false);
@@ -88,7 +88,7 @@ namespace Game_Step.Controllers.AllGameController
         }
 
         [HttpPost]
-        public JsonResult RemoveSubComment(int? id)
+        public async Task<JsonResult> RemoveSubComment(int? id)
         {
             if (id == null)
                 return Json(false);
@@ -100,7 +100,7 @@ namespace Game_Step.Controllers.AllGameController
                 return Json(false);
 
             _db.SubComments.Remove(subComment);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             return Json(true);
         }
