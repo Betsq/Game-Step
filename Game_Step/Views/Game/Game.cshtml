@@ -24,7 +24,7 @@
     <div class="product-content">
         <div class="product-left">
             <div class="scale-img main-img">
-                <img class="scale-img" src="@Model.Game.GameImage?.InnerImage" />
+                <img class="scale-img" src="@Model.Game.GameImage?.InnerImage" alt="Image game"/>
                 <div class="text-screenshot" onclick="toggleScreenshotPopup()">Скриншоты</div>
             </div>
 
@@ -37,7 +37,7 @@
                         Моментальная доставка
                     </li>
                     <li>
-                        Лицензионный ключ активации в Origin
+                        Лицензионный ключ активации в @Model.Game.WhereKeyActivated
                     </li>
                     <li>
                         Накопительная скидка до 10%
@@ -66,6 +66,10 @@
                     <li>
                         <div class="product-info-key">Region</div>
                         <div class="product-info-value">@Model.Game.Region</div>
+                    </li>
+                    <li>
+                        <div class="product-info-key">Release date</div>
+                        <div class="product-info-value">@Model.Game.ReleaseDate.ToShortDateString()</div>
                     </li>
                 </ul>
             </div>

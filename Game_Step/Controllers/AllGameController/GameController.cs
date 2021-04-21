@@ -268,6 +268,8 @@ namespace Game_Step.Controllers.AllGameController
 
             var game = await _db.Games.Include(price => price.GamePrice)
                 .Include(image => image.GameImage)
+                .Include(min => min.Minimum)
+                .Include(rec => rec.Recommendation)
                 .Include(screenshots => screenshots.GameScreenshots)
                 .Include(comment => comment.MainComments)
                 .ThenInclude(subComment => subComment.SubComments)
