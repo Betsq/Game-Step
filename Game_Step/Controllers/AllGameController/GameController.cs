@@ -86,7 +86,7 @@ namespace Game_Step.Controllers.AllGameController
             if (game == null)
                 return NotFound();
 
-            GamesUpdateViewModel gamesViewModel = new GamesUpdateViewModel
+            var gamesViewModel = new GamesUpdateViewModel
             {
                 Game = game,
                 Price = game.GamePrice,
@@ -189,7 +189,6 @@ namespace Game_Step.Controllers.AllGameController
 
         public GamePrice PriceCalculation(Game game, GamePrice gamePrice)
         {
-
             int percentDiscount = gamePrice.Discount;
             bool isDiscount = gamePrice.IsDiscount;
             int discountPrice = 0;
@@ -226,7 +225,6 @@ namespace Game_Step.Controllers.AllGameController
             return (gp);
         }
 
-
         [HttpGet]
         [ActionName("Delete")]
         public IActionResult ConfirmDelete(int? id)
@@ -244,16 +242,18 @@ namespace Game_Step.Controllers.AllGameController
         [HttpPost]
         public async Task<IActionResult> Delete(int? id)
         {
-            var game = await _db.Games.FirstOrDefaultAsync(item => item.Id == id);
+            if (id == null)
+                return RedirectToAction("Index");
+
+            var game = _db.Games.FirstOrDefault(item => item.Id == id);
 
             if (game == null)
-                return NotFound();
+                return RedirectToAction("Index");
 
             string folderGame = _appEnvironment.WebRootPath + "/img/Game/Games/" + game.Name;
 
             if (Directory.Exists(folderGame))
                 Directory.Delete(folderGame, true);
-
 
             _db.Games.Remove(game);
             await _db.SaveChangesAsync();
