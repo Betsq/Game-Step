@@ -70,7 +70,7 @@ namespace Game_Step.Controllers.AllGameController
         }
 
         [HttpPost]
-        public JsonResult RemoveMainComment(int? id)
+        public async Task<JsonResult> RemoveMainComment(int? id)
         {
             if (id == null)
                 return Json(false);
@@ -82,7 +82,7 @@ namespace Game_Step.Controllers.AllGameController
                 return Json(false);
 
             _db.MainComments.Remove(mainComment);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             return Json(true);
         }
