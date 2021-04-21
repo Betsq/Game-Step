@@ -24,109 +24,106 @@ namespace Game_Step.Controllers.AllGameController
         [HttpGet]
         public async Task<IActionResult> Update(int? id)
         {
-            if (id != null)
-            {
-                var gameScreenshot = await db.GameScreenshots.Where(item => item.GameId == id)
-                    .OrderBy(item => item.Screenshot).ToListAsync();
-                var gameImage = await db.GameImages.FirstOrDefaultAsync(image => image.GameId == id);
-                var game = await db.Games.FirstOrDefaultAsync(image => image.Id == id);
+            if (id == null)
+                return NotFound();
 
-                if (gameImage != null && game != null)
-                {
-                    var screenshotViewModel = new GamesScreenshotViewModel()
-                    {
-                        GameId = game.Id,
-                        Name = game.Name,
-                        PathImage = gameImage.InnerImage,
-                        GameScreenshotsList = gameScreenshot,
-                    };
-                    return View(screenshotViewModel);
-                }
-            }
-            return NotFound();
+            var game = await db.Games
+                .Include(gameScreen => gameScreen.GameScreenshots)
+                .Include(img => img.GameImage)
+                .FirstOrDefaultAsync(image => image.Id == id);
+
+            if (game == null)
+                return NotFound();
+
+            var screenshotsViewModel = new GamesScreenshotViewModel()
+            {
+                GameId = game.Id,
+                Name = game.Name,
+                PathImage = game.GameImage.InnerImage,
+                GameScreenshotsList = game.GameScreenshots,
+            };
+
+            return View(screenshotsViewModel);
         }
 
 
         [HttpGet]
         public async Task<JsonResult> Delete(int? id)
         {
-            if (id != null)
-            {
-                var gameScreenshot = await db.GameScreenshots.FirstOrDefaultAsync(image => image.Id == id);
-                if (gameScreenshot != null)
-                {
-                    string pathToFile = appEnvironment.WebRootPath + gameScreenshot.Screenshot;
-                    FileInfo fileImg = new FileInfo(pathToFile);
-                    if (fileImg.Exists)
-                    {
-                        fileImg.Delete();
-                    }
+            if (id == null)
+                return Json(false);
 
-                    db.GameScreenshots.Remove(gameScreenshot);
-                    await db.SaveChangesAsync();
+            var gameScreenshots = await db.GameScreenshots
+                .FirstOrDefaultAsync(image => image.Id == id);
 
-                    return Json(true);
-                }
-            }
-            return Json(false);
+            if (gameScreenshots == null)
+                return Json(false);
+
+            string pathToFile = appEnvironment.WebRootPath + gameScreenshots.Screenshot;
+
+            var fileImg = new FileInfo(pathToFile);
+            if (fileImg.Exists)
+                fileImg.Delete();
+
+            db.GameScreenshots.Remove(gameScreenshots);
+            await db.SaveChangesAsync();
+
+            return Json(true);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddScreenshot(GamesScreenshotViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return NotFound();
+
+            var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.GameId);
+
+            if (game == null)
+                return NotFound();
+
+            string folderAllGames = "/img/Game/Games/" + game.Name + "/";
+            int countScreenshots = 1;
+
+            if (model.Screenshots == null)
+                return RedirectToAction("Update", "GameScreenshot", new { id = model.GameId });
+
+            foreach (var screenshot in model.Screenshots)
             {
-                var game = await db.Games.FirstOrDefaultAsync(item => item.Id == model.GameId);
-
-                if (game != null)
+                bool isHaveScreenshots = true;
+                while (isHaveScreenshots)
                 {
-                    string folderAllGames = "/img/Game/Games/" + game.Name + "/";
-                    int countScreenshot = 1;
+                    string pathToScreenshot = folderAllGames + "Screenshot" + countScreenshots.ToString() + ".jpg";
+                    FileInfo fileImg = new FileInfo(appEnvironment.WebRootPath + pathToScreenshot);
 
-                    if (model.Screenshots != null)
+                    if (!fileImg.Exists)
                     {
-                        foreach (var screenshot in model.Screenshots)
+                        countScreenshots++;
+                        isHaveScreenshots = false;
+                        using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathToScreenshot, FileMode.Create))
                         {
-
-                            bool isHaveScreenshot = true;
-                            while (isHaveScreenshot)
-                            {
-                                string pathToScreenshot = folderAllGames + "Screenshot" + countScreenshot.ToString() + ".jpg";
-                                FileInfo fileImg = new FileInfo(appEnvironment.WebRootPath + pathToScreenshot);
-                                if (!fileImg.Exists)
-                                {
-                                    countScreenshot++;
-                                    isHaveScreenshot = false;
-                                    using (var filesStream = new FileStream(appEnvironment.WebRootPath + pathToScreenshot, FileMode.Create))
-                                    {
-                                        await screenshot.CopyToAsync(filesStream);
-                                    }
-
-                                    GameScreenshot gameScreenshot = new GameScreenshot
-                                    {
-                                        Screenshot = pathToScreenshot,
-                                        Game = game,
-                                    };
-                                    db.GameScreenshots.Add(gameScreenshot);
-
-                                }
-                                else
-                                {
-                                    countScreenshot++;
-                                }
-                            }
+                            await screenshot.CopyToAsync(filesStream);
                         }
-                        await db.SaveChangesAsync();
+
+                        var gameScreenshot = new GameScreenshot
+                        {
+                            Screenshot = pathToScreenshot,
+                            Game = game,
+                        };
+
+                        db.GameScreenshots.Add(gameScreenshot);
+                    }
+                    else
+                    {
+                        countScreenshots++;
                     }
                 }
             }
+            await db.SaveChangesAsync();
             return RedirectToAction("Update", "GameScreenshot", new {id =  model.GameId});
         }
 
         [HttpGet]
-        public IActionResult CallScreenshotPopup()
-        {
-            return ViewComponent("Screenshot");
-        }
+        public IActionResult CallScreenshotPopup() => ViewComponent("Screenshot");
     }
 }
