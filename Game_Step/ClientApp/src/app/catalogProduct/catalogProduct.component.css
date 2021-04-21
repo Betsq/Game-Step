@@ -1,0 +1,384 @@
+﻿.main-content {
+    position: relative;
+    margin: 0 auto;
+    max-width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.product-content {
+    position: relative;
+    max-width: 1236px;
+    display: flex;
+    margin: auto auto;
+    margin-top: 24px;
+}
+
+
+.catalog-item {
+    padding: 19px 22px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+    background-color: white;
+    margin-bottom: 3px;
+}
+
+    .catalog-item:hover {
+        color: black;
+        -webkit-box-shadow: 0 0 17px 0 #223c50;
+        -webkit-box-shadow: 0 0 17px 0 rgba(34, 60, 80, 0.4);
+        -moz-box-shadow: 0 0 17px 0 #223c50;
+        -moz-box-shadow: 0 0 17px 0 rgba(34, 60, 80, 0.4);
+        box-shadow: 0 0 17px 0 #223c50;
+        box-shadow: 0 0 17px 0 rgba(34, 60, 80, 0.4);
+    }
+
+.catalog-item__container-img {
+    width: 152px;
+    min-width: 152px;
+    max-height: 72px;
+}
+
+.catalog-item__img {
+    max-width: 100%;
+    max-height: 72px;
+}
+
+.catalog-item__info {
+    margin-left: 22px;
+    vertical-align: middle;
+    align-items: center;
+}
+
+.catalog-item__name {
+    font-size: 16px;
+}
+
+.catalog-item__more-info {
+    display: flex;
+    font-size: 14px;
+    margin-top: 15px;
+}
+
+.catalog-item__activate {
+    margin-right: 20px;
+    min-width: 25px;
+    min-height: 25px;
+}
+
+    .catalog-item__activate img {
+        width: 32px;
+        height: 32px;
+    }
+
+.catalog-item__genre {
+    color: #D7D7D7;
+    display: flex;
+    align-items: center;
+}
+
+.catalog-item__price {
+    flex: 1 auto;
+    justify-content: flex-end;
+    display: flex;
+    align-items: center;
+}
+
+.catalog-item__discount {
+    padding: 3px;
+    min-width: 55px;
+    margin-right: 8px;
+    font-size: 14px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    background-color: #ff9900;
+}
+
+.catalog-item__cur-price {
+    font-weight: 700;
+    font-size: 18px;
+    min-width: 63px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.aside {
+    width: 33%;
+}
+
+.aside__filter-block {
+    padding: 15px 30px;
+    background-color: #e9e8e8;
+    margin-left: 25px;
+    margin-bottom: 3px;
+}
+
+.noUi-target {
+    background-color: #c3c3c3;
+    border: none;
+    box-shadow: none;
+    height: 3px;
+}
+
+.noUi-connect {
+    background-color: #4C8BEA;
+}
+
+.noUi-handle::after,
+.noUi-handle::before {
+    display: none;
+}
+
+.noUi-handle {
+    box-shadow: none;
+    border-radius: 100%;
+    border: 2px solid #c3c3c3;
+    cursor: pointer;
+}
+
+    .noUi-handle:focus {
+        outline: none;
+    }
+
+.noUi-horizontal .noUi-handle {
+    width: 20px;
+    height: 20px;
+    top: -8px;
+    right: -11px;
+}
+
+.aside__container-price {
+    display: flex;
+    margin-top: 30px;
+}
+
+.aside__container-minPrice,
+.aside__container-maxPrice {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.aside__container-maxPrice {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.aside__minPrice-text,
+.aside__maxPrice-text {
+    position: absolute;
+    left: 8px;
+    top: 4px;
+    text-transform: lowercase;
+    cursor: not-allowed;
+}
+
+.aside__maxPrice-text {
+    left: 25px;
+}
+
+#minPrice,
+#maxPrice {
+    width: 90%;
+    padding: 5px 10px 5px 30px;
+    box-sizing: border-box;
+    border-radius: 0;
+    border: 1px solid #c3c3c3;
+    cursor: not-allowed;
+}
+
+.aside__filter-block-name {
+    display: flex;
+    justify-content: center;
+    font-size: 17px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.aside__tags-select {
+    width: 100%;
+    padding: 5px 0 5px 0;
+    border-radius: 0;
+    border: 1px solid #c3c3c3;
+}
+
+    .aside__tags-select:focus {
+        outline: none;
+    }
+
+.aside__tags-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
+    text-overflow: '';
+    cursor: pointer;
+}
+
+.aside__container-select {
+    position: relative;
+}
+
+.aside__select-arrow {
+    width: 15px;
+    height: 15px;
+    position: absolute;
+    top: 6px;
+    right: 15px;
+}
+
+.aside__tags-list {
+    list-style: none;
+    padding: 0;
+}
+
+.aside__tags-item-label {
+    display: inline-block;
+    margin: 0 0 10px 0;
+    line-height: 22px;
+    cursor: pointer;
+    user-select: none;
+}
+
+    .aside__tags-item-label:hover {
+        color: #ff9900;
+    }
+
+    .aside__tags-item-label input[type=checkbox] {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        display: inline-block;
+        width: 25px;
+        height: 25px;
+        margin: 0 5px 0 0;
+        padding: 0;
+        vertical-align: top;
+        outline: none;
+        transition: background 0.3s ease;
+        background: url("/img/Catalog product/tick_box1.png") 0 0 no-repeat; cursor: pointer;
+    }
+
+.aside__item-img {
+    display: flex;
+    align-items: center;
+}
+
+    .aside__item-img input[type=checkbox] {
+        width: 30px;
+        height: 30px;
+    }
+
+.aside__tags-item-label input[type=checkbox]:checked {
+    background-image: url("/img/Catalog product/tick_box2.png");
+}
+
+.aside__container-select-year {
+    display: flex;
+}
+
+.aside__select-year {
+    width: 100%;
+    padding: 4px 10px 4px 0;
+}
+
+    .aside__select-year:focus {
+        outline: none;
+    }
+
+#minYear {
+    margin-right: 25px;
+}
+
+#single input[type=checkbox] {
+    background: url("/img/Catalog product/1person30px.png") !important;
+}
+
+    #single input[type=checkbox]:checked {
+        background: url("/img/Catalog product/1personOr30px.png") !important;
+    }
+
+#cooperative-mode input[type=checkbox] {
+    background: url("/img/Catalog product/2people30px.png") !important;
+}
+
+    #cooperative-mode input[type=checkbox]:checked {
+        background: url("/img/Catalog product/2peopleOr30px.png") !important;
+    }
+
+#online-game input[type=checkbox] {
+    background: url("/img/Catalog product/3people30px.png") !important;
+}
+
+    #online-game input[type=checkbox]:checked {
+        background: url("/img/Catalog product/3peopleOr30px.png") !important;
+    }
+
+#steam-achievement input[type=checkbox] {
+    background: url("/img/Catalog product/steam30px.png") !important;
+}
+
+    #steam-achievement input[type=checkbox]:checked {
+        background: url("/img/Catalog product/steamOr30px.png") !important;
+    }
+
+#controller input[type=checkbox] {
+    background: url("/img/Catalog product/game_controller30px.png") !important;
+}
+
+    #controller input[type=checkbox]:checked {
+        background: url("/img/Catalog product/game_controllerOr30px.png") !important;
+    }
+
+#collectible-cards input[type=checkbox] {
+    background: url("/img/Catalog product/cards30px.png") !important;
+}
+
+    #collectible-cards input[type=checkbox]:checked {
+        background: url("/img/Catalog product/cardsOr30px.png") !important;
+    }
+
+#virtual-reality input[type=checkbox] {
+    background: url("/img/Catalog product/virtual_reality30px.png") !important;
+}
+
+    #virtual-reality input[type=checkbox]:checked {
+        background: url("/img/Catalog product/virtual_realityOr30px.png") !important;
+    }
+
+#DLC input[type=checkbox] {
+    background: url("/img/Catalog product/dlc30px.png") !important;
+}
+
+    #DLC input[type=checkbox]:checked {
+        background: url("/img/Catalog product/dlcOr30px.png") !important;
+    }
+
+#windows input[type=checkbox] {
+    background: url("/img/Catalog product/windows10_30px.png") !important;
+}
+
+    #windows input[type=checkbox]:checked {
+        background: url("/img/Catalog product/windows10Or_30px.png") !important;
+    }
+
+#mac input[type=checkbox] {
+    background: url("/img/Catalog product/apple_logo30px.png") !important;
+}
+
+    #mac input[type=checkbox]:checked {
+        background: url("/img/Catalog product/apple_logoOr30px.png") !important;
+    }
+
+#linux input[type=checkbox] {
+    background: url("/img/Catalog product/linux30px.png") !important;
+}
+
+    #linux input[type=checkbox]:checked {
+        background: url("/img/Catalog product/linuxOr30px.png") !important;
+    }

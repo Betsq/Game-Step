@@ -1,9 +1,28 @@
-﻿body, html {
+﻿@font-face {
+    font-family: Roboto;
+    src: url("/fonts/Roboto-Regular.ttf");
+}
+
+body,
+html {
     margin: 0;
     padding: 0;
     height: 100%;
+    background-color: #f3f3f3;
 }
 
-nav, ul, li {
-    display: block;
+.main-content {
+    position: relative;
+    margin: 0 auto;
+    max-width: 100%;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.product-content {
+    position: relative;
+    max-width: 1236px;
+    display: flex;
+    margin: auto auto;
+    margin-top: 24px;
 }
