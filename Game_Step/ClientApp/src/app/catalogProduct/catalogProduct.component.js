@@ -6,6 +6,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { Component } from "@angular/core";
 let CatalogProductComponent = class CatalogProductComponent {
+    ngOnInit() {
+    }
+    ;
 };
 CatalogProductComponent = __decorate([
     Component({

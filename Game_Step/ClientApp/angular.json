@@ -14,8 +14,16 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.json",
-            "aot": true
+            "aot": true,
+            "styles": [
+              "src/assets/noUiSlider/nouislider.min.css"
+            ],
+            "scripts": [
+              "src/assets/noUiSlider/nouislider.min.js",
+              "src/assets/noUiSlider/initNoUiSlider.js"
+            ]
           },
+          
           "configurations": {
             "production": {
               "optimization": true,
