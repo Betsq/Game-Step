@@ -6,6 +6,8 @@ import { Routes, RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 import { AppComponent } from "./app.component";
 
+import { HttpClientModule } from "@angular/common/http";
+
 import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
 import { CatalogProductComponent } from "./catalogProduct/catalogProduct.component";
@@ -16,7 +18,12 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-    imports: [BrowserModule, FormsModule, RouterModule.forRoot(appRoutes)],
+    imports: [
+        BrowserModule,
+        FormsModule,
+        RouterModule.forRoot(appRoutes),
+        HttpClientModule
+    ],
     declarations: [
         AppComponent,
         HeaderComponent,

@@ -40,6 +40,7 @@ namespace Game_Step
                 .AddDefaultTokenProviders();
 
             services.AddControllersWithViews();
+            services.AddControllers();
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -78,11 +79,14 @@ namespace Game_Step
             app.UseAuthentication();
             app.UseAuthorization();
             app.UseSession();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllers();
             });
 
             app.UseSpa(spa =>

@@ -5,16 +5,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Component } from "@angular/core";
+import { Product } from "../product";
+import { DataService } from "../data.service";
 let CatalogProductComponent = class CatalogProductComponent {
-    ngOnInit() {
+    constructor(dataService) {
+        this.dataService = dataService;
+        this.product = new Product();
+        this.tableMode = true;
     }
-    ;
+    ngOnInit() {
+        this.loadProducts();
+    }
+    loadProducts() {
+        this.dataService.getProducts()
+            .subscribe((data) => this.products = data);
+    }
 };
 CatalogProductComponent = __decorate([
     Component({
         selector: "catalog-product",
         templateUrl: "./catalogProduct.component.html",
-        styleUrls: ["./catalogProduct.component.css"]
+        styleUrls: ["./catalogProduct.component.css"],
+        providers: [DataService]
     })
 ], CatalogProductComponent);
 export { CatalogProductComponent };

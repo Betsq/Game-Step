@@ -1,31 +1,37 @@
 ﻿<div class="main-content">
     <div class="product-content">
         <div style="flex: 1">
-            <a class="catalog-item">
-                <div class="catalog-item__container-img">
-                    <img class="catalog-item__img" src="/img/Game/Games/FALLOUT 4/Image_In_Catalog.jpg" alt="">
-                </div>
+            <div *ngFor="let p of products">
+                <a class="catalog-item" href="/Game/Game/{{p?.id}}">
+                    <div class="catalog-item__container-img">
+                        <img class="catalog-item__img" src="{{p?.image}}" alt="">
+                    </div>
 
-                <div class="catalog-item__info">
-                    <div class="catalog-item__name">Sims 4</div>
-                    <div class="catalog-item__more-info">
-                        <div class="catalog-item__activate">
-                            <img src="/img/Game/logo/steam.png" alt="steam">
+                    <div class="catalog-item__info">
+                        <div class="catalog-item__name">{{p?.name}}</div>
+                        <div class="catalog-item__more-info">
+                            <div class="catalog-item__activate">
+                                <img src="/img/Game/logo/steam.png" alt="steam">
+                            </div>
+                            <div class="catalog-item__genre"> Экшены, RPG</div>
                         </div>
-                        <div class="catalog-item__genre"> Экшены, RPG</div>
                     </div>
-                </div>
 
-                <div class="catalog-item__price">
-                    <div class="catalog-item__discount">
-                        -30%
+                    <div class="catalog-item__price" *ngIf="p?.isDiscount">
+                        <div class="catalog-item__discount">
+                            -{{p?.discount}}%
+                        </div>
+                        <div class="catalog-item__cur-price">
+                            {{p?.priceDiscount}} $
+                        </div>
                     </div>
-                    <div class="catalog-item__cur-price">
-                        299 $
+                    <div class="catalog-item__price" *ngIf="!p?.isDiscount">
+                        <div class="catalog-item__cur-price">
+                            {{p?.price}} $
+                        </div>
                     </div>
-                </div>
-            </a>
-
+                </a>
+            </div>
         </div>
 
         <aside class="aside">
