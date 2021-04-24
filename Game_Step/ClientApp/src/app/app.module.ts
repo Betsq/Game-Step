@@ -12,6 +12,9 @@ import { HeaderComponent } from "./header/header.component";
 import { HomeComponent } from "./home/home.component";
 import { CatalogProductComponent } from "./catalogProduct/catalogProduct.component";
 
+import { InfiniteScrollModule } from "ngx-infinite-scroll";
+import { NgxSpinnerModule } from "ngx-spinner";
+
 const appRoutes: Routes = [
 /*{path: "", component: HomeComponent},*/
     {path: "CatalogProduct", component: CatalogProductComponent}
@@ -22,7 +25,9 @@ const appRoutes: Routes = [
         BrowserModule,
         FormsModule,
         RouterModule.forRoot(appRoutes),
-        HttpClientModule
+        HttpClientModule,
+        InfiniteScrollModule,
+        NgxSpinnerModule
     ],
     declarations: [
         AppComponent,

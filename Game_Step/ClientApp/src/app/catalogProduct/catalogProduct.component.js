@@ -5,13 +5,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import { Component } from "@angular/core";
-import { Product } from "../product";
 import { DataService } from "../data.service";
 let CatalogProductComponent = class CatalogProductComponent {
     constructor(dataService) {
         this.dataService = dataService;
-        this.product = new Product();
-        this.tableMode = true;
     }
     ngOnInit() {
         this.loadProducts();
