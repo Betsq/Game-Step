@@ -1,7 +1,10 @@
 ﻿import { Component, OnInit } from "@angular/core";
+import { HttpClient } from "@angular/common/http"
 
 import { Product } from "../product"
 import { DataService } from "../data.service";
+
+import { NgxSpinnerService } from "ngx-spinner";
 
 @
     Component({
@@ -11,17 +14,36 @@ import { DataService } from "../data.service";
         providers: [DataService]
     })
 
-export class CatalogProductComponent implements OnInit{
-    products: Product[];
+export class CatalogProductComponent implements OnInit {
 
-    constructor(private dataService: DataService) { }
+    products: Product[];
+    notEmptyPost = true;
+    notScrolly = true;
+    private url = "/api/catalog";
+
+    countPg = 1;
+   
+
+    constructor(private http: HttpClient, private spinner: NgxSpinnerService) { }
 
     ngOnInit() {
-        this.loadProducts();    
+        this.loadProducts();
+    }
+
+    loadProducts() {
+        this.getProducts(this.countPg)
+            .subscribe((data: Product[]) => this.products = data);
+    }
+
+    getProducts(countPag: number) {
+        return this.http.get(this.url + "/" + countPag);
     }
     
-    loadProducts() {
-        this.dataService.getProducts()
-            .subscribe((data: Product[]) => this.products = data);
+    onScroll() {
+        console.log("dd");
+        this.countPg++;
+
+        this.getProducts(this.countPg)
+            .subscribe((data: Product[]) => this.products = this.products.concat(data) );
     }
 }

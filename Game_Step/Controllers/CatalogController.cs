@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using Game_Step.Models;
@@ -17,20 +18,20 @@ namespace Game_Step.CatalogController
             _db = db;
         }
 
-        [HttpGet]
-        public IEnumerable<CatalogViewModel> Get()
+        [HttpGet("{countPag}")]
+        public IEnumerable<CatalogViewModel> Get(int countPag)
         {
+            int size = 8;
 
-            var gameList = new List<CatalogViewModel>();
+            var game = _db.Games
+                    .Include(price => price.GamePrice)
+                    .Include(img => img.GameImage)
+                    .Skip((countPag - 1) * size).Take(size).ToList();
 
-            var game =_db.Games
-                .Include(price => price.GamePrice)
-                .Include(img => img.GameImage)
-                .ToList();
+            
 
-            foreach (var g in game)
-            {
-                var ga = new CatalogViewModel()
+            Console.WriteLine(countPag);
+            return game.Select(g => new CatalogViewModel()
                 {
                     Id = g.Id,
                     Image = g.GameImage.ImageInCatalog,
@@ -41,11 +42,9 @@ namespace Game_Step.CatalogController
                     Discount = g.GamePrice.Discount,
                     PriceDiscount = g.GamePrice.DiscountPrice,
                     Price = g.GamePrice.Price
-                };
-                gameList.Add(ga);
-            }
-
-            return gameList;
+                })
+                .ToList();
+            
         }
     }
 }

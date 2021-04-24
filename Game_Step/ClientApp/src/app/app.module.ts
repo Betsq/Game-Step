@@ -3,6 +3,7 @@ import { BrowserModule } from "@angular/platform-browser";
 
 import { Routes, RouterModule } from "@angular/router";
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from "@angular/forms";
 import { AppComponent } from "./app.component";
 
@@ -27,7 +28,8 @@ const appRoutes: Routes = [
         RouterModule.forRoot(appRoutes),
         HttpClientModule,
         InfiniteScrollModule,
-        NgxSpinnerModule
+        NgxSpinnerModule,
+        BrowserAnimationsModule
     ],
     declarations: [
         AppComponent,

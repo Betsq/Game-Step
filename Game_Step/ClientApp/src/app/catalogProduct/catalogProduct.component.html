@@ -1,36 +1,42 @@
 ﻿<div class="main-content">
     <div class="product-content">
-        <div style="flex: 1">
-            <div *ngFor="let p of products">
-                <a class="catalog-item" href="/Game/Game/{{p?.id}}">
-                    <div class="catalog-item__container-img">
-                        <img class="catalog-item__img" src="{{p?.image}}" alt="">
-                    </div>
+        <div style="flex: 1; position: relative">
+            <div infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
+                <div *ngFor="let p of products">
+                    <a class="catalog-item" href="/Game/Game/{{p?.id}}">
+                        <div class="catalog-item__container-img">
+                            <img class="catalog-item__img" src="{{p?.image}}" alt="">
+                        </div>
 
-                    <div class="catalog-item__info">
-                        <div class="catalog-item__name">{{p?.name}}</div>
-                        <div class="catalog-item__more-info">
-                            <div class="catalog-item__activate">
-                                <img src="/img/Game/logo/steam.png" alt="steam">
+                        <div class="catalog-item__info">
+                            <div class="catalog-item__name">{{p?.name}}</div>
+                            <div class="catalog-item__more-info">
+                                <div class="catalog-item__activate">
+                                    <img src="/img/Game/logo/steam.png" alt="steam">
+                                </div>
+                                <div class="catalog-item__genre"> Экшены, RPG</div>
                             </div>
-                            <div class="catalog-item__genre"> Экшены, RPG</div>
                         </div>
-                    </div>
 
-                    <div class="catalog-item__price" *ngIf="p?.isDiscount">
-                        <div class="catalog-item__discount">
-                            -{{p?.discount}}%
+                        <div class="catalog-item__price" *ngIf="p?.isDiscount">
+                            <div class="catalog-item__discount">
+                                -{{p?.discount}}%
+                            </div>
+                            <div class="catalog-item__cur-price">
+                                {{p?.priceDiscount}} $
+                            </div>
                         </div>
-                        <div class="catalog-item__cur-price">
-                            {{p?.priceDiscount}} $
+                        <div class="catalog-item__price" *ngIf="!p?.isDiscount">
+                            <div class="catalog-item__cur-price">
+                                {{p?.price}} $
+                            </div>
                         </div>
-                    </div>
-                    <div class="catalog-item__price" *ngIf="!p?.isDiscount">
-                        <div class="catalog-item__cur-price">
-                            {{p?.price}} $
-                        </div>
-                    </div>
-                </a>
+                    </a>
+                </div>
+            </div>
+            <!--Spinner-->
+            <div style="position: relative; width: 100%; height: 100px" >
+                <ngx-spinner bdColor="rgba(0,0,0,0)" size="default" color="#ff9900" type="pacman" [fullScreen]="false"></ngx-spinner>
             </div>
         </div>
 

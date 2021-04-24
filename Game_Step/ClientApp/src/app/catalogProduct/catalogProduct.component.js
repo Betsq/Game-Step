@@ -7,15 +7,25 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { Component } from "@angular/core";
 import { DataService } from "../data.service";
 let CatalogProductComponent = class CatalogProductComponent {
-    constructor(dataService) {
-        this.dataService = dataService;
+    constructor(http, spinner) {
+        this.http = http;
+        this.spinner = spinner;
+        this.notEmptyPost = true;
+        this.notScrolly = true;
+        this.url = "/api/catalog";
+        this.countPg = 1;
     }
     ngOnInit() {
         this.loadProducts();
     }
     loadProducts() {
-        this.dataService.getProducts()
+        this.getProducts(this.countPg)
             .subscribe((data) => this.products = data);
+    }
+    getProducts(countPag) {
+        return this.http.get(this.url + "/" + countPag);
+    }
+    onScroll() {
     }
 };
 CatalogProductComponent = __decorate([
