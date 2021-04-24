@@ -41,13 +41,8 @@
 
             <div class="catalog">
                 <div class="catalog-novetly">
-                    @foreach (var g in Model.Games.OrderByDescending(item => item.Name))
+                    @foreach (var g in Model.Games.Take(8).OrderByDescending(item => item.Name))
                     {
-                        @if (counter == 8)
-                        {
-                            counter = 0;
-                            break;
-                        }
                         <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@g.Id">
                             <div class="block-img-catalog-item">
                                 <img class="img-catalog-item" src="@g.GameImage?.ImageInCatalog"><img />
@@ -96,7 +91,6 @@
                                 }
                             </div>
                         </a>
-                        counter++;
                     }
                     <a class="catalog-item-more-games" href="">
                         ЕЩЕ 4234 ИГР
@@ -104,13 +98,8 @@
                 </div>
 
                 <div class="catalog-leaders-sells">
-                    @foreach (var g in Model.Games.OrderBy(item => item.Name))
+                    @foreach (var g in Model.Games.Take(8).OrderBy(item => item.Name))
                     {
-                        @if (counter == 8)
-                        {
-                            counter = 0;
-                            break;
-                        }
                         <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@g.Id">
                             <div class="block-img-catalog-item">
                                 <img class="img-catalog-item" src="@g.GameImage?.ImageInCatalog"><img />
@@ -159,7 +148,6 @@
                                 }
                             </div>
                         </a>
-                        counter++;
                     }
 
 
@@ -168,13 +156,8 @@
                     </a>
                 </div>
                 <div class="catalog-expected">
-                    @foreach (var g in Model.Games.OrderByDescending(item => item.QuantityOfGoods))
+                    @foreach (var g in Model.Games.Take(8).OrderByDescending(item => item.QuantityOfGoods))
                     {
-                        @if (counter == 8)
-                        {
-                            counter = 0;
-                            break;
-                        }
                         <a class="catalog-item" asp-action="Game" asp-controller="Game" asp-route-id="@g.Id">
                             <div class="block-img-catalog-item">
                                 <img class="img-catalog-item" src="@g.GameImage?.ImageInCatalog"><img />
@@ -223,7 +206,6 @@
                                 }
                             </div>
                         </a>
-                        counter++;
                     }
                     <a class="catalog-item-more-games" href="">
                         ЕЩЕ 4234 ИГР
@@ -238,13 +220,8 @@
                     Скидки
                     <sup>от 40%</sup>
                 </div>
-                @foreach (var g in Model.Games.Where(item => item.GamePrice.Discount >= 40))
+                @foreach (var g in Model.Games.Where(item => item.GamePrice.Discount >= 40).Take(4))
                 {
-                    @if (counter == 4)
-                    {
-                        counter = 0;
-                        break;
-                    }
                     <a asp-action="Game" asp-controller="Game" asp-route-id="@g.Id" class="discount-product-aside">
                         <div class="discount-product-aside-img">
                             <img src="@g.GameImage?.ImageInCatalog" alt="@g.Name">
@@ -269,7 +246,6 @@
                             }
                         </div>
                     </a>
-                    counter++;
                 }
 
                 <a class="more-discount-product-aside" href="">
@@ -281,13 +257,8 @@
                 <div class="last-sell-info">
                     Последние продажи
                 </div>
-                @foreach (var g in Model.Games.OrderByDescending(item => item.Publisher))
+                @foreach (var g in Model.Games.Take(4).OrderByDescending(item => item.Publisher))
                 {
-                    @if (counter == 4)
-                    {
-                        counter = 0;
-                        break;
-                    }
                     <a asp-action="Game" asp-controller="Game" asp-route-id="@g.Id" class="discount-product-aside">
                         <div class="discount-product-aside-img">
                             <img src="@g.GameImage?.ImageInCatalog" alt="@g.Name">
@@ -312,7 +283,6 @@
                             }
                         </div>
                     </a>
-                    counter++;
                 }
             </div>
         </div>
@@ -349,13 +319,8 @@
             Календарь релизов
         </div>
         <div class="conrainer-preorders-games">
-            @foreach (var g in Model.Games.OrderByDescending(item => item.ReleaseDate))
+            @foreach (var g in Model.Games.Take(4).OrderByDescending(item => item.ReleaseDate))
             {
-                if (counter == 4)
-                {
-                    counter = 0;
-                    break;
-                }
                 <div class="conrainer-preorders-games__game">
                     <a asp-action="Game" asp-controller="Game" asp-route-id="@g.Id">
                         <img class="preorders__game-image" src="@g.GameImage.InnerImage" alt="">
@@ -364,7 +329,6 @@
                         7 Мая 2021
                     </div>
                 </div>
-                counter++;
             }
         </div>
     </div>
@@ -385,13 +349,8 @@
             </div>
         </div>
         <ul class="popular__list">
-            @foreach (var g in Model.Games.OrderBy(item => item.QuantityOfGoods))
+            @foreach (var g in Model.Games.Take(8).OrderBy(item => item.QuantityOfGoods))
             {
-                if (counter == 8)
-                {
-                    counter = 0;
-                    break;
-                }
                 <li>
                     <a class="game__a" asp-action="Game" asp-controller="Game" asp-route-id="@g.Id">
                         <div class="game__image">
@@ -412,7 +371,6 @@
                         </div>
                     </a>
                 </li>
-                counter++;
             }
         </ul>
     </div>
@@ -425,13 +383,8 @@
             <div class="popular__title">Снижение цен</div>
         </div>
         <ul class="popular__list">
-            @foreach (var g in Model.Games.OrderByDescending(item => item.WhereKeyActivated))
+            @foreach (var g in Model.Games.Take(4).OrderByDescending(item => item.WhereKeyActivated))
             {
-                if (counter == 4)
-                {
-                    counter = 0;
-                    break;
-                }
                 <li>
                     <a class="game__a" asp-action="Game" asp-controller="Game" asp-route-id="@g.Id">
                         <div class="game__image-prc-red">
@@ -452,7 +405,6 @@
                         </div>
                     </a>
                 </li>
-                counter++;
             }
         </ul>
     </div>
