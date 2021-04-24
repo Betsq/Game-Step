@@ -12,9 +12,7 @@ import { DataService } from "../data.service";
     })
 
 export class CatalogProductComponent implements OnInit{
-    product: Product = new Product();   
-    products: Product[];                
-    tableMode: boolean = true;          
+    products: Product[];
 
     constructor(private dataService: DataService) { }
 
