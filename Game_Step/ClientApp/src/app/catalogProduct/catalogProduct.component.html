@@ -48,7 +48,7 @@
                 <div class="aside__container-price">
                     <div class="aside__container-minPrice">
                         <span class="aside__minPrice-text">От</span>
-                        <input id="minPrice" type="number" disabled>
+                        <input id="minPrice" type="number" disabled >
                     </div>
                     <div class="aside__container-maxPrice">
                         <span class="aside__maxPrice-text">До</span>
@@ -73,26 +73,26 @@
                 <ul class="aside__tags-list">
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label">
-                            <input type="checkbox" (click)="setParam($event, 'tags', 'survival')" >
+                            <input type="checkbox" (click)="setParam('tags', 'survival', $event)" >
                             Выживание
                         </label>
                     </li>
                    
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label">
-                            <input type="checkbox" (click)="setParam($event, 'tags', 'open-world')">
+                            <input type="checkbox" (click)="setParam('tags', 'open-world', $event)">
                             Открытый мир
                         </label>
                     </li>
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label">
-                            <input type="checkbox">
+                            <input type="checkbox" (click)="setParam('tags', 'zombie', $event)">
                             Зомби
                         </label>
                     </li>
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label">
-                            <input type="checkbox">
+                            <input type="checkbox" (click)="setParam('tags', 'tactic', $event)">
                             Тактика
                         </label>
                     </li>
@@ -104,19 +104,19 @@
                 <ul class="aside__tags-list">
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label aside__item-img" id="single">
-                            <input type="checkbox" (click)="setParam($event, 'gameMode', 'single')">
+                            <input type="checkbox" (click)="setParam('gameMode', 'single', $event)">
                             Одиночная
                         </label>
                     </li>
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label aside__item-img" id="cooperative-mode">
-                            <input type="checkbox" (click)="setParam($event, 'gameMode', 'cooperative')">
+                            <input type="checkbox" (click)="setParam('gameMode', 'cooperative', $event)">
                             Кооперативный режим
                         </label>
                     </li>
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label aside__item-img" id="online-game">
-                            <input type="checkbox" (click)="setParam($event, 'gameMode', 'online')">
+                            <input type="checkbox" (click)="setParam('gameMode', 'online', $event)">
                             Сетевая игра
                         </label>
                     </li>
@@ -128,30 +128,30 @@
                 <ul class="aside__tags-list">
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label aside__item-img" id="steam-achievement">
-                            <input type="checkbox">
+                            <input type="checkbox" (click)="setParam('features', 'steam-achievement', $event)">
                             Достижение Steam
                         </label>
                     </li>
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label aside__item-img" id="controller">
-                            <input type="checkbox">
+                            <input type="checkbox" (click)="setParam('features', 'controller', $event)">
                             Контроллер
                         </label>
                     </li>
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label aside__item-img" id="collectible-cards">
-                            <input type="checkbox">
+                            <input type="checkbox" (click)="setParam('features', 'collectible-cards', $event)">
                             Коллекционные карточки
                         </label>
                     </li>
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label aside__item-img" id="virtual-reality">
-                            <input type="checkbox">
+                            <input type="checkbox" (click)="setParam('features', 'virtual-reality', $event)">
                             Виртуальная реальность
                         </label>
                     </li>
                     <li class="aside__tags-item">
-                        <label class="aside__tags-item-label aside__item-img" id="DLC">
+                        <label class="aside__tags-item-label aside__item-img" id="DLC" (click)="setParam('features', 'dlc', $event)">
                             <input type="checkbox">
                             DLC
                         </label>
@@ -164,18 +164,18 @@
                 <ul class="aside__tags-list">
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label aside__item-img" id="windows">
-                            <input type="checkbox">
+                            <input type="checkbox" (click)="setParam('platforms', 'windows', $event)">
                             Windows
                         </label>
                     </li>
                     <li class="aside__tags-item">
-                        <label class="aside__tags-item-label aside__item-img" id="mac">
+                        <label class="aside__tags-item-label aside__item-img" id="mac" (click)="setParam('platforms', 'mac', $event)">
                             <input type="checkbox">
                             Mac
                         </label>
                     </li>
                     <li class="aside__tags-item">
-                        <label class="aside__tags-item-label aside__item-img" id="linux">
+                        <label class="aside__tags-item-label aside__item-img" id="linux" (click)="setParam('platforms', 'linux', $event)">
                             <input type="checkbox">
                             Linux
                         </label>
@@ -201,10 +201,10 @@
                 <div class="aside__filter-block-name">Дата выхода</div>
 
                 <div class="aside__container-select-year">
-                    <select class="aside__select-year" id="minYear" (change)="setParam($event.target.checked = true, 'tags', 'survival')">
+                    <select class="aside__select-year" id="minYear" (change)="setParamSingle('minReleaseData', $event.target.value)">
                         <option *ngFor="let item of year">{{item}}</option>
                     </select>
-                    <select class="aside__select-year" id="maxYear">
+                    <select class="aside__select-year" id="maxYear" (change)="setParamSingle('maxReleaseData', $event.target.value)">
                         <option *ngFor="let item of year">{{item}}</option>
                     </select>
                 </div>

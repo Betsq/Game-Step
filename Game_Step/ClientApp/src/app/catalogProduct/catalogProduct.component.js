@@ -27,6 +27,7 @@ let CatalogProductComponent = class CatalogProductComponent {
     }
     ngOnInit() {
         this.loadProducts();
+        console.log(this._router.parseUrl(this._router.url));
     }
     loadProducts() {
         this.getProducts(this.countPg)
@@ -35,9 +36,8 @@ let CatalogProductComponent = class CatalogProductComponent {
     getProducts(countPag) {
         return this.http.get(this.url + "/" + countPag);
     }
-    setParam(ev, nameParam, param) {
+    setParam(nameParam, param, ev) {
         if (ev.target.checked === true) {
-            console.log("1111");
             this.addParamInArray(nameParam, param);
             this.setParamInQuery();
         }
@@ -46,21 +46,23 @@ let CatalogProductComponent = class CatalogProductComponent {
             this.setParamInQuery();
         }
     }
+    setParamSingle(nameParam, param) {
+        this.addParamInArray(nameParam, param);
+        this.setParamInQuery();
+    }
     setParamInQuery() {
-        let tg = this.tags;
-        let gmMode = this.gameMode;
-        let fts = this.features;
-        let plt = this.platform;
-        /*Setting to null so that extra ampersands from empty arrays
-         are not displayed in the query string*/
-        if (tg.length === 0)
-            tg = null;
-        if (gmMode.length === 0)
-            gmMode = null;
-        if (fts.length === 0)
-            fts = null;
-        if (plt.length === 0)
-            plt = null;
+        let tg;
+        let gmMode;
+        let fts;
+        let plt;
+        if (this.tags.length !== 0)
+            gmMode = this.formationParameters(this.tags);
+        if (this.gameMode.length !== 0)
+            tg = this.formationParameters(this.gameMode);
+        if (this.features.length !== 0)
+            fts = this.formationParameters(this.features);
+        if (this.platform.length !== 0)
+            plt = this.formationParameters(this.platform);
         this._router.navigate([], {
             relativeTo: this._route,
             queryParams: {
@@ -79,6 +81,16 @@ let CatalogProductComponent = class CatalogProductComponent {
         });
     }
     ;
+    formationParameters(arr) {
+        let queryString = "";
+        //-1 for not adding the last item in the array
+        for (let i = 0; i < arr.length - 1; i++) {
+            queryString += arr[i] + ",";
+        }
+        //add the last item without comma
+        queryString += arr[arr.length - 1];
+        return queryString;
+    }
     addParamInArray(nameParam, param) {
         if (nameParam === 'minPrice') {
             this.minPrice = param;
@@ -95,17 +107,23 @@ let CatalogProductComponent = class CatalogProductComponent {
         else if (nameParam === 'features') {
             this.features.push(param);
         }
-        else if (nameParam === 'platform') {
+        else if (nameParam === 'platforms') {
             this.platform.push(param);
         }
         else if (nameParam === 'publisher') {
             this.publisher = param;
         }
         else if (nameParam === 'minReleaseData') {
-            this.minReleaseData = param;
+            if (+param === this.year[0])
+                this.minReleaseData = null;
+            else
+                this.minReleaseData = param;
         }
         else if (nameParam === 'maxReleaseData') {
-            this.maxReleaseData = param;
+            if (+param === this.year[this.year.length - 1])
+                this.maxReleaseData = null;
+            else
+                this.maxReleaseData = param;
         }
     }
     removeParamInArray(nameParam, param) {
@@ -117,12 +135,6 @@ let CatalogProductComponent = class CatalogProductComponent {
         }
         else if (nameParam === 'publisher') {
             this.publisher = null;
-        }
-        else if (nameParam === 'minReleaseData') {
-            this.minReleaseData = null;
-        }
-        else if (nameParam === 'maxReleaseData') {
-            this.maxReleaseData = null;
         }
         else if (nameParam === 'tags') {
             const index = this.findIndex(this.tags, param);
@@ -142,7 +154,7 @@ let CatalogProductComponent = class CatalogProductComponent {
                 this.features.splice(index, 1);
             }
         }
-        else if (nameParam === 'platform') {
+        else if (nameParam === 'platforms') {
             const index = this.findIndex(this.platform, param);
             if (index !== -1) {
                 this.platform.splice(index, 1);

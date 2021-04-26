@@ -59,7 +59,7 @@ export class CatalogProductComponent implements OnInit {
         return this.http.get(this.url + "/" + countPag);
     }
 
-    setParam(ev, nameParam, param) {
+    setParam(nameParam, param, ev) {
         if (ev.target.checked === true) {
             this.addParamInArray(nameParam, param);
 
@@ -71,14 +71,18 @@ export class CatalogProductComponent implements OnInit {
         }
     }
 
+    setParamSingle(nameParam, param) {
+        this.addParamInArray(nameParam, param);
+
+        this.setParamInQuery();
+    }
+
     setParamInQuery() {
         let tg: string;
         let gmMode: string;
         let fts: string;
         let plt: string;
 
-        /*Setting to null so that extra ampersands from empty arrays
-         are not displayed in the query string*/
         if (this.tags.length !== 0)
             gmMode = this.formationParameters(this.tags);
         if (this.gameMode.length !== 0)
@@ -136,17 +140,23 @@ export class CatalogProductComponent implements OnInit {
         else if (nameParam === 'features') {
             this.features.push(param);
         }
-        else if (nameParam === 'platform') {
+        else if (nameParam === 'platforms') {
             this.platform.push(param);
         }
         else if (nameParam === 'publisher') {
             this.publisher = param;
         }
         else if (nameParam === 'minReleaseData') {
-            this.minReleaseData = param;
+            if (+param === this.year[0])
+                this.minReleaseData = null;
+            else
+                this.minReleaseData = param;
         }
         else if (nameParam === 'maxReleaseData') {
-            this.maxReleaseData = param;
+            if (+param === this.year[this.year.length - 1])
+                this.maxReleaseData = null;
+            else
+                this.maxReleaseData = param;
         }
     }
 
@@ -157,10 +167,6 @@ export class CatalogProductComponent implements OnInit {
             this.maxPrice = null;
         } else if (nameParam === 'publisher') {
             this.publisher = null;
-        } else if (nameParam === 'minReleaseData') {
-            this.minReleaseData = null;
-        } else if (nameParam === 'maxReleaseData') {
-            this.maxReleaseData = null;
         }
         else if (nameParam === 'tags') {
             const index = this.findIndex(this.tags, param);
@@ -183,7 +189,7 @@ export class CatalogProductComponent implements OnInit {
                 this.features.splice(index, 1);
             }
 
-        } else if (nameParam === 'platform') {
+        } else if (nameParam === 'platforms') {
             const index = this.findIndex(this.platform, param);
 
             if (index !== -1) {
