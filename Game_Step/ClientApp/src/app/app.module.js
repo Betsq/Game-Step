@@ -17,7 +17,6 @@ import { CatalogProductComponent } from "./catalogProduct/catalogProduct.compone
 import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { NgxSpinnerModule } from "ngx-spinner";
 const appRoutes = [
-    /*{path: "", component: HomeComponent},*/
     { path: "CatalogProduct", component: CatalogProductComponent }
 ];
 let AppModule = class AppModule {

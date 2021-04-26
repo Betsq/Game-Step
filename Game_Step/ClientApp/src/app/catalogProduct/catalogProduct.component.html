@@ -5,7 +5,7 @@
                 <div *ngFor="let p of products">
                     <a class="catalog-item" href="/Game/Game/{{p?.id}}">
                         <div class="catalog-item__container-img">
-                            <img class="catalog-item__img" src="{{p?.image}}" alt="">
+                            <img class="catalog-item__img" src="{{p?.image}}" alt="{{p?.name}}">
                         </div>
 
                         <div class="catalog-item__info">
@@ -73,13 +73,14 @@
                 <ul class="aside__tags-list">
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label">
-                            <input type="checkbox">
+                            <input type="checkbox" (click)="setParam($event, 'tags', 'survival')" >
                             Выживание
                         </label>
                     </li>
+                   
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label">
-                            <input type="checkbox">
+                            <input type="checkbox" (click)="setParam($event, 'tags', 'openWorld')">
                             Открытый мир
                         </label>
                     </li>
@@ -103,19 +104,19 @@
                 <ul class="aside__tags-list">
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label aside__item-img" id="single">
-                            <input type="checkbox">
+                            <input type="checkbox" (click)="setParam($event, 'gameMode', 'single')">
                             Одиночная
                         </label>
                     </li>
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label aside__item-img" id="cooperative-mode">
-                            <input type="checkbox">
+                            <input type="checkbox" (click)="setParam($event, 'gameMode', 'cooperative')">
                             Кооперативный режим
                         </label>
                     </li>
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label aside__item-img" id="online-game">
-                            <input type="checkbox">
+                            <input type="checkbox" (click)="setParam($event, 'gameMode', 'online')">
                             Сетевая игра
                         </label>
                     </li>
@@ -200,15 +201,11 @@
                 <div class="aside__filter-block-name">Дата выхода</div>
 
                 <div class="aside__container-select-year">
-                    <select class="aside__select-year" id="minYear">
-                        <option>1990</option>
-                        <option>1991</option>
-                        <option>1992</option>
+                    <select class="aside__select-year" id="minYear" (change)="setParam($event.target.checked = true, 'tags', 'survival')">
+                        <option *ngFor="let item of year">{{item}}</option>
                     </select>
                     <select class="aside__select-year" id="maxYear">
-                        <option>2022</option>
-                        <option>2021</option>
-                        <option>2020</option>
+                        <option *ngFor="let item of year">{{item}}</option>
                     </select>
                 </div>
 

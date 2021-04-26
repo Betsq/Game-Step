@@ -17,7 +17,6 @@ import { InfiniteScrollModule } from "ngx-infinite-scroll";
 import { NgxSpinnerModule } from "ngx-spinner";
 
 const appRoutes: Routes = [
-/*{path: "", component: HomeComponent},*/
     {path: "CatalogProduct", component: CatalogProductComponent}
 ];
 
