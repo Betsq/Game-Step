@@ -72,21 +72,21 @@ export class CatalogProductComponent implements OnInit {
     }
 
     setParamInQuery() {
-        let tg = this.tags;
-        let gmMode = this.gameMode;
-        let fts = this.features;
-        let plt = this.platform;
+        let tg: string;
+        let gmMode: string;
+        let fts: string;
+        let plt: string;
 
         /*Setting to null so that extra ampersands from empty arrays
          are not displayed in the query string*/
-        if (tg.length === 0)
-            tg = null;
-        if (gmMode.length === 0)
-            gmMode = null;
-        if (fts.length === 0)
-            fts = null;
-        if (plt.length === 0)
-            plt = null;
+        if (this.tags.length !== 0)
+            gmMode = this.formationParameters(this.tags);
+        if (this.gameMode.length !== 0)
+            tg = this.formationParameters(this.gameMode);
+        if (this.features.length !== 0)
+            fts = this.formationParameters(this.features);
+        if (this.platform.length !== 0)
+            plt = this.formationParameters(this.platform);
 
         this._router.navigate([],
             {
@@ -106,6 +106,19 @@ export class CatalogProductComponent implements OnInit {
                 skipLocationChange: false
             });
     };
+
+    formationParameters(arr: string[]) {
+        let queryString = "";
+
+        //-1 for not adding the last item in the array
+        for (let i = 0; i < arr.length - 1; i++) {
+            queryString += arr[i] + ",";
+        }
+        //add the last item without comma
+        queryString += arr[arr.length - 1];
+
+        return queryString;
+    }
 
     addParamInArray(nameParam, param) {
         if (nameParam === 'minPrice') {
