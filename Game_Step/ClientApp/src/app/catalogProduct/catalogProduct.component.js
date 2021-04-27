@@ -18,6 +18,12 @@ let CatalogProductComponent = class CatalogProductComponent {
         this.platform = [];
         this.url = "/api/catalog";
         this.countPg = 1;
+        this.paramArray = new Map([
+            ["tags", this.tags],
+            ["gameMode", this.gameMode],
+            ["features", this.features],
+            ["platform", this.platform]
+        ]);
         this.year = [
             1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
             1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005,
@@ -92,23 +98,15 @@ let CatalogProductComponent = class CatalogProductComponent {
         return queryString;
     }
     addParamInArray(nameParam, param) {
+        for (let [key, val] of this.paramArray) {
+            if (key === nameParam)
+                val.push(param);
+        }
         if (nameParam === 'minPrice') {
             this.minPrice = param;
         }
         else if (nameParam === 'maxPrice') {
             this.maxPrice = param;
-        }
-        else if (nameParam === 'tags') {
-            this.tags.push(param);
-        }
-        else if (nameParam === 'gameMode') {
-            this.gameMode.push(param);
-        }
-        else if (nameParam === 'features') {
-            this.features.push(param);
-        }
-        else if (nameParam === 'platforms') {
-            this.platform.push(param);
         }
         else if (nameParam === 'publisher') {
             this.publisher = param;

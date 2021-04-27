@@ -18,18 +18,27 @@ export class CatalogProductComponent implements OnInit {
 
     products: Product[];
 
-    minPrice: number;
-    maxPrice: number;
-    tags: string[] = [];
-    gameMode: string[] = [];
-    features: string[] = [];
-    platform: string[] = [];
-    publisher: string;
-    minReleaseData: number;
-    maxReleaseData: number;
+    //Set the value of the number to null so that we can pass it to the map 
+    private minPrice: string[] = [];
+    private maxPrice: string[] = [];
+    private minReleaseData: string[] = [];
+    private maxReleaseData: string[] = [];
+    private tags: string[] = [];
+    private gameMode: string[] = [];
+    private features: string[] = [];
+    private platform: string[] = [];
+    private publisher: string[] = [];
+
 
     private url = "/api/catalog";
     countPg = 1;
+
+    private paramArray = new Map([
+        ["tags", this.tags],
+        ["gameMode", this.gameMode],
+        ["features", this.features],
+        ["platform", this.platform],
+    ]);
 
     year: number[] = [
         1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
@@ -82,7 +91,6 @@ export class CatalogProductComponent implements OnInit {
         let gmMode: string;
         let fts: string;
         let plt: string;
-
         if (this.tags.length !== 0)
             gmMode = this.formationParameters(this.tags);
         if (this.gameMode.length !== 0)
@@ -96,15 +104,10 @@ export class CatalogProductComponent implements OnInit {
             {
                 relativeTo: this._route,
                 queryParams: {
-                    minPrice: this.minPrice,
-                    maxPrice: this.maxPrice,
                     tags: tg,
                     gameMode: gmMode,
                     features: fts,
                     platform: plt,
-                    publisher: this.publisher,
-                    minReleaseData: this.minReleaseData,
-                    maxReleaseData: this.maxReleaseData,
                 },
                 queryParamsHandling: 'merge',
                 skipLocationChange: false
@@ -125,77 +128,19 @@ export class CatalogProductComponent implements OnInit {
     }
 
     addParamInArray(nameParam, param) {
-        if (nameParam === 'minPrice') {
-            this.minPrice = param;
-        }
-        else if (nameParam === 'maxPrice') {
-            this.maxPrice = param;
-        }
-        else if (nameParam === 'tags') {
-            this.tags.push(param);
-        }
-        else if (nameParam === 'gameMode') {
-            this.gameMode.push(param);
-        }
-        else if (nameParam === 'features') {
-            this.features.push(param);
-        }
-        else if (nameParam === 'platforms') {
-            this.platform.push(param);
-        }
-        else if (nameParam === 'publisher') {
-            this.publisher = param;
-        }
-        else if (nameParam === 'minReleaseData') {
-            if (+param === this.year[0])
-                this.minReleaseData = null;
-            else
-                this.minReleaseData = param;
-        }
-        else if (nameParam === 'maxReleaseData') {
-            if (+param === this.year[this.year.length - 1])
-                this.maxReleaseData = null;
-            else
-                this.maxReleaseData = param;
+        for (let [key, val] of this.paramArray) {
+            if (key === nameParam)
+                val.push(param);
         }
     }
 
     removeParamInArray(nameParam, param) {
-        if (nameParam === 'minPrice') {
-            this.minPrice = null;
-        } else if (nameParam === 'maxPrice') {
-            this.maxPrice = null;
-        } else if (nameParam === 'publisher') {
-            this.publisher = null;
-        }
-        else if (nameParam === 'tags') {
-            const index = this.findIndex(this.tags, param);
-
-            if (index !== -1) {
-                this.tags.splice(index, 1);
+        for (let [key, val] of this.paramArray) {
+            if (key === nameParam) {
+                const index = this.findIndex(val, param);
+                if (index !== -1)
+                    val.splice(index, 1);
             }
-
-        } else if (nameParam === 'gameMode') {
-            const index = this.findIndex(this.gameMode, param);
-
-            if (index !== -1) {
-                this.gameMode.splice(index, 1);
-            }
-
-        } else if (nameParam === 'features') {
-            const index = this.findIndex(this.features, param);
-
-            if (index !== -1) {
-                this.features.splice(index, 1);
-            }
-
-        } else if (nameParam === 'platforms') {
-            const index = this.findIndex(this.platform, param);
-
-            if (index !== -1) {
-                this.platform.splice(index, 1);
-            }
-
         }
     }
 
