@@ -15,14 +15,14 @@ let CatalogProductComponent = class CatalogProductComponent {
         this.tags = [];
         this.gameMode = [];
         this.features = [];
-        this.platform = [];
+        this.platforms = [];
         this.url = "/api/catalog";
         this.countPg = 1;
         this.paramArray = new Map([
             ["tags", this.tags],
             ["gameMode", this.gameMode],
             ["features", this.features],
-            ["platform", this.platform]
+            ["platforms", this.platforms]
         ]);
         this.year = [
             1990, 1991, 1992, 1993, 1994, 1995, 1996, 1997,
@@ -55,7 +55,7 @@ let CatalogProductComponent = class CatalogProductComponent {
         const tg = this.formationParametersInStr(this.gameMode);
         const gmMode = this.formationParametersInStr(this.tags);
         const fts = this.formationParametersInStr(this.features);
-        const plt = this.formationParametersInStr(this.platform);
+        const plt = this.formationParametersInStr(this.platforms);
         this._router.navigate([], {
             relativeTo: this._route,
             queryParams: {
@@ -107,14 +107,6 @@ let CatalogProductComponent = class CatalogProductComponent {
         this.countPg++;
         this.getProducts(this.countPg)
             .subscribe((data) => this.products = this.products.concat(data));
-    }
-    filter() {
-        console.log("dd");
-        this.getProductsFilter(this.countPg, "Origin")
-            .subscribe((data) => this.products = data);
-    }
-    getProductsFilter(countPag, tags) {
-        return this.http.get(this.url + "/" + countPag + "/" + tags);
     }
 };
 CatalogProductComponent = __decorate([

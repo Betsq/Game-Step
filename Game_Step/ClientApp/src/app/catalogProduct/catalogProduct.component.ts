@@ -146,13 +146,13 @@ export class CatalogProductComponent implements OnInit {
             .subscribe((data: Product[]) => this.products = this.products.concat(data));
     }
 
-    filter() {
-        console.log("dd");
-        this.getProductsFilter(this.countPg, "Origin")
-            .subscribe((data: Product[]) => this.products = data);
-    }
+    //filter() {
+    //    console.log("dd");
+    //    this.getProductsFilter(this.countPg, "Origin")
+    //        .subscribe((data: Product[]) => this.products = data);
+    //}
 
-    getProductsFilter(countPag: number, tags: string) {
-        return this.http.get(this.url + "/" + countPag + "/" + tags);
-    }
+    //getProductsFilter(countPag: number, tags: string) {
+    //    return this.http.get(this.url + "/" + countPag + "/" + tags);
+    //}
 }
