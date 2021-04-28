@@ -33,7 +33,6 @@ let CatalogProductComponent = class CatalogProductComponent {
     }
     ngOnInit() {
         this.loadProducts();
-        console.log(this._router.parseUrl(this._router.url));
     }
     loadProducts() {
         this.getProducts(this.countPg)
@@ -52,118 +51,55 @@ let CatalogProductComponent = class CatalogProductComponent {
             this.setParamInQuery();
         }
     }
-    setParamSingle(nameParam, param) {
-        this.addParamInArray(nameParam, param);
-        this.setParamInQuery();
-    }
     setParamInQuery() {
-        let tg;
-        let gmMode;
-        let fts;
-        let plt;
-        if (this.tags.length !== 0)
-            gmMode = this.formationParameters(this.tags);
-        if (this.gameMode.length !== 0)
-            tg = this.formationParameters(this.gameMode);
-        if (this.features.length !== 0)
-            fts = this.formationParameters(this.features);
-        if (this.platform.length !== 0)
-            plt = this.formationParameters(this.platform);
+        const tg = this.formationParametersInStr(this.gameMode);
+        const gmMode = this.formationParametersInStr(this.tags);
+        const fts = this.formationParametersInStr(this.features);
+        const plt = this.formationParametersInStr(this.platform);
         this._router.navigate([], {
             relativeTo: this._route,
             queryParams: {
-                minPrice: this.minPrice,
-                maxPrice: this.maxPrice,
                 tags: tg,
                 gameMode: gmMode,
                 features: fts,
-                platform: plt,
-                publisher: this.publisher,
-                minReleaseData: this.minReleaseData,
-                maxReleaseData: this.maxReleaseData,
+                platforms: plt,
             },
             queryParamsHandling: 'merge',
             skipLocationChange: false
         });
     }
     ;
-    formationParameters(arr) {
-        let queryString = "";
-        //-1 for not adding the last item in the array
-        for (let i = 0; i < arr.length - 1; i++) {
-            queryString += arr[i] + ",";
+    formationParametersInStr(arr) {
+        if (arr.length !== 0) {
+            let queryString = "";
+            //-1 for not adding the last item in the array
+            for (let i = 0; i < arr.length - 1; i++) {
+                queryString += arr[i] + ",";
+            }
+            //add the last item without comma
+            queryString += arr[arr.length - 1];
+            return queryString;
         }
-        //add the last item without comma
-        queryString += arr[arr.length - 1];
-        return queryString;
     }
     addParamInArray(nameParam, param) {
         for (let [key, val] of this.paramArray) {
             if (key === nameParam)
                 val.push(param);
         }
-        if (nameParam === 'minPrice') {
-            this.minPrice = param;
-        }
-        else if (nameParam === 'maxPrice') {
-            this.maxPrice = param;
-        }
-        else if (nameParam === 'publisher') {
-            this.publisher = param;
-        }
-        else if (nameParam === 'minReleaseData') {
-            if (+param === this.year[0])
-                this.minReleaseData = null;
-            else
-                this.minReleaseData = param;
-        }
-        else if (nameParam === 'maxReleaseData') {
-            if (+param === this.year[this.year.length - 1])
-                this.maxReleaseData = null;
-            else
-                this.maxReleaseData = param;
-        }
     }
     removeParamInArray(nameParam, param) {
-        if (nameParam === 'minPrice') {
-            this.minPrice = null;
-        }
-        else if (nameParam === 'maxPrice') {
-            this.maxPrice = null;
-        }
-        else if (nameParam === 'publisher') {
-            this.publisher = null;
-        }
-        else if (nameParam === 'tags') {
-            const index = this.findIndex(this.tags, param);
-            if (index !== -1) {
-                this.tags.splice(index, 1);
-            }
-        }
-        else if (nameParam === 'gameMode') {
-            const index = this.findIndex(this.gameMode, param);
-            if (index !== -1) {
-                this.gameMode.splice(index, 1);
-            }
-        }
-        else if (nameParam === 'features') {
-            const index = this.findIndex(this.features, param);
-            if (index !== -1) {
-                this.features.splice(index, 1);
-            }
-        }
-        else if (nameParam === 'platforms') {
-            const index = this.findIndex(this.platform, param);
-            if (index !== -1) {
-                this.platform.splice(index, 1);
+        for (let [key, val] of this.paramArray) {
+            if (key === nameParam) {
+                const index = this.findIndex(val, param);
+                if (index !== -1)
+                    val.splice(index, 1);
             }
         }
     }
     findIndex(arr, name) {
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i] === name) {
+            if (arr[i] === name)
                 return i;
-            }
         }
         return -1;
     }
@@ -171,6 +107,14 @@ let CatalogProductComponent = class CatalogProductComponent {
         this.countPg++;
         this.getProducts(this.countPg)
             .subscribe((data) => this.products = this.products.concat(data));
+    }
+    filter() {
+        console.log("dd");
+        this.getProductsFilter(this.countPg, "Origin")
+            .subscribe((data) => this.products = data);
+    }
+    getProductsFilter(countPag, tags) {
+        return this.http.get(this.url + "/" + countPag + "/" + tags);
     }
 };
 CatalogProductComponent = __decorate([

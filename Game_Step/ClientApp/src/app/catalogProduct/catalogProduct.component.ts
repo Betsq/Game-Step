@@ -19,15 +19,15 @@ export class CatalogProductComponent implements OnInit {
     products: Product[];
 
     //Set the value of the number to null so that we can pass it to the map 
-    private minPrice: string[] = [];
-    private maxPrice: string[] = [];
-    private minReleaseData: string[] = [];
-    private maxReleaseData: string[] = [];
+    private minPrice: string;
+    private maxPrice: string;
+    private minReleaseData: string;
+    private maxReleaseData: string;
     private tags: string[] = [];
     private gameMode: string[] = [];
     private features: string[] = [];
-    private platform: string[] = [];
-    private publisher: string[] = [];
+    private platforms: string[] = [];
+    private publisher: string;
 
 
     private url = "/api/catalog";
@@ -37,7 +37,7 @@ export class CatalogProductComponent implements OnInit {
         ["tags", this.tags],
         ["gameMode", this.gameMode],
         ["features", this.features],
-        ["platform", this.platform],
+        ["platforms", this.platforms]
     ]);
 
     year: number[] = [
@@ -56,7 +56,6 @@ export class CatalogProductComponent implements OnInit {
 
     ngOnInit() {
         this.loadProducts();
-        console.log(this._router.parseUrl(this._router.url));
     }
 
     loadProducts() {
@@ -80,25 +79,11 @@ export class CatalogProductComponent implements OnInit {
         }
     }
 
-    setParamSingle(nameParam, param) {
-        this.addParamInArray(nameParam, param);
-
-        this.setParamInQuery();
-    }
-
     setParamInQuery() {
-        let tg: string;
-        let gmMode: string;
-        let fts: string;
-        let plt: string;
-        if (this.tags.length !== 0)
-            gmMode = this.formationParameters(this.tags);
-        if (this.gameMode.length !== 0)
-            tg = this.formationParameters(this.gameMode);
-        if (this.features.length !== 0)
-            fts = this.formationParameters(this.features);
-        if (this.platform.length !== 0)
-            plt = this.formationParameters(this.platform);
+        const tg = this.formationParametersInStr(this.gameMode);
+        const gmMode = this.formationParametersInStr(this.tags);
+        const fts = this.formationParametersInStr(this.features);
+        const plt = this.formationParametersInStr(this.platforms);
 
         this._router.navigate([],
             {
@@ -107,24 +92,26 @@ export class CatalogProductComponent implements OnInit {
                     tags: tg,
                     gameMode: gmMode,
                     features: fts,
-                    platform: plt,
+                    platforms: plt,
                 },
                 queryParamsHandling: 'merge',
                 skipLocationChange: false
             });
     };
 
-    formationParameters(arr: string[]) {
-        let queryString = "";
+    formationParametersInStr(arr: string[]) {
+        if (arr.length !== 0) {
+            let queryString = "";
 
-        //-1 for not adding the last item in the array
-        for (let i = 0; i < arr.length - 1; i++) {
-            queryString += arr[i] + ",";
+            //-1 for not adding the last item in the array
+            for (let i = 0; i < arr.length - 1; i++) {
+                queryString += arr[i] + ",";
+            }
+            //add the last item without comma
+            queryString += arr[arr.length - 1];
+
+            return queryString;
         }
-        //add the last item without comma
-        queryString += arr[arr.length - 1];
-
-        return queryString;
     }
 
     addParamInArray(nameParam, param) {
@@ -146,9 +133,8 @@ export class CatalogProductComponent implements OnInit {
 
     findIndex(arr: string[], name) {
         for (let i = 0; i < arr.length; i++) {
-            if (arr[i] === name) {
+            if (arr[i] === name)
                 return i;
-            }
         }
         return -1;
     }
@@ -158,5 +144,15 @@ export class CatalogProductComponent implements OnInit {
 
         this.getProducts(this.countPg)
             .subscribe((data: Product[]) => this.products = this.products.concat(data));
+    }
+
+    filter() {
+        console.log("dd");
+        this.getProductsFilter(this.countPg, "Origin")
+            .subscribe((data: Product[]) => this.products = data);
+    }
+
+    getProductsFilter(countPag: number, tags: string) {
+        return this.http.get(this.url + "/" + countPag + "/" + tags);
     }
 }
