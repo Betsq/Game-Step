@@ -23,8 +23,9 @@ namespace Game_Step.Models
         public GameImage GameImage { get; set; }
         public GameRecommendation Recommendation { get; set; }
         public GameMinimum Minimum { get; set; }
-        public List<GameScreenshot> GameScreenshots { get; set; } = new List<GameScreenshot>();
-        public List<GameKey> GameKeys { get; set; } = new List<GameKey>();
+        public List<GameTags> GameTags { get; set; }
+        public List<GameScreenshot> GameScreenshots { get; set; } 
+        public List<GameKey> GameKeys { get; set; }
         public List<MainComment> MainComments { get; set; }
     }
 }
