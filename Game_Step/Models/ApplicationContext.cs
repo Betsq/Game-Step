@@ -24,6 +24,7 @@ namespace Game_Step.Models
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> contextOptions)
             :base(contextOptions)

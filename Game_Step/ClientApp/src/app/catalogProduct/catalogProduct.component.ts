@@ -148,11 +148,11 @@ export class CatalogProductComponent implements OnInit {
 
     //filter() {
     //    console.log("dd");
-    //    this.getProductsFilter(this.countPg, "Origin")
+    //    this.getProductsFilter(this.countPg, ["dsd", "ds"], this.gameMode, ["ddd", "123"], this.platforms)
     //        .subscribe((data: Product[]) => this.products = data);
     //}
 
-    //getProductsFilter(countPag: number, tags: string) {
-    //    return this.http.get(this.url + "/" + countPag + "/" + tags);
+    //getProductsFilter(countPag: number, tags: string[], gameMode: string[], features: string[], platforms: string[]) {
+    //    return this.http.get("/api/catalog/filter?tags=1231d2");
     //}
 }

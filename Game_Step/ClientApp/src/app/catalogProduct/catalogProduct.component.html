@@ -1,5 +1,6 @@
 ﻿<div class="main-content">
     <div class="product-content">
+        <div (click)="filter()">CALL FUNC</div>
         <div style="flex: 1; position: relative">
             <div infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
                 <div *ngFor="let p of products">
@@ -35,7 +36,7 @@
                 </div>
             </div>
             <!--Spinner-->
-            <div style="position: relative; width: 100%; height: 100px" >
+            <div style="position: relative; width: 100%; height: 100px">
                 <ngx-spinner bdColor="rgba(0,0,0,0)" size="default" color="#ff9900" type="pacman" [fullScreen]="false"></ngx-spinner>
             </div>
         </div>
@@ -48,7 +49,7 @@
                 <div class="aside__container-price">
                     <div class="aside__container-minPrice">
                         <span class="aside__minPrice-text">От</span>
-                        <input id="minPrice" type="number" disabled >
+                        <input id="minPrice" type="number" disabled>
                     </div>
                     <div class="aside__container-maxPrice">
                         <span class="aside__maxPrice-text">До</span>
@@ -73,11 +74,11 @@
                 <ul class="aside__tags-list">
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label">
-                            <input type="checkbox" (click)="setParam('tags', 'survival', $event)" >
+                            <input type="checkbox" (click)="setParam('tags', 'survival', $event)">
                             Выживание
                         </label>
                     </li>
-                   
+
                     <li class="aside__tags-item">
                         <label class="aside__tags-item-label">
                             <input type="checkbox" (click)="setParam('tags', 'open-world', $event)">
@@ -201,10 +202,10 @@
                 <div class="aside__filter-block-name">Дата выхода</div>
 
                 <div class="aside__container-select-year">
-                    <select class="aside__select-year" id="minYear" >
+                    <select class="aside__select-year" id="minYear">
                         <option *ngFor="let item of year">{{item}}</option>
                     </select>
-                    <select class="aside__select-year" id="maxYear" >
+                    <select class="aside__select-year" id="maxYear">
                         <option *ngFor="let item of year">{{item}}</option>
                     </select>
                 </div>

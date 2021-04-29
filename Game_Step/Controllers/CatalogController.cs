@@ -8,7 +8,6 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Game_Step.CatalogController
 {
-    [Route("api/catalog")]
     [ApiController]
     public class CatalogController : ControllerBase
     {
@@ -18,7 +17,8 @@ namespace Game_Step.CatalogController
             _db = db;
         }
 
-        [HttpGet("{countPag}")]
+        [Route("api/catalog/{countPag:int}")]
+        [HttpGet]
         public IEnumerable<CatalogViewModel> Get(int countPag)
         {
             int size = 8;
@@ -43,9 +43,10 @@ namespace Game_Step.CatalogController
                 .ToList();
         }
 
-        //[HttpGet("{countPag}/{tags}/{gameMode}/{features}/{platform}")]
-        //public IEnumerable<CatalogViewModel> Get(int countPag, string tags,
-        //    string gameMode, string features, string platform)
+        //[Route("api/catalog/filter/{tags?}/{gameMode?}/{features?}/{platform?}")]
+        //[HttpGet]
+        //public IEnumerable<CatalogViewModel> GetFilter(string tags = null,
+        //    string gameMode = null, string features = null, string platform = null)
         //{
         //    var game = _db.Games
         //        .Include(price => price.GamePrice)
@@ -53,17 +54,17 @@ namespace Game_Step.CatalogController
         //        .ToList();
 
         //    return game.Select(g => new CatalogViewModel()
-        //        {
-        //            Id = g.Id,
-        //            Image = g.GameImage.ImageInCatalog,
-        //            Name = g.Name,
-        //            KeyActivate = g.WhereKeyActivated,
-        //            Genre = g.Genre,
-        //            IsDiscount = g.GamePrice.IsDiscount,
-        //            Discount = g.GamePrice.Discount,
-        //            PriceDiscount = g.GamePrice.DiscountPrice,
-        //            Price = g.GamePrice.Price
-        //        })
+        //    {
+        //        Id = g.Id,
+        //        Image = g.GameImage.ImageInCatalog,
+        //        Name = g.Name,
+        //        KeyActivate = g.WhereKeyActivated,
+        //        Genre = g.Genre,
+        //        IsDiscount = g.GamePrice.IsDiscount,
+        //        Discount = g.GamePrice.Discount,
+        //        PriceDiscount = g.GamePrice.DiscountPrice,
+        //        Price = g.GamePrice.Price
+        //    })
         //        .Where(item => item.Genre == tags).ToList();
         //}
     }
