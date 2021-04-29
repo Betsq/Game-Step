@@ -7,16 +7,16 @@ namespace Game_Step.Util
 {
     public class SelectItemHelper
     {
-        private readonly ApplicationContext db;
+        private readonly ApplicationContext _db;
 
         public SelectItemHelper(ApplicationContext context)
         {
-            db = context;
+            _db = context;
         }
 
         public IEnumerable<SelectListItem> GetDeveloper()
         {
-            var developer = db.Developers.ToList();
+            var developer = _db.Developers.ToList();
 
             IList<SelectListItem> items = new List<SelectListItem>();
 
@@ -30,7 +30,7 @@ namespace Game_Step.Util
 
         public IEnumerable<SelectListItem> GetPublisher()
         {
-            var publisher = db.Publishers.ToList();
+            var publisher = _db.Publishers.ToList();
 
             IList<SelectListItem> items = new List<SelectListItem>();
 
@@ -60,29 +60,22 @@ namespace Game_Step.Util
             IList<SelectListItem> items = new List<SelectListItem>()
             {
                 new SelectListItem{Text = "Steam", Value = "Steam"},
-                new SelectListItem{Text = "GOG", Value = "GOG"},
-                new SelectListItem{Text = "Origin", Value = "Origin"},
-                new SelectListItem{Text = "Epic Games Store", Value = "Epic Games Store"},
-                new SelectListItem{Text = "Suck", Value = "Suck"},
-                new SelectListItem{Text = "Sos", Value = "Sos"},
-                new SelectListItem{Text = "Dick", Value = "Dick"},
-                new SelectListItem{Text = "Epic", Value = "Epic"},
             };
             return items;
         }
 
-        public IEnumerable<SelectListItem> GetGameId()
-        {
-            var game = db.Games.ToList();
+        //public IEnumerable<SelectListItem> GetGameId()
+        //{
+        //    var game = _db.Games.ToList();
 
-            IList<SelectListItem> items = new List<SelectListItem>();
+        //    IList<SelectListItem> items = new List<SelectListItem>();
 
-            foreach (var g in game)
-            {
-                items.Add(new SelectListItem { Text = g.Name, Value = g.Id.ToString()});
-            }
+        //    foreach (var g in game)
+        //    {
+        //        items.Add(new SelectListItem { Text = g.Name, Value = g.Id.ToString()});
+        //    }
 
-            return items;
-        }
+        //    return items;
+        //}
     }
 }
