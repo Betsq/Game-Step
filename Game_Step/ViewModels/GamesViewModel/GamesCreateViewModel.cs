@@ -12,6 +12,7 @@ namespace Game_Step.ViewModels
         public GamePrice Price { get; set; }
         public GameRecommendation GameRecommendation { get; set; }
         public GameMinimum GameMinimum { get; set; }
+        public GameTags GameTags { get; set; }
         public IFormFile MainImage { get; set; }
         public IFormFile InnerImage { get; set; }
         public IFormFile ImageInCatalog { get; set; }
