@@ -1,0 +1,13 @@
+﻿@model Game_Step.Models.Tag
+
+@{
+    ViewBag.Title = "Creating tag";
+}
+
+<div class="container">
+    <form asp-action="Create" asp-controller="Tag" method="post">
+        <input type="text" asp-for="Name" placeholder="Name" />
+        <input type="text" asp-for="NameParam" placeholder="Name param" />
+        <input type="submit" value="Create" />
+    </form>
+</div>

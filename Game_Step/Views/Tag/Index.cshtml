@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Game_Step.Models.Tag>
+
+@{
+    ViewBag.Title = "Publishers";
+}
+
+<div class="container">
+    <a asp-action="Create" asp-controller="Tag">Create</a>
+
+    @foreach (var item in Model)
+    {
+        <div class="col-md-12">
+            Name - @item.Name, Name param - @item.NameParam
+            <a asp-action="Update" asp-controller="Tag" asp-route-id="@item.Id">Update</a>
+            <form asp-action="Delete" asp-controller="Tag" asp-route-id="@item.Id" method="post">
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+
+    }
+</div>
