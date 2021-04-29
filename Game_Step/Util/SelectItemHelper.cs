@@ -18,28 +18,14 @@ namespace Game_Step.Util
         {
             var developer = _db.Developers.ToList();
 
-            IList<SelectListItem> items = new List<SelectListItem>();
-
-            foreach (var dev in developer)
-            {
-                items.Add(new SelectListItem { Text = dev.Name, Value = dev.Name });
-            }
-
-            return items;
+            return developer.Select(dev => new SelectListItem {Text = dev.Name, Value = dev.Name}).ToList();
         }
 
         public IEnumerable<SelectListItem> GetPublisher()
         {
             var publisher = _db.Publishers.ToList();
 
-            IList<SelectListItem> items = new List<SelectListItem>();
-
-            foreach (var pub in publisher)
-            {
-                items.Add(new SelectListItem { Text = pub.Name, Value = pub.Name });
-            }
-
-            return items;
+            return publisher.Select(pub => new SelectListItem {Text = pub.Name, Value = pub.Name}).ToList();
         }
 
         public static IEnumerable<SelectListItem> GetWhereKeyActivated()
@@ -64,18 +50,11 @@ namespace Game_Step.Util
             return items;
         }
 
-        //public IEnumerable<SelectListItem> GetGameId()
-        //{
-        //    var game = _db.Games.ToList();
+        public IEnumerable<SelectListItem> GetGameId()
+        {
+            var game = _db.Games.ToList();
 
-        //    IList<SelectListItem> items = new List<SelectListItem>();
-
-        //    foreach (var g in game)
-        //    {
-        //        items.Add(new SelectListItem { Text = g.Name, Value = g.Id.ToString()});
-        //    }
-
-        //    return items;
-        //}
+            return game.Select(g => new SelectListItem {Text = g.Name, Value = g.Id.ToString()}).ToList();
+        }
     }
 }
