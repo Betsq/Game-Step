@@ -4,26 +4,53 @@
     ViewBag.Title = "Login";
 }
 
-<div class="container">
-    <form asp-action="Login" asp-controller="Account" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-        <div asp-validation-summary="ModelOnly"></div>
-        <div>
-            <label asp-for="Email"></label><br />
-            <input asp-for="Email" />
-            <span asp-validation-for="Email"></span>
+@section Style
+{
+    <link href="/css/Account/profile.css" rel="stylesheet" />
+}
+<div class="main-content">
+    <div class="content">
+        <div class="info-page">
+            Личный кабинет
         </div>
-        <div>
-            <label asp-for="Password"></label><br />
-            <input asp-for="Password" />
-            <span asp-validation-for="Password"></span>
-        </div>
-        <div>
-            <label asp-for="RememberMe"></label><br />
-            <input asp-for="RememberMe" />
-        </div>
-        <div>
-            <input type="submit" value="Sign in" />
-        </div>
-    </form>
+        <div style="display: flex;">
+            <div class="left-content">
+                <div class="left-content__name">
+                    Войти в аккаунт GAMESTEP
+                </div>
+                <form class="left-content__form" asp-action="Login" asp-controller="Account" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <label class="left-content__label">
+                        <img src="/img/Account/mail-min.png" alt="email">
+                        <input type="text" placeholder="Email" asp-for="Email">
+                        <span asp-validation-for="Email"></span>
+                    </label>
+                    <label class="left-content__label">
+                        <img src="/img/Account/pass-min.png" alt="pass">
+                        <input type="password" placeholder="Password" asp-for="Password">
+                        <span asp-validation-for="Password"></span>
+                    </label>
+                    <label class="left-content__remember"><input type="checkbox" asp-for="RememberMe">Запомнить?</label>
+                    <button type="submit">
+                        Войти
+                    </button>
+                    <hr>
+                    <div class="left-content__name">
+                        Нет аккаунта GAMESTEP?
+                    </div>
 
+                    <a href="#" class="left-content__additional">
+                        Зарегистрироваться
+                    </a>
+                </form>
+
+
+            </div>
+            <div class="right-content">
+                <a href="#"> <img src="/img/Account/user-min.png" alt="user"> Личный кабинет</a>
+                <a href="#"> <img src="/img/Account/purchase-min.png" alt="purchase"> Мои покупки</a>
+                <a href="#"> <img src="/img/Account/delay-min.png" alt="delay"> Партнерская программа</a>
+            </div>
+        </div>
+    </div>
 </div>
