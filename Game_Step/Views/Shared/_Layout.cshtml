@@ -7,76 +7,73 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/Cart/CartPoupup.css" />
+    <link rel="stylesheet" href="../ClientApp/src/app/header/header.component.css"/>
     @RenderSection("Style", required: false)
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow" style="position: relative;">
-            <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Game_Step</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Home" asp-action="ControlPanel">Control panel</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Users" asp-action="Index">All Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Roles" asp-action="Index">Roles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="/CatalogProduct">Catalog Product</a>
-                        </li>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Profile">Profile</a>
-                            </li>
-                            <li class="nav-item">
-                                <p>@User.Identity.Name</p>
-                            </li>
-                            <li class="nav-item">
-                                <form method="post" asp-controller="Account" asp-action="Logout">
-                                    <input type="submit" value="Logout" />
-                                </form>
-                            </li>
-                        }
-                        else
-                        {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Login">Sign in</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Account" asp-action="Register">Register</a>
-                            </li>
-                        }
-                    </ul>
-                </div>
 
-                <button id="callCart" class="button-cart" style="width: 50px; height: 50px; position: relative">
-                    <span id="quantity-goods" class="quantity-goods"></span>
-                    <img src="/img/icon/ShoppingCart.png" alt="Shop Cart" style="width: 50px; height: 50px; position: relative " />
-                </button>
+    <header class="main-header">
+        <div class="main-header__inner">
+            <div class="main-header__logo">
+                <a asp-controller="Home" asp-action="Index">
+                    <img src="/img/icon/logo4.png" alt="Logo Game Step">
+                </a>
 
             </div>
-        </nav>
+
+            <div class="main-header__dropdown-menu">
+                <svg fill="#000000" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="30px" height="30px">
+                    <path d="M 0 9 L 0 11 L 50 11 L 50 9 Z M 0 24 L 0 26 L 50 26 L 50 24 Z M 0 39 L 0 41 L 50 41 L 50 39 Z" />
+                </svg>
+            </div>
+
+            <nav>
+                <ul class="main-header__list">
+                    <li class="main-header__item">
+                        <a class="main-header__btn" href="/CatalogProduct">
+                            Каталог Продукции
+                        </a>
+                    </li>
+                    <li class="main-header__item">
+                        <a class="main-header__btn" href="#">
+                            Поддержка
+                        </a>
+                    </li>
+                    <li class="main-header__item">
+                        <a class="main-header__btn" href="#">
+                            Мои Покупки
+                        </a>
+                    </li>
+                    <li class="main-header__item">
+                        <a class="main-header__btn" asp-controller="Home" asp-action="ControlPanel">
+                            Панель управление
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="main-header__search-block">
+                <div class="main-header__btn">
+                    <img class="main-header__search-icon" src="/img/icon/magnifier.png" alt="magnifier">
+                    Поиск игр
+                </div>
+            </div>
+
+            <div class="main-header__cart">
+                <img id="callCart" class="main-header__cart-logo" src="/img/icon/ShoppingCart.png" alt="Shopping cart">
+                <span id="quantity-goods" class="main-header__amount-prod"></span>
+            </div>
+        </div>
     </header>
 
 
-        <main>
 
-            @RenderBody()
+    <main>
 
-            <div id="cart"></div>
-        </main>
+        @RenderBody()
+
+        <div id="cart"></div>
+    </main>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
