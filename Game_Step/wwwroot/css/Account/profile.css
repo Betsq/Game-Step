@@ -89,6 +89,7 @@ button {
     background: linear-gradient(to right, #FFD200, #F7971E);
     color: white;
     margin-bottom: 20px;
+    cursor: pointer;
 }
 
 hr {

@@ -3,39 +3,65 @@
 @{
     ViewBag.Title = "Register";
 }
+@section Style
+{
+    <link href="/css/Account/profile.css" rel="stylesheet" />
+}
 
-<div class="container">
-    <h1>Register</h1>
+<div class="main-content">
+    <div class="content">
+        <div class="info-page">
+            Личный кабинет
+        </div>
+        <div style="display: flex;">
+            <div class="left-content">
+                <div class="left-content__name">
+                    Зарегистрироваться в GAMESTEP
+                </div>
+                <form class="left-content__form" asp-action="Register" asp-controller="Account" method="post">
+                    <label class="left-content__label">
+                        <img src="/img/Account/mail-min.png" alt="email">
+                        <input type="text" placeholder="Email" asp-for="Email">
+                        <span asp-validation-for="Email"></span>
+                    </label>
+                    <label class="left-content__label">
+                        <img src="/img/Account/name.png" alt="name">
+                        <input type="text" placeholder="Имя" asp-for="Name">
+                        <span asp-validation-for="Name"></span>
+                    </label>
+                    <label class="left-content__label">
+                        <img src="/img/Account/pass-min.png" alt="pass">
+                        <input type="password" placeholder="Пароль" asp-for="Password">
+                        <span asp-validation-for="Password"></span>
+                    </label>
+                    <label class="left-content__label">
+                        <img src="/img/Account/pass-min.png" alt="pass">
+                        <input type="password" placeholder="Повторите пароль" asp-for="ConfirmPassword">
+                        <span asp-validation-for="ConfirmPassword"></span>
+                    </label>
 
-    <form asp-action="Register" asp-controller="Account" method="post">
-        <div asp-validation-summary="ModelOnly"></div>
-        <div>
-            <label asp-for="Email"></label><br />
-            <input asp-for="Email" />
-            <span asp-validation-for="Email"></span>
+                    <button type="submit">
+                        Зарегестрироваться
+                    </button>
+                    <hr>
+                    <div class="left-content__name">
+                        Уже есть аккаунт GAMESTEP?
+                    </div>
+
+                    <a href="#" class="left-content__additional">
+                        Войти
+                    </a>
+                </form>
+
+
+            </div>
+            <div class="right-content">
+                <a href="#"> <img src="/img/Account/user-min.png" alt="user"> Личный кабинет</a>
+                <a href="#"> <img src="/img/Account/purchase-min.png" alt="user"> Мои покупки</a>
+                <a href="#"> <img src="/img/Account/delay-min.png" alt="user"> Партнерская программа</a>
+            </div>
+
         </div>
-        <div>
-            <label asp-for="FirstName"></label><br />
-            <input asp-for="FirstName" />
-            <span asp-validation-for="FirstName"></span>
-        </div>
-        <div>
-            <label asp-for="LastName"></label><br />
-            <input asp-for="LastName" />
-            <span asp-validation-for="LastName"></span>
-        </div>
-        <div>
-            <label asp-for="Password"></label><br />
-            <input asp-for="Password" />
-            <span asp-validation-for="Password"></span>
-        </div>
-        <div>
-            <label asp-for="ConfirmPassword"></label><br />
-            <input asp-for="ConfirmPassword" />
-            <span asp-validation-for="ConfirmPassword"></span>
-        </div>
-        <div>
-            <input type="submit" value="Register" />
-        </div>
-    </form>
+    </div>
 </div>
+
