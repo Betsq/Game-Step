@@ -92,10 +92,13 @@ namespace Game_Step.Controllers.Games
                     .Include(item => item.GameImage)
                     .Include(item => item.Recommendation)
                     .Include(item => item.Minimum)
+                    .Include(item => item.GameTags)
                     .FirstOrDefaultAsync(item => item.Id == id);
 
             if (game == null)
                 return NotFound();
+
+            var tags = await _db.Tags.ToListAsync();
 
             var gamesViewModel = new GamesUpdateViewModel
             {
@@ -103,11 +106,12 @@ namespace Game_Step.Controllers.Games
                 Price = game.GamePrice,
                 GameRecommendation = game.Recommendation,
                 GameMinimum = game.Minimum,
+                Tags = tags,
                 Id = game.Id,
 
-                MainImagePath = game.GameImage?.MainImage,
-                InnerImagePath = game.GameImage?.InnerImage,
-                ImageInCatalogPath = game.GameImage?.ImageInCatalog,
+                MainImagePath = game.GameImage.MainImage,
+                InnerImagePath = game.GameImage.InnerImage,
+                ImageInCatalogPath = game.GameImage.ImageInCatalog,
             };
 
             return View(gamesViewModel);
@@ -121,6 +125,7 @@ namespace Game_Step.Controllers.Games
                 .Include(item => item.GameImage)
                 .Include(item => item.Recommendation)
                 .Include(item => item.Minimum)
+                .Include(item => item.GameTags)
                 .FirstOrDefaultAsync(item => item.Id == model.Id);
 
             if (game == null)
@@ -140,6 +145,8 @@ namespace Game_Step.Controllers.Games
             game.Recommendation = model.GameRecommendation;
             game.Minimum = model.GameMinimum;
 
+            DelGameTags(game, model.TagsDictionary);
+            await AddGameTags(game, model.TagsDictionary);
             AddUpdateGameImage(game, model.MainImage, model.InnerImage, model.ImageInCatalog);
             PriceCalculation(game, model.Price);
 
@@ -242,7 +249,7 @@ namespace Game_Step.Controllers.Games
                 if (td.Value.IsAdd == false)
                     continue;
 
-                var gameTag = game?.GameTags?.FirstOrDefault(item => item.TagId == td.Key);
+                var gameTag = game.GameTags?.FirstOrDefault(item => item.TagId == td.Key);
 
                 if (gameTag != null)
                     continue;
@@ -260,6 +267,29 @@ namespace Game_Step.Controllers.Games
                 };
                 _db.GameTags.Add(gt);
             }
+        }
+
+        public void DelGameTags(Game game, Dictionary<int, GamesTagsViewModel> tagsDictionary)
+        {
+            var gameTags = game.GameTags?.ToList();
+
+            if (gameTags == null)
+                return;
+
+            foreach (var td in tagsDictionary)
+            {
+                var gameTag = gameTags
+                        .FirstOrDefault(item => item.TagId == td.Key);
+
+                if (gameTag == null)
+                    continue;
+
+                if (td.Value.IsAdd == true)
+                    gameTags.Remove(gameTag);
+
+            }
+
+            _db.GameTags.RemoveRange(gameTags);
         }
 
         [HttpGet]

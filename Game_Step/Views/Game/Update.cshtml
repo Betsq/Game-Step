@@ -4,6 +4,9 @@
 
 @{
     ViewBag.Title = "Update " + Model.Game.Name;
+
+    string isChecked = "";
+    string isShow = "";
 }
 
 @section Style{
@@ -124,7 +127,39 @@
                     <div class="preview-container" style="width: 153px; height: 72px;">Preview Image</div>
                 }
             </div>
+            <div class="block-input">
+                @for (int i = 0; i < Model.Tags.Count; i++)
+                {
+                    var gTag = Model.Game.GameTags.FirstOrDefault(item => item.TagId == Model.Tags[i].Id);
 
+                    if (gTag != null)
+                    {
+                        isChecked = "checked";
+
+                        if (gTag.Show == true)
+                            isShow = "checked";
+                    }
+
+                    <div class="block-input__tags">
+                        <div class="block-input__tags-add">
+                            <label>
+                                <input type="checkbox" name="TagsDictionary[@i].Value.IsAdd" @isChecked value="true">
+                                @Model.Tags[i].Name
+                            </label>
+                            <input type="number" name="TagsDictionary[@i].Key" value="@Model.Tags[i].Id" hidden readonly>
+                            <input type="number" name="TagsDictionary[@i].Value.TagId" value="@Model.Tags[i].Id" hidden readonly>
+                        </div>
+                        <div class="block-input__tags-show">
+                            <label>
+                                <input type="checkbox" name="TagsDictionary[@i].Value.Show" @isShow value="true">
+                                Показывать на странице игры?
+                            </label>
+                        </div>
+                    </div>
+                    isChecked = "";
+                    isShow = "";
+                }
+            </div>
 
             <div class="block-input">
                 <div class="select-box">
