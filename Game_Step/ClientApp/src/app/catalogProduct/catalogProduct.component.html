@@ -1,7 +1,6 @@
 ﻿<div class="main-content">
     <div class="product-content">
-        <div (click)="filter()">CALL FUNC</div>
-        <div style="flex: 1; position: relative">
+    <div style="flex: 1; position: relative">
             <div infiniteScroll [infiniteScrollDistance]="1" [infiniteScrollThrottle]="50" (scrolled)="onScroll()">
                 <div *ngFor="let p of products">
                     <a class="catalog-item" href="/Game/Game/{{p?.id}}">
