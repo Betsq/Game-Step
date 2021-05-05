@@ -3,6 +3,7 @@
 @inject SelectItemHelper select
 
 @{
+    int i = 0;
     ViewBag.Title = "Adding Game";
 }
 
@@ -102,13 +103,26 @@
             </div>
 
             <div class="block-input">
-                <div class="select-box">
-                    <label for="select-box1" class="label select-box1 select-box-color">
-                        <span class="label-desc">Choose genre</span>
-                    </label>
-                    <select id="select-box1" class="select" asp-for="Game.Genre" asp-items="Game_Step.Util.SelectItemHelper.GetGenre()">
-                    </select>
-                </div>
+                @foreach (var tag in Model.Tags)
+                {
+                    <div class="block-input__tags">
+                        <div class="block-input__tags-add">
+                            <label>
+                                <input type="checkbox" name="TagsDictionary[@i].Value.IsAdd" value="true">
+                                @tag.Name
+                            </label>
+                            <input type="number" name="TagsDictionary[@i].Key" value="@tag.Id" hidden readonly>
+                            <input type="number" name="TagsDictionary[@i].Value.TagId" value="@tag.Id" hidden readonly>
+                        </div>
+                        <div class="block-input__tags-show">
+                            <label>
+                                <input type="checkbox" name="TagsDictionary[@i].Value.Show" value="true">
+                                Показывать на странице игры?
+                            </label>
+                        </div>
+                    </div>
+                    i++;
+                }
             </div>
 
             <div class="block-input">
