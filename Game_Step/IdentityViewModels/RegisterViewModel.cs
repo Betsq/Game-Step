@@ -9,12 +9,8 @@ namespace Game_Step.IdentityViewModels
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "First name")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [Display(Name = "Last name")]
-        public string LastName { get; set; }
+        [Display(Name = "Name")]
+        public string Name { get; set; }
 
         [Required]
         [DataType(DataType.Password)]

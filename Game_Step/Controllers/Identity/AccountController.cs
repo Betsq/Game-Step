@@ -48,8 +48,7 @@ namespace Game_Step.Controllers.IdentityControllers
                 {
                     Email = model.Email,
                     UserName = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
+                    Name = model.Name,
                 };
 
                 //Add users

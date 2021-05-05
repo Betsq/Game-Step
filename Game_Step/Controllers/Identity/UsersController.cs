@@ -37,8 +37,7 @@ namespace Game_Step.Controllers.IdentityControllers
                 {
                     Email = model.Email,
                     UserName = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
+                    Name = model.Name,
                 };
 
                 var result = await userManager.CreateAsync(user, model.Password);
@@ -70,9 +69,8 @@ namespace Game_Step.Controllers.IdentityControllers
                     {
                         Id = user.Id,
                         Email = user.Email,
-                        FirstName = user.FirstName,
-                        LastName = user.LastName,
-                    };
+                        Name = user.Name,
+                };
                     return View(model);
                 }
             }
@@ -89,8 +87,7 @@ namespace Game_Step.Controllers.IdentityControllers
                 {
                     user.Email = model.Email;
                     user.UserName = model.Email;
-                    user.FirstName = model.FirstName;
-                    user.LastName = model.LastName;
+                    user.Name = model.Name;
 
                     var result = await userManager.UpdateAsync(user);
                     if (result.Succeeded)
