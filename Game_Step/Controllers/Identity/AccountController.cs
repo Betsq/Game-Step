@@ -25,6 +25,8 @@ namespace Game_Step.Controllers.IdentityControllers
             return User.Identity.IsAuthenticated;
         }
 
+        public IActionResult Partner() => View();
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register()

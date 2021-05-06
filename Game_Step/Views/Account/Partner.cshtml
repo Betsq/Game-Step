@@ -1,0 +1,104 @@
+﻿@{
+    ViewBag.Title = "Partner";
+}
+@section Style
+{
+
+    <link href="/css/Account/partner.css" rel="stylesheet" />
+}
+<div class="main-content">
+    <div class="content">
+        <div class="info-page">
+            Партнерская программа
+        </div>
+        <div style="display: flex;">
+            <div class="left-content">
+                <ul class="left-content__list">
+                    <li>
+                        <div class="left-content__block-img">
+                            <img src="/img/Account/comment.png" alt="comment">
+                        </div>
+                        <div>
+                            <div class="left-content__block-title">Что это такое</div>
+                            <div class="left-content__block-description">
+                                Партнёрская программа - это форма выгодного
+                                сотрудничества для продавца и партнёра.
+                                Мы будем выплачивать до 10% за каждый купленный товар человеком, прошедшим по вашей
+                                индивидуальной ссылке, которую мы вам предоставим после оформления заявки
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left-content__block-img">
+                            <img src="/img/Account/connect.png" alt="connect">
+                        </div>
+                        <div>
+                            <div class="left-content__block-title">Как распространить ссылку</div>
+                            <div class="left-content__block-description">
+                                Индивидуальную ссылку можно размещать там,
+                                где вам это удобно. На вашем сайте, страницах социальных сетей, форумах и в своих
+                                роликах на YouTube
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left-content__block-img">
+                            <img src="/img/Account/difficult_decision.png" alt="decision">
+                        </div>
+                        <div>
+                            <div class="left-content__block-title">Это выгодно</div>
+                            <div class="left-content__block-description">
+                                Безусловно! Мы предлагаем выгодный процент
+                                для партнера. Например, человек купил по вашей ссылке товар за 1499 рублей. Вы
+                                получаете с продажи 3%, т.е. 44,97 рублей. Теперь сами посчитайте, сколько можно
+                                заработать если по вашей ссылке продано несколько таких товаров!
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left-content__block-img">
+                            <img src="/img/Account/graph.png" alt="graph">
+                        </div>
+                        <div>
+                            <div class="left-content__block-title">Более 3500 позиций</div>
+                            <div class="left-content__block-description">
+                                В нашем каталоге более 3500 позиций и
+                                каждый месяц количество товаров растет! Человек, перешедший по ссылке, обязательно
+                                найдет товар для себя :)
+                            </div>
+                        </div>
+                    </li>
+                    <li style="border: none;">
+                        <div class="left-content__block-img">
+                            <img src="/img/Account/api.png" alt="api">
+                        </div>
+                        <div>
+                            <div class="left-content__block-title">API</div>
+                            <div class="left-content__block-description">
+                                Вы можете использовать наш API для
+                                получения в режиме реального времени актуального списка всех товаров каталога с
+                                ценами, делать поиск по названию товара и смотреть подробную информацию о каждом
+                                товаре.
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="right-content">
+
+                <div class="right-content__avatar-block-img">
+                    <img src="/joker avatar.png" alt="avatar">
+
+                </div>
+                <div class="right-content__greeting">
+                    Привет, Betsq
+                </div>
+
+                <a asp-action="Profile" asp-controller="Account"> <img src="/img/Account/user.png" alt="user" style="color: #1896e6;"> Личный кабинет</a>
+                <a href="#"> <img src="/img/Account/purchase.png" alt="purchase"> Мои покупки</a>
+                <a asp-action="Partner" asp-controller="Account"> <img src="/img/Account/delay.png" alt="delay"> Партнерская программа</a>
+                <a href="#"> <img src="/img/Account/exit.png" alt="user">Выйти</a>
+            </div>
+        </div>
+    </div>
+</div>
