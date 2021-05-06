@@ -1,0 +1,201 @@
+﻿.content {
+    position: relative;
+    max-width: 1236px;
+    margin: auto auto;
+    padding-top: 24px;
+}
+
+.info-page {
+    font-size: 30px;
+    width: 100%;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.left-content {
+    flex: 1;
+    margin-right: 25px;
+}
+
+.container-change {
+    display: flex;
+    padding: 25px 35px;
+    background-color: white;
+}
+
+.container-change__avatar {
+    display: block;
+}
+
+.container-change__avatar-block-img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid #dfdfdf;
+}
+
+.container-change__avatar img {
+    width: 100%;
+    display: block;
+}
+
+.container-change__avatar-button {
+    font-size: 15px;
+    display: flex;
+    margin-top: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+    .container-change__avatar-button img {
+        max-width: 20px;
+        max-height: 20px;
+        margin-right: 3px;
+    }
+
+.container-change__nickname {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 10px 0 10px 30px;
+    border: 1px solid #dfdfdf;
+    margin-bottom: 10px;
+    outline: none;
+    font-size: 15px;
+    max-width: 330px;
+}
+
+    input:focus {
+        border: 1px solid #ff9900;
+    }
+
+button {
+    width: 330px;
+    outline: none;
+    padding: 10px 0;
+    border: none;
+    background-color: #1896e6;
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.container-change__nickname-form {
+    width: 330px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.container-change__password {
+    width: 50%;
+    border-right: 1px solid #dfdfdf;
+}
+
+.container-change__password,
+.container-change__email {
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.container-change__password-title,
+.container-change__email-title,
+.container-change__nickname-title {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.container-change__password-title,
+.container-change__email-title {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.container-change__email-now {
+    margin: 25px 0 20px 0;
+    font-size: 17px;
+}
+
+.container-change__email {
+    flex: 1;
+}
+
+.input-email {
+    display: flex;
+    justify-content: flex-end;
+}
+
+    .input-email img {
+        left: 70px !important;
+        top: 9px !important;
+    }
+
+.container-input {
+    position: relative;
+}
+
+    .container-input img {
+        position: absolute;
+        top: 7px;
+        left: 4px;
+        max-width: 25px;
+    }
+
+.right-content__avatar-block-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border: 1px solid #dfdfdf;
+    margin: 0 auto;
+}
+
+    .right-content__avatar-block-img img {
+        width: 100%;
+        display: block;
+    }
+
+.right-content__greeting {
+    color: #616161;
+    font-size: 17px;
+    text-align: center;
+    margin: 10px 0;
+}
+
+.right-content {
+    min-width: 25%;
+}
+
+    .right-content a {
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: #616161;
+        padding: 15px 15px;
+        border-bottom: 1px solid #dfdfdf;
+    }
+
+        .right-content a:hover {
+            color: #ff9900;
+        }
+
+        .right-content a img {
+            margin-right: 10px;
+            max-width: 25px;
+        }

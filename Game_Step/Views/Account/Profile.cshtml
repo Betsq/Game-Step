@@ -3,8 +3,110 @@
 @{
     ViewBag.Title = "Profile - " + Model.UserName;
 }
+@section Style
+{
+    <link href="/css/Account/cabinet.css" rel="stylesheet" />
+}
 
-<div class="container">
-    Name - @Model.Name
-    Email - @Model.Email
+<div class="content">
+    <div class="info-page">
+        Личный кабинет
+    </div>
+    <div style="display: flex;">
+        <div class="left-content">
+            <div>
+                <div class="container-change">
+                    <div class="container-change__avatar">
+                        <div class="container-change__avatar-block-img">
+                            <img src="" alt="avatar">
+                        </div>
+
+                        <div class="container-change__avatar-button">
+                            <img src="/img/Account/attach.png" alt="attach">
+                            Изменить аватар
+                            <form style="display: none;">
+                                <input type="file">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="container-change__nickname">
+                        <div class="container-change__nickname-title">
+                            Изменить никнейм
+                        </div>
+                        <form class="container-change__nickname-form">
+                            <div class="container-input">
+                                <img src="/img/Account/nickname.png" alt="nickname" style="left: 2px">
+                                <input type="text" placeholder="Введите новый никнейм">
+                            </div>
+                            <button>Изменить никнейм</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="container-change" style="margin-top: 10px;">
+                    <div class="container-change__password">
+                        <div class="container-change__password-title">
+                            Изменить пароль
+                        </div>
+                        <form class="container-change__password-form">
+                            <div class="container-input">
+                                <img src="/img/Account/pass.png" alt="pass">
+                                <input type="password" placeholder="Старый пароль">
+                            </div>
+                            <div class="container-input">
+                                <img src="/img/Account/pass.png" alt="pass">
+                                <input type="password" placeholder="Новый пароль">
+                            </div>
+                            <div class="container-input">
+                                <img src="/img/Account/pass.png" alt="pass">
+                                <input type="password" placeholder="Подтвердите новый пароль">
+                            </div>
+                            <button>
+                                Изменить пароль
+                            </button>
+                        </form>
+                    </div>
+                    <div class="container-change__email">
+                        <div class="container-change__email-title">
+                            Изменить Email
+                        </div>
+                        <div class="container-change__email-now">
+                            Ваш email: betsq9@gmail.com
+                        </div>
+                        <form class="container-change__email-form">
+                            <div class="container-input input-email">
+                                <img src="/img/Account/mail.png" alt="mail">
+                                <input type="text" placeholder="Email">
+                            </div>
+                            <div class="container-input input-email">
+                                <img src="/img/Account/mail.png" alt="mail">
+                                <input type="text" placeholder="Подтвердите Email">
+                            </div>
+                            <div class="input-email">
+                                <button>
+                                    Изменить email
+                                </button>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="right-content">
+
+            <div class="right-content__avatar-block-img">
+                <img src="/joker avatar.png" alt="avatar">
+
+            </div>
+            <div class="right-content__greeting">
+                Привет, Betsq
+            </div>
+
+            <a href="#"> <img src="/img/Account/user.png" alt="user" style="color: #1896e6!important"> Личный кабинет</a>
+            <a href="#"> <img src="/img/Account/purchase.png" alt="purchase"> Мои покупки</a>
+            <a href="#"> <img src="/img/Account/delay.png" alt="delay"> Партнерская программа</a>
+            <a href="#"> <img src="/img/Account/exit.png" alt="exit">Выйти</a>
+        </div>
+
+    </div>
 </div>
