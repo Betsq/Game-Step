@@ -1,4 +1,5 @@
-﻿using Game_Step.IdentityViewModels;
+﻿using System.IO;
+using Game_Step.IdentityViewModels;
 using Game_Step.Models;
 using Game_Step.Util;
 using Microsoft.AspNetCore.Authorization;
@@ -12,12 +13,14 @@ namespace Game_Step.Controllers.IdentityControllers
     {
         private readonly UserManager<User> userManager;
         private readonly SignInManager<User> signInManager;
+        private readonly ApplicationContext _db;
 
         public AccountController(UserManager<User> userManager,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager, ApplicationContext db)
         {
             this.userManager = userManager;
             this.signInManager = signInManager;
+            _db = db;
         }
 
         private bool UserIsAuthenticated()
@@ -287,12 +290,42 @@ namespace Game_Step.Controllers.IdentityControllers
         [Authorize]
         public async Task<IActionResult> Profile()
         {
-            var userID = userManager.GetUserId(HttpContext.User);
+            var userId = userManager.GetUserId(HttpContext.User);
 
-            var user = await userManager.FindByIdAsync(userID);
+            var user = await userManager.FindByIdAsync(userId);
 
-            return View(user);
+            var profile = new ProfileViewModel()
+            {
+                Name = user.Name,
+                Avatar = user.Avatar,
+                Email = user.Email,
+            };
 
+            return View(profile);
+        }
+
+        public async Task<IActionResult> UpdateAvatar(ProfileViewModel model)
+        {
+            if (model.AvatarFormFile == null)
+                return RedirectToAction("Profile");
+
+            byte[] imageData = null;
+
+            using (var binaryReader = new BinaryReader(model.AvatarFormFile.OpenReadStream()))
+            {
+                imageData = binaryReader.ReadBytes((int) model.AvatarFormFile.Length);
+            }
+
+            var userId = userManager.GetUserId(HttpContext.User);
+
+            var user = await userManager.FindByIdAsync(userId);
+
+            user.Avatar = imageData;
+
+            _db.Users.Update(user);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("Profile");
         }
     }
 }

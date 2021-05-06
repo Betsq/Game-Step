@@ -1,7 +1,7 @@
-﻿@model Game_Step.Models.User
+﻿@model Game_Step.IdentityViewModels.ProfileViewModel
 
 @{
-    ViewBag.Title = "Profile - " + Model.UserName;
+    ViewBag.Title = "Profile - " + Model.Name;
 }
 @section Style
 {
@@ -18,14 +18,20 @@
                 <div class="container-change">
                     <div class="container-change__avatar">
                         <div class="container-change__avatar-block-img">
-                            <img src="" alt="avatar">
+                            @if (Model.Avatar != null)
+                            {
+                                <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Avatar))" alt="avatar1">
+                            }
+                            else
+                            {
+                                <img src="/img/Account/avatar_unk.png" alt="avatar2">
+                            }
                         </div>
 
                         <div class="container-change__avatar-button">
-                            <img src="/img/Account/attach.png" alt="attach">
                             Изменить аватар
-                            <form>
-                                <input type="file" style="width: 20px; height: 20px">
+                            <form asp-action="UpdateAvatar", asp-controller="Account" method="post" enctype="multipart/form-data">
+                                <input type="file" style="width: 20px; height: 20px" asp-for="AvatarFormFile">
                                 <button type="submit" style="width: 20px; height: 20px">send</button>
                             </form>
                         </div>
@@ -71,7 +77,7 @@
                             Изменить Email
                         </div>
                         <div class="container-change__email-now">
-                            Ваш email: betsq9@gmail.com
+                            Ваш email: @Model.Email
                         </div>
                         <form class="container-change__email-form">
                             <div class="container-input input-email">
@@ -96,11 +102,17 @@
         <div class="right-content">
 
             <div class="right-content__avatar-block-img">
-                <img src="/joker avatar.png" alt="avatar">
-
+                @if (Model.Avatar != null)
+                {
+                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Avatar))" alt="avatar1">
+                }
+                else
+                {
+                    <img src="/img/Account/avatar_unk.png" alt="avatar2">
+                }
             </div>
             <div class="right-content__greeting">
-                Привет, Betsq
+                Привет, @Model.Name
             </div>
 
             <a asp-action="Profile" asp-controller="Account" style="color: #1896e6!important"> <img src="/img/Account/user.png" alt="user"> Личный кабинет</a>
