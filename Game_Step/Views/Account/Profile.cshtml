@@ -24,8 +24,9 @@
                         <div class="container-change__avatar-button">
                             <img src="/img/Account/attach.png" alt="attach">
                             Изменить аватар
-                            <form style="display: none;">
-                                <input type="file">
+                            <form>
+                                <input type="file" style="width: 20px; height: 20px">
+                                <button type="submit" style="width: 20px; height: 20px">send</button>
                             </form>
                         </div>
                     </div>
@@ -102,7 +103,7 @@
                 Привет, Betsq
             </div>
 
-            <a asp-action="Profile" asp-controller="Account"> <img src="/img/Account/user.png" alt="user" style="color: #1896e6!important"> Личный кабинет</a>
+            <a asp-action="Profile" asp-controller="Account" style="color: #1896e6!important"> <img src="/img/Account/user.png" alt="user"> Личный кабинет</a>
             <a href="#"> <img src="/img/Account/purchase.png" alt="purchase"> Мои покупки</a>
             <a asp-action="Partner" asp-controller="Account"> <img src="/img/Account/delay.png" alt="delay"> Партнерская программа</a>
             <a href="#"> <img src="/img/Account/exit.png" alt="exit">Выйти</a>
