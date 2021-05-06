@@ -6,6 +6,7 @@
 
 @section Style
 {
+
     <link href="/css/Account/profile.css" rel="stylesheet" />
 }
 <div class="main-content">
@@ -47,9 +48,9 @@
 
             </div>
             <div class="right-content">
-                <a href="#"> <img src="/img/Account/user.png" alt="user"> Личный кабинет</a>
+                <a asp-action="Profile" asp-controller="Account"> <img src="/img/Account/user.png" alt="user"> Личный кабинет</a>
                 <a href="#"> <img src="/img/Account/purchase.png" alt="purchase"> Мои покупки</a>
-                <a href="#"> <img src="/img/Account/delay.png" alt="delay"> Партнерская программа</a>
+                <a asp-action="Partner" asp-controller="Account"> <img src="/img/Account/delay.png" alt="delay"> Партнерская программа</a>
             </div>
         </div>
     </div>

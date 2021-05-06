@@ -20,7 +20,7 @@
                 </div>
                 <form class="left-content__form" asp-action="Register" asp-controller="Account" method="post">
                     <label class="left-content__label">
-                        <img src="/img/Account/mail-min.png" alt="email">
+                        <img src="/img/Account/mail.png" alt="email">
                         <input type="text" placeholder="Email" asp-for="Email">
                         <span asp-validation-for="Email"></span>
                     </label>
@@ -30,12 +30,12 @@
                         <span asp-validation-for="Name"></span>
                     </label>
                     <label class="left-content__label">
-                        <img src="/img/Account/pass-min.png" alt="pass">
+                        <img src="/img/Account/pass.png" alt="pass">
                         <input type="password" placeholder="Пароль" asp-for="Password">
                         <span asp-validation-for="Password"></span>
                     </label>
                     <label class="left-content__label">
-                        <img src="/img/Account/pass-min.png" alt="pass">
+                        <img src="/img/Account/pass.png" alt="pass">
                         <input type="password" placeholder="Повторите пароль" asp-for="ConfirmPassword">
                         <span asp-validation-for="ConfirmPassword"></span>
                     </label>
@@ -56,9 +56,9 @@
 
             </div>
             <div class="right-content">
-                <a href="#"> <img src="/img/Account/user-min.png" alt="user"> Личный кабинет</a>
-                <a href="#"> <img src="/img/Account/purchase-min.png" alt="user"> Мои покупки</a>
-                <a href="#"> <img src="/img/Account/delay-min.png" alt="user"> Партнерская программа</a>
+                <a asp-action="Profile" asp-controller="Account"> <img src="/img/Account/user.png" alt="user"> Личный кабинет</a>
+                <a href="#"> <img src="/img/Account/purchase.png" alt="user"> Мои покупки</a>
+                <a asp-action="Partner" asp-controller="Account"> <img src="/img/Account/delay.png" alt="user"> Партнерская программа</a>
             </div>
 
         </div>

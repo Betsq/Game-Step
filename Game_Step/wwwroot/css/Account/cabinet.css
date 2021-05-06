@@ -134,11 +134,11 @@ button {
 
 .input-email {
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
     .input-email img {
-        left: 70px !important;
+        left: 36px !important;
         top: 9px !important;
     }
 
