@@ -1,4 +1,4 @@
-﻿CKEDITOR.replace("Description")
+﻿CKEDITOR.replace("decsription");
 
 
 function readURL(input) {
