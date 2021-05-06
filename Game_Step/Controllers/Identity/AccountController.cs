@@ -11,15 +11,15 @@ namespace Game_Step.Controllers.IdentityControllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> userManager;
-        private readonly SignInManager<User> signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly ApplicationContext _db;
 
         public AccountController(UserManager<User> userManager,
             SignInManager<User> signInManager, ApplicationContext db)
         {
-            this.userManager = userManager;
-            this.signInManager = signInManager;
+            _userManager = userManager;
+            _signInManager = signInManager;
             _db = db;
         }
 
@@ -35,7 +35,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult Register()
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Profile", "Account");
 
             return View();
         }
@@ -45,47 +45,44 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Profile", "Account");
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = new User
             {
-                User user = new User
-                {
-                    Email = model.Email,
-                    UserName = model.Email,
-                    Name = model.Name,
-                };
+                Email = model.Email,
+                UserName = model.Email,
+                Name = model.Name,
+            };
 
-                //Add users
-                var result = await userManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
+            //Add users
+            var result = await _userManager.CreateAsync(user, model.Password);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                    ModelState.AddModelError(string.Empty, error.Description);
 
-                    var callbackUrl = Url.Action(
-                        "ConfirmEmail",
-                        "Account",
-                        new { userId = user.Id, code = code },
-                        protocol: HttpContext.Request.Scheme);
-
-                    EmailService emailService = new EmailService();
-
-                    await emailService.SendEmailAsync(model.Email, "Confirm Email",
-                        $"Confirm registration by clicking on the link:" +
-                        $" <a href='{callbackUrl}'>link</a>");
-
-                    return Content("To complete registration, check your email and" +
-                        " follow the link provided in the letter");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
+                return View(model);
             }
-            return View(model);
+
+            var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+            var callbackUrl = Url.Action(
+                "ConfirmEmail",
+                "Account",
+                new { userId = user.Id, code = code },
+                protocol: HttpContext.Request.Scheme);
+
+            var emailService = new EmailService();
+
+            await emailService.SendEmailAsync(model.Email, "Confirm Email",
+                $"Confirm registration by clicking on the link:" +
+                $" <a href='{callbackUrl}'>link</a>");
+
+            return Content("To complete registration, check your email and" +
+                           " follow the link provided in the letter");
         }
 
         [HttpGet]
@@ -95,17 +92,17 @@ namespace Game_Step.Controllers.IdentityControllers
             if (userId == null || code == null || UserIsAuthenticated())
                 return View("Error");
 
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
                 return View("Error");
 
-            var result = await userManager.ConfirmEmailAsync(user, code);
+            var result = await _userManager.ConfirmEmailAsync(user, code);
 
             if (result.Succeeded)
                 return RedirectToAction("Index", "Home");
-            else
-                return View("Error");
+
+            return View("Error");
         }
 
         [HttpGet]
@@ -113,7 +110,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult Login(string returnUrl = null)
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Profile", "Account");
 
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
@@ -124,32 +121,30 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Profile", "Account");
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = await _userManager.FindByNameAsync(model.Email);
+
+            if (user == null)
+                return View(model);
+
+            if (!await _userManager.IsEmailConfirmedAsync(user))
             {
-                var user = await userManager.FindByNameAsync(model.Email);
-
-                if (user != null)
-                {
-                    if (!await userManager.IsEmailConfirmedAsync(user))
-                    {
-                        ModelState.AddModelError(string.Empty, "You don't confirm your email");
-                        return View(model);
-                    }
-                }
-
-                var result = await signInManager.PasswordSignInAsync(model.Email,
-                    model.Password, model.RememberMe, false);
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username and (or) password");
-                }
+                ModelState.AddModelError(string.Empty, "You don't confirm your email");
+                return View(model);
             }
+
+            var result = await _signInManager.PasswordSignInAsync(model.Email,
+                model.Password, model.RememberMe, false);
+
+            if (result.Succeeded)
+                return RedirectToAction("Profile", "Account");
+
+
+            ModelState.AddModelError("", "Invalid username and (or) password");
             return View(model);
         }
 
@@ -159,7 +154,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> Logout()
         {
             //Delete authentication cookies
-            await signInManager.SignOutAsync();
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
 
@@ -174,25 +169,21 @@ namespace Game_Step.Controllers.IdentityControllers
         [Authorize]
         public async Task<IActionResult> ChangePassword(AccountChangePasswordViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var user = await userManager.GetUserAsync(HttpContext.User);
+            if (!ModelState.IsValid)
+                return View(model);
 
-                IdentityResult result = await userManager.ChangePasswordAsync(user,
-                    model.OldPassword, model.NewPassword);
+            var user = await _userManager.GetUserAsync(HttpContext.User);
 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Profile", "Account");
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
-                    {
-                        ModelState.AddModelError(string.Empty, error.Description);
-                    }
-                }
-            }
+            var result = await _userManager.ChangePasswordAsync(user,
+                model.OldPassword, model.NewPassword);
+
+            if (result.Succeeded)
+                return RedirectToAction("Profile", "Account");
+
+
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(string.Empty, error.Description);
+
             return View(model);
         }
 
@@ -201,7 +192,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult ForgotPassword()
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Profile", "Account");
 
             return View();
         }
@@ -212,35 +203,30 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Profile", "Account");
 
-            if (ModelState.IsValid)
-            {
-                var user = await userManager.FindByEmailAsync(model.Email);
-                if (user != null || await userManager.IsEmailConfirmedAsync(user))
-                {
-                    var code = await userManager.GeneratePasswordResetTokenAsync(user);
+            if (!ModelState.IsValid)
+                return View(model);
 
-                    var callbackUrl = Url.Action("ResetPassword", "Account",
-                        new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+            var user = await _userManager.FindByEmailAsync(model.Email);
 
-                    EmailService emailService = new EmailService();
-
-                    await emailService.SendEmailAsync(model.Email, "Reset Password",
-                        $"To reset your password follow the link:" +
-                        $" <a href='{callbackUrl}'>Reset Password</a>");
-
-                    return Content("To reset your password, follow the link in the letter" +
-                        " sent to your email.");
-                }
-
-                // user with this email address may not be present in the database
-                // nevertheless print a standard message to hide
-                // presence or absence of a user in the database
+            if (user == null && !await _userManager.IsEmailConfirmedAsync(user))
                 return Content("To reset your password, follow the link in the letter" +
-                    " sent to your email.");
-            }
-            return View(model);
+                               " sent to your email.");
+
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+
+            var callbackUrl = Url.Action("ResetPassword", "Account",
+                new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+
+            var emailService = new EmailService();
+
+            await emailService.SendEmailAsync(model.Email, "Reset Password",
+                $"To reset your password follow the link:" +
+                $" <a href='{callbackUrl}'>Reset Password</a>");
+
+            return Content("To reset your password, follow the link in the letter" +
+                           " sent to your email.");
         }
 
         [HttpGet]
@@ -248,12 +234,9 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult ResetPassword(string code = null)
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Profile", "Account");
 
-            if (code != null)
-                return View();
-
-            return View("Error");
+            return code != null ? View() : View("Error");
         }
 
         [HttpPost]
@@ -262,37 +245,33 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel model)
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Profile", "Account");
 
-            if (ModelState.IsValid)
-            {
-                var user = await userManager.FindByEmailAsync(model.Email);
-                if (user != null)
-                {
-                    var result = await userManager.ResetPasswordAsync(user, model.Code, model.Password);
-                    if (result.Succeeded)
-                    {
-                        return View("ResetPasswordConfirmation");
-                    }
-                    else
-                    {
-                        foreach (var error in result.Errors)
-                        {
-                            ModelState.AddModelError(string.Empty, error.Description);
-                        }
-                    }
-                }
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var user = await _userManager.FindByEmailAsync(model.Email);
+
+            if (user == null)
                 return View("ResetPasswordConfirmation");
-            }
-            return View(model);
+
+            var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
+
+            if (result.Succeeded)
+                return View("ResetPasswordConfirmation");
+
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(string.Empty, error.Description);
+
+            return View("ResetPasswordConfirmation");
         }
 
         [Authorize]
         public async Task<IActionResult> Profile()
         {
-            var userId = userManager.GetUserId(HttpContext.User);
+            var userId = _userManager.GetUserId(HttpContext.User);
 
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             var profile = new ProfileViewModel()
             {
@@ -313,12 +292,12 @@ namespace Game_Step.Controllers.IdentityControllers
 
             using (var binaryReader = new BinaryReader(model.AvatarFormFile.OpenReadStream()))
             {
-                imageData = binaryReader.ReadBytes((int) model.AvatarFormFile.Length);
+                imageData = binaryReader.ReadBytes((int)model.AvatarFormFile.Length);
             }
 
-            var userId = userManager.GetUserId(HttpContext.User);
+            var userId = _userManager.GetUserId(HttpContext.User);
 
-            var user = await userManager.FindByIdAsync(userId);
+            var user = await _userManager.FindByIdAsync(userId);
 
             user.Avatar = imageData;
 
