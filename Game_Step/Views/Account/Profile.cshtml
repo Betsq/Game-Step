@@ -40,10 +40,10 @@
                         <div class="container-change__nickname-title">
                             Изменить никнейм
                         </div>
-                        <form class="container-change__nickname-form">
+                        <form class="container-change__nickname-form" asp-action="UpdateNickname" asp-controller="Account">
                             <div class="container-input">
                                 <img src="/img/Account/nickname.png" alt="nickname" style="left: 2px">
-                                <input type="text" placeholder="Введите новый никнейм">
+                                <input type="text" placeholder="Введите новый никнейм" asp-for="Name" value="">
                             </div>
                             <button>Изменить никнейм</button>
                         </form>
