@@ -176,7 +176,7 @@
                     <label for="select-box2" class="label select-box2 select-box-color">
                         <span class="label-desc">Choose publisher</span>
                     </label>
-                    <select id="select-box2" class="select" asp-for="Game.ReleaseDate" asp-items="select.GetPublisher()">
+                    <select id="select-box2" class="select" asp-for="Game.Publisher" asp-items="select.GetPublisher()">
                     </select>
                 </div>
             </div>
@@ -186,7 +186,7 @@
                     <label for="select-box3" class="label select-box3 select-box-color">
                         <span class="label-desc">Choose developer</span>
                     </label>
-                    <select id="select-box3" class="select" asp-for="Game.QuantityOfGoods" asp-items="select.GetDeveloper()">
+                    <select id="select-box3" class="select" asp-for="Game.Developer" asp-items="select.GetDeveloper()">
                     </select>
                 </div>
             </div>
