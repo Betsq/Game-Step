@@ -241,15 +241,17 @@
                         <div class="comments__container-helper">
                             <input type="number" asp-for="Game.Id" value="@Model.Game.Id" readonly hidden />
 
-                            <div class="comments__avatar">
-                                @if (Model.Avatar != null)
-                                {
-                                    <img class="profile-avatar-img" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Avatar))" alt="Avatar">
-                                }
-                                else
-                                {
-                                    <img class="profile-avatar-img" src="/img/Account/avatar_unk.png" alt="Avatar">
-                                }
+                            <div class="comments__avatar" style="cursor: pointer">
+                                <a asp-action="Profile" asp-controller="Account"> 
+                                    @if (Model.Avatar != null)
+                                    {
+                                        <img class="profile-avatar-img" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Avatar))" alt="Avatar">
+                                    }
+                                    else
+                                    {
+                                        <img class="profile-avatar-img" src="/img/Account/avatar_unk.png" alt="Avatar">
+                                    }
+                                </a>
                             </div>
                             <div class="comments__tetx-field">
                                 <div class="comments__comment-header">
@@ -311,13 +313,22 @@
 
                                         <form class="comments__reply-container" asp-action="AddSubComment" asp-controller="Comment" method="post">
                                             <div class="comments__container-helper">
-                                                <input type="number" asp-for="Game.Id" value="@Model.Game.Id" hidden readonly />
-                                                <input type="number" asp-for="MainComment.Id" value="@comment.Id" hidden readonly />
-                                                <textarea class="comments_textarea" placeholder="Напишите ваш ответ" asp-for="MainComment.Message"></textarea>
-                                                <div class="comments__btns-reply">
-                                                    <div class="comments__close-textarea">Закрыть</div>
-                                                    <div class="comments__btn-reply">Ответить</div>
-                                                </div>
+                                                @if (User.Identity.IsAuthenticated)
+                                                {
+                                                    <input type="number" asp-for="Game.Id" value="@Model.Game.Id" hidden readonly />
+                                                    <input type="number" asp-for="MainComment.Id" value="@comment.Id" hidden readonly />
+                                                    <textarea class="comments_textarea" placeholder="Напишите ваш ответ" asp-for="MainComment.Message"></textarea>
+                                                    <div class="comments__btns-reply">
+                                                        <div class="comments__close-textarea">Закрыть</div>
+                                                        <div class="comments__btn-reply">Ответить</div>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="comments__login">
+                                                        <a asp-action="Login" asp-controller="Account">Войти</a>
+                                                    </div>
+                                                }
                                             </div>
                                             <span class="valid-comment" asp-validation-for="MainComment.Message"></span>
                                         </form>

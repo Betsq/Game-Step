@@ -355,7 +355,7 @@ namespace Game_Step.Controllers.Games
             var model = new GameViewModel
             {
                 Game = game,
-                Name = user?.Result.Name,
+                Name = user?.Result?.Name,
                 Avatar = user?.Result?.Avatar,
             };
 
