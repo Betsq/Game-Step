@@ -30,7 +30,7 @@
 
                         <div class="container-change__avatar-button">
                             Изменить аватар
-                            <form asp-action="UpdateAvatar", asp-controller="Account" method="post" enctype="multipart/form-data">
+                            <form asp-action="UpdateAvatar" , asp-controller="Account" method="post" enctype="multipart/form-data">
                                 <input type="file" style="width: 20px; height: 20px" asp-for="AvatarFormFile">
                                 <button type="submit" style="width: 20px; height: 20px">send</button>
                             </form>
@@ -55,18 +55,35 @@
                         <div class="container-change__password-title">
                             Изменить пароль
                         </div>
-                        <form class="container-change__password-form">
+                        <form class="container-change__password-form" asp-action="ChangePassword" asp-controller="Account">
+
+                            @if (TempData["SuccessChangePassword"] != null)
+                            {
+                                <div class="container-change__success">
+                                    @TempData["SuccessChangePassword"]
+                                </div>
+                            }
+                            @if (TempData["UnSuccessChangePassword"] != null)
+                            {
+                                <div class="container-change__unsuccess">
+                                    @TempData["UnSuccessChangePassword"]
+                                </div>
+                            }
+
                             <div class="container-input">
                                 <img src="/img/Account/pass.png" alt="pass">
-                                <input type="password" placeholder="Старый пароль">
+                                <input type="password" placeholder="Старый пароль" asp-for="OldPassword" value="">
+                                <span asp-validation-for="OldPassword"></span>
                             </div>
                             <div class="container-input">
                                 <img src="/img/Account/pass.png" alt="pass">
-                                <input type="password" placeholder="Новый пароль">
+                                <input type="password" placeholder="Новый пароль" asp-for="NewPassword" value="">
+                                <span asp-validation-for="NewPassword"></span>
                             </div>
                             <div class="container-input">
                                 <img src="/img/Account/pass.png" alt="pass">
-                                <input type="password" placeholder="Подтвердите новый пароль">
+                                <input type="password" placeholder="Подтвердите новый пароль" asp-for="NewConfirmPassword" value="">
+                                <span asp-validation-for="NewConfirmPassword"></span>
                             </div>
                             <button>
                                 Изменить пароль
@@ -119,8 +136,8 @@
             <a asp-action="Profile" asp-controller="Account" style="color: #1896e6!important"> <img src="/img/Account/user.png" alt="user"> Личный кабинет</a>
             <a href="#"> <img src="/img/Account/purchase.png" alt="purchase"> Мои покупки</a>
             <a asp-action="Partner" asp-controller="Account"> <img src="/img/Account/delay.png" alt="delay"> Партнерская программа</a>
-            <a href="#"> <img src="/img/Account/exit.png" alt="exit">Выйти</a>
+            <form action="/" method="post"></form>
+            <a asp-action="Logout" asp-controller="Account"> <img src="/img/Account/exit.png" alt="exit">Выйти</a>
         </div>
-
     </div>
 </div>

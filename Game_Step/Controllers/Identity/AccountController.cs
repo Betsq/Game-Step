@@ -155,32 +155,6 @@ namespace Game_Step.Controllers.IdentityControllers
         }
 
         [HttpGet]
-        [Authorize]
-        public IActionResult ChangePassword() => View();
-
-        [HttpPost]
-        [Authorize]
-        public async Task<IActionResult> ChangePassword(AccountChangePasswordViewModel model)
-        {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-
-            var result = await _userManager.ChangePasswordAsync(user,
-                model.OldPassword, model.NewPassword);
-
-            if (result.Succeeded)
-                return RedirectToAction("Profile", "Account");
-
-
-            foreach (var error in result.Errors)
-                ModelState.AddModelError(string.Empty, error.Description);
-
-            return View(model);
-        }
-
-        [HttpGet]
         [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
@@ -260,7 +234,7 @@ namespace Game_Step.Controllers.IdentityControllers
         }
 
         [Authorize]
-        public async Task<IActionResult> Profile() => View(await GetProfileViewModel());
+        public async Task<IActionResult> Profile() => View(await SetProfileViewModel());
 
         [HttpPost]
         [Authorize]
@@ -291,10 +265,10 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> UpdateNickname(ProfileViewModel model)
         {
             if (!ModelState.IsValid)
-                return View("Profile", await GetProfileViewModel(model));
+                return View("Profile", await SetProfileViewModel(model));
 
 
-            if (model.Name == null)
+            if (string.IsNullOrEmpty(model.Name))
                 return RedirectToAction("Profile");
 
             var user = await CurrentUserAsync();
@@ -306,6 +280,38 @@ namespace Game_Step.Controllers.IdentityControllers
 
             return RedirectToAction("Profile");
         }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> ChangePassword(ProfileViewModel model)
+        {
+            TempData["UnSuccessChangePassword"] = "Пароль не был изменен:(";
+
+            if (!ModelState.IsValid)
+                return View("Profile", await SetProfileViewModel(model));
+
+            if (string.IsNullOrEmpty(model.OldPassword))
+                return RedirectToAction("Profile");
+
+            var user = await CurrentUserAsync();
+
+            var result = await _userManager
+                .ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+
+            if (result.Succeeded)
+            {
+                TempData["SuccessChangePassword"] = "Пароль успешно изменен";
+                TempData["UnSuccessChangePassword"] = null;
+                return RedirectToAction("Profile");
+            }
+                
+
+            foreach (var error in result.Errors)
+                ModelState.AddModelError(string.Empty, error.Description);
+
+            return View("Profile", await SetProfileViewModel(model));
+        }
+
         private bool UserIsAuthenticated() => User.Identity.IsAuthenticated;
         public Task<User> CurrentUserAsync()
         {
@@ -315,7 +321,7 @@ namespace Game_Step.Controllers.IdentityControllers
 
             return user;
         }
-        public async Task<ProfileViewModel> GetProfileViewModel(ProfileViewModel pvm = null)
+        public async Task<ProfileViewModel> SetProfileViewModel(ProfileViewModel pvm = null)
         {
             var user = await CurrentUserAsync();
 

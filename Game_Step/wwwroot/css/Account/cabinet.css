@@ -73,7 +73,7 @@ input {
     margin-bottom: 10px;
     outline: none;
     font-size: 15px;
-    max-width: 330px;
+    width: 330px;
 }
 
     input:focus {
@@ -138,8 +138,8 @@ button {
 }
 
     .input-email img {
-        left: 36px !important;
-        top: 9px !important;
+        left: 4px !important;
+        top: 8px !important;
     }
 
 .container-input {
@@ -148,7 +148,7 @@ button {
 
     .container-input img {
         position: absolute;
-        top: 7px;
+        top: 9px;
         left: 4px;
         max-width: 25px;
     }
@@ -199,3 +199,27 @@ button {
             margin-right: 10px;
             max-width: 25px;
         }
+
+
+.container-change__success, .container-change__unsuccess {
+    background-color: #32b76c;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    margin-bottom: 20px;
+    font-size: 18px;
+    width: 330px;
+}
+
+.container-change__unsuccess {
+    background-color: #f26065 !important;
+}
+
+
+.container-change__password-form, .container-change__email-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
