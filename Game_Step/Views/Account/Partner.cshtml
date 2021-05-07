@@ -87,17 +87,17 @@
             <div class="right-content">
 
                 <div class="right-content__avatar-block-img">
-                    <img src="/joker avatar.png" alt="avatar">
+                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Avatar))" alt="avatar">
 
                 </div>
                 <div class="right-content__greeting">
-                    Привет, Betsq
+                    Привет, @Model.Name
                 </div>
 
                 <a asp-action="Profile" asp-controller="Account"> <img src="/img/Account/user.png" alt="user" style="color: #1896e6;"> Личный кабинет</a>
                 <a href="#"> <img src="/img/Account/purchase.png" alt="purchase"> Мои покупки</a>
-                <a asp-action="Partner" asp-controller="Account"> <img src="/img/Account/delay.png" alt="delay"> Партнерская программа</a>
-                <a href="#"> <img src="/img/Account/exit.png" alt="user">Выйти</a>
+                <a asp-action="Partner" asp-controller="Account" style="color: #1896e6"> <img src="/img/Account/delay.png" alt="delay"> Партнерская программа</a>
+                <a asp-action="Logout" asp-controller="Account"> <img src="/img/Account/exit.png" alt="exit">Выйти</a>
             </div>
         </div>
     </div>

@@ -24,7 +24,7 @@ namespace Game_Step.Controllers.IdentityControllers
         }
 
         [Authorize]
-        public IActionResult Partner() => View();
+        public async Task<IActionResult> Partner() => View(await SetProfileViewModel());
 
         [HttpGet]
         [AllowAnonymous]
