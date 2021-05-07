@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Game_Step.Models.Cart>
+﻿@model IEnumerable<Game_Step.Models.Game>
 
 @{
     Layout = "/Views/Shared/Components/PopupCart/_CartLayout.cshtml";
@@ -10,19 +10,19 @@
         <h1>Корзина покупок</h1>
         <p>
             <h4>Список покупок</h4>
-            @foreach (var prod in Model)
+            @foreach (var game in Model)
             {
                 <div class="col-md-12">
-                    <button class="btnDelProdCart" type="button" del-data-id="@prod.Id">Remove</button>
+                    <button class="btnDelProdCart" type="button" del-data-id="@game.Id">Remove</button>
                 </div>
-                <div class="col-md-12">@prod.Name</div>
-                @if (prod.IsDiscount)
+                <div class="col-md-12">@game.Name</div>
+                @if (game.GamePrice.IsDiscount)
                 {
-                    <div class="col-md-12">@prod.DiscountPrice</div>
+                    <div class="col-md-12">@game.GamePrice.DiscountPrice</div>
                 }
                 else
                 {
-                    <div class="col-md-12">@prod.Price</div>
+                    <div class="col-md-12">@game.GamePrice.Price</div>
                 }
 
             }
