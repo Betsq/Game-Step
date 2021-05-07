@@ -7,34 +7,42 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace Game_Step.Controllers.AllGameController
 {
     public class CommentController : Controller
     {
         private readonly ApplicationContext _db;
+        private readonly UserManager<User> _userManager;
 
-        public CommentController(ApplicationContext db)
+        public CommentController(ApplicationContext db, UserManager<User> userManager)
         {
             _db = db;
+            _userManager = userManager;
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<JsonResult> AddMainComment(GameViewModel model)
         {
             if (!ModelState.IsValid)
                 return Json(false);
 
-            var game = await _db.Games.FirstOrDefaultAsync(item => item.Id == model.Game.Id);
+            var game = await _db.Games
+                .FirstOrDefaultAsync(item => item.Id == model.Game.Id);
 
             if (game == null)
                 return Json(false);
 
+            var user = _userManager.GetUserAsync(HttpContext.User);
             var mainComment = new MainComment
             {
                 Message = model.MainComment.Message,
                 TimeCreated = DateTime.Now,
                 Game = game,
+                User = user.Result,
             };
 
             await _db.MainComments.AddAsync(mainComment);
@@ -43,6 +51,7 @@ namespace Game_Step.Controllers.AllGameController
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<JsonResult> AddSubComment(GameViewModel model)
         {
             if (!ModelState.IsValid)
@@ -53,15 +62,18 @@ namespace Game_Step.Controllers.AllGameController
             if (game == null)
                 return Json(false);
 
-            var mainComment = await _db.MainComments.FirstOrDefaultAsync(item => item.Id == model.MainComment.Id);
+            var mainComment = await _db.MainComments
+                .FirstOrDefaultAsync(item => item.Id == model.MainComment.Id);
             if (mainComment == null)
                 return Json(false);
 
+            var user = _userManager.GetUserAsync(HttpContext.User);
             var subComment = new SubComment
             {
                 Message = model.MainComment.Message,
                 TimeCreated = DateTime.Now,
                 MainComment = mainComment,
+                User = user.Result,
             };
 
             await _db.SubComments.AddAsync(subComment);
@@ -70,6 +82,7 @@ namespace Game_Step.Controllers.AllGameController
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<JsonResult> RemoveMainComment(int? id)
         {
             if (id == null)
@@ -88,6 +101,7 @@ namespace Game_Step.Controllers.AllGameController
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<JsonResult> RemoveSubComment(int? id)
         {
             if (id == null)

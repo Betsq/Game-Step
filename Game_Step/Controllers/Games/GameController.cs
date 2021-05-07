@@ -9,6 +9,7 @@ using Game_Step.ViewModels;
 using Game_Step.ViewModels.GamesViewModel;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,10 +19,13 @@ namespace Game_Step.Controllers.Games
     {
         private readonly ApplicationContext _db;
         private readonly IWebHostEnvironment _appEnvironment;
-        public GameController(ApplicationContext context, IWebHostEnvironment appEnvironment)
+        private readonly UserManager<User> _userManager;
+        public GameController(ApplicationContext context,
+            IWebHostEnvironment appEnvironment, UserManager<User> userManager)
         {
             _db = context;
             _appEnvironment = appEnvironment;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -339,15 +343,20 @@ namespace Game_Step.Controllers.Games
                 .Include(rec => rec.Recommendation)
                 .Include(screenshots => screenshots.GameScreenshots)
                 .Include(comment => comment.MainComments)
-                .ThenInclude(subComment => subComment.SubComments)
+                    .ThenInclude(subComment => subComment.SubComments)
+                        .ThenInclude(item => item.User)
                 .FirstOrDefaultAsync(item => item.Id == id);
 
             if (game == null)
                 return NotFound();
 
+            var user = _userManager.GetUserAsync(HttpContext.User);
+
             var model = new GameViewModel
             {
                 Game = game,
+                Name = user?.Result.Name,
+                Avatar = user?.Result?.Avatar,
             };
 
             return View(model);

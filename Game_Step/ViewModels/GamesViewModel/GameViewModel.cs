@@ -7,5 +7,7 @@ namespace Game_Step.ViewModels.GamesViewModel
     {
         public Game Game { get; set; }
         public MainComment MainComment { get; set; }
+        public string Name { get; set; }
+        public byte[] Avatar { get; set; }
     }
 }

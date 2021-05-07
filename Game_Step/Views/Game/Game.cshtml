@@ -24,7 +24,7 @@
     <div class="product-content">
         <div class="product-left">
             <div class="scale-img main-img">
-                <img class="scale-img" src="@Model.Game.GameImage?.InnerImage" alt="Image game"/>
+                <img class="scale-img" src="@Model.Game.GameImage?.InnerImage" alt="Image game" />
                 <div class="text-screenshot" onclick="toggleScreenshotPopup()">Скриншоты</div>
             </div>
 
@@ -235,27 +235,44 @@
                     Комментарии
                 </div>
 
-                <form id="AddMainComment" class="comments__container" asp-action="AddMainComment" asp-controller="Comment" method="post">
-                    <div class="comments__container-helper">
-                        <input type="number" asp-for="Game.Id" value="@Model.Game.Id" readonly hidden />
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form id="AddMainComment" class="comments__container" asp-action="AddMainComment" asp-controller="Comment" method="post">
+                        <div class="comments__container-helper">
+                            <input type="number" asp-for="Game.Id" value="@Model.Game.Id" readonly hidden />
 
-                        <div class="comments__avatar">
-                            <img class="profile-avatar-img" src="/img/Warhammer.jpg" alt="Avatar">
-                        </div>
-                        <div class="comments__tetx-field">
-                            <div class="comments__comment-header">
-                                <div class="comments__profile-name">
-                                    Betsq9
+                            <div class="comments__avatar">
+                                @if (Model.Avatar != null)
+                                {
+                                    <img class="profile-avatar-img" src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Avatar))" alt="Avatar">
+                                }
+                                else
+                                {
+                                    <img class="profile-avatar-img" src="/img/Account/avatar_unk.png" alt="Avatar">
+                                }
+                            </div>
+                            <div class="comments__tetx-field">
+                                <div class="comments__comment-header">
+                                    <div class="comments__profile-name">
+                                        @Model.Name
+                                    </div>
+                                </div>
+                                <textarea class="comments_textarea" placeholder="Напишите ваш комментарий" asp-for="MainComment.Message"></textarea>
+                                <div class="comments__container-btn">
+                                    <div id="btn-adding-main-comment" type="submit">Опубликовать</div>
                                 </div>
                             </div>
-                            <textarea class="comments_textarea" placeholder="Напишите ваш комментарий" asp-for="MainComment.Message"></textarea>
-                            <div class="comments__container-btn">
-                                <div id="btn-adding-main-comment" type="submit">Опубликовать</div>
-                            </div>
                         </div>
+                        <span class="valid-comment" asp-validation-for="MainComment.Message"></span>
+                    </form>
+                }
+                else
+                {
+                    <div class="comments__login">
+                        <a asp-action="Login" asp-controller="Account">Войти</a>
                     </div>
-                    <span class="valid-comment" asp-validation-for="MainComment.Message"></span>
-                </form>
+                }
+
 
                 @foreach (var comment in Model.Game.MainComments.OrderByDescending(item => item.TimeCreated))
                 {
@@ -264,11 +281,18 @@
                             <div class="comments__container">
                                 <div class="commets__item-comment">
                                     <div class="comments__avatar">
-                                        <img class="profile-avatar-img" src="/img/Warhammer.jpg" alt="Avatar">
+                                        @if (comment.User.Avatar != null)
+                                        {
+                                            <img class="profile-avatar-img" src="data:image/jpeg;base64,@(Convert.ToBase64String(comment.User.Avatar))" alt="Avatar">
+                                        }
+                                        else
+                                        {
+                                            <img class="profile-avatar-img" src="/img/Account/avatar_unk.png" alt="Avatar">
+                                        }
                                     </div>
                                     <div class="commnets__item-content">
                                         <div class="comments__comment-header">
-                                            <div class="comments__profile-name">Wonka</div>
+                                            <div class="comments__profile-name">@comment.User.Name</div>
                                             @comment.TimeCreated.ToShortDateString(), в @comment.TimeCreated.ToShortTimeString()
                                         </div>
                                         <div class="comments__comment">
@@ -279,8 +303,10 @@
                                             <div class="comments__reply">
                                                 Ответить
                                             </div>
-
-                                            <div class="btn-remove-comment" data-id="@comment.Id">Удалить</div>
+                                            @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                            {
+                                                <div class="btn-remove-comment" data-id="@comment.Id">Удалить</div>
+                                            }
                                         </div>
 
                                         <form class="comments__reply-container" asp-action="AddSubComment" asp-controller="Comment" method="post">
@@ -306,18 +332,28 @@
                                         <div class="comments__container">
                                             <div class="commets__item-comment">
                                                 <div class="comments__avatar">
-                                                    <img class="profile-avatar-img" src="~/img/Game/logo/epic_games.png" alt="Avatar">
+                                                    @if (subComments.User.Avatar != null)
+                                                    {
+                                                        <img class="profile-avatar-img" src="data:image/jpeg;base64,@(Convert.ToBase64String(subComments.User.Avatar))" alt="Avatar">
+                                                    }
+                                                    else
+                                                    {
+                                                        <img class="profile-avatar-img" src="/img/Account/avatar_unk.png" alt="Avatar">
+                                                    }
                                                 </div>
                                                 <div class="commnets__item-content">
                                                     <div class="comments__comment-header">
-                                                        <div class="comments__profile-name">Gans</div>
+                                                        <div class="comments__profile-name">@subComments.User.Name</div>
                                                         @subComments.TimeCreated.ToShortDateString(), в @subComments.TimeCreated.ToShortTimeString()
                                                     </div>
                                                     <div class="comments__comment">
                                                         @subComments.Message
                                                     </div>
                                                     <div class="commets__reply-rem">
-                                                        <div class="btn-remove-sub-comment" data-id="@subComments.Id">Удалить</div>
+                                                        @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                                                        {
+                                                            <div class="btn-remove-sub-comment" data-id="@subComments.Id">Удалить</div>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
