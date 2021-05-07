@@ -9,108 +9,83 @@ namespace Game_Step.Controllers
 {
     public class CartController : Controller
     {
-        private readonly ApplicationContext db;
+        private readonly ApplicationContext _db;
         public CartController(ApplicationContext context)
         {
-            db = context;
+            _db = context;
         }
 
         [HttpGet]
         public IActionResult Index()
         {
             var listId = HttpContext.Session.Get<List<int>>("CartId");
-            List<Cart> carts = new List<Cart>();
+            var gameList = new List<Game>();
 
             if (listId != null)
             {
                 foreach (var id in listId)
                 {
-                    var game = db.Games.Include(price => price.GamePrice)
+                    var game = _db.Games.Include(price => price.GamePrice)
                         .Include(image => image.GameImage)
-                        .FirstOrDefault(game => game.Id == id);
+                        .FirstOrDefault(item => item.Id == id);
 
                     if (game != null)
-                    {
-                        Cart cart = new Cart
-                        {
-                            Id = game.Id,
-                            Name = game.Name,
-                            Quantity = game.QuantityOfGoods,
-                            PlatformActivate = game.WhereKeyActivated,
-                            Region = game.Region,
-                            Price = game.GamePrice.Price,
-                            IsDiscount = game.GamePrice.IsDiscount,
-                            Discount = game.GamePrice.Discount,
-                            DiscountPrice = game.GamePrice.DiscountPrice,
-                            Image = game.GameImage.ImageInCatalog,
-                        };
-                        carts.Add(cart);
-                    }
-                }   
+                        gameList.Add(game);
+                }
             }
 
-            CartOrderViewModel cartOrder = new CartOrderViewModel
+            var cartOrder = new CartOrderViewModel
             {
-                InCart = carts,
+                GameInCart = gameList,
             };
 
             return View(cartOrder);
         }
 
-
-
         [HttpGet]
-        public IActionResult CallCart()
-        {
-            return ViewComponent("PopupCart");
-        }
+        public IActionResult CallCart() => ViewComponent("PopupCart");
 
         [HttpPost]
         public JsonResult CountOfGoods()
         {
             //if CountOfGoods is set in the session, then we return json with the number of items in the cart.
             //Otherwise, we return an empty string.
-            if (HttpContext.Session.Keys.Contains("CountOfGoods"))
-            {
-                var countOfGoods = HttpContext.Session.Get<int>("CountOfGoods");
+            if (!HttpContext.Session.Keys.Contains("CountOfGoods"))
+                return Json(0);
 
-                //If the number of products is 0 or less, then delete the session object
-                if (countOfGoods <= 0)
-                {
-                    HttpContext.Session.Remove("CountOfGoods");
-                    return Json(0);
-                }
+            var countOfGoods = HttpContext.Session.Get<int>("CountOfGoods");
 
+            //If the number of products is 0 or less, then delete the session object
+            if (countOfGoods > 0)
                 return Json(countOfGoods);
-            }
 
+            HttpContext.Session.Remove("CountOfGoods");
             return Json(0);
         }
 
         [HttpPost]
         public JsonResult IsProsuctInCart(int id)
         {
-            if (HttpContext.Session.Keys.Contains("CartId"))
-            {
-                var listId = HttpContext.Session.Get<List<int>>("CartId");
+            if (!HttpContext.Session.Keys.Contains("CartId"))
+                return Json(false);
 
-                //Check if the incoming "id" is already in the list
-                //DON'T FORGET TO CHANGE
-                foreach (var lsId in listId)
-                {
-                    if (lsId == id)
-                    {
-                        return Json(true);
-                    }
-                }
+            var listId = HttpContext.Session.Get<List<int>>("CartId");
+
+            //Check if the incoming "id" is already in the list
+            //DON'T FORGET TO CHANGE
+            foreach (var lsId in listId)
+            {
+                if (lsId == id)
+                    return Json(true);
             }
+
             return Json(false);
         }
 
         [HttpGet]
         public IActionResult AddToCart(int id)
         {
-            bool isHaveIdinList = false;
+            bool isHaveIdInList = false;
             int countOfGoods;
 
             //If the "cart" session is set
@@ -123,15 +98,15 @@ namespace Game_Step.Controllers
                 //DON'T FORGET TO CHANGE
                 foreach (var lsId in listId)
                 {
-                    if (lsId == id)
-                    {
-                        isHaveIdinList = true;
-                        break;
-                    }
+                    if (lsId != id)
+                        continue;
+
+                    isHaveIdInList = true;
+                    break;
                 }
 
                 //if "id" in the list is not found, we add "id" to the list
-                if (isHaveIdinList == false)
+                if (isHaveIdInList == false)
                 {
                     listId.Add(id);
                     HttpContext.Session.Set("CartId", listId);
@@ -141,25 +116,24 @@ namespace Game_Step.Controllers
             else
             {
                 //Create a new list
-                List<int> listId = new List<int>();
-                listId.Add(id);
+                var listId = new List<int> {id};
 
                 //Set a session
                 HttpContext.Session.Set("CartId", listId);
             }
 
-            if (HttpContext.Session.Keys.Contains("CountOfGoods") && isHaveIdinList == false)
+            if (HttpContext.Session.Keys.Contains("CountOfGoods") && isHaveIdInList == false)
             {
                 countOfGoods = HttpContext.Session.Get<int>("CountOfGoods");
                 //add the number of items in the cart
                 countOfGoods += 1;
                 HttpContext.Session.Set("CountOfGoods", countOfGoods);
+
+                return ViewComponent("PopupCart");
             }
-            else
-            {
-                if (isHaveIdinList == false)
-                    HttpContext.Session.Set("CountOfGoods", 1);
-            }
+
+            if (isHaveIdInList == false)
+                HttpContext.Session.Set("CountOfGoods", 1);
 
             return ViewComponent("PopupCart");
         }
@@ -167,28 +141,27 @@ namespace Game_Step.Controllers
         [HttpGet]
         public IActionResult DeleteProductInCart(int id)
         {
-            if (HttpContext.Session.Keys.Contains("CartId"))
+            if (!HttpContext.Session.Keys.Contains("CartId"))
+                return ViewComponent("PopupCart");
+
+            //get the list with id
+            var listId = HttpContext.Session.Get<List<int>>("CartId");
+
+            //Check if the passed "id" is in the list, if true, remove "id" from the list
+            foreach (var lsId in listId.ToList())
             {
-                //get the list with id
-                List<int> listId = HttpContext.Session.Get<List<int>>("CartId");
+                if (lsId != id)
+                    continue;
 
-                //Check if the passed "id" is in the list, if true, remove "id" from the list
-                foreach (var lsId in listId.ToList())
-                {
-                    if (lsId == id)
-                    {
-                        listId.Remove(id);
-                        HttpContext.Session.Set<List<int>>("CartId", listId);
+                listId.Remove(id);
+                HttpContext.Session.Set<List<int>>("CartId", listId);
 
-                        //Get item quantity
-                        int countOfGoods = HttpContext.Session.Get<int>("CountOfGoods");
-                        //Decrease the quantity of goods by 1
-                        countOfGoods -= 1;
-                        //Set the session object with a new value
-                        HttpContext.Session.Set("CountOfGoods", countOfGoods);
-
-                    }
-                }
+                //Get item quantity
+                int countOfGoods = HttpContext.Session.Get<int>("CountOfGoods");
+                //Decrease the quantity of goods by 1
+                countOfGoods -= 1;
+                //Set the session object with a new value
+                HttpContext.Session.Set("CountOfGoods", countOfGoods);
             }
             return ViewComponent("PopupCart");
         }
@@ -196,38 +169,35 @@ namespace Game_Step.Controllers
         [HttpPost]
         public JsonResult CountPrice(int? id, int? amountProduct)
         {
-            if (id != null)
-            {
-                if (amountProduct != null)
-                {
-                    //If the "cart" session is set
-                    if (HttpContext.Session.Keys.Contains("CartId"))
-                    {
-                        //get the list with id
-                        var listId = HttpContext.Session.Get<List<int>>("CartId");
+            if (id == null)
+                return Json("");
 
-                        //Check if the incoming "id" is already in the list
-                        //DON'T FORGET TO CHANGE
-                        foreach (var lsId in listId)
-                        {
-                            if (lsId == id)
-                            {
-                                var gamePrice = db.GamePrices.FirstOrDefault(item => item.GameId == id);
-                                if (gamePrice.IsDiscount)
-                                {
-                                    return Json(gamePrice.DiscountPrice * amountProduct);
-                                }
-                                else
-                                {
-                                    return Json(gamePrice.Price * amountProduct);
-                                }
-                            }
-                        }
-                    }
-                }
+            if (amountProduct == null)
+                return Json("");
+
+            //If the "cart" session is set
+            if (!HttpContext.Session.Keys.Contains("CartId"))
+                return Json("");
+
+            //get the list with id
+            var listId = HttpContext.Session.Get<List<int>>("CartId");
+
+            //Check if the incoming "id" is already in the list
+            //DON'T FORGET TO CHANGE
+            foreach (var lsId in listId)
+            {
+                if (lsId != id)
+                    continue;
+
+                var gamePrice = _db.GamePrices.FirstOrDefault(item => item.GameId == id);
+
+                if (gamePrice.IsDiscount)
+                    return Json(gamePrice.DiscountPrice * amountProduct);
+
+                return Json(gamePrice.Price * amountProduct);
             }
+
             return Json("");
         }
-
     }
 }

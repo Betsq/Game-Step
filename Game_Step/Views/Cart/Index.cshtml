@@ -18,38 +18,38 @@
         <div class="catalog-item">
             <form asp-action="Order" asp-controller="Order" method="post">
                 <div asp-validation-summary="ModelOnly"></div>
-                @foreach (var product in Model.InCart)
+                @foreach (var game in Model.GameInCart)
                 {
                     isItemInCart = true;
                     <div class="product-in-cart">
                         <div class="block-img-catalog-item">
-                            <a asp-action="Game" asp-controller="Game" asp-route-id="@product.Id">
-                                <img class="img-catalog-item" src="@product.Image"><img />
+                            <a asp-action="Game" asp-controller="Game" asp-route-id="@game.Id">
+                                <img class="img-catalog-item" src="@game.GameImage.ImageInCatalog" alt="game image"><img />
                             </a>
                         </div>
 
                         <div class="catalog-item-info">
-                            <div class="name-product">@product.Name</div>
+                            <div class="name-product">@game.Name</div>
                             <div class="more-info">
                                 <div class="where-activate-product">
-                                    @if (product.PlatformActivate == "Steam")
+                                    @if (game.WhereKeyActivated == "Steam")
                                     {
-                                        <img src="/img/Game/logo/steam.png" alt="@product.PlatformActivate">
+                                        <img src="/img/Game/logo/steam.png" alt="@game.WhereKeyActivated">
                                     }
-                                    else if (product.PlatformActivate == "GOG")
+                                    else if (game.WhereKeyActivated == "GOG")
                                     {
-                                        <img src="/img/Game/logo/GOG.png" alt="@product.PlatformActivate">
+                                        <img src="/img/Game/logo/GOG.png" alt="@game.WhereKeyActivated">
                                     }
-                                    else if (product.PlatformActivate == "Origin")
+                                    else if (game.WhereKeyActivated == "Origin")
                                     {
-                                        <img src="/img/Game/logo/origin.png" alt="@product.PlatformActivate">
+                                        <img src="/img/Game/logo/origin.png" alt="@game.WhereKeyActivated">
                                     }
-                                    else if (product.PlatformActivate == "Epic Games Store")
+                                    else if (game.WhereKeyActivated == "Epic Games Store")
                                     {
-                                        <img src="/img/Game/logo/epic_games.png" alt="@product.PlatformActivate">
+                                        <img src="/img/Game/logo/epic_games.png" alt="@game.WhereKeyActivated">
                                     }
                                 </div>
-                                <div class="genre-region">Регион: @product.Region</div>
+                                <div class="genre-region">Регион: @game.Region</div>
                             </div>
                         </div>
                         <div class="item-price">
@@ -57,23 +57,23 @@
                                 <button type="button" class="btnMinus">-</button>
 
                                 <input class="input-quantity-product" type="number" max="5" min="1" value="1"
-                                       readonly data-id="@product.Id" name="Items[@product.Id]">
+                                       readonly data-id="@game.Id" name="Items[@game.Id]">
 
                                 <button type="button" class="btnPlus">+</button>
                             </div>
 
                             <div class="cur-price-item">
-                                @if (product.IsDiscount)
+                                @if (game.GamePrice.IsDiscount)
                                 {
-                                    <div class="prod-price" id="@product.Id">@product.DiscountPrice</div><span>$</span>
+                                    <div class="prod-price" id="@game.Id">@game.GamePrice.DiscountPrice</div><span>$</span>
                                 }
                                 else
                                 {
-                                    <div class="prod-price" id="@product.Id">@product.Price</div><span>$</span>
+                                    <div class="prod-price" id="@game.Id">@game.GamePrice.Price</div><span>$</span>
                                 }
                             </div>
 
-                            <div class="remove-from-cart" del-data-id="@product.Id">RE</div>
+                            <div class="remove-from-cart" del-data-id="@game.Id">RE</div>
                         </div>
                     </div>
                 }
@@ -107,7 +107,7 @@
                     <div class="container-email">
                         <span id="email-span">Email</span>
                         <input class="input-email" type="text" placeholder="Введите Email" asp-for="@Model.Email">
-                        <input class="input-email" type="text" placeholder="Повторите Email" asp-for="@Model.EmailComapre">
+                        <input class="input-email" type="text" placeholder="Повторите Email" asp-for="@Model.EmailCompare">
                     </div>
 
                     <div class="container-agreement">
