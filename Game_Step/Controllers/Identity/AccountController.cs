@@ -23,11 +23,7 @@ namespace Game_Step.Controllers.IdentityControllers
             _db = db;
         }
 
-        private bool UserIsAuthenticated()
-        {
-            return User.Identity.IsAuthenticated;
-        }
-
+        [Authorize]
         public IActionResult Partner() => View();
 
         [HttpGet]
@@ -160,10 +156,7 @@ namespace Game_Step.Controllers.IdentityControllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult ChangePassword()
-        {
-            return View();
-        }
+        public IActionResult ChangePassword() => View();
 
         [HttpPost]
         [Authorize]
@@ -266,30 +259,11 @@ namespace Game_Step.Controllers.IdentityControllers
             return View("ResetPasswordConfirmation");
         }
 
-        public Task<User> CurrentUserAsync()
-        {
-            var userId = _userManager.GetUserId(HttpContext.User);
-
-            var user =  _userManager.FindByIdAsync(userId);
-
-            return user;
-        }
-
         [Authorize]
-        public async Task<IActionResult> Profile()
-        {
-            var user = await CurrentUserAsync();
+        public async Task<IActionResult> Profile() => View(await GetProfileViewModel());
 
-            var profile = new ProfileViewModel()
-            {
-                Name = user.Name,
-                Avatar = user.Avatar,
-                Email = user.Email,
-            };
-
-            return View(profile);
-        }
-
+        [HttpPost]
+        [Authorize]
         public async Task<IActionResult> UpdateAvatar(ProfileViewModel model)
         {
             if (model.AvatarFormFile == null)
@@ -312,8 +286,14 @@ namespace Game_Step.Controllers.IdentityControllers
             return RedirectToAction("Profile");
         }
 
+        [HttpPost]
+        [Authorize]
         public async Task<IActionResult> UpdateNickname(ProfileViewModel model)
         {
+            if (!ModelState.IsValid)
+                return View("Profile", await GetProfileViewModel(model));
+
+
             if (model.Name == null)
                 return RedirectToAction("Profile");
 
@@ -325,6 +305,35 @@ namespace Game_Step.Controllers.IdentityControllers
             await _db.SaveChangesAsync();
 
             return RedirectToAction("Profile");
+        }
+        private bool UserIsAuthenticated() => User.Identity.IsAuthenticated;
+        public Task<User> CurrentUserAsync()
+        {
+            var userId = _userManager.GetUserId(HttpContext.User);
+
+            var user = _userManager.FindByIdAsync(userId);
+
+            return user;
+        }
+        public async Task<ProfileViewModel> GetProfileViewModel(ProfileViewModel pvm = null)
+        {
+            var user = await CurrentUserAsync();
+
+            if (pvm != null)
+            {
+                pvm.Avatar = user.Avatar;
+                pvm.Name = user.Name;
+                pvm.Email = user.Email;
+                return pvm;
+            }
+
+            var profile = new ProfileViewModel()
+            {
+                Name = user.Name,
+                Avatar = user.Avatar,
+                Email = user.Email,
+            };
+            return profile;
         }
     }
 }
