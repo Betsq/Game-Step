@@ -349,6 +349,8 @@ namespace Game_Step.Controllers.Games
                     .ThenInclude(item => item.User)
                 .FirstOrDefaultAsync(item => item.Id == id);
 
+            var countKey = await _db.GameKeys.Where(item => item.Game == game).CountAsync();
+
             if (game == null)
                 return NotFound();
 
@@ -357,8 +359,9 @@ namespace Game_Step.Controllers.Games
             var model = new GameViewModel
             {
                 Game = game,
-                Name = user?.Result?.Name,
-                Avatar = user?.Result?.Avatar,
+                Name = user.Result?.Name,
+                Avatar = user.Result?.Avatar,
+                CountKeys = countKey,
             };
 
             return View(model);

@@ -9,5 +9,6 @@ namespace Game_Step.ViewModels.GamesViewModel
         public MainComment MainComment { get; set; }
         public string Name { get; set; }
         public byte[] Avatar { get; set; }
+        public int CountKeys { get; set; }
     }
 }
