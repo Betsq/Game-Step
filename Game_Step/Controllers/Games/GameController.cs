@@ -345,6 +345,8 @@ namespace Game_Step.Controllers.Games
                 .Include(comment => comment.MainComments)
                     .ThenInclude(subComment => subComment.SubComments)
                         .ThenInclude(item => item.User)
+                .Include(comment => comment.MainComments)
+                    .ThenInclude(item => item.User)
                 .FirstOrDefaultAsync(item => item.Id == id);
 
             if (game == null)
