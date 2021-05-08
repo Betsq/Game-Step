@@ -95,17 +95,19 @@
     .product-advantages ul, .product-advantages-mobile ul {
         margin: 0;
         padding: 0;
-        padding: 27px 25px;
+        padding: 27px 20px;
         background-color: black;
         opacity: 0.5;
         list-style: none;
-        font-size: 16px;
+        font-size: 14px;
         color: white;
     }
 
         .product-advantages ul li, .product-advantages-mobile ul li {
             padding-top: 11px;
             list-style: none;
+            display: flex;
+            align-items: center;
         }
 
 .product-advantages-mobile {
@@ -273,7 +275,22 @@
     min-width: 25%;
 }
 
-.call-popup-screenshot{
+.product-advantages__container-svg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid #4c8bea;
+    border-radius: 50%;
+    margin-right: 5px;
+}
+
+.product-advantages__container-svg svg{
+    color: #4c8bea;
+}
+
+.call-popup-screenshot {
     color: white;
 }
 
