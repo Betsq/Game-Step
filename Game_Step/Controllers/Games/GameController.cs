@@ -52,7 +52,6 @@ namespace Game_Step.Controllers.Games
             Game game = new()
             {
                 Name = model.Game.Name,
-                QuantityOfGoods = model.Game.QuantityOfGoods,
                 Description = model.Game.Description,
                 Language = model.Game.Language,
                 Genre = model.Game.Genre,
@@ -136,7 +135,6 @@ namespace Game_Step.Controllers.Games
                 return View(model);
 
             game.Name = model.Game.Name;
-            game.QuantityOfGoods = model.Game.QuantityOfGoods;
             game.Description = model.Game.Description;
             game.Language = model.Game.Language;
             game.Genre = model.Game.Genre;
