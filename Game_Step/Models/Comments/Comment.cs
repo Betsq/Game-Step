@@ -13,6 +13,7 @@ namespace Game_Step.Models.Comments
         public string Message { get; set; }
         public DateTime TimeCreated { get; set; }
         public bool IsCommentChecked { get; set; }
+        public bool IsAdmin { get; set; }
         public User User { get; set; }
         public string UserId { get; set; }
     }

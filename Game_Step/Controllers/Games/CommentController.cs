@@ -37,11 +37,14 @@ namespace Game_Step.Controllers.AllGameController
                 return Json(false);
 
             var user = _userManager.GetUserAsync(HttpContext.User);
+            var isAdmin = User.IsInRole("Admin");
+
             var mainComment = new MainComment
             {
                 Message = model.MainComment.Message,
                 TimeCreated = DateTime.Now,
                 Game = game,
+                IsAdmin = isAdmin,
                 User = user.Result,
             };
 
@@ -68,11 +71,14 @@ namespace Game_Step.Controllers.AllGameController
                 return Json(false);
 
             var user = _userManager.GetUserAsync(HttpContext.User);
+            var isAdmin = User.IsInRole("Admin");   
+
             var subComment = new SubComment
             {
                 Message = model.MainComment.Message,
                 TimeCreated = DateTime.Now,
                 MainComment = mainComment,
+                IsAdmin = isAdmin,
                 User = user.Result,
             };
 
