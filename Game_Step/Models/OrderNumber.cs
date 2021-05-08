@@ -14,11 +14,11 @@ namespace Game_Step.Models
         public bool UserAgreement { get; set; }
 
         public string PaymentMethod { get; set; }
-
+        public bool IsPaid { get; set; }
         public string Promocode { get; set; }
 
         public DateTime OrderTime { get; set; }
 
-        public List<Order> Orders { get; set; } = new List<Order>();
+        public List<Order> Orders { get; set; }
     }
 }
