@@ -114,8 +114,11 @@
                 <img src="/img/Account/delay.png" alt="delay">
                 Партнерская программа
             </a>
-            <form action="/" method="post">
-                <button class="right-content__butt-exit"><img src="/img/Account/exit.png" alt="exit">Выйти</button>
+            <form asp-action="Logout" asp-controller="Account" method="post">
+                <button class="right-content_butt-exit">
+                    <img src="/img/Account/exit.png" alt="exit">
+                    Выйти
+                </button>
             </form>
         </div>
     </div>

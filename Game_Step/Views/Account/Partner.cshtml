@@ -97,7 +97,12 @@
                 <a asp-action="Profile" asp-controller="Account"> <img src="/img/Account/user.png" alt="user" style="color: #1896e6;"> Личный кабинет</a>
                 <a asp-action="Purchase" asp-controller="Account"> <img src="/img/Account/purchase.png" alt="purchase"> Мои покупки</a>
                 <a asp-action="Partner" asp-controller="Account" style="color: #1896e6"> <img src="/img/Account/delay.png" alt="delay"> Партнерская программа</a>
-                <a asp-action="Logout" asp-controller="Account"> <img src="/img/Account/exit.png" alt="exit">Выйти</a>
+                <form asp-action="Logout" asp-controller="Account" method="post">
+                    <button class="right-content_butt-exit">
+                        <img src="/img/Account/exit.png" alt="exit">
+                        Выйти
+                    </button>
+                </form>
             </div>
         </div>
     </div>
