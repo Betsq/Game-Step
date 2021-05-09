@@ -3,7 +3,7 @@
 }
 @section Style
 {
-
+    <link href="/css/Account/Account.css" rel="stylesheet" />
     <link href="/css/Account/partner.css" rel="stylesheet" />
 }
 <div class="main-content">
@@ -95,7 +95,7 @@
                 </div>
 
                 <a asp-action="Profile" asp-controller="Account"> <img src="/img/Account/user.png" alt="user" style="color: #1896e6;"> Личный кабинет</a>
-                <a href="#"> <img src="/img/Account/purchase.png" alt="purchase"> Мои покупки</a>
+                <a asp-action="Purchase" asp-controller="Account"> <img src="/img/Account/purchase.png" alt="purchase"> Мои покупки</a>
                 <a asp-action="Partner" asp-controller="Account" style="color: #1896e6"> <img src="/img/Account/delay.png" alt="delay"> Партнерская программа</a>
                 <a asp-action="Logout" asp-controller="Account"> <img src="/img/Account/exit.png" alt="exit">Выйти</a>
             </div>

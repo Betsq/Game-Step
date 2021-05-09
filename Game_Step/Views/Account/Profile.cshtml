@@ -5,6 +5,7 @@
 }
 @section Style
 {
+    <link href="/css/Account/Account.css" rel="stylesheet" />
     <link href="/css/Account/cabinet.css" rel="stylesheet" />
 }
 
@@ -134,7 +135,7 @@
             </div>
 
             <a asp-action="Profile" asp-controller="Account" style="color: #1896e6!important"> <img src="/img/Account/user.png" alt="user"> Личный кабинет</a>
-            <a href="#"> <img src="/img/Account/purchase.png" alt="purchase"> Мои покупки</a>
+            <a asp-action="Purchase" asp-controller="Account"> <img src="/img/Account/purchase.png" alt="purchase"> Мои покупки</a>
             <a asp-action="Partner" asp-controller="Account"> <img src="/img/Account/delay.png" alt="delay"> Партнерская программа</a>
             <form action="/" method="post"></form>
             <a asp-action="Logout" asp-controller="Account"> <img src="/img/Account/exit.png" alt="exit">Выйти</a>
