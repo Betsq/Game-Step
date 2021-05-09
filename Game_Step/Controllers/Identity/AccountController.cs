@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using Game_Step.IdentityViewModels;
 using Game_Step.Models;
 using Game_Step.Util;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Game_Step.Controllers.IdentityControllers
 {
@@ -26,12 +28,32 @@ namespace Game_Step.Controllers.IdentityControllers
         [Authorize]
         public async Task<IActionResult> Partner() => View(await SetProfileViewModel());
 
+        [Authorize]
+        public async Task<IActionResult> Purchase()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            var orders = _db.OrderNumbers
+                .Include(item => item.Orders)
+                .Where(item => item.Email == user.Email)
+                .ToList();
+
+            var model = new PurchaseViewModel()
+            {
+                Orders = orders,
+                Avatar = user.Avatar,
+                Name = user.Name
+            };
+
+            return View(model);
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult Register()
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Profile", "Account");
+                return View("Profile");
 
             return View();
         }
@@ -41,7 +63,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Profile", "Account");
+                return View("Profile");
 
             if (!ModelState.IsValid)
                 return View(model);
@@ -106,7 +128,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult Login(string returnUrl = null)
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Profile", "Account");
+                return View("Profile");
 
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
@@ -137,7 +159,7 @@ namespace Game_Step.Controllers.IdentityControllers
                 model.Password, model.RememberMe, false);
 
             if (result.Succeeded)
-                return RedirectToAction("Profile", "Account");
+                return View("Profile");
 
 
             ModelState.AddModelError("", "Invalid username and (or) password");
@@ -159,7 +181,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult ForgotPassword()
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Profile", "Account");
+                return View("Profile");
 
             return View();
         }
@@ -170,7 +192,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Profile", "Account");
+                return View("Profile");
 
             if (!ModelState.IsValid)
                 return View(model);
@@ -201,7 +223,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult ResetPassword(string code = null)
         {
             if (UserIsAuthenticated())
-                return RedirectToAction("Profile", "Account");
+                return View("Profile");
 
             return code != null ? View() : View("Error");
         }
@@ -241,7 +263,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> UpdateAvatar(ProfileViewModel model)
         {
             if (model.AvatarFormFile == null)
-                return RedirectToAction("Profile");
+                return View("Profile");
 
             byte[] imageData = null;
 
@@ -257,7 +279,7 @@ namespace Game_Step.Controllers.IdentityControllers
             _db.Users.Update(user);
             await _db.SaveChangesAsync();
 
-            return RedirectToAction("Profile");
+            return View("Profile");
         }
 
         [HttpPost]
@@ -269,7 +291,7 @@ namespace Game_Step.Controllers.IdentityControllers
 
 
             if (string.IsNullOrEmpty(model.Name))
-                return RedirectToAction("Profile");
+                return View("Profile");
 
             var user = await CurrentUserAsync();
 
@@ -278,7 +300,7 @@ namespace Game_Step.Controllers.IdentityControllers
             _db.Users.Update(user);
             await _db.SaveChangesAsync();
 
-            return RedirectToAction("Profile");
+            return View("Profile");
         }
 
         [HttpPost]
