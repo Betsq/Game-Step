@@ -53,7 +53,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult Register()
         {
             if (UserIsAuthenticated())
-                return View("Profile");
+                return RedirectToAction("Profile", "Account");
 
             return View();
         }
@@ -63,7 +63,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             if (UserIsAuthenticated())
-                return View("Profile");
+                return RedirectToAction("Profile", "Account");
 
             if (!ModelState.IsValid)
                 return View(model);
@@ -128,7 +128,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult Login(string returnUrl = null)
         {
             if (UserIsAuthenticated())
-                return View("Profile");
+                return RedirectToAction("Profile", "Account");
 
             return View(new LoginViewModel { ReturnUrl = returnUrl });
         }
@@ -159,7 +159,7 @@ namespace Game_Step.Controllers.IdentityControllers
                 model.Password, model.RememberMe, false);
 
             if (result.Succeeded)
-                return View("Profile");
+                return RedirectToAction("Profile", "Account");
 
 
             ModelState.AddModelError("", "Invalid username and (or) password");
@@ -181,7 +181,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult ForgotPassword()
         {
             if (UserIsAuthenticated())
-                return View("Profile");
+                return RedirectToAction("Profile", "Account");
 
             return View();
         }
@@ -192,7 +192,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
             if (UserIsAuthenticated())
-                return View("Profile");
+                return RedirectToAction("Profile", "Account");
 
             if (!ModelState.IsValid)
                 return View(model);
@@ -223,7 +223,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public IActionResult ResetPassword(string code = null)
         {
             if (UserIsAuthenticated())
-                return View("Profile");
+                return RedirectToAction("Profile", "Account");
 
             return code != null ? View() : View("Error");
         }
@@ -263,7 +263,7 @@ namespace Game_Step.Controllers.IdentityControllers
         public async Task<IActionResult> UpdateAvatar(ProfileViewModel model)
         {
             if (model.AvatarFormFile == null)
-                return View("Profile");
+                return RedirectToAction("Profile", "Account");
 
             byte[] imageData = null;
 
@@ -279,7 +279,7 @@ namespace Game_Step.Controllers.IdentityControllers
             _db.Users.Update(user);
             await _db.SaveChangesAsync();
 
-            return View("Profile");
+            return RedirectToAction("Profile", "Account");
         }
 
         [HttpPost]
@@ -291,7 +291,7 @@ namespace Game_Step.Controllers.IdentityControllers
 
 
             if (string.IsNullOrEmpty(model.Name))
-                return View("Profile");
+                return View("Profile", await SetProfileViewModel(model));
 
             var user = await CurrentUserAsync();
 
@@ -313,7 +313,7 @@ namespace Game_Step.Controllers.IdentityControllers
                 return View("Profile", await SetProfileViewModel(model));
 
             if (string.IsNullOrEmpty(model.OldPassword))
-                return RedirectToAction("Profile");
+                return View("Profile", await SetProfileViewModel(model));
 
             var user = await CurrentUserAsync();
 
