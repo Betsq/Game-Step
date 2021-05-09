@@ -1,24 +1,4 @@
-﻿.content {
-    position: relative;
-    max-width: 1236px;
-    margin: auto auto;
-    padding-top: 24px;
-}
-
-.info-page {
-    font-size: 30px;
-    width: 100%;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-.left-content {
-    background-color: white;
-    flex: 1;
-    margin-right: 25px;
-}
-
-.left-content__name {
+﻿.left-content__name {
     display: flex;
     justify-content: center;
     font-size: 21px;
@@ -118,25 +98,3 @@ button:hover {
         text-decoration: none;
         color: white;
     }
-
-.right-content {
-    min-width: 25%;
-}
-
-    .right-content a {
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: #616161;
-        padding: 15px 15px;
-        border-bottom: 1px solid #dfdfdf;
-    }
-
-        .right-content a:hover {
-            color: #ff9900;
-        }
-
-        .right-content a img {
-            margin-right: 10px;
-        }

@@ -1,0 +1,60 @@
+﻿.left-content {
+    padding: 36px 30px;
+}
+
+.purchases-container table {
+    width: 100%;
+    border-spacing: 0;
+}
+
+    .purchases-container table thead {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+        .purchases-container table thead th {
+            padding: 0;
+        }
+
+        .purchases-container table thead td {
+            padding: 0;
+            border-bottom: 2px solid #dedede;
+            padding-bottom: 20px;
+        }
+
+    .purchases-container table tbody td {
+        padding-top: 20px;
+    }
+
+        .purchases-container table tbody td a {
+            text-decoration: none;
+            color: #3871c1;
+        }
+
+    .purchases-container table tbody .td-name {
+        width: 500px;
+        padding-right: 20px;
+    }
+
+    .purchases-container table tbody .td-quantity {
+        width: 70px;
+    }
+
+    .purchases-container table tbody .td-price {
+        width: 110px;
+    }
+
+    .purchases-container table tbody .td-status-ok,
+    .purchases-container table tbody .td-status-cancel {
+        width: 18px;
+        height: 18px;
+        background-image: url(/img/Account/Purchase/check-circle-fill.svg);
+        -ms-background-position: center center;
+        background-position: center center;
+        -ms-background-repeat: no-repeat;
+        background-repeat: no-repeat;
+    }
+
+.purchases-container table tbody .td-status-cancel {
+        background-image: url(/img/Account/Purchase/check-circle-fill.svg) !important;
+    }

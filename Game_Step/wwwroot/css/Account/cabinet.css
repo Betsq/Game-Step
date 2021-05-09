@@ -1,23 +1,4 @@
-﻿.content {
-    position: relative;
-    max-width: 1236px;
-    margin: auto auto;
-    padding-top: 24px;
-}
-
-.info-page {
-    font-size: 30px;
-    width: 100%;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-
-.left-content {
-    flex: 1;
-    margin-right: 25px;
-}
-
-.container-change {
+﻿.container-change {
     display: flex;
     padding: 25px 35px;
     background-color: white;
@@ -152,54 +133,6 @@ button {
         left: 4px;
         max-width: 25px;
     }
-
-.right-content__avatar-block-img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    border: 1px solid #dfdfdf;
-    margin: 0 auto;
-}
-
-    .right-content__avatar-block-img img {
-        width: 100%;
-        display: block;
-    }
-
-.right-content__greeting {
-    color: #616161;
-    font-size: 17px;
-    text-align: center;
-    margin: 10px 0;
-}
-
-.right-content {
-    min-width: 25%;
-}
-
-    .right-content a {
-        font-size: 18px;
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: #616161;
-        padding: 15px 15px;
-        border-bottom: 1px solid #dfdfdf;
-    }
-
-        .right-content a:hover {
-            color: #ff9900;
-        }
-
-        .right-content a img {
-            margin-right: 10px;
-            max-width: 25px;
-        }
-
 
 .container-change__success, .container-change__unsuccess {
     background-color: #32b76c;
