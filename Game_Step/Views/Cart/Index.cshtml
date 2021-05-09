@@ -18,6 +18,13 @@
         <div class="catalog-item">
             <form asp-action="Order" asp-controller="Order" method="post">
                 <div asp-validation-summary="ModelOnly"></div>
+                @if (TempData["Error"] != null)
+                {
+                    <div class="display-error">
+                        @TempData["Error"]
+                    </div>
+                }
+
                 @foreach (var game in Model.GameInCart)
                 {
                     isItemInCart = true;

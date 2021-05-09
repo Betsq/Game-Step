@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Game_Step.Models.Orders;
-using Org.BouncyCastle.Bcpg.OpenPgp;
 
 namespace Game_Step.Models
 {
@@ -12,10 +11,7 @@ namespace Game_Step.Models
         public int ProductPrice { get; set; }
         public int AmountProduct { get; set; }
 
-        public int OrderKeysGameId { get; set; }
         public List<OrderKeysGame> OrderKeysGame { get; set; }
-
-        public int OrderNumberId { get; set; }
         public OrderNumber OrderNumber { get; set; }
     }
 }

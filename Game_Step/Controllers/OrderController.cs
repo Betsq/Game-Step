@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Game_Step.Models.Orders;
 
 namespace Game_Step.Controllers
 {
@@ -20,17 +21,52 @@ namespace Game_Step.Controllers
         [HttpPost]
         public IActionResult Order(CartOrderViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (!OrderValidate(model))
                 return RedirectToAction("Index", "Cart", model);
 
-            var listProdId = HttpContext.Session.Get<List<int>>("CartId");
-            if (listProdId.Count() < 0)
-                return RedirectToAction("Index", "Cart", model);
-
-
-            bool isOrderValide = false;
             int totalPrice = 0;
 
+            var orderNumber = SetOrderNumber(model);
+
+            foreach (var item in model.Items)
+            {
+
+                var game = _db.Games
+                    .Include(keys => keys.GameKeys)
+                    .Include(price => price.GamePrice)
+                    .FirstOrDefault(g => g.Id == item.Key);
+
+                if (game == null)
+                    continue;
+
+                if (!ValidateAmountProduct(item.Value, game))
+                    return RedirectToAction("Index", "Cart");
+
+                SetPrice(game, item.Value, totalPrice, out var gamePrice, out totalPrice);
+
+                var order = new Order
+                {
+                    ProductId = game.Id,
+                    AmountProduct = item.Value,
+                    ProductName = game.Name,
+                    ProductPrice = gamePrice,
+                    OrderNumber = orderNumber,
+                };
+                _db.Orders.Add(order);
+                SetOrderKeysGame(order, game, item.Value);
+            }
+
+            orderNumber.TotalPrice = totalPrice;
+
+            _db.OrderNumbers.Add(orderNumber);
+            HttpContext.Session.Remove("CartId");
+            HttpContext.Session.Remove("CountOfGoods");
+            _db.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
+
+        public OrderNumber SetOrderNumber(CartOrderViewModel model)
+        {
             var orderNumber = new OrderNumber
             {
                 Email = model.Email,
@@ -40,62 +76,64 @@ namespace Game_Step.Controllers
                 OrderTime = DateTime.Now,
             };
 
-            //Retrives a dictionary
-            foreach (var item in model.Items)
+            return (orderNumber);
+        }
+
+        public void SetOrderKeysGame(Order order, Game game, int quantity)
+        {
+            for (var i = 0; i < quantity; i++)
             {
-                //Get a list with an Id 
-                foreach (var prodId in listProdId)
+                var key = game.GameKeys[i];
+                var orderKeysGame = new OrderKeysGame()
                 {
-                    //Comparing an Id from a dictionary with a list  
-                    if (item.Key != prodId || model.UserAgreement != true)
-                        continue;
-                    var game = _db.Games.Include(price => price.GamePrice).FirstOrDefault(g => g.Id == item.Key);
-                    if (game == null)
-                        continue;
+                    Key = key.KeyToGame,
+                    Order = order,
+                };
 
-                    isOrderValide = true;
-
-                    //Price of the current game
-                    int gamePrice;
-
-                    //If there is a discount on the game
-                    if (game.GamePrice.IsDiscount)
-                    {
-                        gamePrice = game.GamePrice.DiscountPrice;
-
-                        totalPrice += game.GamePrice.DiscountPrice * item.Value;
-                    }
-                    else
-                    {
-                        gamePrice = game.GamePrice.Price;
-
-                        totalPrice += game.GamePrice.Price * item.Value;
-                    }
-
-                    var order = new Order
-                    {
-                        ProductId = item.Key,
-                        AmountProduct = item.Value,
-                        ProductPrice = gamePrice,
-                        OrderNumber = orderNumber,
-                    };
-
-                    _db.Orders.Add(order);
-
-                    break;
-                }
+                _db.GameKeys.Remove(key);
+                _db.OrderKeysGames.Add(orderKeysGame);
             }
+        }
 
-            if (!isOrderValide)
-                return RedirectToAction("Index", "Cart", model);
+        public bool OrderValidate(CartOrderViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return false;
 
-            orderNumber.TotalPrice = totalPrice;
+            if (model.UserAgreement == false)
+                return false;
 
-            _db.OrderNumbers.Add(orderNumber);
-            HttpContext.Session.Remove("CartId");
-            HttpContext.Session.Remove("CountOfGoods");
-            _db.SaveChanges();
-            return RedirectToAction("Index", "Home");
+            return true;
+        }
+
+        public void SetPrice(Game game, int amountProduct, int tPrice, out int gamePrice, out int totalPrice)
+        {
+            //The variable 'tPrice' is added as the variable 'out totalPrice' does not work without initialization
+            totalPrice = tPrice;
+
+            if (game.GamePrice.IsDiscount)
+            {
+                gamePrice = game.GamePrice.DiscountPrice;
+
+                totalPrice += game.GamePrice.DiscountPrice * amountProduct;
+            }
+            else
+            {
+                gamePrice = game.GamePrice.Price;
+
+                totalPrice += game.GamePrice.Price * amountProduct;
+            }
+        }
+
+        public bool ValidateAmountProduct(int amount, Game game)
+        {
+            int countKeys = game.GameKeys.Count();
+
+            if (countKeys >= amount)
+                return true;
+
+            TempData["Error"] = $"К сожалению недостаточно ключей для игры {game.Name}";
+            return false;
         }
     }
 }
