@@ -18,5 +18,6 @@
         top: 0;
         left: 0;
         max-height: 157px;
+        min-height: 157px;
         width: 100%;
     }
