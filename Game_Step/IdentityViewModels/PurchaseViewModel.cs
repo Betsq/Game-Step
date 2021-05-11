@@ -10,5 +10,6 @@ namespace Game_Step.IdentityViewModels
     public class PurchaseViewModel : User
     {
         public List<OrderNumber> Orders { get; set; }
+        public OrderNumber OneOrder { get; set; }
     }
 }

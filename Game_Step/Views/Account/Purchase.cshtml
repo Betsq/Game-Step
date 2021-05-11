@@ -50,7 +50,7 @@
                                     @if (item.Orders.Count > 1)
                                     {
                                         <td class="td-name">
-                                            <a href="#">Вы купили несколько товаров</a>
+                                            <a asp-action="ConcretePurchase" asp-controller="Account" asp-route-id="@item.Id">Вы купили несколько товаров</a>
                                         </td>
                                     }
                                     else
@@ -58,7 +58,7 @@
                                         foreach (var game in item.Orders)
                                         {
                                             <td class="td-name">
-                                                <a href="#">@game.ProductName</a>
+                                                <a asp-action="ConcretePurchase" asp-controller="Account" asp-route-id="@item.Id">@game.ProductName</a>
                                             </td>
                                             break;
                                         }

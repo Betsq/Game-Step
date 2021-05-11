@@ -26,9 +26,11 @@ namespace Game_Step.Controllers.IdentityControllers
         }
 
         [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Partner() => View(await SetProfileViewModel());
 
         [Authorize]
+        [HttpGet]
         public async Task<IActionResult> Purchase()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -46,6 +48,28 @@ namespace Game_Step.Controllers.IdentityControllers
             };
 
             return View(model);
+        }
+
+        public async Task<IActionResult> ConcretePurchase(int? id)
+        {
+            if (id == null)
+                return NotFound();
+
+            var user = await CurrentUserAsync();
+
+            var order = _db.OrderNumbers
+                .Include(item => item.Orders)
+                .ThenInclude(item => item.OrderKeysGame)
+                .FirstOrDefault(item => item.Id == id);
+
+            var purchase = new PurchaseViewModel
+            {
+                Name = user.Name,
+                Avatar = user.Avatar,
+                OneOrder = order,
+            };
+
+            return View(purchase);
         }
 
         [HttpGet]

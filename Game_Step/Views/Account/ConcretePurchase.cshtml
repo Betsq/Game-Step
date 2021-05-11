@@ -1,0 +1,286 @@
+﻿@model Game_Step.IdentityViewModels.PurchaseViewModel
+
+@{
+    ViewBag.Title = "Мой заказ";
+}
+@section Style
+{
+    <link href="/css/Account/Account.css" rel="stylesheet" />
+    <link href="/css/Account/concretePurchase.css" rel="stylesheet" />
+}
+<div class="content">
+    <div class="info-page">
+        Мои покупки
+    </div>
+    <div style="display: flex; margin-bottom: 40px">
+        <div class="left-content">
+            <div class="left-content__back-purchase">
+                <a asp-action="Purchase" asp-controller="Account">Вернуться к списку покупок</a>
+            </div>
+            <div class="left-content__purchase">
+                @foreach (var order in Model.OneOrder.Orders)
+                {
+                    <div class="left-content__purchase-name">
+                        @order.ProductName
+                    </div>
+                    @foreach (var key in order.OrderKeysGame)
+                    {
+                        <div class="left-content__purchase-key">
+                            @key.Key
+                        </div>
+                    }
+                }
+
+                <a class="left-content__instruction" href="#">Инструкция по использованию</a>
+            </div>
+            <div class="left-content__account">
+                <table>
+                    <tbody>
+                        <tr>
+                            <td class="table-td-name">Счет №</td>
+                            <td>
+                                bd47d244-dd4f-446d-a115-7052c7b237ce (выписан @Model.OneOrder.OrderTime) на сумму @Model.OneOrder.TotalPrice RUB
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-td-name">Состояние оплаты:</td>
+                            <td class="table-td-status">
+                                @if (Model.OneOrder.IsPaid)
+                                {
+                                    <div class="product-paid"></div><span>Оплачен</span>
+                                }
+                                else
+                                {
+                                    <div class="product-no-paid"></div><span>Не оплачен</span>
+                                }
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="table-td-name" style="border: none;">Название товара:</td>
+                            <td style="border: none;">
+                                @foreach (var order in Model.OneOrder.Orders)
+                                {
+                                    <span>@order.ProductName </span>
+                                }
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="left-content__discount expand">
+                Скидка постоянным покупателям
+            </div>
+            <div id="discount-panel" class="discount-panel" style="display:none">
+                <div class="discount-panel__hint">
+                    Общая сумма ваших покупок <br>
+                    составляет <span>0$</span>,<br>
+                    размер скидки составляет <span>0%</span>
+                </div>
+                <div class="discount-panel__list">
+                    <div class="discount-panel__list-text">
+                        На этот товар, а также на другие свои товары, мы предоставляем скидки постоянным
+                        покупателям. <br>
+                        Если общая сумма ваших покупок больше чем:
+                    </div>
+                    <div class="discount-panel__disc-row">
+                        <div class="discount-panel__sum">1250$</div>
+                        <div class="discount-panel__value">10%</div>
+                    </div>
+                    <div class="discount-panel__disc-row">
+                        <div class="discount-panel__sum">1000$</div>
+                        <div class="discount-panel__value">9%</div>
+                    </div>
+                    <div class="discount-panel__disc-row">
+                        <div class="discount-panel__sum">750$</div>
+                        <div class="discount-panel__value">8%</div>
+                    </div>
+                    <div class="discount-panel__disc-row">
+                        <div class="discount-panel__sum">500$</div>
+                        <div class="discount-panel__value">7%</div>
+                    </div>
+                    <div class="discount-panel__disc-row">
+                        <div class="discount-panel__sum">350$</div>
+                        <div class="discount-panel__value">6%</div>
+                    </div>
+                    <div class="discount-panel__disc-row">
+                        <div class="discount-panel__sum">200$</div>
+                        <div class="discount-panel__value">5%</div>
+                    </div>
+                    <div class="discount-panel__disc-row">
+                        <div class="discount-panel__sum">100$</div>
+                        <div class="discount-panel__value">4%</div>
+                    </div>
+                    <div class="discount-panel__disc-row">
+                        <div class="discount-panel__sum">50$</div>
+                        <div class="discount-panel__value">3%</div>
+                    </div>
+                    <div class="discount-panel__disc-row">
+                        <div class="discount-panel__sum">10$</div>
+                        <div class="discount-panel__value">2%</div>
+                    </div>
+                    <div class="discount-panel__disc-row">
+                        <div class="discount-panel__sum">0,1$</div>
+                        <div class="discount-panel__value">1%</div>
+                    </div>
+                    <div class="discount-panel__disc-row">
+                        <div class="discount-panel__sum">0$</div>
+                        <div class="discount-panel__value">0%</div>
+                    </div>
+                </div>
+                <div class="clear">
+
+                </div>
+            </div>
+            <div class="container-feedback">
+                <div class="container-feedback__name tabs">
+                    <div class="container-feedback__tab active button-review">
+                        Отзыв о товаре
+                    </div>
+                    <div class="container-feedback__tab button-support">
+                        Переписка с поддержкой
+                    </div>
+                </div>
+
+                <div class="review feedback-info">
+                    <div class="review__description">
+                        Оставьте отзыв о приобретенном товаре. Если товар некачественный или не соответствует
+                        описанию, поставьте оценку <span class="bad-rating">"плохо"</span> и укажите, что именно вас
+                        не устроило. <br>
+                        Необоснованные отзывы, а также отзывы, содержащие нецензурные выражения, аннулируются. Если
+                        у вас нет претензий к товару, поставьте оценку <span class="good-rating">"хорошо"</span> и
+                        прокомментируйте это в отзыве в
+                        свободной форме. <br>
+                        Обращаем внимание, что данный отзыв может быть изменён вами в любое время, однако отзыв с
+                        оценкой <span class="bad-rating">"плохо"</span> может быть оставлен не позднее 90 дней с
+                        момента покупки.
+                    </div>
+                    <div style="display: flex; margin-top: 20px">
+                        <div class="review__rating">
+                            <div class="review__rating-name">
+                                Ваша оценка:
+                            </div>
+                            <div class="review__rating-radio good-rating">
+                                <label>
+                                    <input type="radio" name="1">
+                                    <div class="svg-good"></div>
+                                    Хорошо
+                                </label>
+                            </div>
+                            <div class="review__rating-radio bad-rating">
+                                <label>
+                                    <input type="radio" name="1">
+                                    <div class="svg-bad"></div>
+                                    Плохо
+                                </label>
+                            </div>
+                        </div>
+                        <div class="review__purchase">
+                            <div class="review__rating-name">
+                                Ваша отзыв:
+                            </div>
+                            <textarea id="review-textarea" cols="30" rows="10"></textarea>
+                            <p style="font-size: 14px; margin: 0 0 10px 0">
+                                <b>Внимание!</b> Текст отзыва является
+                                публичной информацией (доступен для всех).
+                            </p>
+                            <button type="submit" class="review__send">Сохранить отзыв</button>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="support feedback-info" style="display: none;">
+                    <textarea class="support-textarea" cols="30" rows="10"></textarea>
+                    <div class="support__send-file">
+                        Отправить файл <span>
+                            или перетащите его сюда из папки. Только
+                            изображение до 1.5 МБ
+                        </span>
+                    </div>
+                    <button type="submit" class="support__send">Отправить сообщение</button>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <div class="right-content">
+            <div class="right-content__avatar-block-img">
+                @if (Model.Avatar != null)
+                {
+                    <img src="data:image/jpeg;base64,@(Convert.ToBase64String(Model.Avatar))" alt="avatar">
+                }
+                else
+                {
+                    <img src="/img/Account/avatar_unk.png" alt="avatar2">
+                }
+            </div>
+            <div class="right-content__greeting">
+                Привет, Wonka
+            </div>
+
+            <a asp-action="Profile" asp-controller="Account">
+                <img src="/img/Account/user.png" alt="user"> Личный
+                кабинет
+            </a>
+            <a href="#" style="color: #1896e6!important">
+                <img src="/img/Account/purchase.png" alt="purchase"> Мои
+                покупки
+            </a>
+            <a asp-action="Partner" asp-controller="Account">
+                <img src="/img/Account/delay.png" alt="delay">
+                Партнерская программа
+            </a>
+            <form asp-action="Logout" asp-controller="Account" method="post">
+                <button class="right-content_butt-exit"><img src="/img/Account/exit.png" alt="exit">Выйти</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".left-content__discount").click(function () {
+
+                const button = $(this);
+
+                $("#discount-panel").slideToggle("fast", function () {
+
+                    if ($(button).hasClass("expand")) {
+                        $(button).addClass("expandebel");
+                        $(button).removeClass("expand");
+                    }
+                    else {
+                        $(button).addClass("expand");
+                        $(button).removeClass("expandebel");
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $(".container-feedback__tab").click(function () {
+                const pressedButton = $(this);
+
+                $(".container-feedback__tab").removeClass("active");
+
+                $(".feedback-info").hide(200, function () {
+                    $(pressedButton).addClass("active");
+
+                    if (pressedButton.hasClass("button-review")) {
+                        $(".review").show(200);
+                    }
+                    else {
+                        $(".support").show(200);
+                    }
+                });
+            });
+        });
+    </script>
+}
