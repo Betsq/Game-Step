@@ -107,6 +107,7 @@ button {
 .container-change__email-now {
     margin: 25px 0 20px 0;
     font-size: 17px;
+    padding-left: 33px;
 }
 
 .container-change__email {

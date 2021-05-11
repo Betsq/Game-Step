@@ -1,4 +1,7 @@
-﻿.content {
+﻿a {
+    color: #616161;
+}
+.content {
     position: relative;
     max-width: 1236px;
     margin: auto auto;
