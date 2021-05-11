@@ -10,12 +10,60 @@
     <link href="~/css/HomePage/SectionCelendarRelease.css" rel="stylesheet" />
     <link href="~/css/HomePage/SectionPopular.css" rel="stylesheet" />
     <link href="~/css/HomePage/SectionPriceReduction.css" rel="stylesheet" />
+    <link href="~/css/HomePage/Slider.css" rel="stylesheet" />
 }
 
 <div class="main-content">
     <div class="block-slider">
-        <div>
-            dd
+        <div class="content-screenshots">
+            <div class="slideshow-screenshot-container">
+                <div class="slide-image fade-anim" style="display: flex;">
+                    <div class="first-img">
+                        <img class="first-img" src="/img/village.jpg">
+                        <div class="first-image-text">
+                            Теперь доступен
+                        </div>
+                        <div class="first-image__cont-price">
+                            <div class="first-image__discount">
+                                -13%
+                            </div>
+                            <div class="first-image__price">
+                                <span>1999 $</span> 1741 $
+                            </div>
+                        </div>
+                    </div>
+                    <div style="width: 100%;">
+                        <div style="width: 100%; max-height: 240px; position: relative;">
+                            <img class="second-img" src="/img/Wasteland 3.jpg">
+                            <div class="first-image__cont-price">
+                                <div class="first-image__discount">
+                                    -27%
+                                </div>
+                                <div class="first-image__price">
+                                    <span>199 $</span> 1454 $
+                                </div>
+                            </div>
+                        </div>
+                        <div style="position: relative;">
+                            <img class="second-img" src="/img/dying-light.jpg">
+                            <div class="first-image__cont-price">
+                                <div class="first-image__discount">
+                                    -75%
+                                </div>
+                                <div class="first-image__price">
+                                    <span>1299 $</span> 329 $
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center">
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                </div>
+
+                <a class="prev" onclick="plusSlides(-1)"><img src="/img/caret-left.svg" alt=""></a>
+                <a class="next" onclick="plusSlides(1)"><img src="/img/caret-right.svg" alt=""></a>
+            </div>
         </div>
     </div>
     <div class="product-content">
@@ -431,4 +479,35 @@
 
 @section Scripts{
     <script src="~/js/HomePage/HomePage.js"></script>
+    <script>
+        var slideIndex = 1;
+        showSlides(slideIndex);
+
+        // Next/previous controls
+        function plusSlides(n) {
+            showSlides(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+            showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            var i;
+            var slides = document.getElementsByClassName("slide-image");
+            var dots = document.getElementsByClassName("dot");
+            if (n > slides.length) { slideIndex = 1 }
+            if (n < 1) { slideIndex = slides.length }
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            for (i = 0; i < dots.length; i++) {
+                dots[i].className = dots[i].className.replace(" active", "");
+            }
+            slides[slideIndex - 1].style.display = "flex";
+            dots[slideIndex - 1].className += " active";
+        }
+
+    </script>
 }

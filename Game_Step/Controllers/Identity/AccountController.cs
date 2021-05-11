@@ -50,6 +50,8 @@ namespace Game_Step.Controllers.IdentityControllers
             return View(model);
         }
 
+        [HttpGet]
+        [Authorize]
         public async Task<IActionResult> ConcretePurchase(int? id)
         {
             if (id == null)

@@ -1,87 +1,154 @@
-﻿#block-for-slider {
-    width: 80%;
-    margin: 0 auto;
+﻿.slideshow-screenshot-container {
+    max-width: 100%;
+    position: relative;
+    margin: auto;
 }
 
-#viewport {
-    width: 100%;
-    position: relative;
-    overflow: hidden;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+.slide-image img {
+    width: 600px;
+}
+
+.slide-image {
+    display: none;
+}
+
+.fade-anim {
+    /* ReSharper disable once CssNotResolved */
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1s;
+    /* ReSharper disable once CssNotResolved */
+    animation-name: fade;
+    animation-duration: 1s;
+}
+
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    font-weight: bold;
+    font-size: 18px;
+    -ms-transition: 0.6s ease;
+    -o-transition: 0.6s ease;
+    -webkit-transition: 0.6s ease;
+    transition: 0.6s ease;
     user-select: none;
-    text-align: center;
+    color: white !important;
 }
 
-#slidewrapper {
-    position: relative;
-    width: calc(100% * 4);
-    -webkit-transition: 1s;
-    -o-transition: 1s;
-    transition: 1s;
-    -webkit-transition-timing-function: cubic-bezier(.67,.01,.23,1);
-    -o-transition-timing-function: cubic-bezier(.67,.01,.23,1);
-    transition-timing-function: cubic-bezier(.67,.01,.23,1);
-}
-
-    #slidewrapper, #slidewrapper ul, #slidewrapper li {
-        margin: 0;
-        padding: 0;
+.prev img,
+    .next img {
+        width: 100px;
+        height: 100px;
     }
 
-.slide {
-    width: calc(100%/4);
-    list-style: none;
-    display: inline;
-    float: left;
+.next {
+    right: -99px;
 }
 
-.slide-img {
-    width: 100%;
+.prev {
+    left: -100px;
 }
-
-#prev-btn, #next-btn {
-    position: absolute;
-    width: 50px;
-    height: 50px;
-    background-color: #fff;
+/* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    -ms-border-radius: 50%;
     border-radius: 50%;
-    top: calc(50% - 25px);
-}
-
-    #prev-btn:hover, #next-btn:hover {
-        cursor: pointer;
-    }
-
-#prev-btn {
-    left: 20px;
-}
-
-#next-btn {
-    right: 20px;
-}
-
-#nav-btns {
-    position: absolute;
-    width: 100%;
-    bottom: 20px;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-}
-
-.slide-nav-btn {
-    position: relative;
     display: inline-block;
-    list-style: none;
-    width: 20px;
-    height: 20px;
-    background-color: #fff;
-    border-radius: 50%;
-    margin: 3px;
+    -ms-transition: background-color 0.6s ease;
+    -o-transition: background-color 0.6s ease;
+    -webkit-transition: background-color 0.6s ease;
+    transition: background-color 0.6s ease;
 }
 
-    .slide-nav-btn:hover {
-        cursor: pointer;
+.active,
+    .dot:hover {
+        background-color: #717171;
+    }
+
+@-webkit-keyframes fade-anim {
+    from {
+        -ms-opacity: 0.4;
+        opacity: 0.4;
+    }
+
+    to {
+        -ms-opacity: 1;
+        opacity: 1;
+    }
+}
+
+@keyframes fade-anim {
+    from {
+        -ms-opacity: 0.4;
+        opacity: 0.4;
+    }
+
+    to {
+        -ms-opacity: 1;
+        opacity: 1;
+    }
+}
+
+.first-img {
+    width: 69%;
+}
+
+.first-img {
+    width: 854px !important;
+    max-height: 480px;
+    position: relative;
+}
+
+.second-img {
+    max-width: 454px;
+    max-height: 240px;
+}
+
+.first-image-text {
+    position: absolute;
+    color: #fff;
+    left: 35px;
+    font-size: 24px;
+    bottom: 45px;
+    font-weight: 600;
+}
+
+.first-image__cont-price {
+    display: flex;
+    color: #fff;
+    position: absolute;
+    bottom: 45px;
+    right: 35px;
+}
+
+.first-image__discount {
+    padding: 3px 12px;
+    border: 2px solid #ff9900;
+}
+
+.first-image__price {
+    background-color: #ff9900;
+    margin-left: 10px;
+    box-sizing: border-box;
+    padding: 0 12px;
+    display: flex;
+    -ms-align-items: center;
+    -o-align-items: center;
+    -webkit-align-items: center;
+    align-items: center;
+    font-weight: 600;
+}
+
+.first-image__price span {
+        text-decoration: line-through;
+        color: black;
+        font-weight: 400;
+        margin-right: 5px;
     }

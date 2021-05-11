@@ -9,10 +9,10 @@
     }
 
 .block-slider {
-    min-height: 500px;
-    background-color: blue;
-    margin-top: 0 !important;
-    padding-top: 0 !important;
+    position: relative;
+    max-width: 1309px;
+    margin: auto auto;
+    padding-top: 24px;
 }
 
 .main-page-catalog {
