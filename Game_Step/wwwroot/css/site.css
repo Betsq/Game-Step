@@ -7,14 +7,12 @@
     src: url("../fonts/OpenSans-Regular.ttf");
 }
 
-html, body{
+html, body {
     padding: 0;
     margin: 0;
-}
-
-main {
     background-color: #F3F3F3;
 }
+
 
 a{
     text-decoration: none;
@@ -103,19 +101,6 @@ html {
     min-height: 100%;
 }
 
-body {
-    /* Margin bottom by footer height */
-    margin-bottom: 60px;
-}
-
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    white-space: nowrap;
-    line-height: 60px; /* Vertically center the text there */
-}
-
 .color-8B8B8B {
     color: #8B8B8B;
 }
@@ -127,8 +112,6 @@ body {
     overflow: hidden;
     transition: max-height 0.2s ease-out;
 }
-
-
 
 .button-cart, .button-cart:active, .button-cart:focus {
     background: none;

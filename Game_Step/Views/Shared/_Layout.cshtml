@@ -5,9 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/Cart/CartPoupup.css" />
-    @RenderSection("Style", required: false)
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/Cart/CartPoupup.css" rel="stylesheet" />
+    <link href="~/css/Footer/footer.css" rel="stylesheet" />
+    @await RenderSectionAsync("Style", required: false)
 </head>
 <body>
 
@@ -67,13 +68,56 @@
 
 
 
-    <main>
+<main>
 
-        @RenderBody()
+    @RenderBody()
 
-        <div id="cart"></div>
-    </main>
+    <div id="cart"></div>
+</main>
 
+    <div class="footer">
+        <div class="content footer-content">
+            <div class="advantages">
+                <div class="advantages__item" id="license-keys">
+                    Лицензионные ключи от официальных издателей
+                </div>
+                <div class="advantages__item" id="guaranted-support">
+                    Гарантированная техподдержка вашей покупки
+                </div>
+                <div class="advantages__item" id="regular-discount">
+                    Регулярные акции, скидки и бонусы
+                </div>
+                <div class="advantages__item" id="positive-reviews">
+                    Более 9000 положительных отзывов от реальных клиентов
+                </div>
+            </div>
+            <div class="footer__footer">
+                <div class="footer__footer-left">
+                    © 2012–@DateTime.Now.ToString("yyyy") STEPGAME <br>
+                    <span>
+                        Все права защищены. Полное или частичное копирование материалов сайта без согласования с
+                        администрацией запрещено! <br>
+                        Все названия игр, компаний, торговых марок, логотипы и игровые материалы являются собственностью
+                        соответствующих владельцев.
+                    </span>
+                </div>
+                <div class="footer__footer-right">
+                    <div class="footer__footer-right-nav">
+                        <a href="#">Соглашение</a>
+                    </div>
+                    <div class="footer__footer-right-nav">
+                        <a asp-action="Partner" asp-controller="Account">Партнерам</a>
+                    </div>
+                    <div class="footer__footer-right-nav">
+                        <a href="#">Поддержка</a>
+                    </div>
+                    <div class="footer__footer-right-nav">
+                        <a href="#">О сайте</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

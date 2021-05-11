@@ -1,0 +1,113 @@
+﻿.content {
+    position: relative;
+    max-width: 1236px;
+    margin: auto auto;
+}
+
+.footer {
+    background: #000;
+    margin-top: 50px;
+}
+
+.footer-content {
+    padding-top: 40px;
+    padding-bottom: 50px;
+}
+
+.advantages {
+    display: flex;
+    margin-top: 50px;
+    color: #fff;
+}
+
+.advantages__item {
+    display: flex;
+    padding: 0 12px;
+}
+
+#license-keys:before,
+#guaranted-support:before,
+#regular-discount:before,
+#positive-reviews:before {
+    margin-right: 15px;
+    min-width: 40px;
+    min-height: 40px;
+}
+
+#license-keys:before {
+    content: "";
+    background: url(/img/footer/key-fill.svg);
+    -ms-background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    -ms-background-size: contain;
+    background-size: contain;
+}
+
+#guaranted-support:before {
+    content: "";
+    background: url(/img/footer/gear-fill.svg);
+    -ms-background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    -ms-background-size: contain;
+    background-size: contain;
+}
+
+#regular-discount:before {
+    content: "";
+    background: url(/img/footer/percent.svg);
+    -ms-background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    -ms-background-size: contain;
+    background-size: contain;
+}
+
+#positive-reviews:before {
+    content: "";
+    background: url(/img/footer/chat-right-text-fill.svg);
+    -ms-background-repeat: no-repeat;
+    background-repeat: no-repeat;
+    -ms-background-size: contain;
+    background-size: contain;
+}
+
+.footer__footer {
+    color: #fff;
+    margin-top: 60px;
+    padding-top: 35px;
+    border-top: 1px solid #242425;
+    display: flex;
+}
+
+.footer__footer-left {
+    color: #333;
+    max-width: 626px;
+    font-weight: 600;
+}
+
+.footer__footer-left span {
+    font-size: 13px;
+}
+
+.footer__footer-right {
+    display: flex;
+    -o-justify-content: space-around;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+    padding-left: 50px;
+    width: 100%;
+}
+
+.footer__footer-right-nav {
+    box-sizing: border-box;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.footer__footer-right-nav a {
+    text-decoration: none;
+    color: #333;
+}
+
+.footer__footer-right-nav a:hover {
+    color: #f9b134
+}
