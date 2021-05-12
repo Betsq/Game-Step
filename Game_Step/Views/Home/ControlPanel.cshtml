@@ -25,11 +25,15 @@
         <a asp-action="Index" asp-controller="Tag">Panel tag</a>
     </div>
     <div class="col-md-12 mb-3">
+        <a asp-controller="Slider" asp-action="Index">Управление слайдером</a>
+    </div>
+    <div class="col-md-12 mb-3">
         <a asp-controller="Users" asp-action="Index">All Users</a>
     </div>
     <div class="col-md-12 mb-3">
         <a asp-controller="Roles" asp-action="Index">Roles</a>
     </div>
+
 
     <ul>
         @if (User.Identity.IsAuthenticated)
