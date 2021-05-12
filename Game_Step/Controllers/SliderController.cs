@@ -56,7 +56,7 @@ namespace Game_Step.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(SliderViewModel model)
+        public async Task<IActionResult> Update(SliderViewModel model)
         {
             var slider = _db.MainItemSliders.Include(item => item.AdditionalItem)
                 .FirstOrDefault(item => item.Id == model.MainSlider.Id);
@@ -64,37 +64,33 @@ namespace Game_Step.Controllers
             if (slider == null)
                 return View(model);
 
-            UpdateImage(slider, slider.Id, model.MainSliderImage);
-            UpdateImage(slider.AdditionalItem[0], slider.Id, model.SecondSliderImage);
-            UpdateImage(slider.AdditionalItem[1], slider.Id, model.ThirtySliderImage);
+            await UpdateImage(slider, slider.Id, model.MainSliderImage);
+            await UpdateImage(slider.AdditionalItem[0], slider.Id, model.SecondSliderImage);
+            await UpdateImage(slider.AdditionalItem[1], slider.Id, model.ThirtySliderImage);
 
-            UpdateItem(model.MainSlider, slider);
-            UpdateItem(model.SecondSlider, slider.AdditionalItem[0]);
-            UpdateItem(model.ThirtySlider, slider.AdditionalItem[1]);
+            await UpdateItem(model.MainSlider, slider);
+            await UpdateItem(model.SecondSlider, slider.AdditionalItem[0]);
+            await UpdateItem(model.ThirtySlider, slider.AdditionalItem[1]);
 
-            _db.MainItemSliders.Update(slider);
-            _db.AdditionalItemSliders.Update(slider.AdditionalItem[0]);
-            _db.AdditionalItemSliders.Update(slider.AdditionalItem[1]);
-
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }
 
-        public void UpdateItem(Slider model, Slider itemSlider)
+        public async Task UpdateItem(Slider model, Slider itemSlider)
         {
             if (itemSlider == null)
                 return;
 
-            itemSlider.ItemName = string.IsNullOrEmpty(model.ItemName) ? null : model.ItemName;
+            itemSlider.ItemName = model.ItemName;
 
             itemSlider.Link = model.Link;
 
             if (model.IsGame)   
             {
-                var game = _db.Games
+                var game = await _db.Games
                     .Include(item => item.GamePrice)
-                    .FirstOrDefault(item => item.Id == model.GameId);
+                    .FirstOrDefaultAsync(item => item.Id == model.GameId);
 
                 if (game != null)
                 {
@@ -111,7 +107,7 @@ namespace Game_Step.Controllers
 
             UpdateDataBase(itemSlider);
         }
-        public void UpdateImage(Slider slider, int idMainSlider, IFormFile file)
+        public async Task UpdateImage(Slider slider, int idMainSlider, IFormFile file)
         {
             if(file == null)
                 return;
@@ -122,8 +118,8 @@ namespace Game_Step.Controllers
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            using var filesStream = new FileStream(_appEnvironment.WebRootPath + pathToImage, FileMode.Create);
-            file.CopyTo(filesStream);
+            await using var filesStream = new FileStream(_appEnvironment.WebRootPath + pathToImage, FileMode.Create);
+            await file.CopyToAsync(filesStream);
 
             slider.ItemImage = pathToImage;
             UpdateDataBase(slider);
