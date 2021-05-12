@@ -1,6 +1,7 @@
 ﻿using Game_Step.Models.Comments;
 using Game_Step.Models.GamesModel;
 using Game_Step.Models.Orders;
+using Game_Step.Models.Slider;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -27,6 +28,9 @@ namespace Game_Step.Models
         public DbSet<Region> Regions { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Tag> Tags { get; set; }
+
+        public DbSet<MainItemSlider> MainItemSliders { get; set; }
+        public DbSet<AdditionalItemSlider> AdditionalItemSliders { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> contextOptions)
             :base(contextOptions)
