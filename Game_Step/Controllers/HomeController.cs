@@ -11,11 +11,11 @@ namespace Game_Step.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly ApplicationContext db;
+        private readonly ApplicationContext _db;
 
         public HomeController(ILogger<HomeController> logger, ApplicationContext context)
         {
-            db = context;
+            _db = context;
             _logger = logger;
         }
 
@@ -28,15 +28,24 @@ namespace Game_Step.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var game = await db.Games
+            var game = await _db.Games
                 .Include(price => price.GamePrice)
                 .Include(image => image.GameImage).ToListAsync();
-            var ct = await db.Categories.ToListAsync();
 
-            HomePageViewModel homePage = new HomePageViewModel
+            var category = await _db.Categories.ToListAsync();
+
+            var sliders = await _db.MainItemSliders
+                .Include(item => item.Game)
+                .Include(item => item.AdditionalItem)
+                    .ThenInclude(item => item.Game)
+                .ToListAsync();
+
+
+            var homePage = new HomePageViewModel
             {
                 Games = game,
-                Categories = ct,
+                Categories = category,
+                Sliders = sliders
             };
             return View(homePage);
         }

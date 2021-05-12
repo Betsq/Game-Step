@@ -17,52 +17,104 @@
     <div class="block-slider">
         <div class="content-screenshots">
             <div class="slideshow-screenshot-container">
-                <div class="slide-image fade-anim" style="display: flex;">
-                    <div class="first-img">
-                        <img class="first-img" src="/img/village.jpg">
-                        <div class="first-image-text">
-                            Теперь доступен
+                @foreach (var item in Model.Sliders)
+                {
+                    <div class="slide-image fade-anim" style="display: flex;">
+                        <div class="first-img">
+
+                            @if (item.IsGame)
+                            {
+                                <a asp-action="Game" asp-controller="Game" asp-route-id="@item.GameId">
+                                    <img class="first-img" src="@item.ItemImage" alt="@item.ItemName" style="min-height: 480px">
+                                </a>
+                            }
+                            else
+                            {
+                                <a href="@item.Link">
+                                    <img class="first-img" src="@item.ItemImage" alt="@item.ItemName" style="min-height: 480px">
+                                </a>
+                            }
+
+                            <div class="first-image-text">
+                                @item.ItemName
+                            </div>
+                            @if (item.IsGame)
+                            {
+                                @if (item.Game.GamePrice.IsDiscount)
+                                {
+                                    <div class="first-image__cont-price">
+                                        <div class="first-image__discount">
+                                            -@item.Game.GamePrice.Discount %
+                                        </div>
+                                        <div class="first-image__price">
+                                            <span>@item.Game.GamePrice.Price $</span> @item.Game.GamePrice.DiscountPrice $
+                                        </div>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="first-image__cont-price">
+                                        <div class="first-image__price">
+                                            @item.Game.GamePrice.Price $
+                                        </div>
+                                    </div>
+                                }
+                            }
                         </div>
-                        <div class="first-image__cont-price">
-                            <div class="first-image__discount">
-                                -13%
-                            </div>
-                            <div class="first-image__price">
-                                <span>1999 $</span> 1741 $
-                            </div>
+                        <div style="width: 100%;">
+                            @foreach (var additionalItem in item.AdditionalItem)
+                            {
+                                <div style="width: 100%; max-height: 240px; position: relative;">
+                                    @if (additionalItem.IsGame)
+                                    {
+                                        <a asp-action="Game" asp-controller="Game" asp-route-id="@additionalItem.GameId">
+                                            <img class="second-img" src="@additionalItem.ItemImage" alt="@additionalItem.ItemName">
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@additionalItem.Link">
+                                            <img class="second-img" src="@additionalItem.ItemImage" alt="@additionalItem.ItemName">
+                                        </a>
+                                    }
+                                    <div class="additional__text">
+                                        @additionalItem.ItemName
+                                    </div>
+                                    <div class="first-image__cont-price">
+                                        @if (additionalItem.IsGame)
+                                        {
+                                            @if (additionalItem.Game.GamePrice.IsDiscount)
+                                            {
+                                                <div class="first-image__discount">
+                                                    -@additionalItem.Game.GamePrice.Discount %
+                                                </div>
+                                                <div class="first-image__price">
+                                                    <span>@additionalItem.Game.GamePrice.Price $</span> @additionalItem.Game.GamePrice.DiscountPrice $
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="first-image__price">
+                                                    @additionalItem.Game.GamePrice.Price $
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
-                    <div style="width: 100%;">
-                        <div style="width: 100%; max-height: 240px; position: relative;">
-                            <img class="second-img" src="/img/Wasteland 3.jpg">
-                            <div class="first-image__cont-price">
-                                <div class="first-image__discount">
-                                    -27%
-                                </div>
-                                <div class="first-image__price">
-                                    <span>199 $</span> 1454 $
-                                </div>
-                            </div>
-                        </div>
-                        <div style="position: relative;">
-                            <img class="second-img" src="/img/dying-light.jpg">
-                            <div class="first-image__cont-price">
-                                <div class="first-image__discount">
-                                    -75%
-                                </div>
-                                <div class="first-image__price">
-                                    <span>1299 $</span> 329 $
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                }
+
                 <div style="text-align: center">
-                    <span class="dot" onclick="currentSlide(1)"></span>
+                    @for (int i = 1; i <= Model.Sliders.Count; i++)
+                    {
+                        <span class="dot" onclick="currentSlide(@i)"></span>
+                    }
                 </div>
 
-                <a class="prev" onclick="plusSlides(-1)"><img src="/img/caret-left.svg" alt=""></a>
-                <a class="next" onclick="plusSlides(1)"><img src="/img/caret-right.svg" alt=""></a>
+                <a class="prev" onclick="plusSlides(-1)"><img src="/img/caret-left.svg" alt="prev"></a>
+                <a class="next" onclick="plusSlides(1)"><img src="/img/caret-right.svg" alt="next"></a>
             </div>
         </div>
     </div>

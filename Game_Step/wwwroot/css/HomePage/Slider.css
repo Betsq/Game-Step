@@ -38,7 +38,7 @@
     color: white !important;
 }
 
-.prev img,
+    .prev img,
     .next img {
         width: 100px;
         height: 100px;
@@ -67,7 +67,7 @@
     transition: background-color 0.6s ease;
 }
 
-.active,
+    .active,
     .dot:hover {
         background-color: #717171;
     }
@@ -118,6 +118,7 @@
     font-size: 24px;
     bottom: 45px;
     font-weight: 600;
+    text-shadow: 2px 2px 2px #000;
 }
 
 .first-image__cont-price {
@@ -146,9 +147,18 @@
     font-weight: 600;
 }
 
-.first-image__price span {
+    .first-image__price span {
         text-decoration: line-through;
         color: black;
         font-weight: 400;
         margin-right: 5px;
     }
+
+.additional__text {
+    position: absolute;
+    color: #fff;
+    font-size: 18px;
+    bottom: 50px;
+    left: 28px;
+    text-shadow: 2px 2px 2px #000;
+}
