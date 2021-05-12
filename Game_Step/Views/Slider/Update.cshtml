@@ -1,0 +1,192 @@
+﻿@model Game_Step.ViewModels.SliderViewModel
+@{
+    ViewBag.Title = "Обновление слайдера";
+}
+
+@section Style {
+    <link href="/css/Game/Create_Update.css" rel="stylesheet" />
+}
+
+<div class="main-content">
+
+    <div class="product-content">
+
+        <div class="info-page">
+            Обновление слайдера номер @Model.MainSlider.Id
+        </div>
+
+        <form class="main-form-add" asp-action="Update" asp-controller="Slider" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All"></div>
+            <input type="number" asp-for="@Model.MainSlider.Id" readonly hidden />
+            <div class="info-page">Главный слайд</div>
+            <div class="block-input">
+                <label asp-for="@Model.MainSlider.ItemName" class="name-input">Name</label>
+                <input class="main-form-input" type="text" asp-for="@Model.MainSlider.ItemName" placeholder="Name">
+                <span asp-validation-for="@Model.MainSlider.ItemName"></span>
+            </div>
+
+            <div class="block-input">
+                <label asp-for="@Model.MainSlider.Link" class="name-input">Ссылка*Если требуется</label>
+                <input class="main-form-input" type="text" asp-for="@Model.MainSlider.Link" placeholder="Ссылка">
+                <span asp-validation-for="@Model.MainSlider.Link"></span>
+            </div>
+
+            <div class="block-input">
+                Прикрепить игру?
+                <input class="isGameInput" type="checkbox" id="main-game-check" asp-for="@Model.MainSlider.IsGame"/>
+            </div>
+
+            <div class="block-input" id="main-game" style="display: none;">
+                <label class="name-input">Выберите игру</label>
+                <select asp-for="@Model.MainSlider.GameId">
+                    @for (int i = 0; i < Model.Game.Count; i++)
+                    {
+                        <option value="@Model.Game[i].Id">@Model.Game[i].Name</option>
+                    }
+                </select>
+            </div>
+
+
+            <div class="block-input block-img-input">
+                <div class="info-input-image">Главная картинка (Желательно 854*480 )</div>
+                <img class="add-image__icon-plus clickInpImage" src="/img/icon/icon-plus.svg" alt="Add image">
+                <input class="img-inp" type="file" asp-for="@Model.MainSliderImage" />
+                <img class="image-preview" src="@Model.ThirtySlider.ItemImage" style="width: 853px; height: 480px; display: block"/>
+            </div>
+
+
+
+            <div class="info-page">Дополнительный слайд номер 1</div>
+            <input type="number" asp-for="@Model.SecondSlider.Id" readonly hidden />
+            <div class="block-input">
+                <label asp-for="@Model.SecondSlider.ItemName" class="name-input">Name</label>
+                <input class="main-form-input" type="text" asp-for="@Model.SecondSlider.ItemName" placeholder="Name">
+                <span asp-validation-for="@Model.SecondSlider.ItemName"></span>
+            </div>
+
+            <div class="block-input">
+                <label asp-for="@Model.SecondSlider.Link" class="name-input">Ссылка*Если требуется</label>
+                <input class="main-form-input" type="text" asp-for="@Model.SecondSlider.Link" placeholder="Ссылка">
+                <span asp-validation-for="@Model.SecondSlider.Link"></span>
+            </div>
+
+            <div class="block-input">
+                Прикрепить игру?
+                <input class="isGameInput" type="checkbox" id="main-game-check2" asp-for="@Model.SecondSlider.IsGame" />
+            </div>
+
+            <div class="block-input" id="main-game2" style="display: none;">
+                <label class="name-input">Выберите игру</label>
+                <select asp-for="@Model.SecondSlider.GameId">
+                    @for (int i = 0; i < Model.Game.Count; i++)
+                    {
+                        <option value="@Model.Game[i].Id">@Model.Game[i].Name</option>
+                    }
+                </select>
+            </div>
+            <div class="block-input block-img-input">
+                <div class="info-input-image">Дополнительная картинка 1 (Желательно 454*240)</div>
+                <img class="add-image__icon-plus clickInpImage" src="/img/icon/icon-plus.svg" alt="Add image">
+                <input class="img-inp" type="file" asp-for="@Model.SecondSliderImage" />
+                <img class="image-preview" src="@Model.SecondSlider.ItemImage" style="width: 454px; height: 240px; display: block" />
+            </div>
+
+
+
+
+            <div class="info-page">Дополнительный слайд номер 2</div>
+            <input type="number" asp-for="@Model.ThirtySlider.Id" readonly hidden />
+            <div class="block-input">
+                <label asp-for="@Model.ThirtySlider.ItemName" class="name-input">Name</label>
+                <input class="main-form-input" type="text" asp-for="@Model.ThirtySlider.ItemName" placeholder="Name">
+                <span asp-validation-for="@Model.ThirtySlider.ItemName"></span>
+            </div>
+
+            <div class="block-input">
+                <label asp-for="@Model.ThirtySlider.Link" class="name-input">Ссылка*Если требуется</label>
+                <input class="main-form-input" type="text" asp-for="@Model.ThirtySlider.Link" placeholder="Ссылка">
+                <span asp-validation-for="@Model.ThirtySlider.Link"></span>
+            </div>
+
+            <div class="block-input">
+                Прикрепить игру?
+                <input class="isGameInput" type="checkbox" id="main-game-check3" asp-for="@Model.ThirtySlider.IsGame" />
+            </div>
+
+            <div class="block-input" id="main-game3" style="display: none;">
+                <label class="name-input">Выберите игру</label>
+                <select asp-for="@Model.ThirtySlider.GameId">
+                    @for (int i = 0; i < Model.Game.Count; i++)
+                    {
+                        <option value="@Model.Game[i].Id">@Model.Game[i].Name</option>
+                    }
+                </select>
+            </div>
+            <div class="block-input block-img-input">
+                <div class="info-input-image">Дополнительная картинка 2 (Желательно 454*240)</div>
+                <img class="add-image__icon-plus clickInpImage" src="/img/icon/icon-plus.svg" alt="Add image">
+                <input class="img-inp" type="file" asp-for="@Model.ThirtySliderImage" />
+                <img class="image-preview" src="@Model.ThirtySlider.ItemImage" style="width: 454px; height: 240px; display: block" />
+            </div>
+
+            <button class="send">Обновить</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+
+        $(document).ready(function () {
+            const arr = ["#main-game-check", "#main-game-check2", "#main-game-check3"];
+            const arr2 = ["#main-game", "#main-game2", "#main-game3"];
+
+            for (var i = 0; i < arr.length; i++) {
+                if ($(arr[i]).attr("checked") === "checked") {
+                    $(arr2[i]).show(1);
+                }
+            }
+
+            $(".isGameInput").change(function () {
+                changeChecked();
+            });
+
+            function changeChecked() {
+                for (var i = 0; i < arr.length; i++) {
+                    if ($(arr[i]).prop("checked")) {
+                        $(arr2[i]).show(350);
+                    } else {
+                        $(arr2[i]).hide(350);
+                    }  
+                }
+            }
+        });
+
+        $(".clickInpImage").click(function () {
+            $(this).next().trigger("click");
+
+            $(this).next().change(function () {
+                readURL(this);
+            });
+        });
+    </script>
+
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $(input).next().attr("src", e.target.result);
+
+                    $(input).next().css("display", "block");
+
+                    $(input).next().next().css("display", "none");
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    </script>
+}

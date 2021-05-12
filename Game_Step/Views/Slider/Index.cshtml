@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Game_Step.Models.Slider.MainItemSlider>
+
+@{
+    ViewBag.Title = "Главный слайдер";
+}
+
+<div class="container">
+    @foreach (var item in Model)
+    {
+        <span>Слайдер номер @item.Id</span>
+        <div class="col-md-12">
+            <a asp-action="Update" asp-controller="Slider" asp-route-id="@item.Id">Update</a>
+        </div>
+    }
+</div>

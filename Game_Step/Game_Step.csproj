@@ -7,9 +7,13 @@
 
   <ItemGroup>
     <Compile Remove="ViewComponent\**" />
+    <Compile Remove="wwwroot\img\Game\**" />
     <Content Remove="ViewComponent\**" />
+    <Content Remove="wwwroot\img\Game\**" />
     <EmbeddedResource Remove="ViewComponent\**" />
+    <EmbeddedResource Remove="wwwroot\img\Game\**" />
     <None Remove="ViewComponent\**" />
+    <None Remove="wwwroot\img\Game\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -404,6 +408,8 @@
   <ItemGroup>
     <Folder Include="APIControllers\" />
     <Folder Include="Service\" />
+    <Folder Include="wwwroot\Files\Slider\" />
+    <Folder Include="wwwroot\Files\Slider\1\" />
   </ItemGroup>
 
   <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="" clientapp_4tsconfig_1json__JsonSchema="" /></VisualStudio></ProjectExtensions>
