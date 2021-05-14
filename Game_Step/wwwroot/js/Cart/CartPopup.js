@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $(".btnDelProdCart").click(function () {
+    $(".game__remove-in-cart").click(function () {
         var modelCartId = this.getAttribute("del-data-id");
         $.ajax({
             url: window.location.origin + "/Cart/DeleteProductInCart",

@@ -6,28 +6,49 @@
 <div class="popup" id="popup-1">
     <div class="overlay"></div>
     <div class="content">
-        <div class="close-btn" onclick="togglePopup()">&times;</div>
-        <h1>Корзина покупок</h1>
-        <p>
-            <h4>Список покупок</h4>
-            @foreach (var game in Model)
-            {
-                <div class="col-md-12">
-                    <button class="btnDelProdCart" type="button" del-data-id="@game.Id">Remove</button>
+        <img class="cart__close-btn" src="/img/Cart/close_window.png" onclick="togglePopup()" alt="close">
+        <a asp-action="Index" asp-controller="Home">
+            <img class="cart__logo" src="/img/icon/logo4.png" alt="logo">
+        </a>
+        <div class="cart__title">Корзина покупок</div>
+        @foreach (var game in Model)
+        {
+            <div class="game" href="#">
+                <a asp-action="Game" asp-controller="Game" asp-route-id="@game.Id">
+                    <img class="game__image-cart" src="@game.GameImage.ImageInCatalog" alt="@game.Name">
+                </a>
+                <div class="game__info">
+                    <div class="game__name">
+                        @game.Name
+                    </div>
+                    <img class="game__activate" src="/img/Game/logo/steam.png" alt="steam">
                 </div>
-                <div class="col-md-12">@game.Name</div>
-                @if (game.GamePrice.IsDiscount)
-                {
-                    <div class="col-md-12">@game.GamePrice.DiscountPrice</div>
-                }
-                else
-                {
-                    <div class="col-md-12">@game.GamePrice.Price</div>
-                }
+                <div class="game__container-price">
+                    @if (game.GamePrice.IsDiscount)
+                    {
+                        <div class="game__discount">
+                            -@game.GamePrice.Discount%
+                        </div>
+                        <div class="game__price">
+                            @game.GamePrice.DiscountPrice $
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="game__price">
+                            @game.GamePrice.Price $
+                        </div>
+                    }
 
-            }
+                </div>
+                <div class="game__container-remove">
+                    <img class="game__remove-in-cart" src="/img/Cart/remove.png" alt="remove" del-data-id="@game.Id">
+                </div>
+            </div>
+        }
+        <div style="margin-top: 20px;">
+            <a class="cart__to-cart" asp-action="Index" asp-controller="Cart">В корзину</a>
+        </div>
 
-        <a asp-action="Index" asp-controller="Cart"> В КОРЗИНУ</a>
-        </p>
     </div>
 </div>

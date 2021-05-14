@@ -7,13 +7,9 @@
 
   <ItemGroup>
     <Compile Remove="ViewComponent\**" />
-    <Compile Remove="wwwroot\img\Game\**" />
     <Content Remove="ViewComponent\**" />
-    <Content Remove="wwwroot\img\Game\**" />
     <EmbeddedResource Remove="ViewComponent\**" />
-    <EmbeddedResource Remove="wwwroot\img\Game\**" />
     <None Remove="ViewComponent\**" />
-    <None Remove="wwwroot\img\Game\**" />
   </ItemGroup>
 
   <ItemGroup>

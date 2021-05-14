@@ -26,6 +26,7 @@ namespace Game_Step.ViewComponent
             {
                 var game = _db.Games
                     .Include(item => item.GamePrice)
+                    .Include(item => item.GameImage)
                     .FirstOrDefault(item => item.Id == id);
 
                 if (game != null)
