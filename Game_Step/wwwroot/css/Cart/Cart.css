@@ -12,6 +12,7 @@
     font-size: 48px;
     width: 300px;
     padding: 3px;
+    -ms-border-radius: 28px;
     border-radius: 28px;
     margin: 0 auto 45px auto;
     background-color: #ff9900;
